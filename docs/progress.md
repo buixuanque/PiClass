@@ -29,11 +29,13 @@ Chi tiết đầy đủ: [architecture/technology-decisions.md](architecture/tec
 
 ## Còn mở ở Step 8
 
-- `ARCH-03` API contract — dự định chốt trong Step 9.
-- `ARCH-05` Chi tiết chính sách auth (password strength, rate limit, session timeout).
-- `ARCH-11` Frontend role context cho user đa role — dự định chốt trong lúc làm Step 9.
+- `ARCH-03` API contract — đang chốt trong Step 9 (xem dưới).
 - `ARCH-12` File retention chi tiết.
 - CI/CD: đã quyết định sẽ có, công cụ/pipeline cụ thể chưa chọn.
+
+Đã chốt thêm trong lúc làm Step 9 (cập nhật ngược vào `open-decisions.md`/`technology-decisions.md`):
+- `ARCH-05` Chính sách auth: password tối thiểu 8 ký tự, rate limit login 5 lần/phút, reset token 60 phút, session thường 1 ngày, remember-me 30 ngày, nhiều session đồng thời.
+- `ARCH-11` Role context: lưu trạng thái ở server qua `POST /api/v1/auth/context`. Giữ multi-role trên 1 account (đã cân nhắc lại, giữ nguyên `BR-USER-002`).
 
 ## Môi trường dev / skill Claude Code
 
