@@ -1,1 +1,4 @@
 .DS_Store
+
+# Claude Code: skills/plugins installed locally per machine (see docs/setup/claude-skills-setup.md)
+.claude/
