@@ -3,11 +3,11 @@
 # piclass-mockup: repo git riêng (nested), sống trong cùng workspace window — không track trong repo này
 piclass-mockup/
 
-# backend: tách thành repo piclass-api riêng (nested), sống trong cùng workspace window — không track trong repo này
-backend/
+# piclass-api (trước đây backend/): repo git riêng (nested), sống trong cùng workspace window — không track trong repo này
+piclass-api/
 
-# Laravel backend: .env đã được backend/.gitignore tự ignore; .env.testing thì chưa
-backend/.env.testing
+# Laravel backend: .env đã được piclass-api/.gitignore tự ignore; .env.testing thì chưa
+piclass-api/.env.testing
 
 # Claude Code: skills/plugins installed locally per machine (see docs/setup/claude-skills-setup.md)
 .claude/*
