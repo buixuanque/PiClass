@@ -70,7 +70,7 @@ Review spec theo **nhóm module**, không duyệt một lượt toàn bộ — t
 **Track song song (đang chạy):** Stitch exploration + MASTER.md design system.
 - Đã sinh 10 màn hình Stitch (Identity/Auth + 4 dashboard theo role). Export lưu ở repo riêng `piclass-mockup` (sibling folder `C:\Workspaces\home\piclass-mockup`, không nằm trong monorepo này).
 - Primary color đã chốt: `#1E40AF` (thay giá trị `#00288e` trong frontmatter YAML của `DESIGN.md` do Stitch tự sinh — có mâu thuẫn giữa frontmatter và phần mô tả prose, dùng giá trị prose).
-- Còn thiếu: hệ thống hóa `DESIGN.md` (trong export Stitch) thành `MASTER.md` chính thức bằng skill `ui-ux-pro-max:design-system`.
+- Đã chốt `docs/design/MASTER.md` (design system chính thức, tiếng Việt) từ `DESIGN.md` do Stitch sinh — token màu/typography/spacing/elevation/shape + component spec (button/input/card/badge/checkbox/list). Track Stitch/MASTER.md coi như xong cho batch đầu (Identity/Auth + 4 dashboard); batch sau (4 nhóm module còn lại) sẽ tuân theo token này, không để Stitch tự chọn màu/style mới.
 
 **Cách brainstorming spec:** nạp trước các file `requirements/*`, `access-control/*`, `database/*`, `architecture/technology-decisions.md` làm nguồn — không để nó tự hỏi lại từ đầu hoặc tạo spec lệch khỏi Decision Log đã chốt.
 
