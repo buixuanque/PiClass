@@ -15,10 +15,19 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->timestamps();
         });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('person_profile_id')
+                ->references('id')->on('person_profiles')->nullOnDelete();
+        });
     }
 
     public function down(): void
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['person_profile_id']);
+        });
+
         Schema::dropIfExists('person_profiles');
     }
 };
