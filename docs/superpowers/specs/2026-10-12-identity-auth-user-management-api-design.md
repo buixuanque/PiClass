@@ -32,7 +32,7 @@ Quyết định (`ARCH-11`, đã ghi vào `architecture/open-decisions.md`): con
 | `GET /api/v1/auth/me` | Thông tin user hiện tại | — | `{ user, active_role, available_roles }`. `401` nếu chưa login. |
 | `POST /api/v1/auth/context` | Chọn/đổi role context | `role_code` (`admin`/`teacher`/`student`/`parent`) | `200` cập nhật context trong session. `403` nếu user không có role đó. |
 | `POST /api/v1/auth/password/forgot` | Gửi email đặt lại mật khẩu | `login_identifier` | `202` luôn (không lộ tài khoản có tồn tại hay không) |
-| `POST /api/v1/auth/password/reset` | Đặt mật khẩu mới bằng token | `token`, `password` | `200` / `422` token sai hoặc hết hạn (60 phút, dùng một lần) |
+| `POST /api/v1/auth/password/reset` | Đặt mật khẩu mới bằng token | `login_identifier`, `token`, `password` | `200` / `422` token sai hoặc hết hạn (60 phút, dùng một lần). `login_identifier` bắt buộc vì Laravel password broker cần nó để tra token — frontend lấy lại giá trị này từ query string của link trong email reset. |
 | `PATCH /api/v1/me/password` | Đổi mật khẩu khi đã đăng nhập | `current_password`, `new_password` | `200` / `422` sai mật khẩu cũ |
 
 ### 3.3 Giá trị chính sách (`ARCH-05`, đã chốt)
