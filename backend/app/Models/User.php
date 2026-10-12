@@ -49,4 +49,15 @@ class User extends Authenticatable
     {
         return $this->login_identifier;
     }
+
+    /**
+     * Default Illuminate\Auth\Notifications\ResetPassword builds its link via the
+     * named web route "password.reset", which doesn't exist in this API-only app
+     * (frontend is a separate Next.js app) — send our own notification with a
+     * frontend URL instead.
+     */
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new \App\Notifications\ResetPasswordNotification($token));
+    }
 }
