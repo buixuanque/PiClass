@@ -3,6 +3,9 @@
 # piclass-mockup: repo git riêng (nested), sống trong cùng workspace window — không track trong repo này
 piclass-mockup/
 
+# backend: tách thành repo piclass-api riêng (nested), sống trong cùng workspace window — không track trong repo này
+backend/
+
 # Laravel backend: .env đã được backend/.gitignore tự ignore; .env.testing thì chưa
 backend/.env.testing
 
