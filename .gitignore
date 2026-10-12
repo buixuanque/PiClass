@@ -1,5 +1,8 @@
 .DS_Store
 
+# Laravel backend: .env đã được backend/.gitignore tự ignore; .env.testing thì chưa
+backend/.env.testing
+
 # Claude Code: skills/plugins installed locally per machine (see docs/setup/claude-skills-setup.md)
 .claude/*
 # ...except custom agents we author ourselves — these are project content, not per-machine install state
