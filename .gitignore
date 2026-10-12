@@ -1,5 +1,8 @@
 .DS_Store
 
+# piclass-mockup: repo git riêng (nested), sống trong cùng workspace window — không track trong repo này
+piclass-mockup/
+
 # Laravel backend: .env đã được backend/.gitignore tự ignore; .env.testing thì chưa
 backend/.env.testing
 
