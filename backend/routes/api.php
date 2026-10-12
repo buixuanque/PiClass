@@ -9,5 +9,6 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('/auth/logout', \App\Http\Controllers\Api\Auth\LogoutController::class);
         Route::get('/auth/me', \App\Http\Controllers\Api\Auth\MeController::class);
+        Route::post('/auth/context', \App\Http\Controllers\Api\Auth\ContextController::class);
     });
 });
