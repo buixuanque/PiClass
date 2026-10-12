@@ -37,9 +37,12 @@ Chi tiết đầy đủ: [architecture/technology-decisions.md](architecture/tec
 - `ARCH-05` Chính sách auth: password tối thiểu 8 ký tự, rate limit login 5 lần/phút, reset token 60 phút, session thường 1 ngày, remember-me 30 ngày, nhiều session đồng thời.
 - `ARCH-11` Role context: lưu trạng thái ở server qua `POST /api/v1/auth/context`. Giữ multi-role trên 1 account (đã cân nhắc lại, giữ nguyên `BR-USER-002`).
 
-## Đặt tên repo khi tách (chưa tách, chỉ là quyết định đặt tên trước)
+## Cấu trúc repo (đã tách)
 
-Hiện tại vẫn là 1 monorepo (`backend/` nằm trong repo docs này). Khi tách repo riêng cho từng phần (chưa làm ngay), đặt tên: backend → `piclass-api`, frontend → `piclass-web`, docs (repo hiện tại) → `piclass-docs`.
+- `backend/` → repo riêng **`piclass-api`** (git nested, branch `master`, sống trong cùng thư mục workspace, không track trong repo docs này — xem `.gitignore`).
+- `piclass-mockup/` (sibling `C:\Workspaces\home\piclass-mockup`) → repo riêng cho export Stitch.
+- Repo hiện tại (docs + plan/spec/ledger) → **`piclass-docs`**.
+- frontend thật (Next.js, chưa khởi tạo) sẽ là **`piclass-web`** khi bắt đầu Plan 1b.
 
 ## Môi trường dev / skill Claude Code
 
@@ -61,7 +64,7 @@ Review spec theo **nhóm module**, không duyệt một lượt toàn bộ — t
 
 **Checklist nhóm module:**
 
-- [ ] **1. Identity/Auth + User Management** — spec đã duyệt (`2026-10-12-identity-auth-user-management-api-design.md`). Đang viết Plan 1 (BE Auth: Laravel project setup + Identity/Auth). Plan 1b (FE Auth), Plan 2 (BE User Management), Plan 2b (FE User Management) chưa làm.
+- [ ] **1. Identity/Auth + User Management** — spec đã duyệt (`2026-10-12-identity-auth-user-management-api-design.md`). **Plan 1 (BE Auth) đã xong**: 12 task (Laravel 11 + PostgreSQL + Sanctum, toàn bộ endpoint Section 3 của spec), final review (fresh reviewer, model mạnh nhất) tìm 1 Critical + 6 Important, đã fix hết (TDD từng fix), test cuối 39/39 pass. Code nằm ở repo `piclass-api` (`backend/`), ledger đầy đủ tại `.superpowers/sdd/2026-10-12-identity-auth-backend/progress.md`. Còn vài Minor deferred (ghi trong ledger) — không chặn Plan 2. Plan 1b (FE Auth), Plan 2 (BE User Management), Plan 2b (FE User Management) chưa làm.
 - [ ] 2. Academic + Lesson + Attendance
 - [ ] 3. Question Bank + Assessment
 - [ ] 4. Submission/Grading + Result/Progress
