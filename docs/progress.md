@@ -37,6 +37,10 @@ Chi tiết đầy đủ: [architecture/technology-decisions.md](architecture/tec
 - `ARCH-05` Chính sách auth: password tối thiểu 8 ký tự, rate limit login 5 lần/phút, reset token 60 phút, session thường 1 ngày, remember-me 30 ngày, nhiều session đồng thời.
 - `ARCH-11` Role context: lưu trạng thái ở server qua `POST /api/v1/auth/context`. Giữ multi-role trên 1 account (đã cân nhắc lại, giữ nguyên `BR-USER-002`).
 
+## Đặt tên repo khi tách (chưa tách, chỉ là quyết định đặt tên trước)
+
+Hiện tại vẫn là 1 monorepo (`backend/` nằm trong repo docs này). Khi tách repo riêng cho từng phần (chưa làm ngay), đặt tên: backend → `piclass-api`, frontend → `piclass-web`, docs (repo hiện tại) → `piclass-docs`.
+
 ## Môi trường dev / skill Claude Code
 
 Mỗi máy mới (hoặc sau khi dọn `.claude/`) phải tự chạy lại [setup/claude-skills-setup.md](setup/claude-skills-setup.md) — skill cài scope local, **không commit qua git**, không tự có sẵn khi đổi máy.
