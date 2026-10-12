@@ -43,19 +43,29 @@ Mỗi máy mới (hoặc sau khi dọn `.claude/`) phải tự chạy lại [set
 
 Skill đang dùng: `superpowers` (quy trình brainstorm→plan→TDD→review), `ui-ux-pro-max` (chỉ dùng 2 skill con `ui-styling` và `design-system`, phần còn lại là branding/marketing không liên quan), `frontend-design` (checklist chất lượng UI, dùng ở bước review cuối, không authoring từ đầu).
 
-## Step 9 — API Specification (đang làm)
+## Step 9 — API Specification + triển khai (đang làm)
 
-Review theo **nhóm module**, không duyệt một lượt toàn bộ — theo đúng thứ tự phụ thuộc ở `architecture/module-boundaries.md`, và khớp cơ chế "duyệt từng section" của skill `superpowers:brainstorming`.
+Review spec theo **nhóm module**, không duyệt một lượt toàn bộ — theo đúng thứ tự phụ thuộc ở `architecture/module-boundaries.md`, khớp cơ chế "duyệt từng section" của skill `superpowers:brainstorming`. Spec đã duyệt lưu ở `docs/superpowers/specs/`, plan triển khai lưu ở `docs/superpowers/plans/`.
 
-**Checklist nhóm** (cập nhật khi mỗi nhóm được duyệt):
+**Cách triển khai mỗi nhóm module (quyết định 2026-10-12):**
 
-- [ ] 1. Identity/Auth + User Management
+1. Spec nhóm module (brainstorming, duyệt từng section) → lưu `docs/superpowers/specs/`.
+2. Plan backend (writing-plans) → code (Laravel) → test.
+3. Plan frontend (writing-plans) → code (Next.js, dùng design system MASTER.md) → test.
+4. Chỉ sau khi cả BE+FE của nhóm module đó xong mới sang spec nhóm tiếp theo — không dồn hết spec/code 5 nhóm rồi mới làm FE, và không gộp BE+FE vào cùng 1 plan/task (khác ngôn ngữ, khác test tool, giữ task sạch theo 1 công nghệ).
+5. **Song song, không phụ thuộc BE:** Stitch (phác ý tưởng UI 4 cổng) + `ui-ux-pro-max-skill` (chốt MASTER.md design system) — làm một lần, không lặp lại mỗi nhóm module. Có thể bắt đầu bất cứ lúc nào, không cần chờ backend.
+
+**Checklist nhóm module:**
+
+- [ ] **1. Identity/Auth + User Management** — spec đã duyệt (`2026-10-12-identity-auth-user-management-api-design.md`). Đang viết Plan 1 (BE Auth: Laravel project setup + Identity/Auth). Plan 1b (FE Auth), Plan 2 (BE User Management), Plan 2b (FE User Management) chưa làm.
 - [ ] 2. Academic + Lesson + Attendance
 - [ ] 3. Question Bank + Assessment
 - [ ] 4. Submission/Grading + Result/Progress
 - [ ] 5. Notification + File + Audit
 
-**Cách làm:** dùng `superpowers:brainstorming`, nạp trước các file `requirements/*`, `access-control/*`, `database/*`, `architecture/technology-decisions.md` làm nguồn — không để nó tự hỏi lại từ đầu hoặc tạo spec lệch khỏi Decision Log đã chốt.
+**Track song song (chưa bắt đầu):** Stitch exploration + MASTER.md design system.
+
+**Cách brainstorming spec:** nạp trước các file `requirements/*`, `access-control/*`, `database/*`, `architecture/technology-decisions.md` làm nguồn — không để nó tự hỏi lại từ đầu hoặc tạo spec lệch khỏi Decision Log đã chốt.
 
 ## Khi quay lại (máy khác / session mới)
 

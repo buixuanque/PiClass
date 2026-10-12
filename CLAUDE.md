@@ -38,3 +38,7 @@ Khi dùng agent `researcher` (hoặc bất kỳ task research/so sánh công ngh
 Skill (`superpowers`, `ui-ux-pro-max`, `frontend-design`) cài scope local, không commit qua git. Máy mới chạy lại theo [docs/setup/claude-skills-setup.md](docs/setup/claude-skills-setup.md), rồi `/reload-plugins` để nạp vào session đang chạy.
 
 Khi dùng `superpowers:brainstorming` cho việc kiến trúc/API (loại "architectural"), luôn nạp trước `docs/requirements/*`, `docs/access-control/*`, `docs/database/*` làm nguồn — không để nó tự hỏi lại từ đầu hoặc viết spec lệch khỏi Decision Log đã chốt.
+
+## Thứ tự triển khai Step 9
+
+Mỗi nhóm module: spec → plan BE → code BE → plan FE → code FE, rồi mới sang spec nhóm module tiếp theo. Không gộp BE+FE vào cùng 1 plan/task (khác ngôn ngữ/test tool). Không dồn spec hết 5 nhóm rồi mới code. Stitch + MASTER.md (design system) là track riêng, làm một lần, không phụ thuộc BE, có thể làm song song bất cứ lúc nào. Chi tiết trạng thái: `docs/progress.md`.
