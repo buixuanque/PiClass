@@ -1,59 +1,59 @@
-# Identity/Auth Backend Implementation Plan
+# Plan triển khai Identity/Auth Backend
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **Dành cho agent thực thi:** REQUIRED SUB-SKILL: dùng `superpowers:subagent-driven-development` (khuyến nghị) hoặc `superpowers:executing-plans` để triển khai plan này theo từng task. Các step dùng cú pháp checkbox (`- [ ]`) để theo dõi tiến độ.
 
-**Goal:** Stand up a new Laravel 11 API backend with PostgreSQL and implement the Identity/Auth endpoints (login, logout, me, role-context switch, password forgot/reset/change) from the approved spec.
+**Mục tiêu:** Khởi tạo backend Laravel 11 mới với PostgreSQL và triển khai các endpoint Identity/Auth (login, logout, me, đổi role context, quên/đặt lại/đổi mật khẩu) theo spec đã duyệt.
 
-**Architecture:** Laravel 11 REST API under `/api/v1`, Laravel Sanctum cookie-based SPA session auth (no JWT), PostgreSQL with UUID primary keys. Role context for multi-role users is tracked server-side in the session, not sent by the client. No frontend code in this plan — that is Plan 1b.
+**Kiến trúc:** REST API Laravel 11 dưới `/api/v1`, dùng Laravel Sanctum cookie-based SPA session (không JWT), PostgreSQL với UUID primary key. Role context cho user đa role được lưu ở phía server trong session, không phải do client tự gửi. Plan này không có code frontend — đó là Plan 1b.
 
-**Tech Stack:** Laravel 11.x, PHP 8.2+, PostgreSQL 16, Laravel Sanctum, PHPUnit (`RefreshDatabase` against a dedicated `piclass_test` Postgres database, session driver `database`).
+**Tech Stack:** Laravel 11.x, PHP 8.2+, PostgreSQL 16, Laravel Sanctum, PHPUnit (`RefreshDatabase` chạy trên database test riêng `piclass_test`, session driver `database`).
 
-**Spec:** `docs/superpowers/specs/2026-10-12-identity-auth-user-management-api-design.md` — Sections 1–3 only (Sections 4–8 are User Management, covered by Plan 2, not in scope here).
+**Spec:** `docs/superpowers/specs/2026-10-12-identity-auth-user-management-api-design.md` — chỉ Section 1-3 (Section 4-8 thuộc User Management, nằm ở Plan 2, không thuộc phạm vi plan này).
 
 ## Global Constraints
 
-- API base path `/api/v1`; JSON fields `snake_case`.
-- Error responses: `{ "error": { "code": "...", "message": "..." } }` with the matching HTTP status.
-- Password minimum length: 8 characters, no composition rule.
-- Login rate limit: 5 attempts/minute per `login_identifier` + IP, with lockout.
-- Password reset token: 60 minutes, single use.
-- Session: 1 day when `remember=false`; 30 days when `remember=true`.
-- Multiple concurrent sessions per user are allowed; logout only revokes the current session.
-- All business entity primary keys are UUIDs.
-- A `status=inactive` user must be blocked from logging in, even with the correct password (`BR-USER-008`).
+- Base path API `/api/v1`; field JSON dùng `snake_case`.
+- Response lỗi: `{ "error": { "code": "...", "message": "..." } }` kèm đúng HTTP status.
+- Độ dài mật khẩu tối thiểu: 8 ký tự, không bắt buộc ký tự đặc biệt.
+- Giới hạn đăng nhập: 5 lần/phút cho mỗi `login_identifier` + IP, có khóa tạm.
+- Token đặt lại mật khẩu: 60 phút, dùng một lần.
+- Session: 1 ngày khi `remember=false`; 30 ngày khi `remember=true`.
+- Cho phép nhiều session đồng thời cho một user; logout chỉ hủy session hiện tại.
+- Mọi entity nghiệp vụ dùng UUID làm primary key.
+- User có `status=inactive` phải bị chặn đăng nhập, dù đúng mật khẩu (`BR-USER-008`).
 
 ## Review Focus
 
-1. The 6th wrong-password attempt within a minute for the same account+IP must return `429`, not keep returning `422` forever — covered in Task 7.
-2. Login for a `status=inactive` user must fail even with the correct password — covered in Task 7.
-3. `POST /auth/context` with a `role_code` the user does not currently hold (never had it, or its `valid_to` is in the past) must return `403`, not switch — covered in Task 4 (model) and Task 10 (endpoint).
-4. A password reset token must be rejected the second time it is used, and after 60 minutes — both as `422` — covered in Task 11.
-5. `POST /auth/password/forgot` for a `login_identifier` that does not exist must still return `202`, so the response never reveals whether an account exists — covered in Task 11.
+1. Lần thử sai mật khẩu thứ 6 trong vòng 1 phút (cùng tài khoản+IP) phải trả `429`, không được trả `422` vô hạn — xử lý ở Task 7.
+2. Đăng nhập với user `status=inactive` phải thất bại dù đúng mật khẩu — xử lý ở Task 7.
+3. `POST /auth/context` với `role_code` mà user không đang giữ hiệu lực (chưa từng có, hoặc `valid_to` đã ở quá khứ) phải trả `403`, không được đổi context — xử lý ở Task 4 (model) và Task 10 (endpoint).
+4. Token đặt lại mật khẩu phải bị từ chối khi dùng lần thứ hai, và sau 60 phút — cả hai đều trả `422` — xử lý ở Task 11.
+5. `POST /auth/password/forgot` với `login_identifier` không tồn tại vẫn phải trả `202`, để response không bao giờ lộ việc tài khoản có tồn tại hay không — xử lý ở Task 11.
 
 ---
 
-### Task 1: Laravel project scaffold + PostgreSQL connection
+### Task 1: Khởi tạo project Laravel + kết nối PostgreSQL
 
 **Files:**
-- Create: `backend/` (new Laravel 11 project, generated by Composer)
-- Modify: `backend/.env`, `backend/.env.example`
-- Create: `backend/.env.testing`
-- Modify: `.gitignore` (repo root — ensure `backend/.env` and `backend/.env.testing` stay untracked; Laravel's own `backend/.gitignore` already covers `.env`)
-- Create: `backend/tests/Feature/DatabaseConnectionTest.php`
+- Tạo: `backend/` (project Laravel 11 mới, do Composer sinh ra)
+- Sửa: `backend/.env`, `backend/.env.example`
+- Tạo: `backend/.env.testing`
+- Sửa: `.gitignore` (gốc repo — đảm bảo `backend/.env` và `backend/.env.testing` không bị track; `backend/.gitignore` do Laravel sinh ra đã tự ignore `.env`)
+- Tạo: `backend/tests/Feature/DatabaseConnectionTest.php`
 
 **Interfaces:**
-- Produces: a Laravel 11 app at `backend/`, migrated against PostgreSQL, with `routes/api.php` and Sanctum installed. All later tasks run commands from inside `backend/`.
+- Kết quả: một app Laravel 11 tại `backend/`, đã migrate lên PostgreSQL, có `routes/api.php` và Sanctum đã cài. Mọi task sau chạy lệnh từ trong `backend/`.
 
-- [ ] **Step 1: Scaffold the project**
+- [ ] **Step 1: Khởi tạo project**
 
-Run from the repo root:
+Chạy từ gốc repo:
 ```bash
 composer create-project laravel/laravel backend "11.*"
 ```
 
-- [ ] **Step 2: Configure the dev database connection**
+- [ ] **Step 2: Cấu hình kết nối database cho dev**
 
-Edit `backend/.env`:
+Sửa `backend/.env`:
 ```env
 DB_CONNECTION=pgsql
 DB_HOST=127.0.0.1
@@ -64,19 +64,19 @@ DB_PASSWORD=piclass_local_dev
 SESSION_DRIVER=database
 ```
 
-Copy the same keys (with placeholder values) into `backend/.env.example` so other machines know what to set.
+Chép cùng các key đó (giá trị placeholder) vào `backend/.env.example` để máy khác biết cần set gì.
 
-- [ ] **Step 3: Install the API scaffolding + Sanctum**
+- [ ] **Step 3: Cài API scaffolding + Sanctum**
 
 ```bash
 cd backend
 php artisan install:api
 ```
-Confirm "Yes" when asked to install Laravel Sanctum. This creates `routes/api.php`, adds the `laravel/sanctum` package, and wires API routing into `bootstrap/app.php`.
+Xác nhận "Yes" khi được hỏi cài Laravel Sanctum. Lệnh này tạo `routes/api.php`, thêm package `laravel/sanctum`, và gắn API routing vào `bootstrap/app.php`.
 
-- [ ] **Step 4: Create a dedicated test database and `.env.testing`**
+- [ ] **Step 4: Tạo database test riêng và `.env.testing`**
 
-Create a second local Postgres database named `piclass_test` (same credentials as `piclass`). Create `backend/.env.testing`:
+Tạo một database PostgreSQL local thứ hai tên `piclass_test` (cùng credential với `piclass`). Tạo `backend/.env.testing`:
 ```env
 APP_ENV=testing
 DB_CONNECTION=pgsql
@@ -87,11 +87,11 @@ DB_USERNAME=piclass
 DB_PASSWORD=piclass_local_dev
 SESSION_DRIVER=array
 ```
-(`SESSION_DRIVER=array` for tests — no need to persist sessions to the DB during tests.)
+(`SESSION_DRIVER=array` cho test — không cần lưu session vào DB khi test.)
 
-- [ ] **Step 5: Write the failing test**
+- [ ] **Step 5: Viết test thất bại trước**
 
-Create `backend/tests/Feature/DatabaseConnectionTest.php`:
+Tạo `backend/tests/Feature/DatabaseConnectionTest.php`:
 ```php
 <?php
 
@@ -111,17 +111,17 @@ class DatabaseConnectionTest extends TestCase
 }
 ```
 
-- [ ] **Step 6: Run migrations, then run the test**
+- [ ] **Step 6: Chạy migration, rồi chạy test**
 
 ```bash
 php artisan migrate
 php artisan test --filter=DatabaseConnectionTest
 ```
-Expected: PASS (confirms the app can reach the `piclass_test` Postgres database with the configured credentials).
+Kỳ vọng: PASS (xác nhận app kết nối được PostgreSQL `piclass_test` với credential đã cấu hình).
 
 - [ ] **Step 7: Commit**
 
-From the repo root:
+Từ gốc repo:
 ```bash
 git add backend .gitignore
 git commit -m "feat: scaffold Laravel 11 API project with PostgreSQL connection"
@@ -129,17 +129,17 @@ git commit -m "feat: scaffold Laravel 11 API project with PostgreSQL connection"
 
 ---
 
-### Task 2: PersonProfile migration + model
+### Task 2: Migration + model PersonProfile
 
 **Files:**
-- Create: `backend/database/migrations/2026_10_12_000001_create_person_profiles_table.php`
-- Create: `backend/app/Models/PersonProfile.php`
-- Create: `backend/tests/Feature/Models/PersonProfileTest.php`
+- Tạo: `backend/database/migrations/2026_10_12_000001_create_person_profiles_table.php`
+- Tạo: `backend/app/Models/PersonProfile.php`
+- Tạo: `backend/tests/Feature/Models/PersonProfileTest.php`
 
 **Interfaces:**
-- Produces: `App\Models\PersonProfile` (UUID PK, `full_name`, `email` nullable, `phone` nullable), used by Task 4's `User` model and by Plan 2's role-profile models.
+- Kết quả: `App\Models\PersonProfile` (UUID PK, `full_name`, `email` nullable, `phone` nullable), được dùng bởi model `User` ở Task 4 và các model hồ sơ vai trò ở Plan 2.
 
-- [ ] **Step 1: Write the failing test**
+- [ ] **Step 1: Viết test thất bại trước**
 
 ```php
 <?php
@@ -171,12 +171,12 @@ class PersonProfileTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run to verify it fails**
+- [ ] **Step 2: Chạy để xác nhận thất bại**
 
-Run: `php artisan test --filter=PersonProfileTest`
-Expected: FAIL (`Class "App\Models\PersonProfile" not found`).
+Chạy: `php artisan test --filter=PersonProfileTest`
+Kỳ vọng: FAIL (`Class "App\Models\PersonProfile" not found`).
 
-- [ ] **Step 3: Create the migration**
+- [ ] **Step 3: Tạo migration**
 
 ```php
 <?php
@@ -205,7 +205,7 @@ return new class extends Migration
 };
 ```
 
-- [ ] **Step 4: Create the model**
+- [ ] **Step 4: Tạo model**
 
 ```php
 <?php
@@ -223,13 +223,13 @@ class PersonProfile extends Model
 }
 ```
 
-- [ ] **Step 5: Run migration + test**
+- [ ] **Step 5: Chạy migration + test**
 
 ```bash
 php artisan migrate
 php artisan test --filter=PersonProfileTest
 ```
-Expected: PASS.
+Kỳ vọng: PASS.
 
 - [ ] **Step 6: Commit**
 
@@ -240,20 +240,20 @@ git commit -m "feat: add PersonProfile model and migration"
 
 ---
 
-### Task 3: Role migration + model + seeder
+### Task 3: Migration + model + seeder cho Role
 
 **Files:**
-- Create: `backend/database/migrations/2026_10_12_000002_create_roles_table.php`
-- Create: `backend/app/Models/Role.php`
-- Create: `backend/database/factories/RoleFactory.php`
-- Create: `backend/database/seeders/RoleSeeder.php`
-- Modify: `backend/database/seeders/DatabaseSeeder.php`
-- Create: `backend/tests/Feature/Models/RoleSeederTest.php`
+- Tạo: `backend/database/migrations/2026_10_12_000002_create_roles_table.php`
+- Tạo: `backend/app/Models/Role.php`
+- Tạo: `backend/database/factories/RoleFactory.php`
+- Tạo: `backend/database/seeders/RoleSeeder.php`
+- Sửa: `backend/database/seeders/DatabaseSeeder.php`
+- Tạo: `backend/tests/Feature/Models/RoleSeederTest.php`
 
 **Interfaces:**
-- Produces: `App\Models\Role` with fixed `code` values `admin`/`teacher`/`student`/`parent`, seeded once. Task 4 (`UserRole`) and Task 7/9/10 (auth endpoints) depend on these exact codes.
+- Kết quả: `App\Models\Role` với 4 giá trị `code` cố định `admin`/`teacher`/`student`/`parent`, chỉ seed một lần. Task 4 (`UserRole`) và Task 7/9/10 (endpoint auth) phụ thuộc đúng các mã này.
 
-- [ ] **Step 1: Write the failing test**
+- [ ] **Step 1: Viết test thất bại trước**
 
 ```php
 <?php
@@ -280,11 +280,11 @@ class RoleSeederTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run to verify it fails**
+- [ ] **Step 2: Chạy để xác nhận thất bại**
 
-Run: `php artisan test --filter=RoleSeederTest` → FAIL.
+Chạy: `php artisan test --filter=RoleSeederTest` → FAIL.
 
-- [ ] **Step 3: Create the migration**
+- [ ] **Step 3: Tạo migration**
 
 ```php
 <?php
@@ -312,7 +312,7 @@ return new class extends Migration
 };
 ```
 
-- [ ] **Step 4: Create the model**
+- [ ] **Step 4: Tạo model**
 
 ```php
 <?php
@@ -331,7 +331,7 @@ class Role extends Model
 }
 ```
 
-- [ ] **Step 5: Create the factory** (needed by later tests, not by the seeder itself)
+- [ ] **Step 5: Tạo factory** (cần cho test ở các task sau, không cần cho seeder)
 
 ```php
 <?php
@@ -355,7 +355,7 @@ class RoleFactory extends Factory
 }
 ```
 
-- [ ] **Step 6: Create the seeder**
+- [ ] **Step 6: Tạo seeder**
 
 ```php
 <?php
@@ -381,9 +381,9 @@ class RoleSeeder extends Seeder
 }
 ```
 
-- [ ] **Step 7: Register it in `DatabaseSeeder`**
+- [ ] **Step 7: Đăng ký trong `DatabaseSeeder`**
 
-In `backend/database/seeders/DatabaseSeeder.php`, replace the `run()` method body with:
+Trong `backend/database/seeders/DatabaseSeeder.php`, thay nội dung method `run()`:
 ```php
 public function run(): void
 {
@@ -391,13 +391,13 @@ public function run(): void
 }
 ```
 
-- [ ] **Step 8: Run migration + test**
+- [ ] **Step 8: Chạy migration + test**
 
 ```bash
 php artisan migrate
 php artisan test --filter=RoleSeederTest
 ```
-Expected: PASS.
+Kỳ vọng: PASS.
 
 - [ ] **Step 9: Commit**
 
@@ -408,20 +408,20 @@ git commit -m "feat: add Role model, migration, and seeder for the 4 fixed roles
 
 ---
 
-### Task 4: User + UserRole migrations, models, and factories
+### Task 4: Migration, model và factory cho User + UserRole
 
 **Files:**
-- Modify: `backend/database/migrations/0001_01_01_000000_create_users_table.php` (replace the `users` table block only; keep the `password_reset_tokens` and `sessions` table blocks in the same file as Laravel generated them)
-- Create: `backend/database/migrations/2026_10_12_000003_create_user_roles_table.php`
-- Modify: `backend/app/Models/User.php` (replace entirely)
-- Create: `backend/app/Models/UserRole.php`
-- Modify: `backend/database/factories/UserFactory.php` (replace entirely)
-- Create: `backend/tests/Feature/Models/UserRoleTest.php`
+- Sửa: `backend/database/migrations/0001_01_01_000000_create_users_table.php` (chỉ thay block `users`; giữ nguyên block `password_reset_tokens` và `sessions` Laravel đã sinh sẵn trong cùng file)
+- Tạo: `backend/database/migrations/2026_10_12_000003_create_user_roles_table.php`
+- Sửa: `backend/app/Models/User.php` (thay toàn bộ)
+- Tạo: `backend/app/Models/UserRole.php`
+- Sửa: `backend/database/factories/UserFactory.php` (thay toàn bộ)
+- Tạo: `backend/tests/Feature/Models/UserRoleTest.php`
 
 **Interfaces:**
-- Produces: `App\Models\User::hasActiveRole(string $roleCode): bool` — used by Task 10 (`ContextController`) to reject a role the user doesn't currently hold. `App\Models\UserRole` rows have `valid_from`/`valid_to`; `null` or future `valid_to` means active.
+- Kết quả: `App\Models\User::hasActiveRole(string $roleCode): bool` — dùng ở Task 10 (`ContextController`) để từ chối role mà user không đang giữ. `App\Models\UserRole` có `valid_from`/`valid_to`; `null` hoặc `valid_to` ở tương lai nghĩa là còn hiệu lực.
 
-- [ ] **Step 1: Write the failing test**
+- [ ] **Step 1: Viết test thất bại trước**
 
 ```php
 <?php
@@ -476,13 +476,13 @@ class UserRoleTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run to verify it fails**
+- [ ] **Step 2: Chạy để xác nhận thất bại**
 
-Run: `php artisan test --filter=UserRoleTest` → FAIL (`User::factory()` not usable yet / no `hasActiveRole` method).
+Chạy: `php artisan test --filter=UserRoleTest` → FAIL (`User::factory()` chưa dùng được / chưa có method `hasActiveRole`).
 
-- [ ] **Step 3: Replace the `users` table block in the default migration**
+- [ ] **Step 3: Thay block `users` trong migration mặc định**
 
-In `backend/database/migrations/0001_01_01_000000_create_users_table.php`, replace only the first `Schema::create('users', ...)` block (leave `password_reset_tokens` and `sessions` blocks untouched):
+Trong `backend/database/migrations/0001_01_01_000000_create_users_table.php`, chỉ thay block `Schema::create('users', ...)` đầu tiên (giữ nguyên block `password_reset_tokens` và `sessions`):
 ```php
 Schema::create('users', function (Blueprint $table) {
     $table->uuid('id')->primary();
@@ -495,9 +495,9 @@ Schema::create('users', function (Blueprint $table) {
     $table->timestamps();
 });
 ```
-Also update the matching `down()` to drop `users` (unchanged — it already does `Schema::dropIfExists('users')`).
+`down()` giữ nguyên (đã sẵn `Schema::dropIfExists('users')`).
 
-- [ ] **Step 4: Create the `user_roles` migration**
+- [ ] **Step 4: Tạo migration `user_roles`**
 
 ```php
 <?php
@@ -530,7 +530,7 @@ return new class extends Migration
 };
 ```
 
-- [ ] **Step 5: Replace the `User` model**
+- [ ] **Step 5: Thay model `User`**
 
 ```php
 <?php
@@ -587,7 +587,7 @@ class User extends Authenticatable
 }
 ```
 
-- [ ] **Step 6: Create the `UserRole` model**
+- [ ] **Step 6: Tạo model `UserRole`**
 
 ```php
 <?php
@@ -623,7 +623,7 @@ class UserRole extends Model
 }
 ```
 
-- [ ] **Step 7: Replace the `UserFactory`**
+- [ ] **Step 7: Thay `UserFactory`**
 
 ```php
 <?php
@@ -641,20 +641,20 @@ class UserFactory extends Factory
     {
         return [
             'login_identifier' => fake()->unique()->safeEmail(),
-            'password' => 'password', // auto-hashed by the 'hashed' cast on save
+            'password' => 'password', // tự được hash bởi cast 'hashed' khi save
             'status' => 'active',
         ];
     }
 }
 ```
 
-- [ ] **Step 8: Run migration + test**
+- [ ] **Step 8: Chạy migration + test**
 
 ```bash
 php artisan migrate:fresh
 php artisan test --filter=UserRoleTest
 ```
-Expected: PASS.
+Kỳ vọng: PASS.
 
 - [ ] **Step 9: Commit**
 
@@ -665,18 +665,18 @@ git commit -m "feat: add User and UserRole models with role-history lookup"
 
 ---
 
-### Task 5: Sanctum SPA session config
+### Task 5: Cấu hình Sanctum SPA session
 
 **Files:**
-- Modify: `backend/.env`, `backend/.env.example` (add `SANCTUM_STATEFUL_DOMAINS`, `SESSION_DOMAIN`, `FRONTEND_URL`)
-- Modify: `backend/config/cors.php`
-- Modify: `backend/bootstrap/app.php`
-- Create: `backend/tests/Feature/Auth/CsrfCookieTest.php`
+- Sửa: `backend/.env`, `backend/.env.example` (thêm `SANCTUM_STATEFUL_DOMAINS`, `SESSION_DOMAIN`, `FRONTEND_URL`)
+- Sửa: `backend/config/cors.php`
+- Sửa: `backend/bootstrap/app.php`
+- Tạo: `backend/tests/Feature/Auth/CsrfCookieTest.php`
 
 **Interfaces:**
-- Produces: a working `GET /sanctum/csrf-cookie` route and an `api` middleware group that treats same-site Next.js requests as stateful (cookie-authenticated), which every endpoint in Tasks 7–12 relies on.
+- Kết quả: route `GET /sanctum/csrf-cookie` chạy được, và middleware group `api` coi request cùng site từ Next.js là "stateful" (xác thực bằng cookie) — mọi endpoint ở Task 7-12 phụ thuộc vào cấu hình này.
 
-- [ ] **Step 1: Write the failing test**
+- [ ] **Step 1: Viết test thất bại trước**
 
 ```php
 <?php
@@ -697,40 +697,40 @@ class CsrfCookieTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run to verify current state**
+- [ ] **Step 2: Chạy để xem trạng thái hiện tại**
 
-Run: `php artisan test --filter=CsrfCookieTest`
-If Task 1's `install:api` already installed Sanctum, this may already pass — if so, note it and proceed to Step 3 anyway to lock in explicit config (don't skip the config below just because the test is green).
+Chạy: `php artisan test --filter=CsrfCookieTest`
+Nếu Task 1 (`install:api`) đã tự cài Sanctum, test này có thể đã pass sẵn — nếu vậy vẫn tiếp tục Step 3 để chốt cấu hình rõ ràng, không bỏ qua phần config dưới đây chỉ vì test đang xanh.
 
-- [ ] **Step 3: Configure stateful domains and CORS**
+- [ ] **Step 3: Cấu hình stateful domain và CORS**
 
-Add to `backend/.env` and `backend/.env.example`:
+Thêm vào `backend/.env` và `backend/.env.example`:
 ```env
 FRONTEND_URL=http://localhost:3000
 SANCTUM_STATEFUL_DOMAINS=localhost:3000
 SESSION_DOMAIN=localhost
 ```
 
-In `backend/config/cors.php`, set:
+Trong `backend/config/cors.php`, set:
 ```php
 'paths' => ['api/*', 'sanctum/csrf-cookie'],
 'allowed_origins' => [env('FRONTEND_URL', 'http://localhost:3000')],
 'supports_credentials' => true,
 ```
 
-- [ ] **Step 4: Ensure the Sanctum stateful middleware is applied to the API group**
+- [ ] **Step 4: Đảm bảo middleware stateful của Sanctum được áp vào group API**
 
-In `backend/bootstrap/app.php`, inside `->withMiddleware(function (Middleware $middleware) { ... })`, add:
+Trong `backend/bootstrap/app.php`, trong `->withMiddleware(function (Middleware $middleware) { ... })`, thêm:
 ```php
 $middleware->api(prepend: [
     \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
 ]);
 ```
 
-- [ ] **Step 5: Run the test again**
+- [ ] **Step 5: Chạy lại test**
 
-Run: `php artisan test --filter=CsrfCookieTest`
-Expected: PASS.
+Chạy: `php artisan test --filter=CsrfCookieTest`
+Kỳ vọng: PASS.
 
 - [ ] **Step 6: Commit**
 
@@ -741,16 +741,16 @@ git commit -m "feat: configure Sanctum SPA stateful auth and CORS for the Next.j
 
 ---
 
-### Task 6: Global JSON error envelope
+### Task 6: Error envelope JSON chung
 
 **Files:**
-- Modify: `backend/bootstrap/app.php`
-- Create: `backend/tests/Feature/ErrorEnvelopeTest.php`
+- Sửa: `backend/bootstrap/app.php`
+- Tạo: `backend/tests/Feature/ErrorEnvelopeTest.php`
 
 **Interfaces:**
-- Produces: every `api/*` error response shaped as `{ "error": { "code", "message" } }`. Tasks 7–12's tests rely on this shape for their error assertions.
+- Kết quả: mọi response lỗi trên `api/*` có dạng `{ "error": { "code", "message" } }`. Test ở Task 7-12 dựa vào hình dạng này cho các assertion lỗi.
 
-- [ ] **Step 1: Write the failing test**
+- [ ] **Step 1: Viết test thất bại trước**
 
 ```php
 <?php
@@ -771,13 +771,13 @@ class ErrorEnvelopeTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run to verify it fails**
+- [ ] **Step 2: Chạy để xác nhận thất bại**
 
-Run: `php artisan test --filter=ErrorEnvelopeTest` → FAIL (Laravel's default 404 JSON shape is `{"message": "..."}`, not `{"error": {...}}`).
+Chạy: `php artisan test --filter=ErrorEnvelopeTest` → FAIL (response 404 mặc định của Laravel có dạng `{"message": "..."}`, không phải `{"error": {...}}`).
 
-- [ ] **Step 3: Add the exception rendering**
+- [ ] **Step 3: Thêm xử lý render exception**
 
-In `backend/bootstrap/app.php`, inside `->withExceptions(function (Exceptions $exceptions) { ... })`:
+Trong `backend/bootstrap/app.php`, bên trong `->withExceptions(function (Exceptions $exceptions) { ... })`:
 ```php
 $exceptions->render(function (\Illuminate\Validation\ValidationException $e, $request) {
     if (! $request->is('api/*')) {
@@ -814,10 +814,10 @@ $exceptions->render(function (\Symfony\Component\HttpKernel\Exception\HttpExcept
 });
 ```
 
-- [ ] **Step 4: Run the test again**
+- [ ] **Step 4: Chạy lại test**
 
-Run: `php artisan test --filter=ErrorEnvelopeTest`
-Expected: PASS.
+Chạy: `php artisan test --filter=ErrorEnvelopeTest`
+Kỳ vọng: PASS.
 
 - [ ] **Step 5: Commit**
 
@@ -831,16 +831,16 @@ git commit -m "feat: return a consistent JSON error envelope for all api/* error
 ### Task 7: `POST /api/v1/auth/login`
 
 **Files:**
-- Create: `backend/app/Http/Requests/Auth/LoginRequest.php`
-- Create: `backend/app/Http/Controllers/Api/Auth/LoginController.php`
-- Modify: `backend/routes/api.php`
-- Create: `backend/tests/Feature/Auth/LoginTest.php`
+- Tạo: `backend/app/Http/Requests/Auth/LoginRequest.php`
+- Tạo: `backend/app/Http/Controllers/Api/Auth/LoginController.php`
+- Sửa: `backend/routes/api.php`
+- Tạo: `backend/tests/Feature/Auth/LoginTest.php`
 
 **Interfaces:**
-- Consumes: `User::hasActiveRole()` indirectly via the `available_roles` list (built from `userRoles()`); the error envelope from Task 6.
-- Produces: `POST /api/v1/auth/login` — on success, starts a Sanctum-stateful session and returns `{ "user": {...}, "available_roles": [...] }`. Task 9 (`/auth/me`) and Task 10 (`/auth/context`) reuse the same "list active role codes" logic — written once here, reused by copying the same query (no shared helper needed yet; Plan 2 can extract one if a third call site appears).
+- Dùng lại: gián tiếp `User::hasActiveRole()` qua danh sách `available_roles` (lấy từ `userRoles()`); error envelope ở Task 6.
+- Kết quả: `POST /api/v1/auth/login` — thành công thì bắt đầu session stateful của Sanctum, trả `{ "user": {...}, "available_roles": [...] }`. Task 9 (`/auth/me`) và Task 10 (`/auth/context`) dùng lại cùng logic "lấy danh sách mã role đang hiệu lực" — viết một lần ở đây, copy lại (chưa cần tách helper chung tới khi có điểm gọi thứ 3, theo YAGNI).
 
-- [ ] **Step 1: Write the failing test**
+- [ ] **Step 1: Viết test thất bại trước**
 
 ```php
 <?php
@@ -939,11 +939,11 @@ class LoginTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run to verify it fails**
+- [ ] **Step 2: Chạy để xác nhận thất bại**
 
-Run: `php artisan test --filter=LoginTest` → FAIL (route doesn't exist yet).
+Chạy: `php artisan test --filter=LoginTest` → FAIL (route chưa tồn tại).
 
-- [ ] **Step 3: Create the form request**
+- [ ] **Step 3: Tạo form request**
 
 ```php
 <?php
@@ -970,7 +970,7 @@ class LoginRequest extends FormRequest
 }
 ```
 
-- [ ] **Step 4: Create the controller**
+- [ ] **Step 4: Tạo controller**
 
 ```php
 <?php
@@ -1036,9 +1036,9 @@ class LoginController extends Controller
 }
 ```
 
-- [ ] **Step 5: Register the route**
+- [ ] **Step 5: Đăng ký route**
 
-Replace the contents of `backend/routes/api.php` with:
+Thay toàn bộ nội dung `backend/routes/api.php` bằng:
 ```php
 <?php
 
@@ -1049,12 +1049,12 @@ Route::prefix('v1')->group(function () {
     Route::post('/auth/login', LoginController::class);
 });
 ```
-(Later tasks add more routes inside this same `Route::prefix('v1')->group(...)` block.)
+(Các task sau thêm route khác vào bên trong cùng block `Route::prefix('v1')->group(...)` này.)
 
-- [ ] **Step 6: Run the test again**
+- [ ] **Step 6: Chạy lại test**
 
-Run: `php artisan test --filter=LoginTest`
-Expected: PASS (all 4 test methods).
+Chạy: `php artisan test --filter=LoginTest`
+Kỳ vọng: PASS (cả 4 test method).
 
 - [ ] **Step 7: Commit**
 
@@ -1068,15 +1068,15 @@ git commit -m "feat: add POST /api/v1/auth/login with rate limiting and remember
 ### Task 8: `POST /api/v1/auth/logout`
 
 **Files:**
-- Create: `backend/app/Http/Controllers/Api/Auth/LogoutController.php`
-- Modify: `backend/routes/api.php`
-- Create: `backend/tests/Feature/Auth/LogoutTest.php`
+- Tạo: `backend/app/Http/Controllers/Api/Auth/LogoutController.php`
+- Sửa: `backend/routes/api.php`
+- Tạo: `backend/tests/Feature/Auth/LogoutTest.php`
 
 **Interfaces:**
-- Consumes: the authenticated session started by Task 7.
-- Produces: `POST /api/v1/auth/logout` — invalidates only the current session; other devices/sessions for the same user stay logged in (satisfies the "multiple concurrent sessions allowed" constraint, since each browser/device has its own independent session row).
+- Dùng lại: session đã xác thực được bắt đầu ở Task 7.
+- Kết quả: `POST /api/v1/auth/logout` — chỉ hủy session hiện tại; các session/thiết bị khác của cùng user vẫn đang đăng nhập (đúng yêu cầu "cho phép nhiều session đồng thời", vì mỗi trình duyệt/thiết bị có session riêng độc lập).
 
-- [ ] **Step 1: Write the failing test**
+- [ ] **Step 1: Viết test thất bại trước**
 
 ```php
 <?php
@@ -1111,11 +1111,11 @@ class LogoutTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run to verify it fails**
+- [ ] **Step 2: Chạy để xác nhận thất bại**
 
-Run: `php artisan test --filter=LogoutTest` → FAIL.
+Chạy: `php artisan test --filter=LogoutTest` → FAIL.
 
-- [ ] **Step 3: Create the controller**
+- [ ] **Step 3: Tạo controller**
 
 ```php
 <?php
@@ -1139,19 +1139,19 @@ class LogoutController extends Controller
 }
 ```
 
-- [ ] **Step 4: Add the route**
+- [ ] **Step 4: Thêm route**
 
-Inside the existing `Route::prefix('v1')->group(function () { ... })` block in `backend/routes/api.php`, add:
+Trong block `Route::prefix('v1')->group(function () { ... })` ở `backend/routes/api.php`, thêm:
 ```php
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/auth/logout', \App\Http\Controllers\Api\Auth\LogoutController::class);
 });
 ```
 
-- [ ] **Step 5: Run the test again**
+- [ ] **Step 5: Chạy lại test**
 
-Run: `php artisan test --filter=LogoutTest`
-Expected: PASS.
+Chạy: `php artisan test --filter=LogoutTest`
+Kỳ vọng: PASS.
 
 - [ ] **Step 6: Commit**
 
@@ -1165,14 +1165,14 @@ git commit -m "feat: add POST /api/v1/auth/logout"
 ### Task 9: `GET /api/v1/auth/me`
 
 **Files:**
-- Create: `backend/app/Http/Controllers/Api/Auth/MeController.php`
-- Modify: `backend/routes/api.php`
-- Create: `backend/tests/Feature/Auth/MeTest.php`
+- Tạo: `backend/app/Http/Controllers/Api/Auth/MeController.php`
+- Sửa: `backend/routes/api.php`
+- Tạo: `backend/tests/Feature/Auth/MeTest.php`
 
 **Interfaces:**
-- Produces: `GET /api/v1/auth/me` → `{ "user": {...}, "active_role": string|null, "available_roles": [...] }`. `active_role` reads the `active_role_code` session key that Task 10 writes.
+- Kết quả: `GET /api/v1/auth/me` → `{ "user": {...}, "active_role": string|null, "available_roles": [...] }`. `active_role` đọc key session `active_role_code` mà Task 10 ghi vào.
 
-- [ ] **Step 1: Write the failing test**
+- [ ] **Step 1: Viết test thất bại trước**
 
 ```php
 <?php
@@ -1216,11 +1216,11 @@ class MeTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run to verify it fails**
+- [ ] **Step 2: Chạy để xác nhận thất bại**
 
-Run: `php artisan test --filter=MeTest` → FAIL.
+Chạy: `php artisan test --filter=MeTest` → FAIL.
 
-- [ ] **Step 3: Create the controller**
+- [ ] **Step 3: Tạo controller**
 
 ```php
 <?php
@@ -1252,17 +1252,17 @@ class MeController extends Controller
 }
 ```
 
-- [ ] **Step 4: Add the route**
+- [ ] **Step 4: Thêm route**
 
-Inside the `Route::middleware('auth:sanctum')->group(...)` block added in Task 8, add:
+Trong block `Route::middleware('auth:sanctum')->group(...)` thêm ở Task 8, thêm:
 ```php
 Route::get('/auth/me', \App\Http\Controllers\Api\Auth\MeController::class);
 ```
 
-- [ ] **Step 5: Run the test again**
+- [ ] **Step 5: Chạy lại test**
 
-Run: `php artisan test --filter=MeTest`
-Expected: PASS.
+Chạy: `php artisan test --filter=MeTest`
+Kỳ vọng: PASS.
 
 - [ ] **Step 6: Commit**
 
@@ -1276,16 +1276,16 @@ git commit -m "feat: add GET /api/v1/auth/me"
 ### Task 10: `POST /api/v1/auth/context`
 
 **Files:**
-- Create: `backend/app/Http/Requests/Auth/SetContextRequest.php`
-- Create: `backend/app/Http/Controllers/Api/Auth/ContextController.php`
-- Modify: `backend/routes/api.php`
-- Create: `backend/tests/Feature/Auth/ContextTest.php`
+- Tạo: `backend/app/Http/Requests/Auth/SetContextRequest.php`
+- Tạo: `backend/app/Http/Controllers/Api/Auth/ContextController.php`
+- Sửa: `backend/routes/api.php`
+- Tạo: `backend/tests/Feature/Auth/ContextTest.php`
 
 **Interfaces:**
-- Consumes: `User::hasActiveRole()` from Task 4.
-- Produces: `POST /api/v1/auth/context` — writes `active_role_code` into the session, read back by Task 9's `/auth/me`. Returns `403` with code `ROLE_NOT_HELD` if the user does not currently hold that role.
+- Dùng lại: `User::hasActiveRole()` từ Task 4.
+- Kết quả: `POST /api/v1/auth/context` — ghi `active_role_code` vào session, được Task 9 (`/auth/me`) đọc lại. Trả `403` kèm code `ROLE_NOT_HELD` nếu user không đang giữ hiệu lực role đó.
 
-- [ ] **Step 1: Write the failing test**
+- [ ] **Step 1: Viết test thất bại trước**
 
 ```php
 <?php
@@ -1348,11 +1348,11 @@ class ContextTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run to verify it fails**
+- [ ] **Step 2: Chạy để xác nhận thất bại**
 
-Run: `php artisan test --filter=ContextTest` → FAIL.
+Chạy: `php artisan test --filter=ContextTest` → FAIL.
 
-- [ ] **Step 3: Create the form request**
+- [ ] **Step 3: Tạo form request**
 
 ```php
 <?php
@@ -1377,7 +1377,7 @@ class SetContextRequest extends FormRequest
 }
 ```
 
-- [ ] **Step 4: Create the controller**
+- [ ] **Step 4: Tạo controller**
 
 ```php
 <?php
@@ -1406,17 +1406,17 @@ class ContextController extends Controller
 }
 ```
 
-- [ ] **Step 5: Add the route**
+- [ ] **Step 5: Thêm route**
 
-Inside the `Route::middleware('auth:sanctum')->group(...)` block, add:
+Trong block `Route::middleware('auth:sanctum')->group(...)`, thêm:
 ```php
 Route::post('/auth/context', \App\Http\Controllers\Api\Auth\ContextController::class);
 ```
 
-- [ ] **Step 6: Run the test again**
+- [ ] **Step 6: Chạy lại test**
 
-Run: `php artisan test --filter=ContextTest`
-Expected: PASS.
+Chạy: `php artisan test --filter=ContextTest`
+Kỳ vọng: PASS.
 
 - [ ] **Step 7: Commit**
 
@@ -1427,28 +1427,28 @@ git commit -m "feat: add POST /api/v1/auth/context for server-side role switchin
 
 ---
 
-### Task 11: Password forgot + reset
+### Task 11: Quên mật khẩu + đặt lại mật khẩu
 
 **Files:**
-- Modify: `backend/.env`, `backend/.env.example` (mail driver for dev)
-- Create: `backend/app/Http/Controllers/Api/Auth/ForgotPasswordController.php`
-- Create: `backend/app/Http/Controllers/Api/Auth/ResetPasswordController.php`
-- Modify: `backend/routes/api.php`
-- Create: `backend/tests/Feature/Auth/PasswordResetTest.php`
+- Sửa: `backend/.env`, `backend/.env.example` (mail driver cho dev)
+- Tạo: `backend/app/Http/Controllers/Api/Auth/ForgotPasswordController.php`
+- Tạo: `backend/app/Http/Controllers/Api/Auth/ResetPasswordController.php`
+- Sửa: `backend/routes/api.php`
+- Tạo: `backend/tests/Feature/Auth/PasswordResetTest.php`
 
 **Interfaces:**
-- Consumes: `User::getEmailForPasswordReset()` from Task 4 (so Laravel's built-in `password_reset_tokens` table keys off `login_identifier` instead of a real `email` column), and `config('auth.passwords.users.expire')` which Laravel defaults to 60 minutes (matches the spec — verified by test, not changed).
-- Produces: `POST /api/v1/auth/password/forgot` (always `202`) and `POST /api/v1/auth/password/reset` (token-based).
+- Dùng lại: `User::getEmailForPasswordReset()` từ Task 4 (để bảng `password_reset_tokens` có sẵn của Laravel dùng `login_identifier` thay vì cột `email` thật), và `config('auth.passwords.users.expire')` mà Laravel mặc định là 60 phút (đúng với spec — xác nhận bằng test, không cần đổi).
+- Kết quả: `POST /api/v1/auth/password/forgot` (luôn `202`) và `POST /api/v1/auth/password/reset` (dùng token).
 
-- [ ] **Step 1: Set the dev mail driver**
+- [ ] **Step 1: Set mail driver cho dev**
 
-Add to `backend/.env` and `backend/.env.example`:
+Thêm vào `backend/.env` và `backend/.env.example`:
 ```env
 MAIL_MAILER=log
 ```
-(Reset emails are written to `storage/logs/laravel.log` in dev; a real SMTP/mailer provider is a deployment decision outside this plan.)
+(Email đặt lại mật khẩu được ghi vào `storage/logs/laravel.log` lúc dev; nhà cung cấp SMTP/mailer thật là quyết định lúc deploy, ngoài phạm vi plan này.)
 
-- [ ] **Step 2: Write the failing tests**
+- [ ] **Step 2: Viết test thất bại trước**
 
 ```php
 <?php
@@ -1555,11 +1555,11 @@ class PasswordResetTest extends TestCase
 }
 ```
 
-- [ ] **Step 3: Run to verify they fail**
+- [ ] **Step 3: Chạy để xác nhận thất bại**
 
-Run: `php artisan test --filter=PasswordResetTest` → FAIL (routes don't exist).
+Chạy: `php artisan test --filter=PasswordResetTest` → FAIL (route chưa tồn tại).
 
-- [ ] **Step 4: Create the forgot-password controller**
+- [ ] **Step 4: Tạo controller quên mật khẩu**
 
 ```php
 <?php
@@ -1576,8 +1576,8 @@ class ForgotPasswordController extends Controller
     {
         $request->validate(['login_identifier' => ['required', 'string']]);
 
-        // Intentionally ignore the broker's return status — always respond 202
-        // so the response never reveals whether an account exists.
+        // Chủ ý bỏ qua kết quả trả về của broker — luôn trả 202
+        // để response không bao giờ lộ việc tài khoản có tồn tại hay không.
         Password::broker()->sendResetLink([
             'login_identifier' => $request->input('login_identifier'),
         ]);
@@ -1587,7 +1587,7 @@ class ForgotPasswordController extends Controller
 }
 ```
 
-- [ ] **Step 5: Create the reset-password controller**
+- [ ] **Step 5: Tạo controller đặt lại mật khẩu**
 
 ```php
 <?php
@@ -1631,18 +1631,18 @@ class ResetPasswordController extends Controller
 }
 ```
 
-- [ ] **Step 6: Add the routes**
+- [ ] **Step 6: Thêm route**
 
-Inside the top-level `Route::prefix('v1')->group(function () { ... })` block (outside the `auth:sanctum` group — these run before login), add:
+Trong block `Route::prefix('v1')->group(function () { ... })` ở ngoài cùng (ngoài group `auth:sanctum` — hai route này chạy trước khi đăng nhập), thêm:
 ```php
 Route::post('/auth/password/forgot', \App\Http\Controllers\Api\Auth\ForgotPasswordController::class);
 Route::post('/auth/password/reset', \App\Http\Controllers\Api\Auth\ResetPasswordController::class);
 ```
 
-- [ ] **Step 7: Run the tests again**
+- [ ] **Step 7: Chạy lại test**
 
-Run: `php artisan test --filter=PasswordResetTest`
-Expected: PASS (all 6 test methods).
+Chạy: `php artisan test --filter=PasswordResetTest`
+Kỳ vọng: PASS (cả 6 test method).
 
 - [ ] **Step 8: Commit**
 
@@ -1656,14 +1656,14 @@ git commit -m "feat: add password forgot/reset endpoints with 60-minute single-u
 ### Task 12: `PATCH /api/v1/me/password`
 
 **Files:**
-- Create: `backend/app/Http/Controllers/Api/Auth/ChangePasswordController.php`
-- Modify: `backend/routes/api.php`
-- Create: `backend/tests/Feature/Auth/ChangePasswordTest.php`
+- Tạo: `backend/app/Http/Controllers/Api/Auth/ChangePasswordController.php`
+- Sửa: `backend/routes/api.php`
+- Tạo: `backend/tests/Feature/Auth/ChangePasswordTest.php`
 
 **Interfaces:**
-- Produces: `PATCH /api/v1/me/password` for an already-authenticated user to change their own password (requires the current password).
+- Kết quả: `PATCH /api/v1/me/password` cho user đã đăng nhập tự đổi mật khẩu (yêu cầu mật khẩu hiện tại).
 
-- [ ] **Step 1: Write the failing test**
+- [ ] **Step 1: Viết test thất bại trước**
 
 ```php
 <?php
@@ -1717,11 +1717,11 @@ class ChangePasswordTest extends TestCase
 }
 ```
 
-- [ ] **Step 2: Run to verify it fails**
+- [ ] **Step 2: Chạy để xác nhận thất bại**
 
-Run: `php artisan test --filter=ChangePasswordTest` → FAIL.
+Chạy: `php artisan test --filter=ChangePasswordTest` → FAIL.
 
-- [ ] **Step 3: Create the controller**
+- [ ] **Step 3: Tạo controller**
 
 ```php
 <?php
@@ -1757,24 +1757,24 @@ class ChangePasswordController extends Controller
 }
 ```
 
-- [ ] **Step 4: Add the route**
+- [ ] **Step 4: Thêm route**
 
-Inside the `Route::middleware('auth:sanctum')->group(...)` block, add:
+Trong block `Route::middleware('auth:sanctum')->group(...)`, thêm:
 ```php
 Route::patch('/me/password', \App\Http\Controllers\Api\Auth\ChangePasswordController::class);
 ```
 
-- [ ] **Step 5: Run the test again**
+- [ ] **Step 5: Chạy lại test**
 
-Run: `php artisan test --filter=ChangePasswordTest`
-Expected: PASS.
+Chạy: `php artisan test --filter=ChangePasswordTest`
+Kỳ vọng: PASS.
 
-- [ ] **Step 6: Run the full test suite**
+- [ ] **Step 6: Chạy toàn bộ test suite**
 
 ```bash
 php artisan test
 ```
-Expected: all tests across Tasks 1–12 PASS.
+Kỳ vọng: toàn bộ test từ Task 1-12 đều PASS.
 
 - [ ] **Step 7: Commit**
 
@@ -1785,21 +1785,21 @@ git commit -m "feat: add PATCH /api/v1/me/password"
 
 ---
 
-## Self-Review
+## Self-Review (tự rà soát)
 
-**Spec coverage:** every Section 3 endpoint in the approved spec has a task — `csrf-cookie` (Task 5), `login` (Task 7), `logout` (Task 8), `me` (Task 9), `context` (Task 10), `password/forgot` + `password/reset` (Task 11), `me/password` (Task 12). The global conventions (Section 2: base path, snake_case, error envelope) are covered by Tasks 6 and 7's route prefix. Sections 4–8 (User Management) are explicitly out of scope — Plan 2.
+**Độ phủ so với spec:** mọi endpoint ở Section 3 của spec đã duyệt đều có task tương ứng — `csrf-cookie` (Task 5), `login` (Task 7), `logout` (Task 8), `me` (Task 9), `context` (Task 10), `password/forgot` + `password/reset` (Task 11), `me/password` (Task 12). Quy ước chung (Section 2: base path, snake_case, error envelope) được xử lý ở Task 6 và route prefix của Task 7. Section 4-8 (User Management) chủ ý nằm ngoài phạm vi — thuộc Plan 2.
 
-**Placeholder scan:** no TBD/TODO; every step has runnable code.
+**Rà soát placeholder:** không còn TBD/TODO; mọi step đều có code chạy được thật.
 
-**Type consistency:** `hasActiveRole(string $roleCode): bool` on `User` (Task 4) is used identically in Task 10's `ContextController`. The "list active role codes" query is written the same way in Tasks 7 and 9 (duplicated on purpose — see Task 7's Interfaces note; extracting a shared helper is deferred until a third call site appears, per YAGNI).
+**Tính nhất quán kiểu dữ liệu:** `hasActiveRole(string $roleCode): bool` trên `User` (Task 4) được dùng giống hệt ở `ContextController` (Task 10). Logic "lấy danh sách mã role đang hiệu lực" được viết giống nhau ở Task 7 và Task 9 (lặp lại có chủ ý — xem ghi chú Interfaces ở Task 7; chỉ tách helper chung khi có điểm gọi thứ 3, theo nguyên tắc YAGNI).
 
-**Review Focus:** all 5 items have an owning task and an explicit test (listed above each task's Interfaces/tests).
+**Review Focus:** cả 5 mục đều có task sở hữu và test tương ứng (đã liệt kê phía trên mỗi task, phần Interfaces/test).
 
-## Execution Handoff
+## Chuyển sang thực thi
 
-Plan complete and saved to `docs/superpowers/plans/2026-10-12-identity-auth-backend.md`. Please review the plan. Which execution approach would you prefer?
+Plan đã hoàn tất và lưu tại `docs/superpowers/plans/2026-10-12-identity-auth-backend.md`. Mời bạn xem lại plan. Bạn muốn chọn cách thực thi nào?
 
-- **Subagent-driven** — a fresh subagent implements each task and a fresh reviewer checks it before the next one starts, then a whole-branch review at the end. Most thorough; costs a fresh context per task and per review (12 tasks ≈ 12 implementer + 12 reviewer runs).
-- **Native** — I implement every task myself in this session, then one fresh reviewer checks the whole branch at the end. Cheapest and fastest; no independent per-task review.
+- **Subagent-driven** — mỗi task được một "phiên AI con" triển khai, và một phiên khác review riêng trước khi sang task kế, cuối cùng review toàn nhánh một lượt. Kỹ nhất; tốn một phiên AI riêng cho mỗi task và mỗi lượt review (12 task ≈ 12 lượt implement + 12 lượt review).
+- **Native** — mình tự triển khai hết các task trong session này, cuối cùng có một lượt review độc lập toàn nhánh bởi model mạnh nhất. Rẻ và nhanh nhất; không có review riêng từng task giữa đường.
 
-For this plan I'd lean toward **Native**: the 12 tasks are mostly sequential (each depends on the model/migration from the one before) rather than independent, so subagent-driven's main benefit — parallel-safe isolated review per task — buys less here, and a single end-of-branch review is enough to catch any real mistake. Does the plan capture what you want, and which approach should we use?
+Với plan này mình nghiêng về **Native**: 12 task ở đây phần lớn phụ thuộc tuần tự nhau (task sau cần model/migration của task trước) hơn là độc lập, nên lợi ích chính của subagent-driven — review song song an toàn cho từng task độc lập — phát huy ít tác dụng ở đây, và một lượt review cuối nhánh là đủ để bắt lỗi thật. Plan có đúng ý bạn muốn không, và chọn cách thực thi nào?
