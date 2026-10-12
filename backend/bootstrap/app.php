@@ -17,5 +17,37 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->render(function (\Illuminate\Validation\ValidationException $e, $request) {
+            if (! $request->is('api/*')) {
+                return null;
+            }
+
+            return response()->json([
+                'error' => [
+                    'code' => 'VALIDATION_FAILED',
+                    'message' => $e->getMessage(),
+                    'details' => $e->errors(),
+                ],
+            ], 422);
+        });
+
+        $exceptions->render(function (\Symfony\Component\HttpKernel\Exception\HttpExceptionInterface $e, $request) {
+            if (! $request->is('api/*')) {
+                return null;
+            }
+
+            $status = $e->getStatusCode();
+            $code = match (true) {
+                $status === 401 => 'UNAUTHENTICATED',
+                $status === 403 => 'FORBIDDEN',
+                $status === 404 => 'NOT_FOUND',
+                $status === 409 => 'CONFLICT',
+                $status === 429 => 'TOO_MANY_REQUESTS',
+                default => 'ERROR',
+            };
+
+            return response()->json([
+                'error' => ['code' => $code, 'message' => $e->getMessage() ?: 'Request failed.'],
+            ], $status);
+        });
     })->create();
