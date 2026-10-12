@@ -11,18 +11,18 @@ Tài liệu này phân biệt quyết định đã được chốt ở các Step
 | Web vs mobile | **DECIDED — Product V1** | Web portals trong scope; mobile app ngoài V1. |
 | Notification channel | **DECIDED — Step 2/5** | In-app V1. Email/SMS/LINE để giai đoạn sau. |
 | Backend structure | **ARCHITECTURE PROPOSAL** | Modular monolith, một backend application; review ở Step 8. |
-| Backend language/framework | **[CẦN QUYẾT ĐỊNH]** | Chọn framework phù hợp với người implement và hosting. Không mặc định Node, Python, PHP, Java, .NET hay framework cụ thể. |
-| Frontend framework | **[CẦN QUYẾT ĐỊNH]** | Chọn framework web sau khi cân nhắc kỹ năng, forms/assessment flows, accessibility, deployment. |
-| Frontend packaging/rendering | **[CẦN QUYẾT ĐỊNH]** | Một web app theo role hay deployment portal riêng; SPA hay SSR/hybrid. Backend/API contract vẫn dùng chung. |
-| API style/transport | **[CẦN QUYẾT ĐỊNH — Step 9]** | REST/OpenAPI hay lựa chọn khác; chưa định nghĩa endpoint tại Step 8. HTTPS production được yêu cầu ở mức nguyên tắc. |
-| Authentication provider | **[CẦN QUYẾT ĐỊNH]** | Tự quản lý credentials hay provider; reset password qua verified contact đã chốt, provider chưa chọn. |
-| Session/token | **[CẦN QUYẾT ĐỊNH]** | Cookie-based session hay bearer token; expiration, revocation, rotation, CSRF/CORS theo framework/deployment. |
-| Object/file storage | **[CẦN QUYẾT ĐỊNH]** | Dùng abstraction; chọn managed object storage/local development adapter, private access mechanism và lifecycle. |
-| Hosting/cloud/region | **[CẦN QUYẾT ĐỊNH]** | Chọn web hosting, application runtime, managed PostgreSQL, object storage và vùng lưu trữ phù hợp dữ liệu người học. |
-| Background jobs | **[CẦN QUYẾT ĐỊNH]** | V1 không đòi broker. Quyết định nếu cần schedule generation, notification processing hoặc orphan cleanup đáng tin cậy. |
-| CI/CD | **[CẦN QUYẾT ĐỊNH]** | Công cụ, release gates, migration rollout/rollback thuộc Development Plan. |
-| Logging/monitoring | **[CẦN QUYẾT ĐỊNH]** | Công cụ, alert, access và technical log retention theo platform; cần trước production. |
-| Backup/restore | **[CẦN QUYẾT ĐỊNH]** | Tần suất, retention, RPO/RTO, file recovery và lịch kiểm tra restore. |
+| Backend language/framework | **DECIDED** | Laravel (PHP), modular monolith theo nguyên tắc Step 8. |
+| Frontend framework | **DECIDED** | Next.js, deploy tách riêng khỏi backend (không dùng Inertia.js) — frontend chỉ hiển thị, backend giữ toàn bộ domain rule/permission. |
+| Frontend packaging/rendering | **DECIDED** | Một Next.js app dùng chung cho các cổng theo role (Admin/Teacher, Student, Parent), gọi REST API của Laravel. Chi tiết SPA/SSR theo từng route để Development Plan quyết khi cần. |
+| API style/transport | **[CẦN QUYẾT ĐỊNH — Step 9]** | Ngầm định REST JSON do Next.js gọi Laravel API tách riêng; chốt chính thức style/contract (OpenAPI, error/pagination/upload) ở Step 9. HTTPS production được yêu cầu ở mức nguyên tắc. |
+| Authentication provider | **DECIDED** | Tự quản lý qua Laravel Sanctum, không dùng external IdP. Đã so sánh với JWT (`tymon/jwt-auth`); chọn Sanctum vì thu hồi quyền ngay lập tức khớp `DEC-USR-011`, `DEC-USR-012`, `DEC-USER-008` đã chốt ở Step 5 — JWT chuẩn không revoke được token trước hạn nếu không tự xây blacklist. |
+| Session/token | **DECIDED** | Sanctum cookie-based session (SPA), không dùng JWT. CSRF theo cơ chế Sanctum (lấy `csrf-cookie` trước khi login); CORS/stateful domains cấu hình giữa Next.js và Laravel. Chi tiết password strength/rate limit/session timeout (`ARCH-05`) vẫn mở. |
+| Object/file storage | **DECIDED** | Laravel Storage abstraction, driver S3-compatible: MinIO (hoặc bên thứ ba giá rẻ) cho dev/staging, AWS S3 thật cho production — đổi qua biến môi trường, không đổi code. |
+| Hosting/cloud/region | **DECIDED (interim, tối ưu chi phí)** | 1 AWS EC2 instance chạy chung Nginx + PHP-FPM (Laravel) + Node/PM2 (Next.js) + PostgreSQL self-host trên cùng máy. Không dùng ALB; TLS qua Nginx + Let's Encrypt; domain mua ở bên thứ ba (không dùng Route53). Region/instance size cụ thể chưa chọn. |
+| Background jobs | **DECIDED** | Laravel Queue worker + Scheduler, chạy trên chính EC2, giám sát bằng Supervisor/systemd để tự restart khi crash; 1 dòng cron thật gọi `schedule:run` mỗi phút. |
+| CI/CD | **[CẦN QUYẾT ĐỊNH]** | Đã quyết định sẽ có CI/CD; công cụ, release gates, migration rollout/rollback cụ thể thuộc Development Plan. |
+| Logging/monitoring | **DECIDED (interim, tối ưu chi phí)** | V1 ghi log cục bộ trên EC2 (cần cấu hình `logrotate` vì chung máy với DB); tích hợp công cụ quan sát ngoài (vd. CloudWatch, Sentry) để giai đoạn sau, công cụ cụ thể chưa chọn. |
+| Backup/restore | **DECIDED (interim) — rủi ro được chấp nhận tạm thời** | Self-host PostgreSQL trên EC2, chưa thiết kế backup/retention đầy đủ (để sau). Khuyến nghị tối thiểu: `pg_dump` cron đẩy lên object storage (MinIO/S3) ngay trong giai đoạn dev, để giảm rủi ro mất dữ liệu học viên trước khi có quy trình backup hoàn chỉnh. |
 | Cache/search | **NOT REQUIRED BY CURRENT V1 DESIGN** | PostgreSQL là nguồn chuẩn; không cần cache/search service riêng trước khi có số đo hoặc yêu cầu. |
 | External email/SMS/payment/AI/video/chat | **OUT OF V1** | Không tích hợp trong topology V1 hiện tại. |
 

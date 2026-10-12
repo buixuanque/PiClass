@@ -4,16 +4,16 @@ Các mục dưới đây là câu hỏi kỹ thuật còn mở; chúng không l�
 
 | ID | Chủ đề | Trạng thái / câu hỏi cần chốt | Ảnh hưởng |
 |---|---|---|---|
-| ARCH-01 | Backend framework | `[CẦN QUYẾT ĐỊNH]` Ngôn ngữ/framework nào phù hợp người implement, kỹ năng và deployment mục tiêu? | API layer, validation/auth, testing/dev plan. |
-| ARCH-02 | Frontend framework/packaging | `[CẦN QUYẾT ĐỊNH]` Một web application theo role hay nhiều portal deployment; SSR, SPA hay hybrid; framework nào? | Routing, session, deployment và API client. |
-| ARCH-03 | API contract | `[CẦN QUYẾT ĐỊNH — Step 9]` REST/OpenAPI hay kiểu khác; error/pagination/upload contract. | Client-server integration; endpoint không thuộc Step 8. |
-| ARCH-04 | Authentication implementation | `[CẦN QUYẾT ĐỊNH]` Credentials do app quản lý hay external identity provider; session cookie hay token; expiry/revocation/CSRF policy? | Identity/Auth, browser security, deployment secret. |
-| ARCH-05 | Authentication policy details | `[CẦN QUYẾT ĐỊNH]` Password strength, login rate limits, reset-token expiry, session concurrency/timeout. | Security acceptance criteria trước implementation. |
-| ARCH-06 | File storage | `[CẦN QUYẾT ĐỊNH]` Object storage provider/region, upload route, private download mechanism, allowed size/type và malware scanning. | File module, security, cost và backup. |
-| ARCH-07 | Hosting topology | `[CẦN QUYẾT ĐỊNH]` Hosting frontend/backend, managed PostgreSQL, network separation và deployment region nào? | Environments, secrets, availability, operations. |
-| ARCH-08 | Background execution | `[CẦN QUYẾT ĐỊNH]` Có cần job runner/queue cho notification, schedule rolling-window generation, orphan cleanup không; nếu có, mức bảo đảm/retry? | Reliability và deployment complexity. V1 chưa yêu cầu broker. |
-| ARCH-09 | Backup/restore targets | `[CẦN QUYẾT ĐỊNH]` Backup frequency/retention, mục tiêu phục hồi và cách khôi phục file cùng DB. | Khả năng phục hồi dữ liệu người học. |
-| ARCH-10 | Observability | `[CẦN QUYẾT ĐỊNH]` Logging/monitoring provider, alert destination, log access/retention và hành động vận hành? | Production readiness và incident response. |
+| ARCH-01 | Backend framework | `ĐÃ CHỐT` Laravel (PHP). | API layer, validation/auth, testing/dev plan. |
+| ARCH-02 | Frontend framework/packaging | `ĐÃ CHỐT` Next.js, deploy tách riêng khỏi Laravel (không Inertia), dùng chung 1 app cho các cổng theo role. SSR/SPA theo từng route để sau. | Routing, session, deployment và API client. |
+| ARCH-03 | API contract | `[CẦN QUYẾT ĐỊNH — Step 9]` REST/OpenAPI hay kiểu khác; error/pagination/upload contract. Next.js↔Laravel ngầm định REST JSON qua app riêng. | Client-server integration; endpoint không thuộc Step 8. |
+| ARCH-04 | Authentication implementation | `ĐÃ CHỐT` Laravel Sanctum, cookie-based session cho Next.js SPA (không JWT) — chọn vì cần revoke ngay theo `DEC-USR-011/012`, `DEC-USER-008`. CSRF/CORS theo cơ chế Sanctum. | Identity/Auth, browser security, deployment secret. |
+| ARCH-05 | Authentication policy details | `[CẦN QUYẾT ĐỊNH]` Password strength, login rate limits, reset-token expiry, session concurrency/timeout — chưa bàn, dù provider (Sanctum) đã chốt. | Security acceptance criteria trước implementation. |
+| ARCH-06 | File storage | `ĐÃ CHỐT` Laravel Storage + driver S3-compatible: MinIO/bên thứ ba rẻ cho dev/staging, AWS S3 cho production, đổi qua env. Allowed size/type, malware scanning chi tiết chưa chốt. | File module, security, cost và backup. |
+| ARCH-07 | Hosting topology | `ĐÃ CHỐT (interim, tối ưu chi phí)` 1 AWS EC2 instance chạy chung Nginx + Laravel (PHP-FPM) + Next.js (PM2) + PostgreSQL self-host; không ALB, TLS qua Nginx/Let's Encrypt, domain bên thứ ba. Region/instance size chưa chọn. | Environments, secrets, availability, operations. |
+| ARCH-08 | Background execution | `ĐÃ CHỐT` Laravel Queue + Scheduler trên cùng EC2, giám sát bằng Supervisor/systemd, cron thật gọi `schedule:run` mỗi phút. | Reliability và deployment complexity. V1 chưa yêu cầu broker. |
+| ARCH-09 | Backup/restore targets | `ĐÃ CHỐT (interim) — rủi ro tạm chấp nhận` Self-host Postgres trên EC2, chưa có quy trình backup đầy đủ; khuyến nghị tối thiểu `pg_dump` cron lên object storage ngay trong giai đoạn dev. Frequency/retention/RPO-RTO chính thức để sau. | Khả năng phục hồi dữ liệu người học. |
+| ARCH-10 | Observability | `ĐÃ CHỐT (interim, tối ưu chi phí)` Ghi log cục bộ trên EC2 (cần `logrotate`); tích hợp CloudWatch/Sentry... để giai đoạn sau, công cụ chưa chọn. | Production readiness và incident response. |
 | ARCH-11 | Frontend role context | `[CẦN QUYẾT ĐỊNH — UI/API coordination]` Cách chọn và thể hiện Admin/Teacher context cho User đa role, không gộp quyền? | Client navigation và request context; policy Step 7 không đổi. |
 | ARCH-12 | File operations/retention | `[CẦN QUYẾT ĐỊNH trước implementation liên quan]` Cleanup schedule orphan, operational/legal retention, quota/type policy theo use case. | Storage cost, privacy, support. |
 
@@ -25,6 +25,7 @@ Các mục dưới đây là câu hỏi kỹ thuật còn mở; chúng không l�
 - Assessment version/snapshot, attempt/submission, history/audit và Parent unlink behavior theo Step 5–7.
 - Không tạo Progress table riêng V1; tính từ Result/dữ kiện nguồn.
 - Mobile app, payment/tuition, AI, video/live class, chat, advanced analytics ngoài V1.
+- Stack V1 đã chốt: Laravel + PostgreSQL (self-host) + Next.js (tách riêng) + AWS EC2 (1 instance, không ALB) + Sanctum cho auth. Chi tiết ở `technology-decisions.md` và ARCH-01/02/04/06/07/08/09/10 trên.
 
 ## Điều kiện đóng Step 8
 
