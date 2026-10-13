@@ -47,6 +47,8 @@ Chi tiết đầy đủ: [architecture/technology-decisions.md](architecture/tec
 
 **Việc còn mở để `piclass-infra` chạy được đầy đủ:** chưa có `docs/api-docs/` (đặc tả OpenAPI viết tay, chưa viết) — service `docs` của stack sẽ phục vụ trang trắng cho tới khi có.
 
+**Quyết định (2026-10-13): chuẩn hóa dev local trên Docker (`piclass-infra`)**, thay cho cách host-based (PHP/Composer/PostgreSQL cài trực tiếp trong WSL) đã dùng lúc làm Plan 1. `piclass-api/.env`, `.env.example`, `.env.testing`, `phpunit.xml` đã cập nhật trỏ về service `db` của container thay vì `127.0.0.1`. Đã verify thực tế: `docker compose up` lên đủ service, `GET /api/health` qua Nginx trả `{"status":"ok","db":"ok"}`, test suite 40/40 pass chạy trong container. Lúc sửa `piclass-infra` còn phát hiện và fix: 3 script `.sh` bị CRLF (Windows) làm container crash loop — đã thêm `.gitattributes` chống tái diễn; README thiếu `make` trong yêu cầu tiên quyết.
+
 ## Môi trường dev / skill Claude Code
 
 Mỗi máy mới (hoặc sau khi dọn `.claude/`) phải tự chạy lại [setup/claude-skills-setup.md](setup/claude-skills-setup.md) — skill cài scope local, **không commit qua git**, không tự có sẵn khi đổi máy.
