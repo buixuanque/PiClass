@@ -69,11 +69,11 @@ Review spec theo **nhóm module**, không duyệt một lượt toàn bộ — t
 
 **Checklist nhóm module:**
 
-- [ ] **1. Identity/Auth + User Management** — spec đã duyệt (`2026-10-12-identity-auth-user-management-api-design.md`). **Plan 1 (BE Auth) đã xong**: 12 task (Laravel 11 + PostgreSQL + Sanctum, toàn bộ endpoint Section 3 của spec), final review (fresh reviewer, model mạnh nhất) tìm 1 Critical + 6 Important, đã fix hết (TDD từng fix), test cuối 39/39 pass. Code nằm ở repo `piclass-api/`, ledger đầy đủ tại `.superpowers/sdd/2026-10-12-identity-auth-backend/progress.md`. Còn vài Minor deferred (ghi trong ledger) — không chặn Plan 2. Plan 1b (FE Auth), Plan 2 (BE User Management), Plan 2b (FE User Management) chưa làm.
+- [ ] **1. Identity/Auth + User Management** — spec đã duyệt (`2026-10-12-identity-auth-user-management-api-design.md`). **Plan 1 (BE Auth) đã xong**: 12 task (Laravel 11 + PostgreSQL + Sanctum, toàn bộ endpoint Section 3 của spec), final review (fresh reviewer, model mạnh nhất) tìm 1 Critical + 6 Important, đã fix hết (TDD từng fix), test cuối 39/39 pass. **Plan 2 (BE User Management) đã xong**: 17 task (Section 4-8 của spec — PersonProfile/Student/Parent/Teacher, User/Role quản trị, ClassMember, TeacherClassAssignment, ParentStudentRelationship, self-service `/me/profile` + `/me/children`), final review (fresh reviewer, model mạnh nhất) tìm 2 Critical + 9 Important, đã fix hết (TDD từng fix, bao gồm 1 lỗi email reset/invite không gửi được từ Plan 1 bị lộ ra qua Task 14), test cuối 134/134 pass. Code nằm ở repo `piclass-api/`, ledger đầy đủ tại `.superpowers/sdd/2026-10-13-user-management-backend/progress.md`. Còn vài Minor deferred (ghi trong ledger) — không chặn nhóm module tiếp theo. Plan 1b (FE Auth), Plan 2b (FE User Management) chưa làm.
 - [ ] 2. Academic + Lesson + Attendance
 - [ ] 3. Question Bank + Assessment
 - [ ] 4. Submission/Grading + Result/Progress
-- [ ] 5. Notification + File + Audit
+- [ ] 5. Notification + File + Audit — **việc còn mở từ Plan 2**: `UpdateClassMemberController` (sửa hồi tố `ClassMember.valid_from`/`valid_to`) bắt buộc `reason` trong request theo BR-USER-017 nhưng hiện chưa ghi vào đâu cả (chưa có bảng `AuditLog`). Khi làm nhóm module này, nhớ bổ sung ghi `AuditLog` cho action đó — xem ledger Plan 2 (`.superpowers/sdd/2026-10-13-user-management-backend/progress.md`, mục "Final: Ruling" cuối file) để biết lý do chưa làm ngay.
 
 **Track song song (đang chạy):** Stitch exploration + MASTER.md design system.
 - Đã sinh 10 màn hình Stitch (Identity/Auth + 4 dashboard theo role). Export lưu ở repo riêng `piclass-mockup` (sibling folder `C:\Workspaces\home\piclass-mockup`, không nằm trong monorepo này).
