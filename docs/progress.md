@@ -41,8 +41,11 @@ Chi tiết đầy đủ: [architecture/technology-decisions.md](architecture/tec
 
 - `piclass-api/` → repo riêng (git nested, branch `master`, sống trong cùng thư mục workspace, không track trong repo docs này — xem `.gitignore`). Trước đây là `backend/`, đã đổi tên thư mục khớp tên repo.
 - `piclass-mockup/` (sibling `C:\Workspaces\home\piclass-mockup`) → repo riêng cho export Stitch.
+- `piclass-infra/` → repo riêng cho hạ tầng local dev (Docker Compose: Postgres, Laravel qua Nginx/PHP-FPM, Next.js, Swagger UI cho `docs/api-docs`, Mailpit, Playwright). Xem `piclass-infra/README.md` để dựng môi trường.
 - Repo hiện tại (docs + plan/spec/ledger) → **`piclass-docs`**.
 - frontend thật (Next.js, chưa khởi tạo) sẽ là **`piclass-web`** khi bắt đầu Plan 1b.
+
+**Việc còn mở để `piclass-infra` chạy được đầy đủ:** chưa có `docs/api-docs/` (đặc tả OpenAPI viết tay, chưa viết) — service `docs` của stack sẽ phục vụ trang trắng cho tới khi có.
 
 ## Môi trường dev / skill Claude Code
 

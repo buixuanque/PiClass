@@ -9,6 +9,9 @@ piclass-api/
 # Laravel backend: .env đã được piclass-api/.gitignore tự ignore; .env.testing thì chưa
 piclass-api/.env.testing
 
+# piclass-infra: repo git riêng (nested), sống trong cùng workspace window — không track trong repo này
+piclass-infra/
+
 # Claude Code: skills/plugins installed locally per machine (see docs/setup/claude-skills-setup.md)
 .claude/*
 # ...except custom agents we author ourselves — these are project content, not per-machine install state
