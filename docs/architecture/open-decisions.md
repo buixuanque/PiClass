@@ -16,6 +16,7 @@ Các mục dưới đây là câu hỏi kỹ thuật còn mở; chúng không l�
 | ARCH-10 | Observability | `ĐÃ CHỐT (interim, tối ưu chi phí)` Ghi log cục bộ trên EC2 (cần `logrotate`); tích hợp CloudWatch/Sentry... để giai đoạn sau, công cụ chưa chọn. | Production readiness và incident response. |
 | ARCH-11 | Frontend role context | `ĐÃ CHỐT` Context lưu trạng thái ở server (session), chọn/đổi qua `POST /api/v1/auth/context`; mọi request sau tự áp theo context đã chọn, không gửi lại mỗi request. Giữ multi-role trên 1 account (không tách account theo role) — đã cân nhắc lại và giữ nguyên `BR-USER-002`. Xem Step 9 spec Identity/Auth. | Client navigation và request context; policy Step 7 không đổi. |
 | ARCH-12 | File operations/retention | `[CẦN QUYẾT ĐỊNH trước implementation liên quan]` Cleanup schedule orphan, operational/legal retention, quota/type policy theo use case. | Storage cost, privacy, support. |
+| ARCH-13 | LessonSession generation window | `ĐÃ CHỐT` Tạo/sửa Schedule sinh ngay LessonSession cho 4 tuần kế tiếp (hoặc tới `effective_until` nếu gần hơn). Laravel Scheduler (`ARCH-08`) chạy job hàng ngày để luôn giữ cửa sổ 4 tuần tới có sẵn cho mỗi Schedule `active`. Xem Step 9 spec Academic/Lesson/Attendance. | Lesson module, background job load. |
 
 ## Đã chốt và không phải open decision của Step 8
 

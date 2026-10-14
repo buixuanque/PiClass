@@ -15,7 +15,7 @@ Scope toàn hệ thống trên nghiệp vụ V1. Action ngoại lệ được gi
 Scope chỉ gồm Class có TeacherClassAssignment đang hiệu lực. Nhiều assignment tạo hợp scope của các lớp đó, không cấp quyền sang lớp khác cùng Subject. Quyền Teacher dựa trên phân công hiện hành.
 
 - Student/ClassMember: học viên liên quan tới lớp và membership đúng hiệu lực. Chỉ Admin tạo/kết thúc/thay đổi ClassMember; Teacher đọc roster lớp được phân công nhưng không thêm/rút học viên.
-- Course/CourseEnrollment: Teacher tạo/quản lý Course của mình, enroll/kết thúc CourseEnrollment cho Student trong Class mình phụ trách — không giới hạn Admin-only như ClassMember (đề xuất sơ bộ, xác nhận lại khi brainstorm spec Academic).
+- Course/CourseEnrollment: Teacher tạo/quản lý Course của mình, enroll/kết thúc CourseEnrollment cho **bất kỳ Student nào trong hệ thống** (không giới hạn Student thuộc Class mình phụ trách) — không giới hạn Admin-only như ClassMember (`BR-COURSE-004`, đã chốt).
 - Schedule/LessonSession/Attendance: thuộc Class được phân công. Sửa hồi tố membership chỉ Admin; Attendance sửa bởi Teacher được phân công hoặc Admin, mọi sửa lưu history/lý do.
 - Assessment/Submission/Grade: assessment và bài làm trong Class scope. Teacher grade và sửa điểm đã công bố với lý do; mọi thay đổi lưu lịch sử/audit.
 - Question Bank: xem/dùng câu dùng chung theo nhu cầu tạo assessment; chỉ tạo/sửa/quản lý câu mình tạo. Không sửa câu người khác.

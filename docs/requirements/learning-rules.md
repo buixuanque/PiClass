@@ -33,7 +33,7 @@
 
 ## Course (tự học thêm)
 
-- **BR-COURSE-001 — ĐÃ QUYẾT ĐỊNH (sơ bộ):** Course là nội dung tự học thêm, tách biệt Class; không có Schedule/LessonSession/Attendance riêng. Áp dụng chung cho cả quy mô trường học lớn và lớp học thêm cá nhân, trong một tenant duy nhất.
-- **BR-COURSE-002 — ĐÃ QUYẾT ĐỊNH (sơ bộ):** Nội dung Course chỉ là Assessment/Question Bank có sẵn được gán qua Course; không có nội dung bài học riêng (text/video/tài liệu) trong V1.
-- **BR-COURSE-003 — ĐÃ QUYẾT ĐỊNH (sơ bộ):** Student tham gia Course qua CourseEnrollment, có ngày hiệu lực như ClassMember. Gán theo từng Student hoặc theo roster hiện hành của 1/nhiều Class; chưa có khái niệm Khối/Grade riêng.
-- **BR-COURSE-004 — CẦN XÁC NHẬN khi brainstorm spec Academic:** quyền tạo Course và quyền enroll/kết thúc CourseEnrollment cho Teacher trong Class mình phụ trách, hay giới hạn Admin-only như ClassMember (`BR-CLASS-014`). Xem `access-control/open-decisions.md`.
+- **BR-COURSE-001 — ĐÃ QUYẾT ĐỊNH:** Course là nội dung tự học thêm, tách biệt Class; không có Schedule/LessonSession/Attendance riêng. Áp dụng chung cho cả quy mô trường học lớn và lớp học thêm cá nhân, trong một tenant duy nhất.
+- **BR-COURSE-002 — ĐÃ QUYẾT ĐỊNH:** Nội dung Course chỉ là Assessment/Question Bank có sẵn được gán qua Course; không có nội dung bài học riêng (text/video/tài liệu) trong V1.
+- **BR-COURSE-003 — ĐÃ QUYẾT ĐỊNH:** Student tham gia Course qua CourseEnrollment, có ngày hiệu lực như ClassMember. Gán theo từng Student hoặc theo roster hiện hành của 1/nhiều Class; chưa có khái niệm Khối/Grade riêng.
+- **BR-COURSE-004 — ĐÃ QUYẾT ĐỊNH (chốt khi brainstorm spec Academic, 2026-10-14):** Teacher được tạo Course thuộc sở hữu riêng (`owner_teacher_id`), không cần Admin duyệt trước khi dùng — cùng pattern Question Bank (Teacher quản lý câu mình tạo). Teacher sở hữu Course được enroll/kết thúc CourseEnrollment cho **bất kỳ Student nào trong hệ thống**, không giới hạn Student thuộc Class mình đang phụ trách — khác hẳn ClassMember (Admin-only, `BR-CLASS-014`), vì Course phục vụ cả kịch bản dạy thêm cá nhân ngoài lớp chính thức. Admin vẫn quản lý toàn hệ thống và có thể tạo Course dùng chung (`owner_teacher_id=null`).
