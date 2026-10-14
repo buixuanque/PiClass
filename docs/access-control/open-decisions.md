@@ -26,6 +26,14 @@ Các mục sau không còn open decisions; người dùng đã chốt phương �
 4. AuditLog: schema cho phép before/after/reason nullable nói chung; action nhạy cảm bắt buộc trường tương ứng theo business rule trước khi ghi thành công.
 5. Schema-to-permission alignment là tiêu chí kiểm tra cho bước thiết kế tiếp theo, không còn là quyết định permission Step 7.
 
+## Điểm mở mới (2026-10-14) — Course/CourseEnrollment
+
+Thêm cùng lúc với `DEC-LRN-010` (`requirements/decision-log.md`). Đã đề xuất và ghi vào `resource-permissions.md`/`permission-matrix.md`/`data-scope.md`, nhưng là **đề xuất sơ bộ chưa qua review Step 7 đầy đủ** — xác nhận lại khi brainstorm spec Academic:
+
+- Teacher được enroll/kết thúc CourseEnrollment trong Class mình phụ trách (khác ClassMember — vốn Admin-only). Cần xác nhận mức rủi ro này có chấp nhận được không, hay Course cũng nên Admin-only.
+- Course do Teacher tạo thuộc sở hữu riêng (như Question Bank) hay Admin phải duyệt trước khi dùng.
+- Student/Parent xem Course qua StudentAssessment giống Class — chưa có review riêng cho trường hợp một Assessment giao trùng qua cả Class và Course cho cùng Student (có thể đã được quy tắc hợp nhất StudentAssessment hiện tại xử lý, cần xác nhận).
+
 ## Database alignment notes
 
 Step 6 có các entity quan trọng cho enforcement: `UserRole`, `ParentStudentRelationship`, `ClassMember`, `TeacherClassAssignment`, `AssessmentAudience`, `StudentAssessment`, `AssessmentVersion`, `Attempt`, `Submission`, `Result`, `ResultPublication`, `AttachmentLink`, `NotificationContext`, `AuditLog` cùng history tables. Khoảng hiệu lực dùng `[valid_from, valid_to)`; các FK/context không tự cấp authorization. Đây là model enforcement context, không thay đổi business rule.
