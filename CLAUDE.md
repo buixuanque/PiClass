@@ -45,6 +45,8 @@ Workspace này gồm nhiều git repo độc lập sống cùng thư mục (`pic
 
 **Quy trình git giống nhau cho mọi repo, kể cả repo docs (`piclass-web`, hiện tại):** không commit/push trực tiếp lên `main`. Tạo branch mới từ `main` đã pull mới nhất (`git checkout main && git pull && git checkout -b <branch>`), commit vào đó, push branch, mở PR (`gh pr create`), rồi merge PR (`gh pr merge`) — áp dụng kể cả cho thay đổi chỉ gồm file `.md` (spec/plan/progress.md/open-decisions.md). **Không xóa branch sau khi merge** (không dùng `--delete-branch`/`-d` trên `gh pr merge`, và không tự xóa branch local/remote sau đó) — giữ lại để tham khảo lịch sử.
 
+**Không tự động push/mở PR/merge.** Commit vào branch local là được, nhưng chỉ push/tạo PR/merge khi user yêu cầu rõ ràng ("push đi", "xong rồi, push nhé"...) — không tự làm ngay sau khi code/docs xong, dù đã có branch sẵn.
+
 ## Thứ tự triển khai Step 9
 
 Mỗi nhóm module: spec → plan BE → code BE → plan FE → code FE, rồi mới sang spec nhóm module tiếp theo. Không gộp BE+FE vào cùng 1 plan/task (khác ngôn ngữ/test tool). Không dồn spec hết 5 nhóm rồi mới code. Stitch + MASTER.md (design system) là track riêng, làm một lần, không phụ thuộc BE, có thể làm song song bất cứ lúc nào. Chi tiết trạng thái: `docs/progress.md`.
