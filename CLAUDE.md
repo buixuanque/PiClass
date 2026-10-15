@@ -39,6 +39,10 @@ Skill (`superpowers`, `ui-ux-pro-max`, `frontend-design`) cài scope local, khô
 
 Khi dùng `superpowers:brainstorming` cho việc kiến trúc/API (loại "architectural"), luôn nạp trước `docs/requirements/*`, `docs/access-control/*`, `docs/database/*` làm nguồn — không để nó tự hỏi lại từ đầu hoặc viết spec lệch khỏi Decision Log đã chốt.
 
+## Push nhiều repo (monorepo-workspace, nhiều git repo riêng)
+
+Workspace này gồm nhiều git repo độc lập sống cùng thư mục (`piclass-api/`, `piclass-infra/`, `piclass-web` = repo hiện tại chứa docs, `piclass-mockup` riêng ngoài workspace). Mỗi khi push một trong các repo con (`piclass-api`, ...), **luôn kiểm tra `git status`/`git log origin/main..HEAD` ở repo `piclass-web` (repo docs, hiện tại) xem có commit local chưa push không** — việc code ở repo con gần như luôn kéo theo cập nhật `docs/progress.md`, spec, plan, hoặc `open-decisions.md` ở đây. Nếu có, **báo cho user luôn trong cùng lượt trả lời** (không chờ hỏi riêng) rằng repo docs cũng có thay đổi chưa push, và hỏi có muốn push cùng không.
+
 ## Thứ tự triển khai Step 9
 
 Mỗi nhóm module: spec → plan BE → code BE → plan FE → code FE, rồi mới sang spec nhóm module tiếp theo. Không gộp BE+FE vào cùng 1 plan/task (khác ngôn ngữ/test tool). Không dồn spec hết 5 nhóm rồi mới code. Stitch + MASTER.md (design system) là track riêng, làm một lần, không phụ thuộc BE, có thể làm song song bất cứ lúc nào. Chi tiết trạng thái: `docs/progress.md`.
