@@ -22,8 +22,12 @@ Cập nhật ngay tài liệu nguồn tương ứng (Decision Log, `open-decisio
 
 ## Ngôn ngữ
 
-- Tài liệu (`docs/`) và trao đổi: tiếng Việt.
-- Code, tên biến/hàm, comment, commit message: tiếng Anh theo convention chung của Laravel/Next.js. *(Đây là đề xuất mặc định — đổi nếu bạn muốn khác.)*
+- Tài liệu (mọi file trong `docs/`, kể cả `docs/superpowers/specs|plans`, `progress.md`, `open-decisions.md`...) và trao đổi trong chat: tiếng Việt. Trừ nội dung buộc phải tiếng Anh (xem dòng dưới) hoặc thuật ngữ kỹ thuật không có bản dịch tiếng Việt tương đương.
+- Code, tên biến/hàm, comment, commit message, PR title/description: tiếng Anh theo convention chung của Laravel/Next.js. *(Đây là đề xuất mặc định — đổi nếu bạn muốn khác.)*
+
+## Giải thích khi hỏi thiết kế/clarify
+
+Khi hỏi user để chốt rule/thiết kế mà nội dung không chỉ là code thuần (ví dụ: rule hiển thị dữ liệu theo role, business logic ảnh hưởng người dùng cuối, phân quyền), luôn giải thích **cả hai hướng**: hướng kỹ thuật VÀ hướng nghiệp vụ thực tế (ai làm gì, vì sao, ảnh hưởng ra sao tới người dùng cuối) — không chỉ liệt kê field/logic trừu tượng. Không cần áp dụng cho câu hỏi thuần kỹ thuật (chọn thư viện, format file, convention code).
 
 ## Stack hiện tại
 
