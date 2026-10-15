@@ -50,14 +50,18 @@
 | `TeacherClassAssignment` | Phân công Teacher vào Class với thời hạn hiệu lực; hỗ trợ nhiều giáo viên cho một lớp và lịch sử phụ trách. Teacher chính hay đồng phụ trách chưa chốt. |
 | `Schedule` | Quy tắc/kế hoạch thời gian cho một Class; có thể định kỳ hoặc một lần. Thay đổi lịch không viết lại sự kiện đã diễn ra. |
 | `LessonSession` | Buổi học cụ thể của một Class, phát sinh từ Schedule hoặc được tạo thủ công; có thời gian, trạng thái, nội dung đã dạy và ghi chú. Là ngữ cảnh cho Attendance và có thể liên kết Assessment. |
+| `Course` | Nội dung tự học thêm, tách biệt khỏi Class: không có Schedule/LessonSession/Attendance riêng. Là nhãn/container để giao Assessment/Question Bank có sẵn cho Student ngoài phạm vi lớp dạy trực tiếp — ví dụ Student trong lớp đăng ký thêm Course để tự học. Có thể gắn Subject để phân loại (tùy chọn) và chủ sở hữu là Teacher (nội dung riêng) hoặc dùng chung toàn hệ thống (do Admin tạo). |
+| `CourseEnrollment` | Tư cách Student tham gia Course, gồm thời điểm bắt đầu/kết thúc hiệu lực và trạng thái — cùng pattern với ClassMember. Dùng để xác định Student nào đủ điều kiện nhận Assessment giao qua Course đó. |
 
-**Cardinality cốt lõi:** Subject 1—N Class; Class 1—N ClassMember theo thời gian; Student 1—N ClassMember theo thời gian; Class N—N Teacher qua TeacherClassAssignment; Class 1—N Schedule; Class 1—N LessonSession; Schedule 0..1—N LessonSession theo cách sinh lịch chưa chốt.
+**Cardinality cốt lõi:** Subject 1—N Class; Class 1—N ClassMember theo thời gian; Student 1—N ClassMember theo thời gian; Class N—N Teacher qua TeacherClassAssignment; Class 1—N Schedule; Class 1—N LessonSession; Schedule 0..1—N LessonSession theo cách sinh lịch chưa chốt; Course 1—N CourseEnrollment theo thời gian; Student 1—N CourseEnrollment theo thời gian (độc lập với ClassMember).
 
 **Vòng đời ClassMember:** dự kiến → hiệu lực → kết thúc/rút khỏi lớp. Việc chuyển lớp kết thúc tư cách thành viên cũ và tạo tư cách mới; không chuyển điểm danh, bài làm hoặc kết quả cũ sang lớp mới. Quy tắc ngày hiệu lực và xử lý thay đổi hồi tố: [CẦN QUYẾT ĐỊNH].
 
 **Vòng đời Schedule:** nháp/hoạt động → sửa, dời hoặc hủy. `LessonSession` có thể được tạo theo lịch và được dời/hủy riêng; hủy Schedule không xóa buổi đã diễn ra. Mô hình lặp, múi giờ, xung đột lịch và liên kết lịch lặp–buổi: [CẦN QUYẾT ĐỊNH].
 
 **Vòng đời LessonSession:** dự kiến → đã diễn ra/hoàn tất hoặc bị hủy. Buổi có thể tồn tại không gắn Schedule. Trạng thái chính thức, điều kiện hoàn tất, số thứ tự và cách xử lý buổi hủy sau khi đã điểm danh: [CẦN QUYẾT ĐỊNH].
+
+**Vòng đời CourseEnrollment:** hiệu lực → kết thúc, cùng pattern với ClassMember (không có bước "dự kiến" vì không phụ thuộc roster buổi học). Gán Course cho Student bằng hai đường: chọn trực tiếp từng Student, hoặc chọn theo 1/nhiều Class (toàn bộ ClassMember hiện hành của Class đó được tạo CourseEnrollment). Kết thúc CourseEnrollment không ảnh hưởng ClassMember và ngược lại — hai vòng đời độc lập. Course không có khái niệm Khối/Grade riêng; nhóm theo khối (nếu cần) thực hiện bằng cách chọn nhiều Class cùng lúc khi gán.
 
 ### 2.4 Attendance
 
@@ -89,7 +93,7 @@ Question Engine là tập hợp quy tắc theo `QuestionType`: cấu trúc câu 
 |---|---|
 | `Assessment` | Hoạt động đánh giá được tạo, cấu hình, giao cho lớp/học viên, phát hành/đóng và chấm. Gồm tiêu đề, hướng dẫn, thời gian, số lượt, thang điểm, tiêu chí đạt, quy tắc hiển thị và tập AssessmentQuestion phù hợp. |
 | `AssessmentType` | Phân loại nghiệp vụ Assignment, Quiz hoặc Exam. Mô hình khuyến nghị ở miền: một Assessment có một type và type quy định tập cấu hình hợp lệ; cần quyết định nếu loại này chỉ là cấu hình linh hoạt hay là các subtype riêng. |
-| `AssessmentAudience` | Tập người nhận: Class, Student được chọn, hoặc cả hai theo quy tắc đã chốt. Xác định học viên đủ điều kiện làm và thời điểm hiệu lực. |
+| `AssessmentAudience` | Tập người nhận: Class, Student được chọn, Course (qua CourseEnrollment hiện hành), hoặc kết hợp theo quy tắc đã chốt. Xác định học viên đủ điều kiện làm và thời điểm hiệu lực. |
 | `AssessmentRelease` | Sự kiện/phiên bản phát hành đóng băng nội dung và đối tượng nhận; cần giữ mốc phát hành để bài làm tham chiếu đúng nội dung. Cách quản lý phiên bản phát hành: [CẦN QUYẾT ĐỊNH]. |
 
 #### Phân biệt nghiệp vụ dự kiến
@@ -174,6 +178,8 @@ erDiagram
     SCHEDULE o|--o{ LESSON_SESSION : "có thể sinh"
     LESSON_SESSION ||--o{ ATTENDANCE_RECORD : "ghi nhận"
     STUDENT ||--o{ ATTENDANCE_RECORD : "được điểm danh"
+    COURSE ||--o{ COURSE_ENROLLMENT : "có thành viên theo thời gian"
+    STUDENT ||--o{ COURSE_ENROLLMENT : "tự học theo thời gian"
     QUESTION_BANK ||--o{ QUESTION : "chứa"
     QUESTION ||--o{ QUESTION_OPTION : "có phương án"
     QUESTION ||--o{ ASSESSMENT_QUESTION : "được dùng qua phiên bản"
@@ -181,6 +187,7 @@ erDiagram
     ASSESSMENT ||--o{ ASSESSMENT_AUDIENCE : "giao cho"
     CLASS o|--o{ ASSESSMENT_AUDIENCE : "nhận qua lớp"
     STUDENT o|--o{ ASSESSMENT_AUDIENCE : "nhận trực tiếp"
+    COURSE o|--o{ ASSESSMENT_AUDIENCE : "nhận qua course"
     ASSESSMENT ||--o{ ATTEMPT : "được thực hiện qua"
     STUDENT ||--o{ ATTEMPT : "thực hiện"
     ATTEMPT ||--o{ ANSWER : "có câu trả lời"
@@ -202,7 +209,7 @@ Ghi chú: Quan hệ `ROLE`–`PERMISSION` có thể cần entity liên kết n�
 
 1. Quyền truy cập được giới hạn bởi Role/Permission và quan hệ nghiệp vụ hiện hành: Teacher theo lớp được phân công; Student theo dữ liệu của mình; Parent theo liên kết Parent–Student còn hiệu lực.
 2. Hồ sơ người và tài khoản đăng nhập có vòng đời độc lập; vô hiệu hóa User không xóa hồ sơ hoặc dữ liệu học tập.
-3. Quan hệ thành viên lớp, phân công Teacher và Parent–Student có thời gian hiệu lực; kết thúc quan hệ không xóa lịch sử phát sinh.
+3. Quan hệ thành viên lớp, phân công Teacher, Parent–Student và CourseEnrollment có thời gian hiệu lực; kết thúc quan hệ không xóa lịch sử phát sinh.
 4. Attendance được ghi theo LessonSession và Student; LessonSession bị hủy không tự xóa Attendance đã ghi.
 5. Assessment được giao cho Class hoặc Student; Student chỉ được bắt đầu nếu đủ điều kiện theo trạng thái, thời gian, đối tượng nhận và số lượt.
 6. Nội dung AssessmentQuestion phải ổn định sau phát hành đối với Attempt đã tạo; thay đổi câu nguồn không viết ngược lịch sử.

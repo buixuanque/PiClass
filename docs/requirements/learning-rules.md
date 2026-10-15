@@ -30,3 +30,10 @@
 
 - **BR-CLASS-012 — ĐÃ QUYẾT ĐỊNH:** Lịch sử học tập gắn với lớp/buổi thực tế phát sinh. Kết thúc membership, phân công hoặc lưu trữ lớp không xóa dữ liệu trước đó.
 - **BR-CLASS-013 — ĐÃ QUYẾT ĐỊNH:** Một Assignment liên kết tối đa một LessonSession; có thể không liên kết. Assessment giao qua lớp và trực tiếp không tạo bản trùng cho cùng Student.
+
+## Course (tự học thêm)
+
+- **BR-COURSE-001 — ĐÃ QUYẾT ĐỊNH:** Course là nội dung tự học thêm, tách biệt Class; không có Schedule/LessonSession/Attendance riêng. Áp dụng chung cho cả quy mô trường học lớn và lớp học thêm cá nhân, trong một tenant duy nhất.
+- **BR-COURSE-002 — ĐÃ QUYẾT ĐỊNH:** Nội dung Course chỉ là Assessment/Question Bank có sẵn được gán qua Course; không có nội dung bài học riêng (text/video/tài liệu) trong V1.
+- **BR-COURSE-003 — ĐÃ QUYẾT ĐỊNH:** Student tham gia Course qua CourseEnrollment, có ngày hiệu lực như ClassMember. Gán theo từng Student hoặc theo roster hiện hành của 1/nhiều Class; chưa có khái niệm Khối/Grade riêng.
+- **BR-COURSE-004 — ĐÃ QUYẾT ĐỊNH (chốt khi brainstorm spec Academic, 2026-10-14):** Teacher được tạo Course thuộc sở hữu riêng (`owner_teacher_id`), không cần Admin duyệt trước khi dùng — cùng pattern Question Bank (Teacher quản lý câu mình tạo). Teacher sở hữu Course được enroll/kết thúc CourseEnrollment cho **bất kỳ Student nào trong hệ thống**, không giới hạn Student thuộc Class mình đang phụ trách — khác hẳn ClassMember (Admin-only, `BR-CLASS-014`), vì Course phục vụ cả kịch bản dạy thêm cá nhân ngoài lớp chính thức. Admin vẫn quản lý toàn hệ thống và có thể tạo Course dùng chung (`owner_teacher_id=null`).

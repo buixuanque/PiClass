@@ -15,6 +15,10 @@ Ký hiệu: **✓** cho phép nếu scope và lifecycle hợp lệ; **R** chỉ 
 | Class / ClassMember | Teacher | assigned C / roster | — | — | — | — | — | — | assigned C learning operations |
 | Class / ClassMember | Student | own membership | — | — | — | — | — | — | — |
 | Class / ClassMember | Parent | child membership; no peer roster | — | — | — | — | — | — | — |
+| Course / CourseEnrollment | Admin | ✓ | ✓ | ✓ | — | — | — | — | ✓ |
+| Course / CourseEnrollment | Teacher | owned Course / any enrolled student | ✓ own Course, any student | ✓ own Course, any student | — | — | — | — | owned Course scope |
+| Course / CourseEnrollment | Student | own enrollment | — | — | — | — | — | — | — |
+| Course / CourseEnrollment | Parent | child enrollment; no peer roster | — | — | — | — | — | — | — |
 | Schedule / LessonSession | Admin | ✓ | ✓ | ✓ | — | — | — | — | ✓ |
 | Schedule / LessonSession | Teacher | assigned C | ✓ C | ✓ C | — | — | — | — | ✓ C |
 | Schedule / LessonSession | Student | own Class | — | — | — | — | — | — | — |

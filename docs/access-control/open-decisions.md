@@ -26,6 +26,14 @@ Các mục sau không còn open decisions; người dùng đã chốt phương �
 4. AuditLog: schema cho phép before/after/reason nullable nói chung; action nhạy cảm bắt buộc trường tương ứng theo business rule trước khi ghi thành công.
 5. Schema-to-permission alignment là tiêu chí kiểm tra cho bước thiết kế tiếp theo, không còn là quyết định permission Step 7.
 
+## Course/CourseEnrollment — chốt khi brainstorm spec Academic (2026-10-14)
+
+Thêm cùng lúc với `DEC-LRN-010` (`requirements/decision-log.md`). Đã review và chốt dứt khoát khi brainstorm spec `docs/superpowers/specs/2026-10-14-academic-lesson-attendance-api-design.md`, đồng bộ vào `resource-permissions.md`/`permission-matrix.md`/`data-scope.md`/`requirements/learning-rules.md` (`BR-COURSE-004`):
+
+1. Teacher sở hữu Course được enroll/kết thúc CourseEnrollment cho **bất kỳ Student nào trong hệ thống**, không giới hạn Student thuộc Class mình phụ trách — chấp nhận mức rủi ro này vì Course phục vụ cả kịch bản dạy thêm cá nhân ngoài lớp chính thức.
+2. Course do Teacher tạo thuộc sở hữu riêng, không cần Admin duyệt — cùng pattern Question Bank.
+3. Student/Parent nhận Assessment trùng qua cả Class và Course cho cùng Student: xử lý bởi quy tắc hợp nhất `StudentAssessment` hiện có (unique `assessment_id`+`student_id`, `database/schema.md`) — không cần logic dedup riêng cho Course; xác nhận lại chi tiết endpoint khi spec nhóm module 3 (Question Bank + Assessment).
+
 ## Database alignment notes
 
 Step 6 có các entity quan trọng cho enforcement: `UserRole`, `ParentStudentRelationship`, `ClassMember`, `TeacherClassAssignment`, `AssessmentAudience`, `StudentAssessment`, `AssessmentVersion`, `Attempt`, `Submission`, `Result`, `ResultPublication`, `AttachmentLink`, `NotificationContext`, `AuditLog` cùng history tables. Khoảng hiệu lực dùng `[valid_from, valid_to)`; các FK/context không tự cấp authorization. Đây là model enforcement context, không thay đổi business rule.

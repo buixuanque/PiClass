@@ -15,6 +15,7 @@ Scope toàn hệ thống trên nghiệp vụ V1. Action ngoại lệ được gi
 Scope chỉ gồm Class có TeacherClassAssignment đang hiệu lực. Nhiều assignment tạo hợp scope của các lớp đó, không cấp quyền sang lớp khác cùng Subject. Quyền Teacher dựa trên phân công hiện hành.
 
 - Student/ClassMember: học viên liên quan tới lớp và membership đúng hiệu lực. Chỉ Admin tạo/kết thúc/thay đổi ClassMember; Teacher đọc roster lớp được phân công nhưng không thêm/rút học viên.
+- Course/CourseEnrollment: Teacher tạo/quản lý Course của mình, enroll/kết thúc CourseEnrollment cho **bất kỳ Student nào trong hệ thống** (không giới hạn Student thuộc Class mình phụ trách) — không giới hạn Admin-only như ClassMember (`BR-COURSE-004`, đã chốt).
 - Schedule/LessonSession/Attendance: thuộc Class được phân công. Sửa hồi tố membership chỉ Admin; Attendance sửa bởi Teacher được phân công hoặc Admin, mọi sửa lưu history/lý do.
 - Assessment/Submission/Grade: assessment và bài làm trong Class scope. Teacher grade và sửa điểm đã công bố với lý do; mọi thay đổi lưu lịch sử/audit.
 - Question Bank: xem/dùng câu dùng chung theo nhu cầu tạo assessment; chỉ tạo/sửa/quản lý câu mình tạo. Không sửa câu người khác.
@@ -22,7 +23,7 @@ Scope chỉ gồm Class có TeacherClassAssignment đang hiệu lực. Nhiều a
 
 ### Student
 
-Scope của chính Student: PersonProfile contact cơ bản, role profile, ClassMember, Attendance, Assessment/StudentAssessment, Attempt/Answer/Submission, Grade/Result/Feedback và Notification của mình. Student tự sửa email/điện thoại cơ bản; không sửa tên định danh, trạng thái hay role profile. Assessment cần giao cho Student trực tiếp hoặc Class membership phù hợp. View Result/Feedback/answer key bị chặn cho tới công bố tương ứng.
+Scope của chính Student: PersonProfile contact cơ bản, role profile, ClassMember, CourseEnrollment, Attendance, Assessment/StudentAssessment, Attempt/Answer/Submission, Grade/Result/Feedback và Notification của mình. Student tự sửa email/điện thoại cơ bản; không sửa tên định danh, trạng thái hay role profile. Assessment cần giao cho Student trực tiếp, qua Class membership, hoặc qua CourseEnrollment phù hợp. View Result/Feedback/answer key bị chặn cho tới công bố tương ứng.
 
 ### Parent
 
@@ -30,7 +31,7 @@ Scope chỉ gồm dữ liệu của child/children có ParentStudentRelationship
 
 ## Scope theo thời gian và dữ liệu lịch sử
 
-- `ParentStudentRelationship`, `ClassMember`, `TeacherClassAssignment` có khoảng hiệu lực `[valid_from, valid_to)`. `valid_to` null nghĩa còn hiệu lực.
+- `ParentStudentRelationship`, `ClassMember`, `TeacherClassAssignment`, `CourseEnrollment` có khoảng hiệu lực `[valid_from, valid_to)`. `valid_to` null nghĩa còn hiệu lực.
 - Teacher scope dựa phân công hiện hành; Admin xử lý trước khi Teacher bị inactive và chấm dứt quyền Teacher.
 - Student Class scope dựa membership hiệu lực tại thời điểm nghiệp vụ. Sửa hồi tố membership chỉ Admin, cần lý do/audit. Chỉ Admin được tạo/kết thúc/thay đổi ClassMember. Student/Parent chỉ xem tên lớp, Subject, Schedule/LessonSession và dữ liệu học tập của mình/child; không xem roster hoặc thông tin cá nhân của peer. Teacher xem roster trong Class được phân công.
 - Chuyển lớp giữ Attendance/Assessment/Result ở lớp gốc; không chuyển dữ liệu đó sang lớp mới.
