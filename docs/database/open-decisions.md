@@ -16,6 +16,8 @@ User đã chốt toàn bộ đề xuất trong tài liệu này. Các quyết đ
 | Notification context | Tạo `NotificationContext` với FK cụ thể tới các ngữ cảnh V1: Assessment, LessonSession, Result hoặc Schedule; đúng một target. Notification không cấp quyền; quyền đọc được kiểm tra lại theo entity/ngữ cảnh hiện hành. Unique recipient/event key chống trùng. |
 | Progress | Không tạo bảng Progress riêng V1; tính từ Result đã chấm/công bố và dữ kiện nguồn. Cache chỉ cân nhắc sau nếu đo đạc hiệu năng cho thấy cần thiết; dữ liệu tổng hợp không là source of truth. |
 
+| Assignment–LessonSession link (phát hiện khi viết spec Module 3, 2026-10-15) | `schema.md` liệt kê cột cho `AssessmentVersion` nhưng thiếu `lesson_session_id` dù `BR-ASSESS-004`/`relationships.md` đã chốt "một Assignment liên kết tối đa một LessonSession". Đây là thiếu sót khi viết tài liệu Step 6, không phải business rule mới. Chốt: thêm `lesson_session_id` FK nullable → `LessonSession`, đặt trên `AssessmentVersion` (vì liên kết là một phần policy/nội dung của từng lần phát hành, nhất quán với các field policy khác đã ở đó); chỉ có giá trị khi `Assessment.type = assignment`, validate ở application layer, không enforce bằng DB constraint. Đã bổ sung vào `schema.md`. |
+
 ## Chính sách vận hành chưa quyết định tại Step 6
 
 Các mục sau không còn là open schema decisions: số ngày rolling window sinh LessonSession; giới hạn dung lượng/định dạng file; retention pháp lý và thời gian cleanup file không còn tham chiếu; schema validation chi tiết cho payload từng QuestionType. Xác định ở policy vận hành hoặc trước implementation tương ứng, không tự thêm vào thiết kế logic hiện tại.
