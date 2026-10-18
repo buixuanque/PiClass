@@ -23,7 +23,7 @@ Ký hiệu: "[CẦN XÁC NHẬN]" = tài liệu chưa đủ rõ để chốt, đ
 | `AttendanceHistory` | Attendance | Lịch sử sửa attendance có lý do. |
 | `AttendanceRecord` | Attendance | Gắn LessonSession và Student. Chỉ đọc: Lesson, Academic. |
 | `AuditLog` | Audit | Append-only. Mọi module ghi qua AuditLogger; truy vấn theo Admin hoặc Teacher class scope. |
-| `ClassMember` | UserManagement | Theo module-boundaries: ghi chỉ qua UserManagement (Academic dùng hợp đồng, không tạo bản sao). Chỉ đọc: Academic, Attendance, Assessment (audience/eligibility), SubmissionGrading, ResultProgress (scope). |
+| `ClassMember` | UserManagement | Chủ ghi: UserManagement. module-boundaries dòng 22 ghi "User Management/Academic use case", nên Academic cũng xuất hiện như nơi ghi qua use case của mình; đề xuất Action ghi (add/update/end) đặt trong module UserManagement, Academic chỉ gọi qua contract. Chỉ đọc: Attendance, Assessment (audience/eligibility), SubmissionGrading, ResultProgress (scope). |
 | `Course` | Academic | Tự học thêm, tách biệt Class (DEC-LRN-010). Chỉ đọc: Assessment (audience Course). |
 | `CourseEnrollment` | Academic | Chỉ đọc: Assessment (eligibility). |
 | `Feedback` | SubmissionGrading | Có thể có Attachment qua AttachmentLink. |
@@ -44,9 +44,9 @@ Ký hiệu: "[CẦN XÁC NHẬN]" = tài liệu chưa đủ rõ để chốt, đ
 | `Result` | ResultProgress | Chỉ đọc: Notification. Nguồn Progress cơ bản trong V1. |
 | `ResultHistory` | ResultProgress | Mỗi lần đổi kết quả. |
 | `ResultPublication` | ResultProgress | Lịch sử công bố/thu hồi. |
-| `Role` | Identity | [CẦN XÁC NHẬN] Danh mục role; boundaries gán UserRole cho Identity nhưng không nêu rõ Role, chọn cùng chủ với UserRole. |
-| `Schedule` | Lesson | Theo module-boundaries (Lesson sở hữu Schedule dù thuộc cấu trúc học vụ). Chỉ đọc: Academic. |
-| `ScheduleHistory` | Lesson | Lịch sử version mẫu. |
+| `Role` | Identity | [CẦN XÁC NHẬN] Danh mục role; boundaries không nêu Role, chọn cùng chủ với UserRole (Identity). Lưu ý boundaries cũng liệt kê UserRole dưới UserManagement. |
+| `Schedule` | Lesson | [CẦN XÁC NHẬN] Chọn Lesson (module-boundaries dòng 11 liệt kê Schedule trong dữ liệu Lesson), nhưng module-boundaries dòng 9 và schema.md lại liệt kê Schedule dưới Academic. Chỉ đọc: Academic. |
+| `ScheduleHistory` | Lesson | [CẦN XÁC NHẬN] Theo Schedule (Lesson); cùng mâu thuẫn Lesson/Academic như dòng Schedule. Lịch sử version mẫu. |
 | `SchoolClass` | Academic | Bảng/entity Class (tên PHP Class là từ khóa nên đặt SchoolClass). Chỉ đọc: hầu hết module khác. |
 | `Student` | UserManagement | Hồ sơ vai trò học viên. Chỉ đọc: Academic, Attendance, Assessment, SubmissionGrading, ResultProgress. |
 | `StudentAssessment` | Assessment | Đối tượng nhận hiệu lực, khử trùng đường giao. Chỉ đọc: SubmissionGrading. |
@@ -57,7 +57,7 @@ Ký hiệu: "[CẦN XÁC NHẬN]" = tài liệu chưa đủ rõ để chốt, đ
 | `TeacherClassAssignment` | UserManagement | Phân công theo quyền; chỉ đọc: Academic, Lesson, Attendance, Audit (Teacher class scope), Assessment. |
 | `Topic` | QuestionBank | Thuộc Subject (Academic, chỉ đọc). |
 | `User` | Identity | Danh tính đăng nhập, credentials/auth state. Chỉ đọc: gần như mọi module (actor, created_by...). |
-| `UserRole` | Identity | Lịch sử gán role. Thao tác gán/kết thúc role quản trị đi qua use case UserManagement nhưng ghi dữ liệu theo contract Identity [CẦN XÁC NHẬN] vì boundaries ghi UserRole ở cả hai module. |
+| `UserRole` | Identity | Chủ dữ liệu: Identity. Use case ghi (assign/end role) do UserManagement thực hiện (role assignment quản trị) và gọi contract Identity để ghi. [CẦN XÁC NHẬN] vì boundaries liệt kê UserRole ở cả Identity và UserManagement. |
 
 ## Quét giá trị `entity_type` của AuditLogger
 
