@@ -16,3 +16,4 @@
 - **BR-AUD-005 — ĐÃ QUYẾT ĐỊNH:** Lưu audit cùng thời gian lưu hồ sơ học tập; không đặt thời hạn xóa ngắn tại Step 5.
 - **BR-AUD-006 — ĐÃ QUYẾT ĐỊNH:** Lịch sử riêng được giữ cho Attendance, Grade/Result, Schedule/LessonSession, membership/phân công Teacher và Parent–Student. AuditLog không thay thế business history.
 - **BR-AUD-007 — ĐÃ QUYẾT ĐỊNH:** `before_data`, `after_data` và `reason` có thể nullable trên AuditLog nói chung vì không phải event nào cũng cần đủ cả ba. Với action nhạy cảm mà business rule yêu cầu lý do hoặc thay đổi trước/sau, các giá trị tương ứng là bắt buộc tại action đó; không ghi AuditLog của action thành công nếu thiếu dữ liệu bắt buộc.
+- **BR-AUD-008 — ĐÃ QUYẾT ĐỊNH:** Audit bắt buộc và thay đổi dữ liệu tương ứng thành công hoặc thất bại cùng nhau (một giao dịch). Ghi audit lỗi thì thay đổi bị hủy, người dùng nhận lỗi và có thể thử lại. Xem `DEC-AUD-005`.

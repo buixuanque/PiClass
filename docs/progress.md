@@ -80,6 +80,8 @@ Review spec theo **nhóm module**, không duyệt một lượt toàn bộ — t
 
 **Tới đây: BE của toàn bộ 5 nhóm module Step 9 đã xong và đã merge `main`.** Còn lại: FE cho cả 5 nhóm (Plan 1b-5b, chưa plan/code nhóm nào) + track mockup/design system (đang reset lại, xem dưới). Step 9 chưa coi là xong tới khi cả BE+FE của mọi nhóm hoàn tất.
 
+**Refactor kiến trúc BE (đã chốt hướng 2026-10-18, chưa bắt đầu code):** quy ước `app/Modules/<Module>/` + Action + FormRequest/Policy/Resource, không Repository — xem `architecture/open-decisions.md` `ARCH-17`, quy tắc chi tiết ở `piclass-api/CLAUDE.md` (branch `docs/backend-architecture-conventions`, chưa merge), plan `superpowers/plans/2026-10-18-be-architecture-refactor.md`. Đã chốt thêm `DEC-AUD-005` (audit bắt buộc lỗi thì hủy thay đổi). Làm mẫu module SubmissionGrading, dừng duyệt, rồi nhân rộng từng module. FE chưa bắt đầu nên đổi `error.code` được phép; cần hoàn tất refactor (hoặc ít nhất module tương ứng) trước khi FE bám contract.
+
 **Track song song (đang chạy):** mockup UI + design system.
 - **Reset ngày 2026-10-16:** batch mockup Stitch/ui-ux-pro-max cũ (10 màn hình Identity/Auth + 4 dashboard) đã bị xoá khỏi `piclass-mockup`; repo đã `git init` lại từ đầu, không giữ lịch sử cũ. `docs/design/MASTER.md` (design system chốt từ batch cũ) cũng đã mất file từ trước (commit `cf93fb9`, 2026-10-13) và không khôi phục — xem `architecture/open-decisions.md` (`ARCH-16`).
 - Đang chuyển sang làm mockup bằng Claude Design (claude.ai/design) thay cho Stitch. Design system mới sẽ được chốt lại (MASTER.md) từ batch mockup này khi xong, chưa có giá trị primary color/token chính thức nào ở thời điểm hiện tại.
