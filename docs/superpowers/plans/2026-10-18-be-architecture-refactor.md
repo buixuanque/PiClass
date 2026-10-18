@@ -14,6 +14,7 @@
 
 - Baseline: **402 test pass** (chạy `docker compose exec -T api php artisan test` trong `piclass-infra/local`, khoảng 12 giây). Mọi task kết thúc với số test ≥ baseline và không test cũ nào bị sửa hành vi; chỉ sửa test khi đổi namespace/đường dẫn.
 - HTTP status và `message` của mọi endpoint giữ nguyên. `error.code` được phép đổi từ mã chung (`CONFLICT`, `FORBIDDEN`...) sang mã riêng (`ATTEMPT_NOT_OPEN`...) vì FE chưa bắt đầu và test hiện không ghim `CONFLICT`; mỗi mã mới phải ghi vào `docs/architecture/error-codes.md` cùng task.
+- **Ngoại lệ đã chấp nhận (Ruling 11, 2026-10-18):** validate input bằng FormRequest chạy trước kiểm tra trạng thái nghiệp vụ, nên request vừa sai input vừa sai trạng thái trả 422 (`VALIDATION_FAILED`) thay vì 409 như trước; mỗi endpoint bị ảnh hưởng có test ghim thứ tự mới.
 - Cấu trúc JSON response giữ nguyên key (kể cả key ngoài envelope như `active_class_ids` ở `UpdateUserStatusController`).
 - Chạy lệnh trong container: tiền tố `docker compose exec -T api` tại `piclass-infra/local`. Format: `vendor/bin/pint` (chạy `--test` để kiểm).
 - Audit bắt buộc (`DEC-AUD-001`) nằm trong cùng transaction; audit lỗi thì hủy thay đổi (`DEC-AUD-005`). Không tự thêm audit cho event chưa có trong spec Module 5 §4.
