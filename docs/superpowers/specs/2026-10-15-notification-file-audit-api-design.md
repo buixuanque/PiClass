@@ -49,6 +49,7 @@ Theo `BR-AUD-002`/`DEC-AUD-001`. `reason bắt buộc` nghĩa là controller ph�
 | 4 | `GradeQuestionController`, `GradeSubmissionController` | `grade.create` / `.update` | **Có, chỉ khi sửa Grade của Result đã `published`** (dùng đúng điều kiện code đã có) |
 | 4 | `PublishResultController`, `WithdrawResultController`, `BulkPublishResultsController` | `result.publish` / `.withdraw` | Không |
 | 4 | `ReissueAttemptController` | `attempt.reissue` | **Có** (request đã bắt buộc `reason`) |
+| 4 | `SubmitAttempt` (Action, dùng chung cho POST nộp bài và GET tự nộp khi hết giờ) | `attempt.submit` | Không — bổ sung theo `ARCH-19` (2026-10-19), `DEC-AUD-001` liệt kê "Submission" là event bắt buộc |
 
 **Mẫu sửa (áp dụng lặp lại cho toàn bộ bảng trên):** ngay sau khi action chính thành công (sau `update()`/`create()`), gọi:
 ```php
