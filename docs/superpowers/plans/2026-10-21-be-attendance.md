@@ -356,3 +356,8 @@ Quy trình: trong container `mkdir /tmp/mutN && cp -a /var/www/html/. /tmp/mutN/
 - Audit + history + dữ liệu cùng transaction, có test rollback; mọi 403/404 test assert `code` + `message`.
 - Bảng đột biến: không còn lỗi cố ý sống sót (hoặc sống sót được giải thích là tương đương).
 - Tài liệu cập nhật; hai repo commit local, chưa push.
+
+## Ghi chú thực thi (điền sau khi xong)
+
+- **Khác plan:** (1) `SessionAttendanceQuery` mặc định từ chối với vai trò không phải admin/teacher/student/parent (plan Task 4 ghi "còn lại không lọc"); HTTP không đổi vì route đã chặn vai trò, nhưng vai trò rỗng ở job/console không còn thấy toàn bộ roster. (2) Thêm test `test_every_module_with_controllers_is_guarded` (đột biến "quên thêm module vào `MODULES`" sống sót) và test `lockForUpdate`/listener `afterCommit` (hai đột biến sống sót khác). (3) `routes/api.php` và `bootstrap/providers.php` đã lỗi Pint từ `main` (viết tên class đầy đủ không import); chỉ sửa đúng các dòng liên quan, không định dạng lại.
+- **Kết quả:** 983 test pass (814 + 169); 84 đột biến: 83 đỏ, 1 tương đương (bỏ `->value` ở Resource, JSON của backed Enum không đổi). Bảng chi tiết ở báo cáo Task 9a.

@@ -17,6 +17,7 @@ Mọi lỗi nghiệp vụ của API trả về theo envelope `{ "error": { "code
 | `FEEDBACK_GRADE_NOT_IN_SUBMISSION` | 422 | SubmissionGrading | Gắn Feedback vào `grade_id` không thuộc Submission này. |
 | `FEEDBACK_QUESTION_NOT_IN_VERSION` | 422 | SubmissionGrading | Gắn Feedback vào câu hỏi không thuộc version của Attempt. |
 | `FEEDBACK_STATUS_TRANSITION_INVALID` | 409 | SubmissionGrading | Chuyển trạng thái Feedback không hợp lệ (message nêu trạng thái từ/sang). |
+| `STUDENT_NOT_ELIGIBLE` | 422 | Attendance | Học viên không phải ClassMember hiệu lực tại thời điểm bắt đầu buổi học (`BR-ATT-004`). Dùng ở hai nơi cùng điều kiện: điểm danh hàng loạt (message `Một số học viên không thuộc lớp này tại thời điểm buổi học.`, kèm `error.details.student_ids` là danh sách học viên vi phạm; cả lô bị từ chối, không ghi bản ghi nào) và gửi giải trình vắng (message `Học viên không thuộc lớp của buổi học này.`, không có `details`). Mã đã tồn tại từ trước refactor; ghi vào danh mục ở Task 9a. |
 
 ## Cách thêm một dòng
 

@@ -65,8 +65,8 @@ Quét `grep -rn "entityType:" piclass-api/app`: 25 chỗ gọi `AuditLogger::rec
 
 | entity_type | Nơi gọi | Loại giá trị |
 |---|---|---|
-| AttendanceRecord | Attendance/UpdateAttendanceRecordController | Chuỗi literal |
-| AbsenceExplanation | Attendance/ReviewAbsenceExplanationController | Chuỗi literal |
+| AttendanceRecord | Attendance/Actions/UpdateAttendanceRecord | Chuỗi literal |
+| AbsenceExplanation | Attendance/Actions/ReviewAbsenceExplanation | Chuỗi literal |
 | Grade | Grading/GradeSubmissionController, Grading/GradeQuestionController | Chuỗi literal |
 | ParentStudentRelationship | UserManagement/EndParentStudentRelationshipController, CreateParentStudentRelationshipController | Chuỗi literal |
 | User | UserManagement/UpdateUserStatusController | Chuỗi literal |
