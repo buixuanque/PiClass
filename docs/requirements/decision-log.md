@@ -80,6 +80,7 @@
 | DEC-AUD-003 | Lưu business history riêng cho Attendance, Grade/Result, Schedule/LessonSession, Membership/Teacher assignment và Parent–Student; AuditLog không thay thế các lịch sử này. | ĐÃ QUYẾT ĐỊNH |
 | DEC-AUD-004 | AuditLog cho phép before_data/after_data/reason nullable ở mức schema; theo action, các trường mà business rule yêu cầu (ví dụ sửa Attendance/Grade/membership/lịch cần reason và before/after) phải được xác thực bắt buộc trước khi ghi log thành công. | ĐÃ QUYẾT ĐỊNH |
 | DEC-AUD-005 | Với event audit bắt buộc (`DEC-AUD-001`), AuditLog được ghi trong cùng giao dịch với thay đổi dữ liệu. Nếu ghi audit thất bại thì toàn bộ thay đổi bị hủy và người dùng nhận lỗi để thử lại — không có trường hợp thao tác thành công mà thiếu audit. Event ngoài danh sách bắt buộc chưa có quy định; không tự thêm kiểu "ghi audit thử rồi bỏ qua lỗi" khi chưa có quyết định riêng. | ĐÃ QUYẾT ĐỊNH |
+| DEC-AUD-006 | "Trạng thái User" của `DEC-AUD-001` gồm cả trạng thái hồ sơ vai trò Student/Teacher/Parent: đổi `status` các hồ sơ này là audit bắt buộc (`student.status_update`, `teacher.status_update`, `parent.status_update`), ghi trước/sau, cùng giao dịch theo `DEC-AUD-005`; chỉ ghi khi `status` thật sự đổi. User chốt 2026-10-21 (xem `ARCH-23(k)`). | ĐÃ QUYẾT ĐỊNH |
 
 ## Checklist hoàn tất
 
