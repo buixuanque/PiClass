@@ -106,4 +106,4 @@ Review spec theo **nhóm module**, không duyệt một lượt toàn bộ — t
 1. Đọc file này trước.
 2. Nếu máy chưa có skill Claude Code, chạy `setup/claude-skills-setup.md`.
 3. Xem checklist Step 9 đang ở nhóm nào, tiếp tục từ đó — không cần hỏi lại từ đầu.
-4. Nếu đang trong đợt refactor BE: đọc mục "Refactor kiến trúc BE — trạng thái làm việc hiện tại" ở trên và plan `superpowers/plans/2026-10-18-be-architecture-refactor.md`; Phase A đã merge, bắt đầu lại từ Task 7 (duyệt) rồi Task 8.
+4. Nếu đang trong đợt refactor BE: đọc mục "Refactor kiến trúc BE — trạng thái làm việc hiện tại" ở trên và plan `superpowers/plans/2026-10-18-be-architecture-refactor.md`; Phase A, Task 8 (ResultProgress) và Task 0 (`ActiveRole`) đã xong; việc kế tiếp là Task 0b (Enum cho `SubmissionGrading`/`ResultProgress`), rồi từng module trong Task 9 theo "Phân vai model" ở `architecture/backend-refactor-playbook.md` (Sonnet lên plan + thực thi, Opus review một lần ở cuối module).

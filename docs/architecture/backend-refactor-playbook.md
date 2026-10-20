@@ -11,9 +11,18 @@ Plan tổng: `superpowers/plans/2026-10-18-be-architecture-refactor.md`. Quyết
 3. Chuyển controller → FormRequest + Action/Query + Resource, Policy thay helper phân quyền tĩnh.
 4. Chuyển chuỗi trạng thái/loại của module sang Enum + cast.
 5. Thêm module vào `MODULES` trong `tests/Architecture/ArchitectureTest.php`.
-6. Viết ma trận test phân quyền (vai trò × phạm vi × truy cập thẳng bằng ID).
+6. Viết ma trận test phân quyền (vai trò × phạm vi × truy cập thẳng bằng ID) theo "Checklist test phân quyền" bên dưới, rồi **thử lỗi cố ý** (đột biến) trên bản sao ngoài working tree: bỏ một điều kiện, đổi thứ tự early-return, coi vai trò rỗng là admin. Test phải đỏ; lỗi cố ý nào test không bắt được thì bổ sung test.
 7. Test cũ và mới đều xanh. Chỉ sửa test cũ khi đổi cấu trúc/namespace, không khi đổi hành vi.
-8. Xử lý mục liên quan trong "Nợ đã biết" bên dưới, gạch mục đã xong.
+8. Xử lý mục liên quan trong "Nợ đã biết" bên dưới: xoá dòng đã xong (lịch sử ở git).
+9. Opus review độc lập toàn bộ branch của module trước khi merge (xem mục "Phân vai model").
+
+## Phân vai model (chốt 2026-10-20)
+
+- **Sonnet vừa lên plan vừa thực thi từng module.** Lý do: quyết định đúng lúc có đủ ngữ cảnh code, rẻ và nhanh hơn. Plan của module vẫn phải có: quy tắc "gặp điểm mơ hồ thì dừng và báo, không tự chọn"; test đặc tả hành vi viết trước khi sửa code; bước thử lỗi cố ý cho mọi Policy/hàm `ClassScope`; danh sách file được phép đụng.
+- **Opus chỉ review một lần, ở cuối module, trên toàn bộ branch, trước khi merge.** Opus phải (1) đối chiếu các quyết định phân quyền trong plan với `docs/requirements` và `docs/access-control` (người lên plan và người viết code là cùng một model, nên không ai khác kiểm lại việc hiểu sai nghiệp vụ); (2) soát hành vi không đổi: so diff trước/sau từng Policy, thứ tự early-return, message; (3) tự thử lỗi cố ý trên bản sao tạm để tìm lỗ hổng test; (4) chỉ ra chỗ plan sai/thiếu. Người thực thi nộp kèm báo cáo gồm bảng lỗi cố ý đã thử và danh sách chỗ không chắc để Opus soi trước.
+- **Module lớn thêm một điểm review giữa chừng:** UserManagement (30 controller, chia 2 PR: review từng PR) và Assessment (21 controller, ARCH-14 chưa chốt: review sau khi xong nhóm có audit và Policy). Module nhỏ review một lần ở cuối.
+- **Nền tảng mới có tính phân quyền** (ví dụ `ActiveRole`, Task 0) vẫn do Opus lên plan và review từng task; sau đó không cần cho các module áp dụng lại khuôn.
+- Căn cứ: ở Task 0, ba vòng review Opus đều tìm ra lỗ hổng test thật (lỗi cố ý vẫn qua test), trong đó lỗ hổng nặng nhất (phụ huynh xem mọi học sinh) do Sonnet tự bắt khi được yêu cầu thử lỗi cố ý. Vì vậy bước thử lỗi cố ý là bắt buộc, còn Opus soát lại một lần.
 
 ## Giữ nguyên hành vi: các bẫy đã gặp
 
