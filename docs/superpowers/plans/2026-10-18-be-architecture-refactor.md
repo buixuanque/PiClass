@@ -17,7 +17,7 @@ Các checkbox bên dưới là bản gốc của plan và **cố ý không đư�
 | Task | Trạng thái | PR (docs / BE) | Plan / ghi chú |
 |---|---|---|---|
 | 1–6 (Phase A) | Xong, đã merge | docs #14 / BE #15 | Bảng ownership, nền tảng lỗi nghiệp vụ, module mẫu `SubmissionGrading`, test kiến trúc |
-| 7 (điểm dừng) | Đã qua; còn một việc chờ user | docs #15 / BE #16 | `ARCH-18/19/20` đã chốt, mã lỗi đã dọn; **còn chờ duyệt 6 model `[CẦN XÁC NHẬN]` trong `model-ownership.md`** (không chặn tiến độ) |
+| 7 (điểm dừng) | Đã qua, không còn việc chờ user | docs #15 / BE #16 | `ARCH-18/19/20` đã chốt, mã lỗi đã dọn; 6 dòng `[CẦN XÁC NHẬN]` trong `model-ownership.md` chốt lúc refactor module liên quan |
 | 8 `ResultProgress` | Xong, đã merge | docs #15 / BE #16 | |
 | 0 `ActiveRole` (thêm ngoài plan gốc) | Xong, đã merge | docs #17 / BE #18 | `2026-10-20-be-active-role.md` (`ARCH-21`) |
 | 0b Enum (thêm ngoài plan gốc) | Xong, đã merge | docs #18 / BE #19 | `2026-10-20-be-enums-submission-result.md` |
