@@ -1,6 +1,6 @@
 # Danh mục mã lỗi nghiệp vụ (error codes)
 
-Mọi lỗi nghiệp vụ của API trả về theo envelope `{ "error": { "code", "message", "details"? } }`. File này là danh mục các `code` do domain exception phát ra (xem rule 3 và 4 trong `piclass-api/CLAUDE.md`). FE rẽ nhánh theo `code`; `message` chỉ dùng để hiển thị.
+Mọi lỗi nghiệp vụ của API trả về theo envelope `{ "error": { "code", "message", "details"? } }`. File này là danh mục các `code` do domain exception phát ra (xem rule cốt lõi "Lỗi nghiệp vụ = domain exception" trong `piclass-api/CLAUDE.md`). FE rẽ nhánh theo `code`; `message` chỉ dùng để hiển thị.
 
 | Code | HTTP | Module | Khi nào |
 | --- | --- | --- | --- |
