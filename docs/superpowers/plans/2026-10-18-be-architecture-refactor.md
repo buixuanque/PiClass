@@ -10,6 +10,22 @@
 
 **Spec:** `piclass-api/CLAUDE.md` (quy ước, nằm trên branch `docs/backend-architecture-conventions`), `docs/research/2026-10-18-laravel-backend-architecture-patterns.md`, `DEC-AUD-005`, `ARCH-17`. Business rule/phân quyền ở `docs/requirements|access-control|database` ưu tiên cao hơn.
 
+## Trạng thái thực hiện (cập nhật 2026-10-21)
+
+Các checkbox bên dưới là bản gốc của plan và **cố ý không được tick**, vì nhiều task đã chạy lệch plan ở một số bước (xem `2026-10-18-be-architecture-refactor-rulings.md`). Trạng thái thực tế nằm ở bảng này. Quy trình hiện hành cho mỗi module là mục "Phân vai model" trong `docs/architecture/backend-refactor-playbook.md` (Sonnet lên plan riêng và thực thi, Opus review một lần ở cuối module). Khung P1–P7 bên dưới vẫn dùng, bổ sung bắt buộc thử lỗi cố ý (đột biến) cho test phân quyền.
+
+| Task | Trạng thái | PR (docs / BE) | Plan / ghi chú |
+|---|---|---|---|
+| 1–6 (Phase A) | Xong, đã merge | docs #14 / BE #15 | Bảng ownership, nền tảng lỗi nghiệp vụ, module mẫu `SubmissionGrading`, test kiến trúc |
+| 7 (điểm dừng) | Đã qua, không còn việc chờ user | docs #15 / BE #16 | `ARCH-18/19/20` đã chốt, mã lỗi đã dọn; 6 dòng `[CẦN XÁC NHẬN]` trong `model-ownership.md` chốt lúc refactor module liên quan |
+| 8 `ResultProgress` | Xong, đã merge | docs #15 / BE #16 | |
+| 0 `ActiveRole` (thêm ngoài plan gốc) | Xong, đã merge | docs #17 / BE #18 | `2026-10-20-be-active-role.md` (`ARCH-21`) |
+| 0b Enum (thêm ngoài plan gốc) | Xong, đã merge | docs #18 / BE #19 | `2026-10-20-be-enums-submission-result.md` |
+| 9a `Attendance` | Xong, đã merge | docs #22 / BE #20 | `2026-10-21-be-attendance.md`; lệch với requirements ghi ở `ARCH-22` (issue #19, #20) |
+| 9b–9i | **Chưa làm** | | Việc kế tiếp: 9b `UserManagement` (chia 2 PR, review từng PR) |
+| 10 (Phase C) | Đã hủy | | `ARCH-17` sửa đổi 2026-10-19 |
+| 11 (Phase D) | Chưa làm | | Chỉ làm sau khi xong 9b–9i |
+
 ## Global Constraints
 
 - Baseline: **402 test pass** (chạy `docker compose exec -T api php artisan test` trong `piclass-infra/local`, khoảng 12 giây). Mọi task kết thúc với số test ≥ baseline và không test cũ nào bị sửa hành vi; chỉ sửa test khi đổi namespace/đường dẫn.

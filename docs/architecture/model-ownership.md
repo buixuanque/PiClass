@@ -1,10 +1,21 @@
 # Ownership Model theo module
 
-> Trạng thái: Bản nháp, chờ user duyệt.
+> Trạng thái: Dùng được, **không còn chờ user duyệt riêng** (cập nhật 2026-10-21). Các dòng `[CẦN XÁC NHẬN]` được chốt lúc refactor module liên quan (xem bảng "Chốt khi nào" bên dưới); đoán sai chỉ tốn sửa một hằng trong test.
 
 Bảng này gán mỗi Eloquent Model trong `piclass-api/app/Models` (48 file) cho đúng một module chủ, theo [module-boundaries.md](module-boundaries.md) và `docs/database/schema.md`. Dùng cho việc đặt Policy/Query (Task 5) và enforce quyền ghi qua `ArchitectureTest` (rule R4). **Không dùng để di chuyển vị trí file** — quyết định 2026-10-19 (xem `ARCH-17` ở `open-decisions.md`) hủy việc đổi namespace Model sang `app/Modules/<Module>/`; mọi model ở lại `App\Models` vĩnh viễn, dùng chung cho mọi module. Module chủ là nơi duy nhất được ghi dữ liệu; module "chỉ đọc" chỉ truy vấn qua contract/Query của module chủ.
 
-Ký hiệu: "[CẦN XÁC NHẬN]" = tài liệu chưa đủ rõ để chốt, đã chọn phương án phù hợp nhất, user cần duyệt.
+Ký hiệu: "[CẦN XÁC NHẬN]" = tài liệu chưa đủ rõ để chốt, đã chọn phương án phù hợp nhất. Từ khi Model ở lại `App\Models` vĩnh viễn (Phase C đã hủy), bảng này chỉ còn một tác dụng: rule R4 của `ArchitectureTest` (module không tự ghi Model của module khác). R4 chỉ áp dụng cho module nằm trong `MODULES`, nên các dòng chưa chắc chỉ có tác động khi module sở hữu hoặc module ghi chúng được refactor.
+
+### Chốt khi nào (các dòng `[CẦN XÁC NHẬN]`)
+
+| Model | Chốt ở | Câu hỏi còn lại |
+|---|---|---|
+| `Role`, `UserRole` | Task 9b `UserManagement` / 9g `Identity` | Identity là chủ dữ liệu, `UserManagement` thực hiện use case ghi (assign/end role) qua Action của Identity hay trực tiếp |
+| `Schedule`, `ScheduleHistory` | Task 9e `Lesson` / 9f `Academic` | Chủ là Lesson hay Academic (module-boundaries mâu thuẫn giữa hai dòng) |
+| `QuestionBank` | Task 9d `QuestionBank` | Cần đối chiếu migration (schema.md không có bảng riêng) |
+| `ParentProfile` | Không còn câu hỏi | Câu hỏi "đổi tên khi chuyển namespace" không còn áp dụng; Model giữ nguyên tên và vị trí |
+
+Plan của module tương ứng đề xuất, review cuối module xác nhận, rồi bỏ nhãn `[CẦN XÁC NHẬN]` ở dòng đó và cập nhật `MODEL_OWNERS` trong `ArchitectureTest`.
 
 ## Bảng ownership
 
