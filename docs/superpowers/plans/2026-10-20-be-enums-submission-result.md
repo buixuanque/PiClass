@@ -104,6 +104,8 @@ Tên case: PascalCase của giá trị (`InProgress`, `AwaitingGrading`, `Parent
 | `SubmissionGrading/Actions/StartAttempt.php` | `'published'` (`$assessment->status !== 'published'`) | Trạng thái `Assessment` (D3), chờ Enum của module `Assessment` |
 | `ResultProgress/Actions/PublishResult.php` | `'manual'` (`'trigger' => $auto ? 'auto_release' : 'manual'`) | Giá trị audit `trigger`, không phải `GradingMethod`; trùng giá trị chữ |
 | `ResultProgress/Queries/StudentProgressQuery.php` | `'cancelled'` (`assessment.status != 'cancelled'`) | Trạng thái `Assessment` (D3), trùng giá trị chữ với `AttemptStatus::Cancelled` |
+| `ResultProgress/Actions/BulkPublishResults.php` | `'published'` (khóa JSON `['published' => ..., 'skipped' => ...]`) | Tên khóa response, không phải `PublicationStatus` (phát hiện khi chạy R8) |
+| `ResultProgress/Http/Requests/GetStudentProgressRequest.php` | `'student'` (`$this->route('student')`) | Tên route parameter, không phải `ResultAudience` (phát hiện khi chạy R8) |
 
 (`StartAttempt` còn `'assigned'` của `StudentAssessment` — không trùng giá trị Enum nào nên không cần ngoại lệ; ghi vào "Nợ" của playbook.)
 
@@ -148,7 +150,7 @@ Kết luận: ngoài hai module, **chỉ hai Model dùng chung** (`Attempt.php`:
 3. **Cast toàn app:** các đường chép giá trị trong `app/Http/Controllers/Api/Assessment` (X1-X4) và đường mặc định `?? 'latest'`.
 4. **`Result` dùng ở cả hai module:** `SubmissionGrading` đọc `result?->publication_status` (GradeQuestion, ReissueAttempt, hai FormRequest) — phải đổi cùng lúc với cast `Result` (Task 4).
 5. **Validation giữ thông báo:** `visibility`, `status` của feedback (test `test_create_feedback_rejects_unknown_visibility...`).
-6. **Rule R8 không false positive:** `KNOWN_LITERALS` chỉ 3 ngoại lệ; test hết hạn.
+6. **Rule R8 không false positive:** `KNOWN_LITERALS` chỉ 5 ngoại lệ (đã tìm thấy lúc chạy: 3 dự kiến + khóa JSON `'published'` ở `BulkPublishResults`, tên route param `'student'` ở `GetStudentProgressRequest`); test hết hạn.
 7. **Đột biến (Task 7):** bảng lỗi cố ý, cái nào sống sót và test bổ sung.
 
 ---
@@ -397,8 +399,8 @@ enum AttemptStatus: string
 
 - [ ] **Step 1: Viết sanity test cho scanner (đỏ):** `test_literal_scanner_finds_enum_values_in_code_but_not_in_comments_or_docblocks`: mã giả chứa `if ($x === 'in_progress')`, `['status' => 'graded']`, `"published"` (dấu nháy kép không nội suy) → bắt đúng số dòng; chuỗi trong comment/docblock, chuỗi dài hơn giá trị (`'in_progress_foo'`, `'required|in:private,learner'`), tên khóa không trùng (`'score'`) → không bắt.
 - [ ] **Step 2: Cài scanner.** Dùng `token_get_all` lấy token `T_CONSTANT_ENCAPSED_STRING`, bỏ dấu nháy, so sánh **bằng nguyên** với tập giá trị đọc từ mọi `app/Modules/*/Enums/*.php` (đọc bằng regex `case \w+ = '([^']+)'` trên source, không cần autoload). Quét mọi file `.php` của module trong `MODULES` **trừ** thư mục `Enums/`. Tập giá trị hợp lệ rỗng → test fail (guard "không quét gì").
-- [ ] **Step 3: `KNOWN_LITERALS`** gồm đúng 3 mục ở bảng "Literal còn lại" (`[file, literal, lý do]`), khớp theo `file + literal`. Test `test_known_literals_are_still_violations` fail với message "remove it" khi mục không còn vi phạm.
-- [ ] **Step 4: Chạy** `--filter=ArchitectureTest`. Vi phạm ngoài 3 mục: DỪNG (đó là chuỗi còn sót ở Task 3-5). Cập nhật docblock đầu class: thêm dòng R8.
+- [ ] **Step 3: `KNOWN_LITERALS`** gồm đúng các mục ở bảng "Literal còn lại" (5 mục sau khi chạy thật) (`[file, literal, lý do]`), khớp theo `file + literal`. Test `test_known_literals_are_still_violations` fail với message "remove it" khi mục không còn vi phạm.
+- [ ] **Step 4: Chạy** `--filter=ArchitectureTest`. Vi phạm ngoài danh sách đó: DỪNG (đó là chuỗi còn sót ở Task 3-5). Cập nhật docblock đầu class: thêm dòng R8.
 - [ ] **Step 5: Chứng minh bắt được thật:** tạm thêm `$x = 'in_progress';` vào `Actions/SaveAnswer.php` trong **bản sao** (xem Task 7 cách làm), chạy ArchitectureTest → đỏ nêu `[R8]`.
 - [ ] **Step 6: Pint + commit** `test: forbid raw enum value literals in refactored modules`.
 
@@ -475,7 +477,7 @@ wsl.exe -d Ubuntu-22.04 -- bash -lc 'docker exec piclass-local-api-1 rm -rf /tmp
   - Commit: `docs: record enum conversion and clear the enum refactor debt`.
 - [ ] **Step 5: Báo cáo cho user và DỪNG.** Số test cuối, danh sách commit ở cả hai repo (`git log --oneline origin/main..HEAD`), bảng ảnh hưởng đã chạm, bảng đột biến, điểm DỪNG/không chắc, xác nhận chưa push; nhắc repo docs có commit chưa push.
 
-**Tiêu chí xong:** toàn bộ test xanh, số test ≥ 694 + test mới; `pint --test` sạch trên file đã đổi; R8 xanh với đúng 3 ngoại lệ; mọi đột biến đỏ (trừ M8 tương đương); hai branch có commit local, chưa push.
+**Tiêu chí xong:** toàn bộ test xanh, số test ≥ 694 + test mới; `pint --test` sạch trên file đã đổi; R8 xanh với đúng 5 ngoại lệ; mọi đột biến đỏ (trừ M8 tương đương); hai branch có commit local, chưa push.
 
 ---
 
@@ -486,3 +488,11 @@ wsl.exe -d Ubuntu-22.04 -- bash -lc 'docker exec piclass-local-api-1 rm -rf /tmp
 - **JSON/audit/validation:** pin bằng literal ở Task 1; ranh giới mảng dùng `->value` (D6); validation giữ thông báo (D9, có test).
 - **Chữ ký nhất quán:** `SetFeedbackStatus::handle(Feedback, FeedbackStatus)`; `StudentAssessmentResultQuery::handle(Assessment, string, ResultAudience = Student)`; `ResultCalculator::calculate(...)['grading_status']: GradingStatus`; `FeedbackStatusTransitionInvalid::between(string, string)`.
 - **Đếm test:** 694 → +N1 (Task 1) → +N2 (Task 2, unit Enum) → +N3.. (cast, R8, test bổ sung đột biến). Ghi con số thực tế từng task; yêu cầu: 0 fail và không test cũ nào bị xóa.
+
+---
+
+## Kết quả thực thi (2026-10-20)
+
+- Test: baseline 694 → Task 1 (+26) → Task 2 (+23) → Task 3 (+25) = 768 → Task 4 783 → Task 5 + R8 → Task 7 bổ sung 813; 0 fail.
+- **Lệch so với plan, đã xử lý tại chỗ:** (1) R8 tìm thấy 2 literal ngoài 3 dự kiến (khóa JSON `'published'`, route param `'student'`) → thêm vào `KNOWN_LITERALS` (5 mục). (2) `AutoGraderTest::test_unknown_question_type_needs_manual_grading` dùng loại câu `'drawing'` (không bao giờ hợp lệ trong DB, ràng buộc CHECK chặn) nên cast `QuestionType` ném `ValueError` khi dựng câu hỏi; test được thay bằng `test_a_question_type_outside_the_enum_cannot_be_built` (hai loại thủ công thật `essay`/`file_upload` đã có test riêng). (3) Test `assertNotSame('in_progress', $attempt->refresh()->status)` (GetAttemptTest) và `pluck('status')` (GradingAuthorizationMatrixTest) cần sửa thêm ngoài danh sách `assertSame` trong plan. (4) Task 1 bỏ test chuyển trạng thái feedback và `pending_count` vì đã có (`GradingEndpointsBehaviorTest`); riêng `pending_count` hóa ra chưa phân biệt được nên được bổ sung ở Task 7 (`test_progress_pending_count_counts_unpublished_incomplete_results_only`). (5) Pint báo thêm `AttemptAuthorizationMatrixTest.php` lỗi sẵn trên `main` (fully_qualified_strict_types); file này có đổi nên đã chạy `pint` và chấp nhận thay đổi style một dòng.
+- **Đột biến (Task 7):** 40 lỗi cố ý trên bản sao `/tmp/mut` trong container (đã xóa). Lần đầu 7 sống sót ngoài 2 đột biến tương đương (M8/M8b: bỏ `->value` ở audit, `json_encode` ra cùng chuỗi): M20/M20b/M20c (`highest` vs `latest`: fixture cũ điểm cao nhất trùng lượt cuối; thiếu nhánh `?? Latest` khi SA không có version), M22/M22b (xáo option theo loại câu), M34 (`pending_count`), M40 (idempotent publish). Đã bổ sung test (`ResultValueContractTest`, `BuildAttemptQuestionsTest`) và chạy lại: đều đỏ.
