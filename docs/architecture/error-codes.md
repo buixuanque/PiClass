@@ -23,6 +23,12 @@ Mọi lỗi nghiệp vụ của API trả về theo envelope `{ "error": { "code
 | `ROLE_ALREADY_HELD` | 409 | UserManagement | Gán một role mà User đang giữ hiệu lực. |
 | `ALREADY_INVITED` | 409 | UserManagement | Mời một hồ sơ cá nhân đã có tài khoản đăng nhập. |
 | `NO_PROFILE` | 404 | UserManagement | User tự sửa hồ sơ (`PATCH /me/profile`) nhưng tài khoản chưa liên kết hồ sơ cá nhân. |
+| `ALREADY_A_MEMBER` | 409 | UserManagement | Thêm học viên vào lớp khi đã là thành viên đang hoạt động (`POST /classes/{class}/members`). Học viên đã `ended` được thêm lại bằng dòng mới. |
+| `ALREADY_ASSIGNED` | 409 | UserManagement | Phân công teacher vào lớp khi đã có phân công đang hoạt động (`POST /classes/{class}/teachers`). |
+| `ALREADY_LINKED` | 409 | UserManagement | Tạo liên kết Parent–Student khi cặp này đã có liên kết đang hoạt động (`POST /parent-student-relationships`). |
+| `ALREADY_ENDED` | 409 | UserManagement | Kết thúc một liên kết Parent–Student đã kết thúc (`DELETE /parent-student-relationships/{id}`). |
+| `VALIDATION_FAILED` (message `valid_to phải sau valid_from.`) | 422 | UserManagement | Sửa hồi tố thành viên lớp (`PATCH /classes/{class}/members/{studentId}`) với `valid_to` không sau `valid_from`; so với `valid_from` đang lưu nên ném từ Action (`InvalidMembershipPeriod`), không đặt trong `rules()`. Dùng lại mã chung, không có `error.details`. |
+| `NOT_FOUND` (message `Không tìm thấy.`) | 404 | UserManagement | Parent xem `GET /me/children/{studentId}` một học viên không phải con còn liên kết hiệu lực (không tồn tại, của Parent khác, liên kết đã kết thúc, hoặc không có hồ sơ Parent đều cùng thông báo, nên không lộ sự tồn tại). Khác message `Request failed.` mặc định của `ARCH-20`; giữ nguyên hành vi cũ. |
 
 ## Cách thêm một dòng
 

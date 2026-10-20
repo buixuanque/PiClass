@@ -79,11 +79,11 @@ Quét `grep -rn "entityType:" piclass-api/app`: 25 chỗ gọi `AuditLogger::rec
 | AttendanceRecord | Attendance/Actions/UpdateAttendanceRecord | Chuỗi literal |
 | AbsenceExplanation | Attendance/Actions/ReviewAbsenceExplanation | Chuỗi literal |
 | Grade | Grading/GradeSubmissionController, Grading/GradeQuestionController | Chuỗi literal |
-| ParentStudentRelationship | UserManagement/EndParentStudentRelationshipController, CreateParentStudentRelationshipController | Chuỗi literal |
+| ParentStudentRelationship | UserManagement/Actions/EndParentStudentRelationship, CreateParentStudentRelationship | Chuỗi literal |
 | User | UserManagement/Actions/UpdateUserStatus | Chuỗi literal |
-| ClassMember | UserManagement/EndClassMemberController, AddClassMemberController, UpdateClassMemberController | Chuỗi literal |
+| ClassMember | UserManagement/Actions/EndClassMember, AddClassMember, UpdateClassMember | Chuỗi literal |
 | UserRole | UserManagement/Actions/EndUserRole, AssignUserRole | Chuỗi literal |
-| TeacherClassAssignment | UserManagement/AssignTeacherToClassController, EndTeacherClassAssignmentController | Chuỗi literal |
+| TeacherClassAssignment | UserManagement/Actions/AssignTeacherToClass, EndTeacherClassAssignment | Chuỗi literal |
 | Assessment | Assessment/CloseAssessmentController, CancelAssessmentController, PublishAssessmentController, ReopenAssessmentController | Chuỗi literal |
 | Schedule | Lesson/UpdateScheduleController, CancelScheduleController | Chuỗi literal |
 | LessonSession | Lesson/UpdateLessonSessionController, CancelLessonSessionController | Chuỗi literal |
