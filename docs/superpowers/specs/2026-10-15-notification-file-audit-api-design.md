@@ -36,6 +36,7 @@ Theo `BR-AUD-002`/`DEC-AUD-001`. `reason bắt buộc` nghĩa là controller ph�
 | Module | Controller (file đã có) | `action` | `reason` bắt buộc? |
 |---|---|---|---|
 | 1 | `UpdateUserStatusController` | `user.status_update` | Không |
+| 1 | `UpdateStudentController`, `UpdateTeacherController`, `UpdateParentController` (chỉ khi `status` đổi; bổ sung theo `DEC-AUD-006`, 2026-10-21) | `student.status_update` / `teacher.status_update` / `parent.status_update` | Không |
 | 1 | `AssignUserRoleController`, `EndUserRoleController` | `user_role.assign` / `user_role.end` | Không |
 | 1 | `CreateParentStudentRelationshipController`, `EndParentStudentRelationshipController` | `parent_student_relationship.create` / `.end` | Không |
 | 1 | `AddClassMemberController`, `EndClassMemberController` | `class_member.add` / `.end` | Không |

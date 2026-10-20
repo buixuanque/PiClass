@@ -10,7 +10,7 @@ Ký hiệu: "[CẦN XÁC NHẬN]" = tài liệu chưa đủ rõ để chốt, đ
 
 | Model | Chốt ở | Câu hỏi còn lại |
 |---|---|---|
-| `Role`, `UserRole` | Task 9b `UserManagement` / 9g `Identity` | Identity là chủ dữ liệu, `UserManagement` thực hiện use case ghi (assign/end role) qua Action của Identity hay trực tiếp |
+| `Role` | Task 9g `Identity` | `UserRole` đã chốt ở Task 9b (2026-10-21): chủ ghi là UserManagement. `Role` (danh mục, chỉ đọc) còn nhãn `[CẦN XÁC NHẬN]`, chốt khi refactor Identity |
 | `Schedule`, `ScheduleHistory` | Task 9e `Lesson` / 9f `Academic` | Chủ là Lesson hay Academic (module-boundaries mâu thuẫn giữa hai dòng) |
 | `QuestionBank` | Task 9d `QuestionBank` | Cần đối chiếu migration (schema.md không có bảng riêng) |
 | `ParentProfile` | Không còn câu hỏi | Câu hỏi "đổi tên khi chuyển namespace" không còn áp dụng; Model giữ nguyên tên và vị trí |
@@ -68,7 +68,7 @@ Plan của module tương ứng đề xuất, review cuối module xác nhận, 
 | `TeacherClassAssignment` | UserManagement | Phân công theo quyền; chỉ đọc: Academic, Lesson, Attendance, Audit (Teacher class scope), Assessment. |
 | `Topic` | QuestionBank | Thuộc Subject (Academic, chỉ đọc). |
 | `User` | Identity | Danh tính đăng nhập, credentials/auth state. Chỉ đọc: gần như mọi module (actor, created_by...). |
-| `UserRole` | Identity | Chủ dữ liệu: Identity. Use case ghi (assign/end role) do UserManagement thực hiện (role assignment quản trị) và gọi contract Identity để ghi. [CẦN XÁC NHẬN] vì boundaries liệt kê UserRole ở cả Identity và UserManagement. |
+| `UserRole` | UserManagement | Chủ ghi: UserManagement — `AssignUserRole`, `EndUserRole` là nơi duy nhất ghi bảng này (chốt Task 9b, 2026-10-21; trước đó ghi Identity). Chỉ đọc: Identity (`User::hasActiveRole`, `anotherActiveAdminExists`, middleware `EnsureRole`, chọn ngữ cảnh vai trò). |
 
 ## Quét giá trị `entity_type` của AuditLogger
 
@@ -80,9 +80,9 @@ Quét `grep -rn "entityType:" piclass-api/app`: 25 chỗ gọi `AuditLogger::rec
 | AbsenceExplanation | Attendance/Actions/ReviewAbsenceExplanation | Chuỗi literal |
 | Grade | Grading/GradeSubmissionController, Grading/GradeQuestionController | Chuỗi literal |
 | ParentStudentRelationship | UserManagement/EndParentStudentRelationshipController, CreateParentStudentRelationshipController | Chuỗi literal |
-| User | UserManagement/UpdateUserStatusController | Chuỗi literal |
+| User | UserManagement/Actions/UpdateUserStatus | Chuỗi literal |
 | ClassMember | UserManagement/EndClassMemberController, AddClassMemberController, UpdateClassMemberController | Chuỗi literal |
-| UserRole | UserManagement/EndUserRoleController, AssignUserRoleController | Chuỗi literal |
+| UserRole | UserManagement/Actions/EndUserRole, AssignUserRole | Chuỗi literal |
 | TeacherClassAssignment | UserManagement/AssignTeacherToClassController, EndTeacherClassAssignmentController | Chuỗi literal |
 | Assessment | Assessment/CloseAssessmentController, CancelAssessmentController, PublishAssessmentController, ReopenAssessmentController | Chuỗi literal |
 | Schedule | Lesson/UpdateScheduleController, CancelScheduleController | Chuỗi literal |
