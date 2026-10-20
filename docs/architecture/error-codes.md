@@ -18,6 +18,11 @@ Mọi lỗi nghiệp vụ của API trả về theo envelope `{ "error": { "code
 | `FEEDBACK_QUESTION_NOT_IN_VERSION` | 422 | SubmissionGrading | Gắn Feedback vào câu hỏi không thuộc version của Attempt. |
 | `FEEDBACK_STATUS_TRANSITION_INVALID` | 409 | SubmissionGrading | Chuyển trạng thái Feedback không hợp lệ (message nêu trạng thái từ/sang). |
 | `STUDENT_NOT_ELIGIBLE` | 422 | Attendance | Học viên không phải ClassMember hiệu lực tại thời điểm bắt đầu buổi học (`BR-ATT-004`). Dùng ở hai nơi cùng điều kiện: điểm danh hàng loạt (message `Một số học viên không thuộc lớp này tại thời điểm buổi học.`, kèm `error.details.student_ids` là danh sách học viên vi phạm; cả lô bị từ chối, không ghi bản ghi nào) và gửi giải trình vắng (message `Học viên không thuộc lớp của buổi học này.`, không có `details`). Mã đã tồn tại từ trước refactor; ghi vào danh mục ở Task 9a. |
+| `LAST_ADMIN` | 409 | UserManagement | Vô hiệu hóa User hoặc kết thúc role `admin` của Admin cuối cùng còn quyền quản trị (`BR-USER-007`). Dùng ở `PATCH /users/{user}` và `DELETE /users/{user}/roles/{roleId}`. |
+| `ACTIVE_ASSIGNMENTS_EXIST` | 422 | UserManagement | Vô hiệu hóa Teacher (qua `PATCH /users/{user}`, `PATCH /teachers/{teacher}` hoặc kết thúc role `teacher`) khi còn phân công lớp đang hoạt động (`BR-USER-010`). Kèm khóa `active_class_ids` ở cấp cao nhất của JSON, cạnh `error` (không nằm trong `error.details`). |
+| `ROLE_ALREADY_HELD` | 409 | UserManagement | Gán một role mà User đang giữ hiệu lực. |
+| `ALREADY_INVITED` | 409 | UserManagement | Mời một hồ sơ cá nhân đã có tài khoản đăng nhập. |
+| `NO_PROFILE` | 404 | UserManagement | User tự sửa hồ sơ (`PATCH /me/profile`) nhưng tài khoản chưa liên kết hồ sơ cá nhân. |
 
 ## Cách thêm một dòng
 

@@ -22,7 +22,8 @@ Các checkbox bên dưới là bản gốc của plan và **cố ý không đư�
 | 0 `ActiveRole` (thêm ngoài plan gốc) | Xong, đã merge | docs #17 / BE #18 | `2026-10-20-be-active-role.md` (`ARCH-21`) |
 | 0b Enum (thêm ngoài plan gốc) | Xong, đã merge | docs #18 / BE #19 | `2026-10-20-be-enums-submission-result.md` |
 | 9a `Attendance` | Xong, đã merge | docs #22 / BE #20 | `2026-10-21-be-attendance.md`; lệch với requirements ghi ở `ARCH-22` (issue #19, #20) |
-| 9b–9i | **Chưa làm** | | Việc kế tiếp: 9b `UserManagement` (chia 2 PR, review từng PR) |
+| 9b `UserManagement` PR 1 (User/Role/Profile) | Xong trên branch local, chờ Opus review và user merge | docs chưa push / BE chưa push | `2026-10-21-be-user-management.md`; PR 2 (Class/Parent) sau khi PR 1 merge |
+| 9c–9i | **Chưa làm** | | Việc kế tiếp sau 9b: 9c `Assessment` |
 | 10 (Phase C) | Đã hủy | | `ARCH-17` sửa đổi 2026-10-19 |
 | 11 (Phase D) | Chưa làm | | Chỉ làm sau khi xong 9b–9i |
 
