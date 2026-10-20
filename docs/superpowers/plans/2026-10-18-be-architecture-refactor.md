@@ -4,7 +4,7 @@
 
 **Goal:** Đưa `piclass-api` từ "logic trong controller, `new Service()`, abort rải rác" sang cấu trúc `app/Modules/<Module>/` với FormRequest → Controller → Action → Eloquent đúng `piclass-api/CLAUDE.md`, không đổi hành vi nghiệp vụ.
 
-**Architecture:** Làm mẫu một module nhỏ trọn vẹn (SubmissionGrading) để kiểm chứng quy ước, dừng để duyệt, rồi nhân rộng từng module một PR. Logic chuyển trước, Model đổi namespace sau (PR riêng). Test kiến trúc mở rộng dần theo danh sách module đã refactor.
+**Architecture:** Làm mẫu một module nhỏ trọn vẹn (SubmissionGrading) để kiểm chứng quy ước, dừng để duyệt, rồi nhân rộng từng module một PR. Model ở lại `App\Models` vĩnh viễn (quyết định 2026-10-19, xem `ARCH-17`) — không có bước đổi namespace Model sau này. Test kiến trúc mở rộng dần theo danh sách module đã refactor.
 
 **Tech Stack:** Laravel 11, PHP 8.2, PostgreSQL, PHPUnit, Pint, Docker (`piclass-infra/local`).
 
@@ -18,7 +18,7 @@
 - Cấu trúc JSON response giữ nguyên key (kể cả key ngoài envelope như `active_class_ids` ở `UpdateUserStatusController`).
 - Chạy lệnh trong container: tiền tố `docker compose exec -T api` tại `piclass-infra/local`. Format: `vendor/bin/pint` (chạy `--test` để kiểm).
 - Audit bắt buộc (`DEC-AUD-001`) nằm trong cùng transaction; audit lỗi thì hủy thay đổi (`DEC-AUD-005`). Không tự thêm audit cho event chưa có trong spec Module 5 §4.
-- Model giữ `App\Models` đến Phase C. Routes giữ ở `routes/api.php`.
+- Model giữ `App\Models` vĩnh viễn (không có Phase C đổi namespace — hủy theo quyết định 2026-10-19, xem `ARCH-17`). Routes giữ ở `routes/api.php`.
 - Git: mỗi task một branch từ `origin/main` đã `git fetch`; commit local; chỉ push/PR/merge khi user yêu cầu; không xóa branch.
 - Tài liệu tiếng Việt; code/commit tiếng Anh. Cập nhật `docs/progress.md` và `error-codes.md` (repo docs) khi xong mỗi module.
 
@@ -52,12 +52,12 @@ Mọi task "refactor module X" thực hiện đúng các bước sau, kèm bản
 - Create: `docs/architecture/model-ownership.md` (repo docs)
 
 **Interfaces:**
-- Produces: bảng "Model → module sở hữu" dùng cho Task 5 (đặt Policy/Query) và Phase C (đổi namespace); danh sách giá trị `entity_type` thực tế mà các nơi gọi `AuditLogger` truyền vào.
+- Produces: bảng "Model → module sở hữu" dùng cho Task 5 (đặt Policy/Query) và cho `ArchitectureTest` rule R4 (enforce "ai được ghi"; không còn dùng để đổi namespace — xem Phase C đã hủy); danh sách giá trị `entity_type` thực tế mà các nơi gọi `AuditLogger` truyền vào.
 
 - [ ] **Step 1:** Liệt kê 48 file `piclass-api/app/Models`, ghép với `docs/database/*` và `docs/architecture/module-boundaries.md` thành bảng `Model | Module sở hữu | Ghi chú` (model dùng chung như `User`, `Student`, `ClassMember` ghi rõ module chủ và module chỉ đọc).
 - [ ] **Step 2:** Quét 25 nơi gọi `AuditLogger::record` (`grep -rn "entityType:" piclass-api/app`) và ghi vào cuối file danh sách `entity_type` đang dùng; đánh dấu giá trị nào là tên class đầy đủ (nếu có) vì đổi namespace Model sẽ phá dữ liệu cũ.
 - [ ] **Step 3:** Verify đủ 48 model, mỗi model đúng một dòng: `for m in $(ls piclass-api/app/Models | sed 's/.php//'); do grep -c "\`$m\`" docs/architecture/model-ownership.md; done | sort | uniq -c` → chỉ có giá trị `1`.
-- [ ] **Step 4:** Báo user duyệt bảng (đây là quyết định ranh giới, user phải xác nhận trước Phase C). Commit.
+- [ ] **Step 4:** Báo user duyệt bảng (đây là quyết định ranh giới, dùng để enforce quyền ghi qua `ArchitectureTest`). Commit.
 
 ### Task 2: Nền tảng lỗi nghiệp vụ
 
@@ -169,22 +169,15 @@ Mọi task "refactor module X" thực hiện đúng các bước sau, kèm bản
 - [ ] **Step 1:** Với mỗi dòng: thực hiện P1–P7, một PR. Sau mỗi module cập nhật `docs/progress.md`.
 - [ ] **Step 2:** Enum dùng chung xuất hiện nhiều module (`question_type`, trạng thái điểm danh, `active/inactive`, 4 role code) tạo ở module sở hữu và để module khác import; không tạo thư mục Enum cấp cao.
 
-## Phase C — Đổi namespace Model
+## Phase C — (đã hủy)
 
-### Task 10: Chuyển Model về module sở hữu
-
-**Files:**
-- Move: từng file `app/Models/<X>.php` → `app/Modules/<Owner>/Models/<X>.php` theo `model-ownership.md`
-
-- [ ] **Step 1:** Điều kiện: Phase B xong ít nhất cho module sở hữu; Task 1 đã xác nhận không có `entity_type` là tên class đầy đủ.
-- [ ] **Step 2:** Mỗi PR một module sở hữu: `git mv`, đổi namespace, thay tham chiếu `App\Models\<X>` trong `app`, `database` (factory, seeder), `tests`, `routes`; `composer dump-autoload`; full suite ≥ baseline; `grep -rn "App\\\\Models\\\\<X>"` rỗng.
-- [ ] **Step 3:** Model dùng chung (`User`...) chuyển sau cùng, một PR riêng.
+`Phase C — Đổi namespace Model` (di chuyển `app/Models/<X>.php` → `app/Modules/<Owner>/Models/<X>.php`) đã bị hủy theo quyết định 2026-10-19 (`ARCH-17`, sửa đổi). Model ở lại `App\Models` vĩnh viễn, dùng chung cho mọi module; `model-ownership.md` chỉ còn dùng để enforce "ai được ghi" qua `ArchitectureTest`, không dùng để dời file. Lý do: quan hệ Eloquent cắt ngang module quá nhiều, dời file không giải quyết thêm vấn đề kỹ thuật so với chi phí/rủi ro đổi namespace trên diện rộng.
 
 ## Phase D — Dọn dẹp
 
 ### Task 11: Hoàn tất
 
-- [ ] **Step 1:** Xóa `app/Services` và thư mục `app/Http/Controllers/Api` khi rỗng; `app/Models` khi rỗng. `MODULES` trong `ArchitectureTest` gồm đủ 12 module; thêm kiểm tra không còn thư mục cấp cao theo tầng.
+- [ ] **Step 1:** Xóa `app/Services` và thư mục `app/Http/Controllers/Api` khi rỗng (**giữ nguyên `app/Models`** — không xóa, xem Phase C đã hủy ở trên). `MODULES` trong `ArchitectureTest` gồm đủ 12 module; thêm kiểm tra không còn thư mục cấp cao theo tầng khác (ngoại trừ `app/Models`).
 - [ ] **Step 2:** Tạo task riêng cài PHPStan/Larastan (level thấp, tăng dần) — chỉ làm khi user duyệt.
 - [ ] **Step 3:** Cập nhật `piclass-api/CLAUDE.md` mục Trạng thái (bỏ "đích đến", ghi "đã áp dụng") và `docs/progress.md`; chuyển `ARCH-17` kèm ngày hoàn tất.
 

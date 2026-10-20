@@ -1,8 +1,8 @@
 # Ownership Model theo module
 
-> Trạng thái: Bản nháp, chờ user duyệt trước Phase C.
+> Trạng thái: Bản nháp, chờ user duyệt.
 
-Bảng này gán mỗi Eloquent Model trong `piclass-api/app/Models` (48 file) cho đúng một module chủ, theo [module-boundaries.md](module-boundaries.md) và `docs/database/schema.md`. Dùng cho việc đặt Policy/Query (Task 5) và đổi namespace sang `app/Modules/<Module>/` (Phase C). Module chủ là nơi duy nhất được ghi dữ liệu; module "chỉ đọc" chỉ truy vấn qua contract/Query của module chủ.
+Bảng này gán mỗi Eloquent Model trong `piclass-api/app/Models` (48 file) cho đúng một module chủ, theo [module-boundaries.md](module-boundaries.md) và `docs/database/schema.md`. Dùng cho việc đặt Policy/Query (Task 5) và enforce quyền ghi qua `ArchitectureTest` (rule R4). **Không dùng để di chuyển vị trí file** — quyết định 2026-10-19 (xem `ARCH-17` ở `open-decisions.md`) hủy việc đổi namespace Model sang `app/Modules/<Module>/`; mọi model ở lại `App\Models` vĩnh viễn, dùng chung cho mọi module. Module chủ là nơi duy nhất được ghi dữ liệu; module "chỉ đọc" chỉ truy vấn qua contract/Query của module chủ.
 
 Ký hiệu: "[CẦN XÁC NHẬN]" = tài liệu chưa đủ rõ để chốt, đã chọn phương án phù hợp nhất, user cần duyệt.
 
