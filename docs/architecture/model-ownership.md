@@ -84,7 +84,7 @@ Quét `grep -rn "entityType:" piclass-api/app`: 25 chỗ gọi `AuditLogger::rec
 | ClassMember | UserManagement/Actions/EndClassMember, AddClassMember, UpdateClassMember | Chuỗi literal |
 | UserRole | UserManagement/Actions/EndUserRole, AssignUserRole | Chuỗi literal |
 | TeacherClassAssignment | UserManagement/Actions/AssignTeacherToClass, EndTeacherClassAssignment | Chuỗi literal |
-| Assessment | Assessment/CloseAssessmentController, CancelAssessmentController, PublishAssessmentController, ReopenAssessmentController | Chuỗi literal |
+| Assessment | Assessment/Actions/CloseAssessment, CancelAssessment, PublishAssessment, ReopenAssessment | Chuỗi literal |
 | Schedule | Lesson/UpdateScheduleController, CancelScheduleController | Chuỗi literal |
 | LessonSession | Lesson/UpdateLessonSessionController, CancelLessonSessionController | Chuỗi literal |
 | Attempt | Submission/ReissueAttemptController | Chuỗi literal |

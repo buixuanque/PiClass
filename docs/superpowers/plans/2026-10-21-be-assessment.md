@@ -229,4 +229,6 @@ Quy trình như 9b/9c-trước: copy `/var/www/html` → `/tmp/mut` trong contai
 
 ## Ghi chú thực thi (điền sau khi xong)
 
-_(Để trống — người thực thi điền "Khác plan", "Kết quả" và "Sau review Opus".)_
+**Khác plan (rulings):** (1) D9 mở rộng: Student chưa có hồ sơ cũng 404 (cùng nguyên nhân NPE → 500). (2) Thêm `->whereUuid('studentId')` cho hai route Parent của bài (route kế bên đã có) để id sai là 404 thay vì 500 của Postgres. (3) Các kiểm tra 409/404 phải đứng trước validate đặt ở `FormRequest::authorize()` sau Gate và lặp lại trong Action dưới khóa dòng. (4) Controller cũ của chính module so sánh thuộc tính đã cast nên được sửa tại chỗ trong Task 2 (thay thế ở Task 4). (5) `StudentAssessmentSync` bản `Support` giữ đến 4b rồi xóa. (6) `AssessmentStateConflict`/`InvalidAssessmentRequest`/`AudienceTargetOutOfScope`/`AssessmentChildNotFound` gom theo nhóm thay vì một class mỗi thông điệp (D7 cho phép).
+
+**Kết quả:** test 1254 → 1477; 214 đột biến: 184 đỏ ngay, 28 sống sót đã bổ sung test và đều đỏ, 2 tương đương (`6j` bỏ `continue` khi câu hỏi không có nguồn vì `find(null)` đã `continue`; `9h` danh sách `student_ids` rỗng vốn bị `array_filter` loại).
