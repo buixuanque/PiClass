@@ -43,6 +43,8 @@ Theo `BR-AUD-002`/`DEC-AUD-001`. `reason bắt buộc` nghĩa là controller ph�
 | 1 | **`UpdateClassMemberController`** (nợ cụ thể từ Plan 2, xem `docs/progress.md` mục 5) | `class_member.retroactive_update` | **Có** — request đã bắt buộc `reason` theo `BR-USER-017`, giờ mới có nơi ghi |
 | 1 | `AssignTeacherToClassController`, `EndTeacherClassAssignmentController` | `teacher_class_assignment.assign` / `.end` | Không |
 | 2 | `UpdateAttendanceRecordController` | `attendance_record.update` | **Có** (`BR-AUD-003`) |
+| 2 | `BulkMarkAttendance` (Action của `PUT /lesson-sessions/{id}/attendance`; mỗi bản ghi MỚI tạo một dòng, `correlation_key` = class_id; bổ sung theo `ARCH-22c`, 2026-10-22) | `attendance_record.create` | Không |
+| 2 | `EnrollInCourse` (mỗi học viên một dòng), `EndCourseEnrollment` (`correlation_key` = course_id; bổ sung theo `DEC-AUD-007`, `ARCH-28c`, 2026-10-22) | `course_enrollment.enroll` / `.end` | Không / **Có** (`end_reason`) |
 | 2 | `ReviewAbsenceExplanationController` | `absence_explanation.review` | Không |
 | 2 | `UpdateScheduleController`, `CancelScheduleController` | `schedule.update` / `.cancel` | **Có** (`BR-AUD-003`) |
 | 2 | `UpdateLessonSessionController`, `CancelLessonSessionController` | `lesson_session.update` / `.cancel` | **Có** |
