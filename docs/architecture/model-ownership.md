@@ -12,7 +12,6 @@ Ký hiệu: "[CẦN XÁC NHẬN]" = tài liệu chưa đủ rõ để chốt, đ
 |---|---|---|
 | `Role` | Task 9g `Identity` | `UserRole` đã chốt ở Task 9b (2026-10-21): chủ ghi là UserManagement. `Role` (danh mục, chỉ đọc) còn nhãn `[CẦN XÁC NHẬN]`, chốt khi refactor Identity |
 | `Schedule`, `ScheduleHistory` | Task 9e `Lesson` / 9f `Academic` | Chủ là Lesson hay Academic (module-boundaries mâu thuẫn giữa hai dòng) |
-| `QuestionBank` | Task 9d `QuestionBank` | Cần đối chiếu migration (schema.md không có bảng riêng) |
 | `ParentProfile` | Không còn câu hỏi | Câu hỏi "đổi tên khi chuyển namespace" không còn áp dụng; Model giữ nguyên tên và vị trí |
 
 Plan của module tương ứng đề xuất, review cuối module xác nhận, rồi bỏ nhãn `[CẦN XÁC NHẬN]` ở dòng đó và cập nhật `MODEL_OWNERS` trong `ArchitectureTest`.
@@ -49,7 +48,7 @@ Plan của module tương ứng đề xuất, review cuối module xác nhận, 
 | `ParentStudentRelationship` | UserManagement | Admin xác nhận; unlink thu hồi Parent portal access ngay. Chỉ đọc: Identity/ResultProgress (scope Parent). |
 | `PersonProfile` | UserManagement | Hồ sơ dùng chung, có thể tồn tại trước tài khoản. Identity chỉ đọc qua liên kết User. |
 | `Question` | QuestionBank | Chỉ đọc: Assessment (qua QuestionVersion). |
-| `QuestionBank` | QuestionBank | Kho dùng chung; Admin quản lý toàn kho, Teacher quản lý câu mình tạo. Không có bảng riêng trong schema.md [CẦN XÁC NHẬN] cần đối chiếu migration. |
+| `QuestionBank` | QuestionBank | Kho dùng chung; Admin quản lý toàn kho, Teacher quản lý câu mình tạo. Đã đối chiếu ở Task 9d (2026-10-22): `schema.md` và migration đều có bảng `question_banks` (`name`, `scope` mặc định `system`, `status`); chỉ `CreateQuestion` ghi bảng này (tạo kho "System Bank" khi chưa có kho nào). |
 | `QuestionOption` | QuestionBank | Thuộc QuestionVersion. |
 | `QuestionVersion` | QuestionBank | Assessment chỉ tiêu thụ version/snapshot, không sửa nguồn. |
 | `Result` | ResultProgress | Chỉ đọc: Notification. Nguồn Progress cơ bản trong V1. |
