@@ -28,7 +28,8 @@ Các checkbox bên dưới là bản gốc của plan và **cố ý không đư�
 | 9d `QuestionBank` | Xong, đã merge (Opus đã review) | docs #29 / BE #25 | `2026-10-22-be-question-bank.md` |
 | 9e `Lesson` | Xong, đã merge (Opus đã review) | docs #31 / BE #26 | `2026-10-21-be-lesson.md`; kèm giờ Việt Nam toàn hệ thống (`DEC-SYS-002`) |
 | 9f `Academic` | Xong, đã merge (Opus đã review) | docs #38 / BE #27 | `2026-10-21-be-academic.md`; quyết định `ARCH-28` (issue #34–#37) |
-| 9g–9i | **Chưa làm** | | Việc kế tiếp: 9g `Identity`/`Auth` |
+| 9g `Identity` (`Auth`) | Đang làm (2026-10-22) | docs/BE: điền sau khi merge | `2026-10-22-be-identity.md`; quyết định `ARCH-29` (issue #40–#43) |
+| 9h–9i | **Chưa làm** | | Việc kế tiếp: 9h `File` |
 | 10 (Phase C) | Đã hủy | | `ARCH-17` sửa đổi 2026-10-19 |
 | 11 (Phase D) | Chưa làm | | Chỉ làm sau khi xong 9b–9i |
 

@@ -10,7 +10,7 @@ Ký hiệu: "[CẦN XÁC NHẬN]" = tài liệu chưa đủ rõ để chốt, đ
 
 | Model | Chốt ở | Câu hỏi còn lại |
 |---|---|---|
-| `Role` | Task 9g `Identity` | `UserRole` đã chốt ở Task 9b (2026-10-21): chủ ghi là UserManagement. `Role` (danh mục, chỉ đọc) còn nhãn `[CẦN XÁC NHẬN]`, chốt khi refactor Identity |
+| `Role` | Identity (đã chốt Task 9g, 2026-10-22) | `UserRole` đã chốt ở Task 9b (2026-10-21): chủ ghi là UserManagement. `Role` (danh mục 4 vai trò, chỉ đọc) thuộc Identity; Enum `RoleCode` nằm ở `Modules/Identity/Enums` |
 | `ParentProfile` | Không còn câu hỏi | Câu hỏi "đổi tên khi chuyển namespace" không còn áp dụng; Model giữ nguyên tên và vị trí |
 
 Plan của module tương ứng đề xuất, review cuối module xác nhận, rồi bỏ nhãn `[CẦN XÁC NHẬN]` ở dòng đó và cập nhật `MODEL_OWNERS` trong `ArchitectureTest`.
@@ -53,7 +53,7 @@ Plan của module tương ứng đề xuất, review cuối module xác nhận, 
 | `Result` | ResultProgress | Chỉ đọc: Notification. Nguồn Progress cơ bản trong V1. |
 | `ResultHistory` | ResultProgress | Mỗi lần đổi kết quả. |
 | `ResultPublication` | ResultProgress | Lịch sử công bố/thu hồi. |
-| `Role` | Identity | [CẦN XÁC NHẬN] Danh mục role; boundaries không nêu Role, chọn cùng chủ với UserRole (Identity). Lưu ý boundaries cũng liệt kê UserRole dưới UserManagement. |
+| `Role` | Identity | Danh mục role (chỉ đọc, do seeder tạo; `RoleCode` Enum phủ đúng 4 giá trị, có test đối chiếu). Đã chốt ở Task 9g (2026-10-22). `UserRole` do UserManagement ghi (chốt 9b). |
 | `Schedule` | Lesson | Đã chốt khi refactor Task 9e (2026-10-21): module-boundaries dòng 11 liệt kê Schedule trong dữ liệu Lesson; dòng 9 và schema.md xếp dưới Academic chỉ là nhóm tài liệu. Toàn bộ code ghi `Schedule` nằm ở Lesson (`CreateSchedule`, `UpdateSchedule`, `CancelSchedule`, `GenerateLessonSessions`). Chỉ đọc: Academic. |
 | `ScheduleHistory` | Lesson | Theo Schedule (Lesson), đã chốt cùng Task 9e. Lịch sử version mẫu. |
 | `SchoolClass` | Academic | Bảng/entity Class (tên PHP Class là từ khóa nên đặt SchoolClass). Enum `ClassStatus` (cast, Task 9f). Chủ ghi `status`: Academic — `CreateClass`, `UpdateClass`, `ActivateClass`, `RevertClassToPreparing` (UserManagement gọi hai Action cuối qua DI khi phân công/kết thúc phân công Teacher, `ARCH-23(n)`). Chỉ đọc: hầu hết module khác. |
