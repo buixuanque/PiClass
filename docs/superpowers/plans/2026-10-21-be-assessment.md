@@ -25,7 +25,7 @@
 - Baseline: **1254 test pass** (suite ~40 giây). Mọi task kết thúc với 0 fail và số test = 1254 + số test mới đã thêm.
 - Pint chỉ chạy `--test` trên các file `.php` branch này đổi (`routes/api.php` đã lỗi sẵn trên `main`, bỏ qua).
 - Mọi case 403/404 trong test mới assert **cả** `error.code` lẫn `error.message`.
-- Thứ tự `authorize → validate → state` của code cũ giữ nguyên, nhưng nhiều endpoint **kiểm quyền (403) trước validate (422)** và kiểm trạng thái (409) **trước** validate (xem bảng endpoint, cột "Thứ tự cũ"): ghim bằng test trên code cũ rồi giữ đúng.
+- Thứ tự theo quy ước validation-first của repo (playbook, rulings #11): 403 → 422 → 409/404. Code cũ kiểm trạng thái (409) trước validate; test đặc tả ghim thứ tự cũ trên code cũ, và ở bước chuyển được ghim lại thứ tự mới (xem "Ghi chú thực thi" ruling 3).
 - Vai trò đang hoạt động đọc qua `ActiveRole` (Policy/Query), không đọc session.
 
 ### Chạy test (macOS, Docker Desktop)
@@ -229,6 +229,6 @@ Quy trình như 9b/9c-trước: copy `/var/www/html` → `/tmp/mut` trong contai
 
 ## Ghi chú thực thi (điền sau khi xong)
 
-**Khác plan (rulings):** (1) D9 mở rộng: Student chưa có hồ sơ cũng 404 (cùng nguyên nhân NPE → 500). (2) Thêm `->whereUuid('studentId')` cho hai route Parent của bài (route kế bên đã có) để id sai là 404 thay vì 500 của Postgres. (3) Các kiểm tra 409/404 phải đứng trước validate đặt ở `FormRequest::authorize()` sau Gate và lặp lại trong Action dưới khóa dòng. (4) Controller cũ của chính module so sánh thuộc tính đã cast nên được sửa tại chỗ trong Task 2 (thay thế ở Task 4). (5) `StudentAssessmentSync` bản `Support` giữ đến 4b rồi xóa. (6) `AssessmentStateConflict`/`InvalidAssessmentRequest`/`AudienceTargetOutOfScope`/`AssessmentChildNotFound` gom theo nhóm thay vì một class mỗi thông điệp (D7 cho phép).
+**Khác plan (rulings):** (1) D9 mở rộng: Student chưa có hồ sơ cũng 404 (cùng nguyên nhân NPE → 500). (2) Thêm `->whereUuid('studentId')` cho hai route Parent của bài (route kế bên đã có) để id sai là 404 thay vì 500 của Postgres. (3) Ban đầu giữ thứ tự cũ 403 → 409/404 → 422 bằng kiểm tra trong `FormRequest::authorize()`; Opus review chỉ ra mâu thuẫn với quy ước validation-first đã chấp nhận toàn cục (playbook, rulings #11) nên đã bỏ: 422 chạy trước 409/404, kiểm tra trạng thái và đối tượng chỉ còn trong Action dưới khóa dòng; 4 test thứ tự được ghim lại và 1 test cũ (`CloseReopenCancelTest`: bài đã hủy + học viên không tồn tại) đổi sang học viên có thật để vẫn kiểm tra 409. (4) Controller cũ của chính module so sánh thuộc tính đã cast nên được sửa tại chỗ trong Task 2 (thay thế ở Task 4). (5) `StudentAssessmentSync` bản `Support` giữ đến 4b rồi xóa. (6) `AssessmentStateConflict`/`InvalidAssessmentRequest`/`AudienceTargetOutOfScope`/`AssessmentChildNotFound` gom theo nhóm thay vì một class mỗi thông điệp (D7 cho phép).
 
 **Kết quả:** test 1254 → 1477; 214 đột biến: 184 đỏ ngay, 28 sống sót đã bổ sung test và đều đỏ, 2 tương đương (`6j` bỏ `continue` khi câu hỏi không có nguồn vì `find(null)` đã `continue`; `9h` danh sách `student_ids` rỗng vốn bị `array_filter` loại).
