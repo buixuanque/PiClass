@@ -24,6 +24,12 @@ Plan tổng: `superpowers/plans/2026-10-18-be-architecture-refactor.md`. Quyết
 - **Nền tảng mới có tính phân quyền** (ví dụ `ActiveRole`, Task 0) vẫn do Opus lên plan và review từng task; sau đó không cần cho các module áp dụng lại khuôn.
 - Căn cứ: ở Task 0, ba vòng review Opus đều tìm ra lỗ hổng test thật (lỗi cố ý vẫn qua test), trong đó lỗ hổng nặng nhất (phụ huynh xem mọi học sinh) do Sonnet tự bắt khi được yêu cầu thử lỗi cố ý. Vì vậy bước thử lỗi cố ý là bắt buộc, còn Opus soát lại một lần.
 
+## Ghi trạng thái trong tài liệu (tránh lỗi thời)
+
+- Trong `docs/progress.md` và bảng trạng thái của plan tổng **chỉ ghi trạng thái cuối** ("đã merge `main`" kèm số PR BE/docs), **không ghi trạng thái trung gian** ("chờ review", "chờ merge", "branch local"): lúc merge xong sẽ không ai quay lại sửa và tài liệu lệch thực tế.
+- Việc cuối cùng của mỗi module, sau khi merge, là một commit tài liệu nhỏ: điền số PR và đổi "việc kế tiếp" sang module tiếp theo.
+- Trước khi báo trạng thái cho user hoặc cho phiên khác, đối chiếu bằng `git log --merges` và `gh pr list`, không chỉ đọc `progress.md`.
+
 ## Giữ nguyên hành vi: các bẫy đã gặp
 
 - **Shape JSON cũ không bọc `data`:** Resource đặt `public static $wrap = null`.
