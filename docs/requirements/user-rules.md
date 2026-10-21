@@ -30,3 +30,4 @@ Các quyết định ở đây đã chốt tại Step 5; chi tiết theo mã t�
 
 - **BR-USER-016 — ĐÃ QUYẾT ĐỊNH:** ClassMember có hiệu lực theo thời gian. Chuyển lớp kết thúc quan hệ cũ và tạo quan hệ mới; điểm danh, bài làm và kết quả cũ tiếp tục thuộc lớp phát sinh.
 - **BR-USER-017 — ĐÃ QUYẾT ĐỊNH:** Sửa hồi tố membership chỉ Admin được làm, kèm lý do và dấu vết kiểm toán.
+- **BR-USER-018 — ĐÃ QUYẾT ĐỊNH (2026-10-21, `DEC-USER-009`):** Chỉ Teacher `active` mới được phân công vào lớp. Ví dụ: cô Hoa đã nghỉ việc (hồ sơ `inactive`) thì Admin không phân công cô vào lớp mới được.

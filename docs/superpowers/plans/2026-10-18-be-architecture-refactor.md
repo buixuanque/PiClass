@@ -26,7 +26,9 @@ Các checkbox bên dưới là bản gốc của plan và **cố ý không đư�
 | 9b `UserManagement` PR 2 (Class/Parent) | Xong, đã merge (Opus đã review) | docs #27 / BE #23 | `2026-10-21-be-user-management.md` |
 | 9c `Assessment` | Xong, đã merge (Opus đã review) | docs #28 / BE #24 | `2026-10-21-be-assessment.md` |
 | 9d `QuestionBank` | Xong, đã merge (Opus đã review) | docs #29 / BE #25 | `2026-10-22-be-question-bank.md` |
-| 9e–9i | **Chưa làm** | | Việc kế tiếp: 9e `Lesson` |
+| 9e `Lesson` | Xong, đã merge (Opus đã review) | docs #31 / BE #26 | `2026-10-21-be-lesson.md`; kèm giờ Việt Nam toàn hệ thống (`DEC-SYS-002`) |
+| 9f `Academic` | Xong, đã merge (Opus đã review) | docs #38 / BE #27 | `2026-10-21-be-academic.md`; quyết định `ARCH-28` (issue #34–#37) |
+| 9g–9i | **Chưa làm** | | Việc kế tiếp: 9g `Identity`/`Auth` |
 | 10 (Phase C) | Đã hủy | | `ARCH-17` sửa đổi 2026-10-19 |
 | 11 (Phase D) | Chưa làm | | Chỉ làm sau khi xong 9b–9i |
 

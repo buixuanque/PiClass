@@ -33,8 +33,8 @@ Plan của module tương ứng đề xuất, review cuối module xác nhận, 
 | `AttendanceRecord` | Attendance | Gắn LessonSession và Student. Chỉ đọc: Lesson, Academic. |
 | `AuditLog` | Audit | Append-only. Mọi module ghi qua AuditLogger; truy vấn theo Admin hoặc Teacher class scope. |
 | `ClassMember` | UserManagement | Chủ ghi: UserManagement. module-boundaries dòng 22 ghi "User Management/Academic use case", nên Academic cũng xuất hiện như nơi ghi qua use case của mình; đề xuất Action ghi (add/update/end) đặt trong module UserManagement, Academic chỉ gọi qua contract. Chỉ đọc: Attendance, Assessment (audience/eligibility), SubmissionGrading, ResultProgress (scope). |
-| `Course` | Academic | Tự học thêm, tách biệt Class (DEC-LRN-010). Chỉ đọc: Assessment (audience Course). |
-| `CourseEnrollment` | Academic | Chỉ đọc: Assessment (eligibility). |
+| `Course` | Academic | Tự học thêm, tách biệt Class (DEC-LRN-010). Chuỗi trạng thái đã thành Enum `CourseStatus` (cast, Task 9f). Chỉ đọc: Assessment (audience Course). |
+| `CourseEnrollment` | Academic | Chủ ghi: Academic — `EnrollInCourse`, `EndCourseEnrollment`. Enum `CourseEnrollmentStatus` (cast, Task 9f). Chỉ đọc: Assessment (eligibility). |
 | `Feedback` | SubmissionGrading | Có thể có Attachment qua AttachmentLink. |
 | `FeedbackHistory` | SubmissionGrading | Lịch sử sửa Feedback. |
 | `Grade` | SubmissionGrading | Grade chỉ đổi qua SubmissionGrading. Chỉ đọc: ResultProgress. |
@@ -56,10 +56,10 @@ Plan của module tương ứng đề xuất, review cuối module xác nhận, 
 | `Role` | Identity | [CẦN XÁC NHẬN] Danh mục role; boundaries không nêu Role, chọn cùng chủ với UserRole (Identity). Lưu ý boundaries cũng liệt kê UserRole dưới UserManagement. |
 | `Schedule` | Lesson | Đã chốt khi refactor Task 9e (2026-10-21): module-boundaries dòng 11 liệt kê Schedule trong dữ liệu Lesson; dòng 9 và schema.md xếp dưới Academic chỉ là nhóm tài liệu. Toàn bộ code ghi `Schedule` nằm ở Lesson (`CreateSchedule`, `UpdateSchedule`, `CancelSchedule`, `GenerateLessonSessions`). Chỉ đọc: Academic. |
 | `ScheduleHistory` | Lesson | Theo Schedule (Lesson), đã chốt cùng Task 9e. Lịch sử version mẫu. |
-| `SchoolClass` | Academic | Bảng/entity Class (tên PHP Class là từ khóa nên đặt SchoolClass). Chỉ đọc: hầu hết module khác. |
+| `SchoolClass` | Academic | Bảng/entity Class (tên PHP Class là từ khóa nên đặt SchoolClass). Enum `ClassStatus` (cast, Task 9f). Chủ ghi `status`: Academic — `CreateClass`, `UpdateClass`, `ActivateClass`, `RevertClassToPreparing` (UserManagement gọi hai Action cuối qua DI khi phân công/kết thúc phân công Teacher, `ARCH-23(n)`). Chỉ đọc: hầu hết module khác. |
 | `Student` | UserManagement | Hồ sơ vai trò học viên. Chỉ đọc: Academic, Attendance, Assessment, SubmissionGrading, ResultProgress. |
 | `StudentAssessment` | Assessment | Đối tượng nhận hiệu lực, khử trùng đường giao. Chỉ đọc: SubmissionGrading. |
-| `Subject` | Academic | Chỉ đọc: QuestionBank (Topic thuộc Subject). |
+| `Subject` | Academic | Enum `SubjectStatus` (cast, Task 9f). Chỉ đọc: QuestionBank (Topic thuộc Subject). |
 | `Submission` | SubmissionGrading | Mỗi Attempt tối đa một Submission cuối. Chỉ đọc: ResultProgress. |
 | `Tag` | QuestionBank | Nối với QuestionVersion qua QuestionTag. |
 | `Teacher` | UserManagement | Hồ sơ vai trò giáo viên. Chỉ đọc: Academic (owner Course), Lesson, Audit (class scope). |
