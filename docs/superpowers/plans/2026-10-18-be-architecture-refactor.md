@@ -24,7 +24,8 @@ Các checkbox bên dưới là bản gốc của plan và **cố ý không đư�
 | 9a `Attendance` | Xong, đã merge | docs #22 / BE #20 | `2026-10-21-be-attendance.md`; lệch với requirements ghi ở `ARCH-22` (issue #19, #20) |
 | 9b `UserManagement` PR 1 (User/Role/Profile) | Xong, đã merge (Opus đã review) | docs `be-user-management-plan` / BE #21 | `2026-10-21-be-user-management.md` |
 | 9b `UserManagement` PR 2 (Class/Parent) | Code xong, chờ Opus review + user merge | docs `be-user-management-2` / BE `refactor/user-management-2` | `2026-10-21-be-user-management.md` |
-| 9c–9i | **Chưa làm** | | Việc kế tiếp sau 9b: 9c `Assessment` |
+| 9c `Assessment` | Code xong, chờ Opus review + user merge | docs `be-assessment` / BE `refactor/assessment` | `2026-10-21-be-assessment.md` |
+| 9d–9i | **Chưa làm** | | Việc kế tiếp sau 9c: 9d `QuestionBank` |
 | 10 (Phase C) | Đã hủy | | `ARCH-17` sửa đổi 2026-10-19 |
 | 11 (Phase D) | Chưa làm | | Chỉ làm sau khi xong 9b–9i |
 
