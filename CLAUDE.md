@@ -24,7 +24,8 @@ Cập nhật ngay tài liệu nguồn tương ứng (Decision Log, `open-decisio
 
 - Tài liệu (mọi file trong `docs/`, kể cả `docs/superpowers/specs|plans`, `progress.md`, `open-decisions.md`...) và trao đổi trong chat: tiếng Việt. Trừ nội dung buộc phải tiếng Anh (xem dòng dưới) hoặc thuật ngữ kỹ thuật không có bản dịch tiếng Việt tương đương.
 - **Comment trong code** (docblock, comment dòng, mô tả/ghi chú trong test): tiếng Việt. Comment tiếng Anh cũ nằm trong file đang sửa thì dịch luôn (chỉ trong file đã đụng tới, không dịch hàng loạt).
-- Tên biến/hàm/class, tên test method, `error.code`, commit message, PR title/description: tiếng Anh theo convention chung của Laravel/Next.js.
+- Tên biến/hàm/class, tên test method, `error.code`, commit message: tiếng Anh theo convention chung của Laravel/Next.js.
+- **PR title/description: tiếng Việt** (user chốt 2026-10-21, ghi đè quy ước tiếng Anh trước đó). Commit message vẫn tiếng Anh.
 
 ## Giải thích khi hỏi thiết kế/clarify
 
