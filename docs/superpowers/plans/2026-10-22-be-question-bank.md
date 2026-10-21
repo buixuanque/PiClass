@@ -121,4 +121,6 @@ BE: `git fetch origin && git checkout -b refactor/question-bank origin/main && g
 
 ## Ghi chú thực thi (điền sau khi xong)
 
-_(Để trống.)_
+**Khác plan (rulings):** (1) `ReadQuestionBankRequest` dùng chung cho cả 4 endpoint đọc thay vì 4 Request rỗng riêng. (2) `UpdatedQuestionResource` ép 200 trong `withResponse` (version vừa tạo mặc định 201). (3) Controller đọc cũ không phải so sánh thuộc tính đã cast nên không cần sửa tại chỗ ở Task 2. (4) `SearchTopicsQuery`/`SearchTagsQuery` nhận `mixed` để giữ hành vi 500 có sẵn với `search[]` (không ghim).
+
+**Kết quả:** test 1478 → 1582; 132 đột biến: 127 đỏ ngay, 5 sống sót đã bổ sung test và đều đỏ.
