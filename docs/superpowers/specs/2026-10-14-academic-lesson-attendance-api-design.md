@@ -62,12 +62,14 @@ Việc này chạm vào 2 controller đã code ở nhóm 1 (`piclass-api`) — c
 
 ## 6. LessonSession
 
+Giờ (`starts_at`, `ends_at`, và bộ lọc `from`/`until` của danh sách) theo giờ Việt Nam (`DEC-SCH-003`): giờ không kèm offset được hiểu là giờ Việt Nam, giờ kèm offset được quy đổi đúng; response hiển thị ISO 8601 với offset `+07:00`.
+
 | Method & Path | Việc gì | Quyền |
 |---|---|---|
 | `GET /api/v1/classes/{class_id}/lesson-sessions` | List buổi học (lọc theo khoảng thời gian) | Admin; Teacher assigned; Student/Parent (lớp mình/child) |
 | `GET /api/v1/lesson-sessions/{id}` | Chi tiết 1 buổi | Cùng scope |
 | `POST /api/v1/classes/{class_id}/lesson-sessions` | Tạo buổi thủ công, không qua Schedule (`schedule_id=null`) | Admin hoặc Teacher trong scope |
-| `PATCH /api/v1/lesson-sessions/{id}` | Sửa giờ/nội dung/ghi chú, hoặc dời riêng buổi này. Nếu buổi đã `completed`: ghi `LessonSessionHistory` (`before_data`/`after_data`), `reason` bắt buộc (`DEC-LRN-005`, `BR-CLASS-011`) | Admin hoặc Teacher trong scope |
+| `PATCH /api/v1/lesson-sessions/{id}` | Sửa giờ/nội dung/ghi chú, hoặc dời riêng buổi này. Mọi lần sửa có thay đổi ghi `LessonSessionHistory` (`before_data`/`after_data`) và AuditLog `lesson_session.update`; `reason` bắt buộc khi buổi đã `completed`, tùy chọn ở trạng thái khác (`DEC-LRN-005`, `DEC-LRN-011`, `BR-CLASS-011`) | Admin hoặc Teacher trong scope |
 | `POST /api/v1/lesson-sessions/{id}/cancel` | Hủy buổi — `cancellation_reason` bắt buộc; nếu đã có Attendance thì giữ nguyên và set `review_required=true`, không xóa (`DEC-LRN-004`) | Admin hoặc Teacher trong scope |
 | `POST /api/v1/lesson-sessions/{id}/complete` | Đánh dấu hoàn tất, set `completed_at` | Admin hoặc Teacher trong scope |
 

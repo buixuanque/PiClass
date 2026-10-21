@@ -13,10 +13,10 @@
 
 - **BR-CLASS-006 — ĐÃ QUYẾT ĐỊNH:** Schedule là kế hoạch; LessonSession là buổi cụ thể, có thể sinh từ lịch hoặc tạo riêng.
 - **BR-CLASS-007 — ĐÃ QUYẾT ĐỊNH:** Lịch lặp sinh buổi tương lai. Sửa lịch mẫu chỉ ảnh hưởng buổi tương lai chưa diễn ra; dời/hủy riêng một buổi không làm đổi các buổi khác.
-- **BR-CLASS-008 — ĐÃ QUYẾT ĐỊNH:** Mốc lịch hiển thị theo giờ Việt Nam (Asia/Ho_Chi_Minh). Kiểm tra xung đột tạo cảnh báo để người có quyền xử lý ngoại lệ; không chặn cứng mọi trường hợp.
+- **BR-CLASS-008 — ĐÃ QUYẾT ĐỊNH:** Mốc lịch hiển thị và nhập theo giờ Việt Nam (Asia/Ho_Chi_Minh): giờ không kèm offset được hiểu là giờ Việt Nam, giờ kèm offset được quy đổi đúng (`DEC-SCH-003`). Kiểm tra xung đột tạo cảnh báo để người có quyền xử lý ngoại lệ; không chặn cứng mọi trường hợp.
 - **BR-CLASS-009 — ĐÃ QUYẾT ĐỊNH:** Thay đổi/hủy lịch ghi nhận lý do và thông báo người liên quan. Không đặt thời hạn báo trước cứng.
 - **BR-CLASS-010 — ĐÃ QUYẾT ĐỊNH:** LessonSession có trạng thái dự kiến, hoàn tất, hủy. Hủy buổi đã diễn ra không xóa nội dung hoặc Attendance; nếu đã điểm danh thì cần rà soát.
-- **BR-CLASS-011 — ĐÃ QUYẾT ĐỊNH:** Sửa nội dung/ghi chú buổi hoàn tất lưu người sửa, thời điểm và phần thay đổi.
+- **BR-CLASS-011 — ĐÃ QUYẾT ĐỊNH:** Sửa giờ/nội dung/ghi chú buổi học lưu người sửa, thời điểm và phần thay đổi (lịch sử + AuditLog) cho mọi trạng thái buổi, không chỉ buổi hoàn tất (`DEC-LRN-011`); lý do bắt buộc khi buổi đã hoàn tất, tùy chọn ở trạng thái khác.
 
 ## Attendance
 

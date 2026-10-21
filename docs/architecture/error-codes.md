@@ -34,6 +34,8 @@ Mọi lỗi nghiệp vụ của API trả về theo envelope `{ "error": { "code
 | `FORBIDDEN` | 403 | Assessment | Mã chung giữ nguyên từ `abort(403, ...)`. Do `AssessmentPolicy` ném (không qua domain exception): quyền ghi chỉ người tạo/Admin (8 message riêng theo endpoint) và Teacher giao bài cho lớp/Course/học viên ngoài phạm vi phụ trách (3 message riêng). |
 | `ERROR` (message `Câu hỏi chưa gắn Subject nên không gắn được Topic.`) | 422 | QuestionBank | Mã chung giữ nguyên từ `abort(422, ...)` cũ. Gắn topic (`PATCH /questions/{q}/topics`) cho câu hỏi chưa gắn Subject (`QuestionHasNoSubject`); chạy SAU validate (validation-first). |
 | `NOT_FOUND` (message `Request failed.`) | 404 | Assessment | Câu hỏi hoặc audience không thuộc bài/bản phát hành đang thao tác, học viên chưa được giao bài, hoặc tài khoản Student/Parent chưa có hồ sơ (`AssessmentChildNotFound`); cùng message với route-model-binding (`ARCH-20`). |
+| `FORBIDDEN` | 403 | Lesson | Mã chung giữ nguyên từ `abort(403, ...)` cũ, do `SchedulePolicy`/`LessonSessionPolicy` trả (không qua domain exception). Ghi (tạo/sửa/hủy lịch, tạo/sửa/hủy/hoàn tất buổi học) khi không phải Admin và không phải Teacher đang được phân công đúng lớp. Message: tạo lịch `Không có quyền tạo lịch cho lớp này.`; sửa/hủy lịch và sửa/hủy/hoàn tất buổi `Không có quyền thao tác với lớp này.`; tạo buổi học `Request failed.`. |
+| `NOT_FOUND` (message `Request failed.`) | 404 | Lesson | Xem lịch/buổi học của một lớp ngoài phạm vi vai trò đang hoạt động (Teacher không phân công hoặc hết phân công, Student/Parent không thuộc lớp, liên kết đã kết thúc). Trùng message của ID không tồn tại (`ARCH-20`); trước Task 9e ba endpoint đọc còn trả `Không tìm thấy lớp.`/`Không tìm thấy buổi học.`. |
 
 ## Cách thêm một dòng
 
