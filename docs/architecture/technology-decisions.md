@@ -10,6 +10,7 @@ Tài liệu này phân biệt quyết định đã được chốt ở các Step
 | Role/scope enforcement | **DECIDED — Step 7** | Backend phải thực thi Permission + Data Scope + relationship + lifecycle/visibility như Step 7. |
 | Web vs mobile | **DECIDED — Product V1** | Web portals trong scope; mobile app ngoài V1. |
 | Notification channel | **DECIDED — Step 2/5** | In-app V1. Email/SMS/LINE để giai đoạn sau. |
+| Múi giờ | **DECIDED — Step 5/9** | Giờ Việt Nam (`Asia/Ho_Chi_Minh`) cho toàn hệ thống (`DEC-SYS-002`, `ARCH-27`): DB lưu mốc UTC, giờ vào/ra tại biên API qua `App\Support\AppTime`; frontend nhập/hiển thị theo `Asia/Ho_Chi_Minh`. |
 | Backend structure | **ARCHITECTURE PROPOSAL** | Modular monolith, một backend application; review ở Step 8. |
 | Backend language/framework | **DECIDED** | Laravel (PHP), modular monolith theo nguyên tắc Step 8. **Phiên bản: Laravel 13 + PHP 8.4 + PHPUnit 12** (nâng từ Laravel 11 / PHP 8.2 ngày 2026-10-21 vì Laravel 11 hết vá bảo mật từ 2026-03-12; Laravel 12 chỉ còn vá bảo mật đến 2027-02-24). Hỗ trợ Laravel 13: vá lỗi đến Q3/2027, vá bảo mật đến Q1/2028. Môi trường dev (`piclass-infra`) đã chạy PHP 8.4; production phải dùng PHP ≥ 8.4. |
 | Frontend framework | **DECIDED** | Next.js, deploy tách riêng khỏi backend (không dùng Inertia.js) — frontend chỉ hiển thị, backend giữ toàn bộ domain rule/permission. |

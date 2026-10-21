@@ -13,7 +13,7 @@ Quy ước: mỗi rule có ID ổn định; các quyết định đã được n
 - **BR-SYS-007 — ĐÃ QUYẾT ĐỊNH:** Kết quả chưa công bố không hiển thị cho Student/Parent.
 - **BR-SYS-008 — ĐÃ QUYẾT ĐỊNH:** Thay đổi câu nguồn không được âm thầm thay đổi nội dung đã phát hành hoặc bài làm đã bắt đầu.
 - **BR-SYS-009 — ĐÃ QUYẾT ĐỊNH:** Quy tắc nghiệp vụ không ấn định cấu trúc DB, endpoint, component UI hay chi tiết triển khai.
-- **BR-SYS-010 — ĐÃ QUYẾT ĐỊNH:** V1 dùng giờ Việt Nam (Asia/Ho_Chi_Minh); thời điểm hệ thống nhận bài làm căn cứ deadline.
+- **BR-SYS-010 — ĐÃ QUYẾT ĐỊNH:** V1 dùng giờ Việt Nam (Asia/Ho_Chi_Minh) cho toàn hệ thống (nhập, hiển thị, "hôm nay", lịch chạy tự động; `DEC-SYS-002`); thời điểm hệ thống nhận bài làm căn cứ deadline.
 - **BR-SYS-011 — ĐÃ QUYẾT ĐỊNH:** Hồ sơ nghi trùng do Admin xác minh; không tự gộp để tránh ghép sai lịch sử.
 
 ## Nguyên tắc ra quyết định
