@@ -80,7 +80,7 @@ Review spec theo **nhóm module**, không duyệt một lượt toàn bộ — t
 
 **Tới đây: BE của toàn bộ 5 nhóm module Step 9 đã xong và đã merge `main`.** Còn lại: FE cho cả 5 nhóm (Plan 1b-5b, chưa plan/code nhóm nào) + track mockup/design system (đang reset lại, xem dưới). Step 9 chưa coi là xong tới khi cả BE+FE của mọi nhóm hoàn tất.
 
-**Backend hiện tại (cập nhật 2026-10-22):** 12 module theo quy ước `app/Modules/<Module>/` (Action + FormRequest/Policy/Resource, không Repository, `ARCH-17`), `ArchitectureTest` canh cấu trúc và các rule R1–R8 + cấu trúc thư mục `app/`; 2173 test pass. Mọi thay đổi BE từ nay tuân theo:
+**Backend hiện tại (cập nhật 2026-10-22, hoàn tất chuyển sang quy ước: docs #57 / BE #37):** 12 module theo quy ước `app/Modules/<Module>/` (Action + FormRequest/Policy/Resource, không Repository, `ARCH-17`), `ArchitectureTest` canh cấu trúc và các rule R1–R8 + cấu trúc thư mục `app/`; 2173 test pass. Mọi thay đổi BE từ nay tuân theo:
 - `piclass-api/CLAUDE.md` — quy ước viết code (nguồn chính);
 - `architecture/backend-gotchas.md` — bẫy thực hành và cách viết test (đặc tả contract, phân quyền, đột biến);
 - `architecture/known-debt.md` — nợ kỹ thuật và lỗi 500 có sẵn đã biết (xóa dòng khi xong);

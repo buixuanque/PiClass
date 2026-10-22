@@ -34,7 +34,7 @@ Các checkbox bên dưới là bản gốc của plan và **cố ý không đư�
 | 9h `File` | Xong, đã merge (Opus đã review) | docs #45, #49 / BE #34, #35 | `2026-10-22-be-file.md`; quyết định `ARCH-30` |
 | 9i `Notification` + `Audit` | Xong, đã merge (Opus đã review) | docs #51 / BE #36 | `2026-10-22-be-notification-audit.md`; quyết định `ARCH-31` |
 | 10 (Phase C) | Đã hủy | | `ARCH-17` sửa đổi 2026-10-19 |
-| 11 (Phase D) | Step 1, 3 xong; Step 2 (PHPStan) chờ user duyệt | (điền số PR sau khi merge) | Playbook tách thành `backend-gotchas.md` + `known-debt.md` |
+| 11 (Phase D) | Xong, đã merge (Step 2 PHPStan chờ user duyệt, không thuộc đợt này) | docs #57 / BE #37 | Playbook tách thành `backend-gotchas.md` + `known-debt.md` |
 
 ## Global Constraints
 
