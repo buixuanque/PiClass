@@ -16,6 +16,10 @@ Khi có mâu thuẫn giữa các tài liệu, ưu tiên theo thứ tự:
 4. `docs/product/*`, `docs/flows/*`, `docs/domain/*` — mục tiêu, scope, flow, thuật ngữ (Step 1-4).
 5. `docs/architecture/*` — cách tổ chức kỹ thuật; không được tự đổi business rule ở trên.
 
+## Quy ước code backend
+
+Code backend (`piclass-api/`) viết theo `piclass-api/CLAUDE.md` (module `app/Modules/<Module>/`, `ArchitectureTest` canh tự động). Bẫy thực hành và cách viết test: [docs/architecture/backend-gotchas.md](docs/architecture/backend-gotchas.md). Nợ kỹ thuật đã biết: [docs/architecture/known-debt.md](docs/architecture/known-debt.md) — khi chạm tới code có trong đó thì cân nhắc xử lý và xóa dòng.
+
 ## Khi chốt quyết định mới
 
 Cập nhật ngay tài liệu nguồn tương ứng (Decision Log, `open-decisions.md`, `technology-decisions.md`...) trong cùng lúc — không để quyết định chỉ tồn tại trong lịch sử chat. Nếu phát hiện mâu thuẫn giữa tài liệu, ghi vào `open-decisions.md` của tầng liên quan, không tự chọn một phía rồi im lặng.

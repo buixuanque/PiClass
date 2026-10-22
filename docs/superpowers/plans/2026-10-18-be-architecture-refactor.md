@@ -1,5 +1,7 @@
 # Refactor kiến trúc Backend Implementation Plan
 
+> **Trạng thái: đã hoàn tất 2026-10-22 (tài liệu lịch sử).** Kết quả từng task: `2026-10-18-be-architecture-refactor-results.md`. Quy ước hiện hành: `piclass-api/CLAUDE.md`; bẫy và test: `docs/architecture/backend-gotchas.md`; nợ: `docs/architecture/known-debt.md`.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Đưa `piclass-api` từ "logic trong controller, `new Service()`, abort rải rác" sang cấu trúc `app/Modules/<Module>/` với FormRequest → Controller → Action → Eloquent đúng `piclass-api/CLAUDE.md`, không đổi hành vi nghiệp vụ.
@@ -29,10 +31,10 @@ Các checkbox bên dưới là bản gốc của plan và **cố ý không đư�
 | 9e `Lesson` | Xong, đã merge (Opus đã review) | docs #31 / BE #26 | `2026-10-21-be-lesson.md`; kèm giờ Việt Nam toàn hệ thống (`DEC-SYS-002`) |
 | 9f `Academic` | Xong, đã merge (Opus đã review) | docs #38 / BE #27 | `2026-10-21-be-academic.md`; quyết định `ARCH-28` (issue #34–#37) |
 | 9g `Identity` (`Auth`) | Xong, đã merge (Opus đã review) | docs #44 / BE #33 | `2026-10-22-be-identity.md`; quyết định `ARCH-29` (issue #40–#43) |
-| 9h `File` | Xong (Opus đã review), chờ push/PR | docs `docs/be-file` / BE `refactor/file` | `2026-10-22-be-file.md`; quyết định `ARCH-30` |
-| 9i `Notification` + `Audit` | Xong (Opus đã review), chờ push/PR | docs `docs/be-notification-audit` / BE `refactor/notification-audit` | `2026-10-22-be-notification-audit.md`; quyết định `ARCH-31` |
+| 9h `File` | Xong, đã merge (Opus đã review) | docs #45, #49 / BE #34, #35 | `2026-10-22-be-file.md`; quyết định `ARCH-30` |
+| 9i `Notification` + `Audit` | Xong, đã merge (Opus đã review) | docs #51 / BE #36 | `2026-10-22-be-notification-audit.md`; quyết định `ARCH-31` |
 | 10 (Phase C) | Đã hủy | | `ARCH-17` sửa đổi 2026-10-19 |
-| 11 (Phase D) | Chưa làm | | Điều kiện đã đủ (9b–9i xong); việc kế tiếp |
+| 11 (Phase D) | Xong, đã merge (Step 2 PHPStan chờ user duyệt, không thuộc đợt này) | docs #57 / BE #37 | Playbook tách thành `backend-gotchas.md` + `known-debt.md` |
 
 ## Global Constraints
 
@@ -201,9 +203,9 @@ Mọi task "refactor module X" thực hiện đúng các bước sau, kèm bản
 
 ### Task 11: Hoàn tất
 
-- [ ] **Step 1:** Xóa `app/Services` và thư mục `app/Http/Controllers/Api` khi rỗng (**giữ nguyên `app/Models`** — không xóa, xem Phase C đã hủy ở trên). `MODULES` trong `ArchitectureTest` gồm đủ 12 module; thêm kiểm tra không còn thư mục cấp cao theo tầng khác (ngoại trừ `app/Models`).
+- [x] **Step 1:** Xóa `app/Services` và thư mục `app/Http/Controllers/Api` khi rỗng (**giữ nguyên `app/Models`** — không xóa, xem Phase C đã hủy ở trên). `MODULES` trong `ArchitectureTest` gồm đủ 12 module; thêm kiểm tra không còn thư mục cấp cao theo tầng khác (ngoại trừ `app/Models`).
 - [ ] **Step 2:** Tạo task riêng cài PHPStan/Larastan (level thấp, tăng dần) — chỉ làm khi user duyệt.
-- [ ] **Step 3:** Cập nhật `piclass-api/CLAUDE.md` mục Trạng thái (bỏ "đích đến", ghi "đã áp dụng") và `docs/progress.md`; chuyển `ARCH-17` kèm ngày hoàn tất.
+- [x] **Step 3:** Cập nhật `piclass-api/CLAUDE.md` mục Trạng thái (bỏ "đích đến", ghi "đã áp dụng") và `docs/progress.md`; chuyển `ARCH-17` kèm ngày hoàn tất.
 
 ## Self-review
 

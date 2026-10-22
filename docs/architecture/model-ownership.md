@@ -1,19 +1,10 @@
 # Ownership Model theo module
 
-> Trạng thái: Dùng được, **không còn chờ user duyệt riêng** (cập nhật 2026-10-21). Các dòng `[CẦN XÁC NHẬN]` được chốt lúc refactor module liên quan (xem bảng "Chốt khi nào" bên dưới); đoán sai chỉ tốn sửa một hằng trong test.
+> Trạng thái: **đã chốt đủ** (cập nhật 2026-10-22, sau khi 12 module hoàn tất). Không còn dòng nào chờ xác nhận.
 
-Bảng này gán mỗi Eloquent Model trong `piclass-api/app/Models` (48 file) cho đúng một module chủ, theo [module-boundaries.md](module-boundaries.md) và `docs/database/schema.md`. Dùng cho việc đặt Policy/Query (Task 5) và enforce quyền ghi qua `ArchitectureTest` (rule R4). **Không dùng để di chuyển vị trí file** — quyết định 2026-10-19 (xem `ARCH-17` ở `open-decisions.md`) hủy việc đổi namespace Model sang `app/Modules/<Module>/`; mọi model ở lại `App\Models` vĩnh viễn, dùng chung cho mọi module. Module chủ là nơi duy nhất được ghi dữ liệu; module "chỉ đọc" chỉ truy vấn qua contract/Query của module chủ.
+Bảng này gán mỗi Eloquent Model trong `piclass-api/app/Models` (48 file) cho đúng một module chủ, theo [module-boundaries.md](module-boundaries.md) và `docs/database/schema.md`. Dùng cho việc đặt Policy/Query và enforce quyền ghi qua `ArchitectureTest` (rule R4: module không tự ghi Model của module khác; hằng `MODEL_OWNERS` phải khớp bảng này). **Không dùng để di chuyển vị trí file** — mọi Model ở lại `App\Models` vĩnh viễn, dùng chung cho mọi module (`ARCH-17`, sửa đổi 2026-10-19). Module chủ là nơi duy nhất được ghi dữ liệu; module "chỉ đọc" chỉ truy vấn qua contract/Query của module chủ.
 
-Ký hiệu: "[CẦN XÁC NHẬN]" = tài liệu chưa đủ rõ để chốt, đã chọn phương án phù hợp nhất. Từ khi Model ở lại `App\Models` vĩnh viễn (Phase C đã hủy), bảng này chỉ còn một tác dụng: rule R4 của `ArchitectureTest` (module không tự ghi Model của module khác). R4 chỉ áp dụng cho module nằm trong `MODULES`, nên các dòng chưa chắc chỉ có tác động khi module sở hữu hoặc module ghi chúng được refactor.
-
-### Chốt khi nào (các dòng `[CẦN XÁC NHẬN]`)
-
-| Model | Chốt ở | Câu hỏi còn lại |
-|---|---|---|
-| `Role` | Identity (đã chốt Task 9g, 2026-10-22) | `UserRole` đã chốt ở Task 9b (2026-10-21): chủ ghi là UserManagement. `Role` (danh mục 4 vai trò, chỉ đọc) thuộc Identity; Enum `RoleCode` nằm ở `Modules/Identity/Enums` |
-| `ParentProfile` | Không còn câu hỏi | Câu hỏi "đổi tên khi chuyển namespace" không còn áp dụng; Model giữ nguyên tên và vị trí |
-
-Plan của module tương ứng đề xuất, review cuối module xác nhận, rồi bỏ nhãn `[CẦN XÁC NHẬN]` ở dòng đó và cập nhật `MODEL_OWNERS` trong `ArchitectureTest`.
+**Khi thêm Model mới:** thêm một dòng vào bảng này và vào `MODEL_OWNERS` trong cùng PR (`test_every_model_has_an_owner_and_the_map_is_complete` bắt thiếu). Điểm đã chốt cần nhớ: `Role` (danh mục 4 vai trò, chỉ đọc) thuộc Identity, Enum `RoleCode` ở `Modules/Identity/Enums`; `UserRole` do UserManagement ghi (hai Action gán/kết thúc role); `ParentProfile` là cùng entity với bảng `Parent` trong `schema.md` (tên Model giữ nguyên).
 
 ## Bảng ownership
 
@@ -43,7 +34,7 @@ Plan của module tương ứng đề xuất, review cuối module xác nhận, 
 | `LessonSessionHistory` | Lesson | Session hủy/đã diễn ra giữ history. |
 | `Notification` | Notification | Một thông báo cho một người nhận. Các module khác phát event, không ghi trực tiếp bảng. |
 | `NotificationContext` | Notification | Trỏ tới đối tượng đích; không cấp quyền vào target. |
-| `ParentProfile` | UserManagement | [CẦN XÁC NHẬN] schema.md gọi bảng này là `Parent`, code đặt tên `ParentProfile`; xác nhận đây là cùng entity và có đổi tên khi chuyển namespace hay không. |
+| `ParentProfile` | UserManagement | Đã chốt: `schema.md` gọi bảng này là `Parent`, code đặt tên `ParentProfile`; cùng một entity, tên Model giữ nguyên. |
 | `ParentStudentRelationship` | UserManagement | Admin xác nhận; unlink thu hồi Parent portal access ngay. Chỉ đọc: Identity/ResultProgress (scope Parent). |
 | `PersonProfile` | UserManagement | Hồ sơ dùng chung, có thể tồn tại trước tài khoản. Identity chỉ đọc qua liên kết User. |
 | `Question` | QuestionBank | Chỉ đọc: Assessment (qua QuestionVersion). |
@@ -54,7 +45,7 @@ Plan của module tương ứng đề xuất, review cuối module xác nhận, 
 | `ResultHistory` | ResultProgress | Mỗi lần đổi kết quả. |
 | `ResultPublication` | ResultProgress | Lịch sử công bố/thu hồi. |
 | `Role` | Identity | Danh mục role (chỉ đọc, do seeder tạo; `RoleCode` Enum phủ đúng 4 giá trị, có test đối chiếu). Đã chốt ở Task 9g (2026-10-22). `UserRole` do UserManagement ghi (chốt 9b). |
-| `Schedule` | Lesson | Đã chốt khi refactor Task 9e (2026-10-21): module-boundaries dòng 11 liệt kê Schedule trong dữ liệu Lesson; dòng 9 và schema.md xếp dưới Academic chỉ là nhóm tài liệu. Toàn bộ code ghi `Schedule` nằm ở Lesson (`CreateSchedule`, `UpdateSchedule`, `CancelSchedule`, `GenerateLessonSessions`). Chỉ đọc: Academic. |
+| `Schedule` | Lesson | Đã chốt (2026-10-21): module-boundaries dòng 11 liệt kê Schedule trong dữ liệu Lesson; dòng 9 và schema.md xếp dưới Academic chỉ là nhóm tài liệu. Toàn bộ code ghi `Schedule` nằm ở Lesson (`CreateSchedule`, `UpdateSchedule`, `CancelSchedule`, `GenerateLessonSessions`). Chỉ đọc: Academic. |
 | `ScheduleHistory` | Lesson | Theo Schedule (Lesson), đã chốt cùng Task 9e. Lịch sử version mẫu. |
 | `SchoolClass` | Academic | Bảng/entity Class (tên PHP Class là từ khóa nên đặt SchoolClass). Enum `ClassStatus` (cast, Task 9f). Chủ ghi `status`: Academic — `CreateClass`, `UpdateClass`, `ActivateClass`, `RevertClassToPreparing` (UserManagement gọi hai Action cuối qua DI khi phân công/kết thúc phân công Teacher, `ARCH-23(n)`). Chỉ đọc: hầu hết module khác. |
 | `Student` | UserManagement | Hồ sơ vai trò học viên. Chỉ đọc: Academic, Attendance, Assessment, SubmissionGrading, ResultProgress. |
