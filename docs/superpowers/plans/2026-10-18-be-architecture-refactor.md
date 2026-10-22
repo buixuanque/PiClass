@@ -1,5 +1,7 @@
 # Refactor kiến trúc Backend Implementation Plan
 
+> **Trạng thái: đã hoàn tất 2026-10-22 (tài liệu lịch sử).** Kết quả từng task: `2026-10-18-be-architecture-refactor-results.md`. Quy ước hiện hành: `piclass-api/CLAUDE.md`; bẫy và test: `docs/architecture/backend-gotchas.md`; nợ: `docs/architecture/known-debt.md`.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Đưa `piclass-api` từ "logic trong controller, `new Service()`, abort rải rác" sang cấu trúc `app/Modules/<Module>/` với FormRequest → Controller → Action → Eloquent đúng `piclass-api/CLAUDE.md`, không đổi hành vi nghiệp vụ.

@@ -1,5 +1,7 @@
 # Sổ quyết định khi thực thi Phase A — refactor kiến trúc BE
 
+> **Tài liệu lịch sử** (đợt chuyển sang quy ước module, hoàn tất 2026-10-22). Quy ước hiện hành: `piclass-api/CLAUDE.md` và `docs/architecture/backend-gotchas.md`.
+
 Nguồn: ledger thực thi Phase A (Task 1-6) của plan `2026-10-18-be-architecture-refactor.md`. Mỗi dòng là một quyết định controller tự đưa ra thay user trong lúc chạy, kèm lý do và chi phí nếu sai. User xem và có thể đảo lại.
 
 | # | Quyết định | Vì sao | Chi phí nếu sai |
