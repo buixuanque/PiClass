@@ -30,9 +30,9 @@ Các checkbox bên dưới là bản gốc của plan và **cố ý không đư�
 | 9f `Academic` | Xong, đã merge (Opus đã review) | docs #38 / BE #27 | `2026-10-21-be-academic.md`; quyết định `ARCH-28` (issue #34–#37) |
 | 9g `Identity` (`Auth`) | Xong, đã merge (Opus đã review) | docs #44 / BE #33 | `2026-10-22-be-identity.md`; quyết định `ARCH-29` (issue #40–#43) |
 | 9h `File` | Xong (Opus đã review), chờ push/PR | docs `docs/be-file` / BE `refactor/file` | `2026-10-22-be-file.md`; quyết định `ARCH-30` |
-| 9i | **Chưa làm** | | Việc kế tiếp: 9i `Notification` + `Audit` |
+| 9i `Notification` + `Audit` | Xong (Opus đã review), chờ push/PR | docs `docs/be-notification-audit` / BE `refactor/notification-audit` | `2026-10-22-be-notification-audit.md`; quyết định `ARCH-31` |
 | 10 (Phase C) | Đã hủy | | `ARCH-17` sửa đổi 2026-10-19 |
-| 11 (Phase D) | Chưa làm | | Chỉ làm sau khi xong 9b–9i |
+| 11 (Phase D) | Chưa làm | | Điều kiện đã đủ (9b–9i xong); việc kế tiếp |
 
 ## Global Constraints
 
