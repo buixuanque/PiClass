@@ -88,17 +88,17 @@ Mỗi mục dưới đây là một màn hình. Mở file tương ứng, copy kh
 
 ## Quản trị viên (Admin) (29 màn) — [admin.md](admin.md)
 
-- [ ] **AD-01** — Tổng quan
-- [ ] **AD-15** — Thiết lập lần đầu
-- [ ] **AD-09** — Danh sách lớp học
-- [ ] **AD-10** — Khung chi tiết lớp
-- [ ] **AD-10a** — Chi tiết lớp: Tổng quan
-- [ ] **AD-10b** — Chi tiết lớp: Học sinh
-- [ ] **AD-10c** — Chi tiết lớp: Giáo viên
-- [ ] **AD-10d** — Chi tiết lớp: Lịch
-- [ ] **AD-10e** — Chi tiết lớp: Buổi học
-- [ ] **AD-11** — Lịch tổng hợp
-- [ ] **AD-04** — Danh sách học sinh
+- [x] **AD-01** — Tổng quan
+- [x] **AD-15** — Thiết lập lần đầu
+- [x] **AD-09** — Danh sách lớp học
+- [x] **AD-10** — Khung chi tiết lớp
+- [x] **AD-10a** — Chi tiết lớp: Tổng quan
+- [x] **AD-10b** — Chi tiết lớp: Học sinh
+- [x] **AD-10c** — Chi tiết lớp: Giáo viên
+- [x] **AD-10d** — Chi tiết lớp: Lịch
+- [x] **AD-10e** — Chi tiết lớp: Buổi học
+- [x] **AD-11** — Lịch tổng hợp
+- [x] **AD-04** — Danh sách học sinh
 - [ ] **AD-05** — Chi tiết học sinh
 - [ ] **AD-05a** — Tạo / sửa hồ sơ học sinh
 - [ ] **AD-05b** — Mời tạo tài khoản
