@@ -29,10 +29,10 @@ Các checkbox bên dưới là bản gốc của plan và **cố ý không đư�
 | 9e `Lesson` | Xong, đã merge (Opus đã review) | docs #31 / BE #26 | `2026-10-21-be-lesson.md`; kèm giờ Việt Nam toàn hệ thống (`DEC-SYS-002`) |
 | 9f `Academic` | Xong, đã merge (Opus đã review) | docs #38 / BE #27 | `2026-10-21-be-academic.md`; quyết định `ARCH-28` (issue #34–#37) |
 | 9g `Identity` (`Auth`) | Xong, đã merge (Opus đã review) | docs #44 / BE #33 | `2026-10-22-be-identity.md`; quyết định `ARCH-29` (issue #40–#43) |
-| 9h `File` | Xong (Opus đã review), chờ push/PR | docs `docs/be-file` / BE `refactor/file` | `2026-10-22-be-file.md`; quyết định `ARCH-30` |
-| 9i `Notification` + `Audit` | Xong (Opus đã review), chờ push/PR | docs `docs/be-notification-audit` / BE `refactor/notification-audit` | `2026-10-22-be-notification-audit.md`; quyết định `ARCH-31` |
+| 9h `File` | Xong, đã merge (Opus đã review) | docs #45, #49 / BE #34, #35 | `2026-10-22-be-file.md`; quyết định `ARCH-30` |
+| 9i `Notification` + `Audit` | Xong, đã merge (Opus đã review) | docs #51 / BE #36 | `2026-10-22-be-notification-audit.md`; quyết định `ARCH-31` |
 | 10 (Phase C) | Đã hủy | | `ARCH-17` sửa đổi 2026-10-19 |
-| 11 (Phase D) | Xong (Step 1, 3), chờ push/PR; Step 2 (PHPStan) chờ user duyệt | docs `docs/refactor-wrap-up` / BE `chore/refactor-wrap-up` | Playbook tách thành `backend-gotchas.md` + `known-debt.md` |
+| 11 (Phase D) | Step 1, 3 xong; Step 2 (PHPStan) chờ user duyệt | (điền số PR sau khi merge) | Playbook tách thành `backend-gotchas.md` + `known-debt.md` |
 
 ## Global Constraints
 
