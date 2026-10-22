@@ -1,6 +1,8 @@
-# Danh sách màn hình FE (bản nháp 1)
+# Danh sách màn hình FE (bản nháp 2)
 
-> **Mục đích:** nguồn để thiết kế mockup hàng loạt (Claude Design) và để lập Plan FE. Dựng từ: backend hiện có (`piclass-api/routes/api.php`, 125 endpoint), `product/feature-map.md`, `flows/*`, và nghiệp vụ trong `product-definition.md`, `requirements/*`. Mockup mẫu (`piclass-mockup/sample`) chỉ dùng để hình dung giao diện sau khi có design system, **không phải nguồn yêu cầu**; dấu 🎨 chỉ nghĩa là "đã có hình dung". **Chưa duyệt** — cần bạn chốt các mục 🔵 và 🟡 trước khi coi là phạm vi.
+> **Chi tiết từng màn hình** (khối nội dung, dữ liệu, hành động, trạng thái, lỗi, dữ liệu mẫu) nằm ở [screens/](screens/): [common](screens/common.md) · [admin](screens/admin.md) · [teacher-van-hanh](screens/teacher-van-hanh.md) · [teacher-bai-danh-gia](screens/teacher-bai-danh-gia.md) · [student-parent](screens/student-parent.md). **API cần bổ sung hoặc sửa:** [screens/api-gaps.md](screens/api-gaps.md). File này giữ vai trò mục lục và bảng trạng thái.
+
+> **Mục đích:** nguồn để thiết kế mockup hàng loạt (Claude Design) và để lập Plan FE. Dựng từ: backend hiện có (`piclass-api/routes/api.php`, 124 endpoint), `product/feature-map.md`, `flows/*`, và nghiệp vụ trong `product-definition.md`, `requirements/*`. Mockup mẫu (`piclass-mockup/sample`) chỉ dùng để hình dung giao diện sau khi có design system, **không phải nguồn yêu cầu**; dấu 🎨 chỉ nghĩa là "đã có hình dung". **Chưa duyệt** — cần bạn chốt các mục 🔵 và 🟡 trước khi coi là phạm vi.
 >
 > **Thứ tự ưu tiên tài liệu:** `requirements/*` > `access-control/*` > `database/*` > tài liệu này. Chức năng ngoài `requirements/*` (🔵) phải qua Decision Log trước khi làm.
 
@@ -22,7 +24,7 @@ Mã màn hình: `CM` chung · `AD` Admin · `TC` Teacher · `ST` Student · `PR`
 - **Lỗi form:** API trả 422 theo từng trường (`error.details.<trường>`), hiện ngay dưới trường; lỗi nghiệp vụ trả `error.code` + `error.message` (danh mục ở `architecture/error-codes.md`), hiện dạng thông báo.
 - **Vai trò:** một người có thể giữ nhiều vai trò; luôn có chỗ đổi vai trò đang hoạt động (CM-04). Điều hướng thay đổi theo vai trò.
 - **Thời gian:** hiển thị giờ Việt Nam (+07:00). **Thông báo** là kéo về (không realtime). **Danh sách** hiện chưa phân trang (trừ `GET /users`).
-- **Responsive:** Student/Parent ưu tiên điện thoại; Teacher/Admin ưu tiên máy tính nhưng điểm danh và chấm bài nên dùng được trên máy tính bảng.
+- **Responsive:** mọi cổng dùng tốt trên điện thoại, máy tính bảng và web máy tính (Student/Parent dùng cả hai; Teacher/Admin chủ yếu web máy tính, riêng điểm danh và chấm bài phải dùng tốt trên máy tính bảng). Không mất chức năng nào khi đổi khổ màn hình.
 - **File đính kèm:** tối đa 10 MB; pdf, doc/docx, jpg, png, zip. Link tải hết hạn sau 10 phút.
 
 ---
@@ -65,10 +67,10 @@ Mã màn hình: `CM` chung · `AD` Admin · `TC` Teacher · `ST` Student · `PR`
 | Mã | Màn hình | Chức năng | API | Trạng thái |
 |---|---|---|---|---|
 | TC-01 | Tổng quan 🎨 | "Cần xử lý" (bài chờ chấm, đơn xin phép chờ duyệt, buổi chưa điểm danh), buổi dạy tuần này, bài sắp hạn, chuyên cần trung bình, lịch tuần | (ghép tạm: buổi dạy từ các lớp, `GET /assessments`, `…/submissions`) | 🟡 cần API tổng hợp |
-| TC-02 | Lớp của tôi 🎨 | Danh sách, lọc, mở chi tiết. **Teacher không tạo lớp được** (chỉ Admin) — nút "Tạo lớp" trong mockup mẫu cần bỏ hoặc đổi | `GET /classes` | ✅ (nút tạo lớp: xem mục "Mockup mẫu cần chỉnh") |
+| TC-02 | Lớp của tôi 🎨 | Danh sách, lọc, mở chi tiết. **Teacher không tạo lớp được** (chỉ Admin) — nút "Tạo lớp" trong mockup mẫu cần bỏ hoặc đổi | `GET /classes` | ✅ (Teacher không tạo lớp được: bỏ nút "Tạo lớp" của mockup mẫu) |
 | TC-03 | Chi tiết lớp | Học sinh (chỉ xem), lịch, buổi học, bài đánh giá của lớp, tiến độ từng học sinh | `GET /classes/{id}`, `…/members`, `GET /students/{id}/progress` | ✅ |
 | TC-04 | Lịch dạy 🎨 | Tuần / tháng; thêm buổi lẻ hoặc buổi bù; tạo lịch lặp hàng tuần (cảnh báo trùng lịch); sửa, hủy, hoàn tất buổi | `POST /classes/{id}/lesson-sessions`, `PATCH`, `…/cancel`, `…/complete`, `POST /classes/{id}/schedules`, `PATCH /schedules/{id}`, `…/cancel` | ✅ (lịch tổng hợp nhiều lớp 🟡) |
-| TC-05 | Buổi học & điểm danh 🎨 | Danh sách học sinh, đặt trạng thái hàng loạt và sửa từng bản ghi, ghi nội dung / ghi chú, hoàn tất buổi. Lỗi: buổi đã hủy (`SESSION_CANCELLED`), học sinh không còn trong lớp (`STUDENT_NOT_ELIGIBLE`) | `GET/PUT /lesson-sessions/{id}/attendance`, `PATCH /attendance-records/{id}`, `GET/PATCH /lesson-sessions/{id}` | ✅ |
+| TC-05 | Buổi học & điểm danh 🎨 | Danh sách học sinh, đặt trạng thái hàng loạt và sửa từng bản ghi, ghi nội dung / ghi chú, hoàn tất buổi. Lỗi: buổi đã hủy (`SESSION_CANCELLED`), học sinh không còn trong lớp (`STUDENT_NOT_ELIGIBLE`) | `GET/PUT /lesson-sessions/{id}/attendance`, `PATCH /attendance-records/{id}`, `GET/PATCH /lesson-sessions/{id}` | 🟡 A1: `GET`/`PUT` điểm danh không trả `id` bản ghi nên chưa sửa được từng em |
 | TC-06 | Đơn xin phép | Danh sách chờ duyệt, chấp nhận / từ chối | `GET /absence-explanations`, `PATCH /absence-explanations/{id}` | ✅ |
 | TC-07 | Ngân hàng câu hỏi | Danh sách; lọc môn, loại, topic, tag, "của tôi", trạng thái | `GET /questions`, `GET /topics`, `GET /tags` | ✅ |
 | TC-08 | Soạn câu hỏi | 9 loại câu (một đáp án, nhiều đáp án, đúng/sai, điền khuyết, trả lời ngắn, tự luận, nối, sắp xếp, nộp file); nội dung, đáp án, cách chấm, topic / tag; mỗi lần sửa tạo phiên bản mới; lưu trữ | `POST/GET/PATCH/DELETE /questions`, `PATCH …/topics`, `PATCH …/tags` | ✅ |
@@ -77,7 +79,7 @@ Mã màn hình: `CM` chung · `AD` Admin · `TC` Teacher · `ST` Student · `PR`
 | TC-11 | Chi tiết bài | Tổng quan, đối tượng, danh sách học sinh theo bài (đã làm / chưa nộp), gia hạn hoặc ngoại lệ riêng cho từng học sinh | `GET /assessments/{id}`, `…/students`, `PATCH …/students/{studentId}` | ✅ |
 | TC-12 | Bài nộp của một bài | Danh sách bài nộp, lọc trạng thái chấm | `GET /assessments/{id}/submissions` | ✅ |
 | TC-13 | Chấm bài | Xem bài làm từng câu, chấm điểm từng câu / tổng, viết nhận xét (nháp → công bố → rút lại), lưu và chuyển bài kế tiếp, công bố hoặc rút kết quả (từng bài hoặc hàng loạt) | `GET /submissions/{id}`, `PUT …/questions/{q}/grade`, `PUT …/grade`, `POST …/feedback`, `PUT/PATCH /feedback/{id}`, `POST /results/{id}/publish`, `…/withdraw`, `POST /assessments/{id}/results/publish` | ✅. File bài làm của học sinh 🟡 (issue #50) |
-| TC-14 | Tiến độ học sinh 🎨 | Điểm các bài gần đây, điểm trung bình, bài đã nộp; điểm danh 10 buổi gần nhất, chuyên cần | `GET /students/{id}/progress` | ✅ (điểm danh theo học sinh 🟡) |
+| TC-14 | Tiến độ học sinh 🎨 | Điểm các bài gần đây, điểm trung bình, bài đã nộp; điểm danh 10 buổi gần nhất, chuyên cần | `GET /students/{id}/progress` | ✅ trung bình, số bài, theo môn · 🟡 "bài gần đây" và biểu đồ (C4) · 🟡 điểm danh theo học sinh (A9) |
 | TC-15 | Khóa học của tôi | Danh sách, ghi danh, kết thúc ghi danh | `GET/POST /courses`, `…/enrollments` | ✅ |
 
 ## ST — Cổng Học sinh
@@ -87,11 +89,11 @@ Mã màn hình: `CM` chung · `AD` Admin · `TC` Teacher · `ST` Student · `PR`
 | ST-01 | Tổng quan 🎨 | Chào, buổi học hôm nay, bài sắp đến hạn | (ghép tạm: lớp của em → buổi học, `GET /me/assessments`) | 🟡 cần API tổng hợp. "Chuỗi ngày liên tiếp" ⛔ |
 | ST-02 | Lịch học 🎨 | Tuần / tháng; chi tiết buổi (nội dung, giáo viên, trạng thái, điểm danh của mình) | `GET /classes`, `GET /classes/{id}/lesson-sessions`, `GET /lesson-sessions/{id}`, `…/attendance` | ✅ (lịch tổng hợp 🟡) |
 | ST-03 | Bài tập 🎨 | Danh sách; chip trạng thái: chưa làm, chờ chấm, đã chấm; hạn nộp | `GET /me/assessments` (lọc loại ở FE) | ✅ |
-| ST-04 | Bài kiểm tra 🎨 | Như ST-03 cho trắc nghiệm / thi; hiện thời lượng, số câu, giờ mở | `GET /me/assessments` | ✅ |
-| ST-05 | Chi tiết bài | Hướng dẫn, hạn, thời lượng, số lượt còn lại, điểm lượt trước; file đề đính kèm; nút "Làm bài" | `GET /me/assessments/{id}`, `GET /attachments/{id}`, `POST /me/assessments/{id}/attempts` | ✅ |
+| ST-04 | Bài kiểm tra 🎨 | Như ST-03 cho trắc nghiệm / thi; hiện thời lượng, số câu, giờ mở | `GET /me/assessments` | 🟡 A3: chi tiết bài thiếu thời lượng, số câu, số lượt |
+| ST-05 | Chi tiết bài | Hướng dẫn, hạn, thời lượng, số lượt còn lại, điểm lượt trước; file đề đính kèm; nút "Làm bài" | `GET /me/assessments/{id}`, `GET /attachments/{id}`, `POST /me/assessments/{id}/attempts` | 🟡 A3, A4: thiếu hướng dẫn, số lượt đã dùng, tệp đính kèm; chưa khôi phục được lượt đang dở |
 | ST-06 | Làm bài 🎨 | Hiện câu hỏi theo loại; **tự lưu từng câu**; đồng hồ đếm ngược; bảng điều hướng câu và đánh dấu; nộp bài có xác nhận; hết giờ tự nộp | `GET /me/attempts/{id}`, `PUT /me/attempts/{id}/answers/{q}`, `POST /me/attempts/{id}/submit` | ✅. Câu nộp file 🟡 (issue #50) |
-| ST-07 | Kết quả 🎨 | Danh sách; chi tiết: điểm, từng câu đúng / sai, đáp án và giải thích (nếu giáo viên cho xem), nhận xét đã công bố | `GET /me/assessments/{id}/result` | ✅ |
-| ST-08 | Tiến độ học tập | Biểu đồ điểm theo thời gian, điểm trung bình | `GET /me/progress` | ✅ |
+| ST-07 | Kết quả 🎨 | Danh sách; chi tiết: điểm, từng câu đúng / sai, đáp án và giải thích (nếu giáo viên cho xem), nhận xét đã công bố | `GET /me/assessments/{id}/result` | 🟡 A5: chỉ có điểm tổng và nhận xét, chưa có đúng/sai từng câu |
+| ST-08 | Tiến độ học tập | Biểu đồ điểm theo thời gian, điểm trung bình | `GET /me/progress` | ✅ trung bình và theo môn · 🟡 biểu đồ theo thời gian (C4) |
 | ST-09 | Khóa học của em | Danh sách khóa học đã ghi danh | `GET /courses` | ✅ |
 
 ## PR — Cổng Phụ huynh
@@ -100,11 +102,11 @@ Mã màn hình: `CM` chung · `AD` Admin · `TC` Teacher · `ST` Student · `PR`
 |---|---|---|---|---|
 | PR-01 | Chọn con | Danh sách con đang liên kết, đổi con xem | `GET /me/children`, `GET /me/children/{id}` | ✅ |
 | PR-02 | Tổng quan 🎨 | Buổi học hôm nay của con, bài sắp hạn, nhận xét mới nhất | (ghép tạm từ các API bên dưới) | 🟡 cần API tổng hợp |
-| PR-03 | Lịch học của con 🎨 | Như ST-02 cho con | `GET /classes/{id}/lesson-sessions` (cần biết lớp của con) | ✅ nếu `GET /me/children/{id}` trả lớp; cần xác nhận khi dựng |
-| PR-04 | Điểm danh của con 🎨 | 10 buổi gần nhất, tỷ lệ chuyên cần, buổi vắng | chưa có API theo học sinh | 🟡 |
+| PR-03 | Lịch học của con 🎨 | Như ST-02 cho con | `GET /classes/{id}/lesson-sessions` (cần biết lớp của con) | 🟡 A6, A8: chưa biết lớp của từng con |
+| PR-04 | Điểm danh của con 🎨 | 10 buổi gần nhất, tỷ lệ chuyên cần, buổi vắng | chưa có API theo học sinh | 🟡 A9 |
 | PR-05 | Bài tập & kết quả 🎨 | Danh sách bài của con, chi tiết, kết quả (chỉ nội dung đã công bố cho phụ huynh) | `GET /me/children/{id}/assessments`, `…/{assessmentId}`, `…/result` | ✅ |
 | PR-06 | Nhận xét 🎨 | Nhận xét giáo viên đã công bố cho phụ huynh (nằm trong kết quả) | trong `…/result` | ✅ theo từng bài; danh sách nhận xét tổng hợp 🟡 |
-| PR-07 | Tiến độ của con | Điểm trung bình, điểm các bài gần đây | `GET /me/children/{id}/progress` | ✅ |
+| PR-07 | Tiến độ của con | Điểm trung bình, điểm các bài gần đây | `GET /me/children/{id}/progress` | ✅ trung bình và theo môn · 🟡 "bài gần đây" (C4) |
 | PR-08 | Đơn xin phép | Gửi đơn cho một buổi học (chọn buổi, lý do); xem trạng thái các đơn đã gửi | `POST /absence-explanations`, `GET /absence-explanations` | ✅ |
 
 ---
@@ -112,6 +114,8 @@ Mã màn hình: `CM` chung · `AD` Admin · `TC` Teacher · `ST` Student · `PR`
 ## Phần bổ sung đề xuất
 
 ### A. Cần BE bổ sung (thuộc phạm vi V1, đang thiếu API) — 🟡
+
+> Danh sách đầy đủ, xếp theo mức độ và gồm cả các khoảng trống phát hiện thêm khi đặc tả chi tiết (mã GM, TB, N): [screens/api-gaps.md](screens/api-gaps.md).
 
 | Mã | Nội dung | Vì sao cần | Gợi ý |
 |---|---|---|---|
@@ -122,6 +126,13 @@ Mã màn hình: `CM` chung · `AD` Admin · `TC` Teacher · `ST` Student · `PR`
 | G5 | **Phân trang** thông báo, audit, các danh sách lớn | Danh sách tăng theo thời gian | Thống nhất `meta` như `GET /users` |
 | G6 | **Nộp / xem file bài làm và feedback** (ST-06, TC-13) | Câu `file_upload` chưa dùng được | Issue #50 (cần chốt số file tối đa mỗi câu) |
 | G7 | **Danh sách nhận xét theo con** (PR-06) | Phụ huynh muốn đọc nhận xét một chỗ | Lọc feedback đã công bố theo học sinh |
+| G8 | **Lịch sử điểm** (ST-08, TC-14, PR-07) | `…/progress` chỉ trả trung bình, số bài và trung bình theo môn; không có điểm theo thời gian hay "bài gần đây" | Danh sách kết quả đã công bố: tên bài, ngày, %, môn |
+| G9 | **Làm giàu response danh sách** (nhiều màn) | Lớp không có tên môn/giáo viên/sĩ số; buổi không có tên lớp; bài không có đối tượng/số đã nộp; con của phụ huynh không có lớp | Thêm trường hoặc tham số `include`, thay vì gọi từng id |
+| G10 | **Thông báo** (CM-06) | Đếm chưa đọc, đánh dấu tất cả đã đọc (đã nêu ở N1); `context` của một số thông báo thiếu id đích | Chuyển N1 vào đây |
+| G11 | **Lời mời tài khoản** (CM-09, AD-05b/c) | Token mời dùng chung với đặt lại mật khẩu, hết hạn sau 60 phút; mời lần hai bị từ chối | Màn kích hoạt riêng, "gửi lại lời mời", Admin gửi link đặt mật khẩu hộ |
+| G12 | **Quyền hiển thị buổi học** | `GET /lesson-sessions/{id}` trả `notes` và `review_required` cho cả Student/Parent | Chốt `notes` có công khai không; ẩn `review_required` |
+| G13 | **Địa điểm buổi học / lớp** (Q1) | Chưa có trường nào | Thêm `location` cho lớp, cho phép ghi đè ở từng buổi |
+| G14 | **Nhân bản bài đánh giá** (N4) | Giáo viên giao lại cùng đề cho lớp/kỳ khác | Đã nhận ở N4, xếp vào nhóm này |
 
 ### B. Đề xuất mới, ngoài phạm vi đã chốt — 🔵 (cần quyết định; cột cuối là khuyến nghị theo nghiệp vụ)
 
@@ -147,6 +158,22 @@ Mã màn hình: `CM` chung · `AD` Admin · `TC` Teacher · `ST` Student · `PR`
 | Q4 | **Học sinh nhỏ tuổi không có tài khoản** thì làm / nộp bài thế nào | Các endpoint làm bài đều yêu cầu đăng nhập vai trò Student; hồ sơ học viên có thể tồn tại không tài khoản. Nếu nhiều học sinh không có tài khoản thì cần luồng giáo viên nhập điểm hộ hoặc phụ huynh giúp con | **Cần xác nhận với nghiệp vụ thực tế** trước khi vẽ luồng làm bài |
 | Q5 | **Kênh báo tin cho phụ huynh** khi V1 chỉ có thông báo trong ứng dụng (không email / SMS / push, `BR-NOTIF-001`) | Phụ huynh không mở app thì không biết bài mới, kết quả, đổi lịch. Đây là rủi ro sản phẩm lớn hơn bất kỳ màn hình nào | Ghi rõ trong định hướng sau V1 (email hoặc Zalo); ở V1, trang chủ phụ huynh phải trả lời ngay câu "có gì mới" |
 | Q6 | **Gộp cổng Admin và Teacher** khi một tài khoản có cả hai vai trò | Cùng một người dùng cả hai; hai cổng tách biệt buộc phải đổi vai trò liên tục | **Một khung điều hướng**: phần "Giảng dạy" và phần "Quản trị" cùng nằm trong một giao diện khi có cả hai vai trò |
+
+## Màn hình thêm khi đặc tả chi tiết
+
+| Mã | Màn hình | Lý do | Trạng thái |
+|---|---|---|---|
+| CM-09 | Kích hoạt tài khoản lần đầu | Lời mời cần màn riêng, văn bản khác đặt lại mật khẩu, có trạng thái link hết hạn | 🟡 G11 |
+| CM-10 | Khung điều hướng theo vai trò | Menu từng vai trò, chuông thông báo, đổi vai trò, đăng xuất; gộp "Giảng dạy / Quản trị" nếu giữ cả hai vai trò (Q6) | ✅ (phần gộp 🔵) |
+| AD-15 | Checklist thiết lập lần đầu | Hệ thống mới rỗng; dẫn Admin qua môn → lớp → giáo viên → học sinh → lịch | 🔵 |
+| AD-05c | Gửi lại lời mời | Lời mời hết hạn sau 60 phút | 🔵 🟡 G11 |
+| ST-06b | Đã nộp bài | Xác nhận sau khi nộp hoặc hết giờ tự nộp | ✅ |
+| ST-07b | Xem lại bài làm | Xem từng câu sau khi có điểm | 🟡 A5 |
+| TC-03 (tab) | Lịch sử thay đổi | Teacher xem được audit log của lớp mình | 🔵 |
+
+Các màn AD-05/06/07 được tách thành chi tiết, form, mời tài khoản; AD-10 thành khung + 5 tab (10a…10e); AD-12 thành 12 và 12a. Chi tiết ở `screens/admin.md`.
+
+---
 
 ## Ưu tiên theo nghiệp vụ
 
