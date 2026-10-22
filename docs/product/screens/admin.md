@@ -1,7 +1,7 @@
 # Đặc tả màn hình — Cổng Admin (AD)
 
 > Tài liệu này mô tả **mỗi màn hình của cổng Admin có những khối nội dung và chức năng gì**, để người thiết kế UI vẽ mockup. Không bàn màu sắc, kiểu dáng. Gốc là `docs/product/screen-inventory.md` (mã màn hình, ký hiệu ✅🟡🔵⛔🎨); trường dữ liệu lấy từ code thật của `piclass-api` (Resource, Request, Action, Policy), nghiệp vụ từ `docs/requirements/*` và `docs/architecture/error-codes.md`.
-> Admin là người thiết lập một lần rồi ít dùng hằng ngày (người dùng, môn, lớp, lịch, ghi danh) nên màn hình ưu tiên **rõ ràng, an toàn khi thao tác nhạy cảm** (vô hiệu hóa, kết thúc, sửa hồi tố) hơn là nhanh. Thiết bị ưu tiên: máy tính.
+> Admin là người thiết lập một lần rồi ít dùng hằng ngày (người dùng, môn, lớp, lịch, ghi danh) nên màn hình ưu tiên **rõ ràng, an toàn khi thao tác nhạy cảm** (vô hiệu hóa, kết thúc, sửa hồi tố) hơn là nhanh. Responsive: ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 > Khi một tài khoản giữ cả Admin và Teacher, giả định một khung điều hướng chung có hai nhóm "Giảng dạy" và "Quản trị" (Q6, chưa chốt chính thức). Các màn dùng chung với Teacher (buổi học và điểm danh, đơn xin phép, ngân hàng câu hỏi, bài đánh giá) đặc tả ở file Teacher, không lặp ở đây.
 
 ## Mục lục
@@ -111,7 +111,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 ### AD-01 — Tổng quan   🟡 (G1)
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính.
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** mở app buổi sáng và biết ngay hôm nay trung tâm có bao nhiêu lớp/buổi học, có việc gì cần Admin xử lý.
 - **Vào từ / đi tới:** trang đầu sau đăng nhập khi vai trò Admin. Bấm thẻ số → danh sách tương ứng (AD-04, AD-07, AD-09). Bấm buổi hôm nay → AD-10e của lớp đó. Bấm mục "cần xử lý" → màn đích tương ứng. Banner thiết lập lần đầu → AD-15.
 - **Khối nội dung & dữ liệu hiển thị:**
@@ -129,7 +129,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 ### AD-15 — Thiết lập lần đầu (checklist)   🔵
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính.
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** Admin mới nhận hệ thống trống, cần biết làm gì trước, gì sau để lớp chạy được.
 - **Vào từ / đi tới:** banner ở AD-01 hoặc mục "Bắt đầu" trong menu (ẩn khi đã xong hết). Mỗi bước dẫn tới màn thao tác (AD-08, AD-07b, AD-09, AD-04/05a, AD-10b, AD-10d).
 - **Khối nội dung & dữ liệu hiển thị:** danh sách 7 bước có tick tự động, mỗi bước một dòng mô tả "vì sao cần": (1) Tạo môn học · (2) Thêm giáo viên và mời tài khoản · (3) Tạo lớp · (4) Phân công giáo viên cho lớp (lớp chuyển sang Đang hoạt động) · (5) Thêm học viên và xếp vào lớp · (6) Tạo lịch học cho lớp · (7) Mời phụ huynh và liên kết với học sinh. Thanh tiến độ "4/7".
@@ -145,7 +145,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 ### AD-02 — Danh sách tài khoản   ✅
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính.
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** tìm một tài khoản đăng nhập (vd phụ huynh báo "không vào được") và xem nó còn hoạt động không.
 - **Vào từ / đi tới:** menu Quản trị › Tài khoản. Bấm dòng → AD-03.
 - **Khối nội dung & dữ liệu hiển thị:** mẫu M1. Bộ lọc: ô tìm tên (`name`), ô tìm tên đăng nhập/email (`email`, thực chất khớp `login_identifier`), dropdown vai trò (`role`: 4 giá trị, chỉ khớp vai trò còn hiệu lực), dropdown trạng thái (`status`). Cột (từ `GET /users` → `data[]`): Họ tên (`full_name`, có thể `null` nếu tài khoản chưa nối hồ sơ → hiện "(chưa có hồ sơ)"), Tên đăng nhập (`login_identifier`), Vai trò (`roles[]`, mỗi vai trò một chip), Trạng thái (`status`).
@@ -157,7 +157,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 ### AD-03 — Chi tiết tài khoản   ✅ (có 🟡 GM-1, GM-6)
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính.
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** xem một người đang giữ vai trò nào, gán thêm/kết thúc vai trò, khóa hoặc mở lại tài khoản.
 - **Vào từ / đi tới:** AD-02 (bấm dòng); sau khi mời tài khoản thành công (AD-05b) dẫn thẳng vào đây để gán vai trò. Đi tới: về AD-02; liên kết sang hồ sơ (AD-05/06a/07a) 🟡 GM-1.
 - **Khối nội dung & dữ liệu hiển thị:**
@@ -187,7 +187,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 ### AD-04 — Học viên (danh sách)   🟡 (G4)
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính.
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** tìm một học sinh, thấy ai chưa có lớp hoặc chưa có tài khoản, thêm học sinh mới.
 - **Vào từ / đi tới:** menu Quản trị › Học viên. Bấm dòng → AD-05. Nút "Thêm học viên" → AD-05a.
 - **Khối nội dung & dữ liệu hiển thị:** mẫu M1. Bộ lọc dự kiến: tìm theo tên; trạng thái hồ sơ (Đang hoạt động/Ngừng hoạt động); "Tài khoản" (Chưa mời / Đã mời / Đang hoạt động / Đã vô hiệu hóa). Cột dự kiến: Họ tên (`person_profile.full_name`), Email, Số điện thoại, Trạng thái hồ sơ (`status`), Tài khoản, Lớp đang học (số lớp). Đầu danh sách có chip nhắc "Chưa có tài khoản: 23".
@@ -199,7 +199,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 ### AD-05 — Học viên (chi tiết)   ✅ (khối lớp/phụ huynh/tài khoản có 🟡)
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính. Cấu trúc theo M3.
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại. Cấu trúc theo M3.
 - **Người dùng muốn làm gì:** xem toàn cảnh một học sinh: thông tin, lớp, phụ huynh, tiến độ; xử lý tài khoản.
 - **Vào từ / đi tới:** AD-04; từ roster của lớp (AD-10b); từ liên kết phụ huynh (AD-06a). Đi tới: AD-05a (sửa), AD-05b (mời), AD-06c (liên kết phụ huynh), AD-10 (lớp), AD-14 (nhật ký, lọc `entity_type=Student`).
 - **Khối nội dung & dữ liệu hiển thị:**
@@ -217,7 +217,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 ### AD-05a — Học viên (tạo / sửa)   ✅
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính. Mẫu M2.
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại. Mẫu M2.
 - **Người dùng muốn làm gì:** nhập hồ sơ học sinh mới ngay khi phụ huynh đăng ký, hoặc chỉnh thông tin liên hệ.
 - **Vào từ / đi tới:** AD-04 ("Thêm học viên"), AD-05 ("Sửa"), AD-15 bước 5. Lưu xong → AD-05 của học viên vừa tạo, kèm gợi ý "Mời tạo tài khoản" và "Thêm vào lớp".
 - **Khối nội dung & dữ liệu hiển thị:** các trường — Họ tên* (`full_name`), Email, Số điện thoại, Ghi chú (`notes`, nhiều dòng). Khi sửa có thêm Trạng thái hồ sơ (`status`). **Sửa tách hai nơi**: họ tên/email/SĐT lưu qua `PATCH /person-profiles/{person_profile.id}`, còn trạng thái/ghi chú qua `PATCH /students/{id}`; FE gọi tuần tự và gộp lỗi, người dùng chỉ thấy một nút Lưu.
@@ -229,7 +229,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 ### AD-05b — Mời tạo tài khoản (hộp thoại dùng chung 3 loại hồ sơ)   ✅ (G11, GM-5)
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính.
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** cho một học sinh/phụ huynh/giáo viên đăng nhập được: tạo tài khoản và gửi email để họ tự đặt mật khẩu.
 - **Vào từ / đi tới:** nút "Mời tạo tài khoản" ở AD-04/05, AD-06/06a, AD-07/07a. Thành công → đóng hộp thoại, hồ sơ chuyển "Đã mời"; hiện nút "Gán vai trò ngay" → AD-03 (GM-5).
 - **Khối nội dung & dữ liệu hiển thị:** tên hồ sơ (chỉ đọc); email nhận lời mời (lấy từ hồ sơ, chỉ đọc; nếu trống thì chặn nút Mời và hiện liên kết "Bổ sung email" sang form sửa); ô **Tên đăng nhập** (`login_identifier`, bắt buộc, duy nhất toàn hệ thống; gợi ý điền sẵn bằng email); dòng giải thích: "Hệ thống gửi email chứa liên kết đặt mật khẩu. **Liên kết hết hạn sau 60 phút.**"
@@ -241,7 +241,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 ### AD-05c — Gửi lại lời mời / đặt mật khẩu hộ   🔵🟡 (G11)
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính.
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** người được mời báo "link hết hạn" hoặc "không nhận được mail"; Admin cần gửi lại hoặc tự đưa họ một đường vào.
 - **Vào từ / đi tới:** AD-03 (tài khoản vừa mời, chưa đăng nhập lần nào), AD-05/06a/07a (khối tài khoản trạng thái "Đã mời"), hoặc từ lỗi `ALREADY_INVITED` ở AD-05b.
 - **Khối nội dung & dữ liệu hiển thị:** tên + tên đăng nhập + email nhận; dòng giải thích hạn 60 phút; nút "Gửi lại lời mời" (dự kiến) và nút "Sao chép liên kết đặt mật khẩu" (dự kiến, Admin gửi hộ qua Zalo khi mail không tới).
@@ -257,7 +257,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 ### AD-06 — Phụ huynh (danh sách)   🟡 (G4)
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính. Mẫu M1.
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại. Mẫu M1.
 - **Người dùng muốn làm gì:** tìm phụ huynh, kiểm tra họ đã liên kết với con chưa.
 - **Vào từ / đi tới:** menu Quản trị › Phụ huynh. Dòng → AD-06a; nút "Thêm phụ huynh" → AD-06b.
 - **Khối nội dung & dữ liệu hiển thị:** bộ lọc dự kiến: tìm tên; trạng thái hồ sơ; "Tài khoản"; "Có con liên kết / chưa có". Cột: Họ tên, Email, SĐT, Trạng thái hồ sơ, Tài khoản, Số con liên kết.
@@ -269,7 +269,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 ### AD-06a — Phụ huynh (chi tiết)   ✅
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính. Mẫu M3 (một trang, không tab).
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại. Mẫu M3 (một trang, không tab).
 - **Người dùng muốn làm gì:** xem phụ huynh này là phụ huynh của những em nào và xử lý tài khoản.
 - **Vào từ / đi tới:** AD-06, AD-05 (bấm tên phụ huynh). Đi tới: AD-06b (sửa), AD-05b (mời), AD-06c (liên kết), AD-05 (bấm tên con).
 - **Khối nội dung & dữ liệu hiển thị:** đầu trang (họ tên `parent.person_profile.full_name`, chip `parent.status`); thông tin liên hệ (email, SĐT); khối Tài khoản (🟡 GM-1); **Các con liên kết** từ `GET /parent-student-relationships?parent_id=` → `{id,parent_id,student_id,relationship_type,status}`: tên con (GET `/students/{student_id}`, GM-4), loại quan hệ (Bố/Mẹ/Ông bà… do gia đình cung cấp, chữ tự do), trạng thái; liên kết đã kết thúc ở mục riêng.
@@ -281,7 +281,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 ### AD-06b — Phụ huynh (tạo / sửa)   ✅
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính. Mẫu M2.
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại. Mẫu M2.
 - **Người dùng muốn làm gì:** thêm phụ huynh khi đăng ký cho con, sửa liên hệ.
 - **Vào từ / đi tới:** AD-06, AD-06a, AD-05 (khối phụ huynh). Lưu xong → AD-06a, gợi ý "Liên kết với học sinh".
 - **Khối nội dung & dữ liệu hiển thị:** Họ tên*, Email, SĐT; khi sửa thêm Trạng thái hồ sơ. Giống AD-05a: tên/email/SĐT qua `/person-profiles/{id}`, trạng thái qua `/parents/{id}`. Không có trường ghi chú.
@@ -293,7 +293,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 ### AD-06c — Liên kết phụ huynh–học sinh   ✅
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính. Hộp thoại/ngăn trượt dùng từ AD-05 (khối phụ huynh) và AD-06a (khối con).
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại. Hộp thoại/ngăn trượt dùng từ AD-05 (khối phụ huynh) và AD-06a (khối con).
 - **Người dùng muốn làm gì:** xác nhận "người này là phụ huynh của em này" để phụ huynh xem được dữ liệu của con; hoặc gỡ khi không còn quan hệ.
 - **Vào từ / đi tới:** nút "Liên kết phụ huynh" (AD-05) / "Liên kết học sinh" (AD-06a); nút "Kết thúc liên kết" từng dòng.
 - **Khối nội dung & dữ liệu hiển thị:** (a) *Tạo:* ô chọn người còn lại (tìm theo tên trong danh sách hồ sơ: G4), ô "Loại quan hệ" (tự do, tùy chọn, gợi ý Bố/Mẹ/Ông/Bà/Người giám hộ); (b) *Kết thúc:* tên hai bên + ô lý do.
@@ -309,7 +309,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 ### AD-07 — Giáo viên (danh sách)   🟡 (G4)
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính. Mẫu M1.
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại. Mẫu M1.
 - **Người dùng muốn làm gì:** xem ai đang dạy, ai chưa có lớp, ai nghỉ.
 - **Vào từ / đi tới:** menu Quản trị › Giáo viên. Dòng → AD-07a; "Thêm giáo viên" → AD-07b.
 - **Khối nội dung & dữ liệu hiển thị:** bộ lọc: tìm tên; trạng thái hồ sơ; "Tài khoản"; "Có lớp / chưa có lớp". Cột: Họ tên, Chuyên môn (`specialty`), Email, SĐT, Trạng thái, Tài khoản, Số lớp đang dạy.
@@ -321,7 +321,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 ### AD-07a — Giáo viên (chi tiết)   ✅ (lớp đang dạy 🟡 GM-2)
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính.
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** xem giáo viên dạy những lớp nào, trước khi cho nghỉ hoặc đổi người dạy.
 - **Vào từ / đi tới:** AD-07, từ tab giáo viên của lớp (AD-10c). Đi tới: AD-07b, AD-05b, AD-10 (bấm lớp).
 - **Khối nội dung & dữ liệu hiển thị:** đầu trang (họ tên, chip `teacher.status`, chuyên môn `teacher.specialty`); thông tin liên hệ; khối Tài khoản (GM-1); **Lớp đang dạy** (tên lớp, môn, từ ngày): GM-2.
@@ -333,7 +333,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 ### AD-07b — Giáo viên (tạo / sửa)   ✅
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính. Mẫu M2.
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại. Mẫu M2.
 - **Người dùng muốn làm gì:** thêm giáo viên mới và ghi chuyên môn.
 - **Vào từ / đi tới:** AD-07, AD-07a, AD-15 bước 2. Lưu xong → AD-07a, gợi ý "Mời tài khoản" rồi "Phân công vào lớp".
 - **Khối nội dung & dữ liệu hiển thị:** Họ tên*, Email, SĐT, Chuyên môn (`specialty`, chữ tự do); khi sửa thêm Trạng thái hồ sơ. Họ tên/email/SĐT qua `/person-profiles/{id}`, trạng thái/chuyên môn qua `/teachers/{id}`.
@@ -349,7 +349,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 ### AD-08 — Môn học   ✅
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính.
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** quản lý danh mục môn (Toán, Văn, Anh…) mà các lớp gắn vào.
 - **Vào từ / đi tới:** menu Quản trị › Môn học. Một trang: bảng + ngăn trượt/hộp thoại tạo/sửa (không cần trang chi tiết riêng).
 - **Khối nội dung & dữ liệu hiển thị:** mẫu M1 (không phân trang, đủ ít). Cột: Tên (`name`), Mô tả (`description`), Trạng thái (`status`: Đang dùng/Ngừng sử dụng), Số lớp dùng môn (🟡 không có; FE đếm từ `GET /classes` theo `subject_id`). Bộ lọc: trạng thái.
@@ -361,7 +361,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 ### AD-09 — Lớp học (danh sách)   ✅ (G9 cho cột nâng cao)
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính.
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** xem mọi lớp, tìm lớp, mở lớp hoặc tạo lớp mới.
 - **Vào từ / đi tới:** menu Quản trị › Lớp học; AD-01, AD-15. Dòng → AD-10 (tab Tổng quan). Nút "Tạo lớp" mở hộp thoại tạo (ngay trên màn này).
 - **Khối nội dung & dữ liệu hiển thị:** mẫu M1. Bộ lọc: tìm tên; trạng thái lớp (Đang chuẩn bị/Đang hoạt động/Đã lưu trữ); môn (dropdown từ `GET /subjects`). Cột: Tên lớp (`name`), Nhãn (`label`, vd "Khóa 2026", "Ca tối"), Môn (tên, ghép từ `subject_id`), Trạng thái (`status`). Dự kiến thêm (G9): giáo viên, sĩ số, buổi kế tiếp. Mặc định ẩn lớp đã lưu trữ (có công tắc "Hiện lớp đã lưu trữ"); BR-CLASS-003: tên trùng được phép nên cột Nhãn/Môn là thông tin phân biệt, hiện đậm.
@@ -375,7 +375,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 Tách thành khung + 5 tab: **AD-10a Tổng quan · 10b Học sinh · 10c Giáo viên · 10d Lịch · 10e Buổi học**. Dùng mẫu M3.
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính.
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** quản lý một lớp từ A đến Z ở một chỗ: thông tin, ai học, ai dạy, khi nào học.
 - **Vào từ / đi tới:** AD-09; AD-01; liên kết từ lỗi `ACTIVE_ASSIGNMENTS_EXIST` (AD-03/07a, mở thẳng tab Giáo viên); từ AD-14 (khi entity là lớp). Đi tới: AD-05, AD-07a (bấm tên), TC-05 (điểm danh từng buổi, dùng chung với Teacher), AD-14.
 - **Khối nội dung & dữ liệu hiển thị (đầu trang):** tên lớp (`class.name`), chip trạng thái (`status`), môn (tên từ `subject_id`), nhãn (`label`), nút "Lưu trữ lớp" (khi chưa lưu trữ). Dải tab: Tổng quan · Học sinh (số) · Giáo viên (số) · Lịch · Buổi học. Banner theo trạng thái: *Đang chuẩn bị* = "Lớp chưa có giáo viên phụ trách nên chưa vận hành; phân công giáo viên ở tab Giáo viên"; *Đã lưu trữ* = "Lớp đã lưu trữ, lịch sử vẫn xem được".
@@ -451,7 +451,7 @@ Tách thành khung + 5 tab: **AD-10a Tổng quan · 10b Học sinh · 10c Giáo 
 
 ### AD-11 — Lịch tổng hợp toàn hệ thống   🟡 (G2)
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính.
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** nhìn cả trung tâm trong một tuần: lớp nào học khi nào, giáo viên nào bận, chỗ nào trống/trùng.
 - **Vào từ / đi tới:** menu Quản trị › Lịch; AD-01 (buổi hôm nay). Bấm một buổi → AD-10e của lớp (hoặc ngăn chi tiết buổi → TC-05).
 - **Khối nội dung & dữ liệu hiển thị:** chuyển Tuần/Tháng/Ngày; lưới lịch; mỗi buổi là một ô: giờ, tên lớp, giáo viên, trạng thái (Dự kiến/Hoàn tất/Hủy), cờ cần rà soát. Bộ lọc: lớp, giáo viên, môn, ẩn buổi đã hủy. Chú giải màu theo trạng thái (không chọn màu ở đây). Dự kiến đánh dấu các ô trùng giờ cùng giáo viên.
@@ -463,7 +463,7 @@ Tách thành khung + 5 tab: **AD-10a Tổng quan · 10b Học sinh · 10c Giáo 
 
 ### AD-12 — Khóa học (danh sách và chi tiết)   ✅
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính. Một màn gồm danh sách và trang chi tiết (M1, M3).
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại. Một màn gồm danh sách và trang chi tiết (M1, M3).
 - **Người dùng muốn làm gì:** quản lý các khóa (nhóm bài đánh giá và học sinh tham gia, kể cả dạy kèm ngoài lớp chính thức) và biết ai đang học khóa nào.
 - **Vào từ / đi tới:** menu Quản trị › Khóa học. Dòng → chi tiết (cùng màn). "Ghi danh" → AD-12a.
 - **Khối nội dung & dữ liệu hiển thị:**
@@ -480,7 +480,7 @@ Tách thành khung + 5 tab: **AD-10a Tổng quan · 10b Học sinh · 10c Giáo 
 
 ### AD-12a — Ghi danh vào khóa học   ✅
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính. Khối trong chi tiết khóa + hộp thoại.
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại. Khối trong chi tiết khóa + hộp thoại.
 - **Người dùng muốn làm gì:** đưa một học sinh, hoặc cả một lớp, vào khóa để nhận bài của khóa; hoặc cho em rời khóa.
 - **Vào từ / đi tới:** AD-12 (khối Học sinh ghi danh). Tên học sinh → AD-05.
 - **Khối nội dung & dữ liệu hiển thị:** bảng từ `GET /courses/{id}/enrollments` → `{data:[{student_id,status,valid_from,valid_to}]}` (Admin/Teacher thấy cả dòng đã kết thúc): Họ tên (ghép từ `GET /students/{id}`: GM-4), Từ ngày, Đến ngày, chip trạng thái (Đang hiệu lực/Đã kết thúc); bộ lọc "Chỉ đang hiệu lực" (mặc định bật). Hộp thoại ghi danh có hai chế độ (tab): **Theo học sinh** (ô tìm một học sinh) và **Theo cả lớp** (chọn một lớp).
@@ -499,7 +499,7 @@ Tách thành khung + 5 tab: **AD-10a Tổng quan · 10b Học sinh · 10c Giáo 
 
 ### AD-13 — Cấp lại lượt làm bài   ✅
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính (không có ở Teacher).
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại (không có ở Teacher).
 - **Người dùng muốn làm gì:** học sinh làm bài kiểm tra/thi nhưng gặp sự cố hệ thống (mất mạng, lỗi máy) nên cần một lượt làm mới, không bị tính lượt cũ.
 - **Vào từ / đi tới:** từ chi tiết bài nộp (`GET /submissions/{id}`, màn chấm bài TC-13) khi vai trò Admin, nút "Cấp lại lượt làm bài" cạnh thông tin lượt; không có mục menu riêng. Sau khi cấp: về chi tiết bài với lượt mới.
 - **Khối nội dung & dữ liệu hiển thị:** hộp thoại M4: học sinh, tên bài, **lượt cần hủy** (số lượt `attempt_number`, trạng thái, giờ nộp, điểm nếu đã chấm), cảnh báo hậu quả; ô lý do. Ghi rõ hậu quả: lượt cũ bị **hủy**, bài nộp của lượt đó chuyển thành không hợp lệ, **kết quả đã công bố bị thu hồi** (Student/Parent không còn thấy và không tính vào tiến độ), học sinh nhận một lượt mới. Mã lượt (`attempt_id`) lấy từ bài nộp (`submission.attempt_id`; cần xác nhận khi dựng vì Resource trả nguyên bản ghi).
@@ -511,7 +511,7 @@ Tách thành khung + 5 tab: **AD-10a Tổng quan · 10b Học sinh · 10c Giáo 
 
 ### AD-14 — Nhật ký audit   ✅ (G5, GM-7)
 
-- **Vai trò · thiết bị ưu tiên:** Admin · máy tính. (Teacher cũng gọi được endpoint này nhưng chỉ thấy log có `correlation_key` là lớp mình dạy; xem 🔵 ở cuối mục.)
+- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại. (Teacher cũng gọi được endpoint này nhưng chỉ thấy log có `correlation_key` là lớp mình dạy; xem 🔵 ở cuối mục.)
 - **Người dùng muốn làm gì:** trả lời "ai đã đổi cái này, khi nào, vì sao" (vd sửa hồi tố thành viên lớp, hủy buổi, công bố điểm).
 - **Vào từ / đi tới:** menu Quản trị › Nhật ký; liên kết "Xem nhật ký" từ AD-03, AD-05, AD-10; từ thông báo cho Admin. Từ một dòng, bấm "Mở đối tượng" tới màn tương ứng (User → AD-03, Class entity → AD-10…) khi suy ra được.
 - **Khối nội dung & dữ liệu hiển thị:**

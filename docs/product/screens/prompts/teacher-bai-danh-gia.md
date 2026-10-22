@@ -1,6 +1,6 @@
 # Bộ prompt — Cổng Teacher: câu hỏi, bài đánh giá, chấm bài
 
-Nhóm này gồm các màn giáo viên dùng hằng ngày sau điểm danh: xem danh sách bài đã giao, soạn và giao bài, theo dõi bài đã giao, xem bài nộp, chấm bài, rồi tìm và soạn câu hỏi trong ngân hàng. Thứ tự vẽ gợi ý: danh sách bài, soạn và giao bài (năm prompt), chi tiết bài, bài nộp, chấm bài (hai prompt), ngân hàng câu hỏi, soạn câu hỏi (bốn prompt theo nhóm loại câu). Mỗi prompt tự đứng được, có thể dán ở phiên riêng.
+Nhóm này gồm các màn giáo viên dùng hằng ngày sau điểm danh: xem danh sách bài đã giao, soạn và giao bài, theo dõi bài đã giao, xem bài nộp, chấm bài, rồi tìm và soạn câu hỏi trong ngân hàng. Thứ tự vẽ gợi ý: danh sách bài, soạn và giao bài (năm prompt rồi prompt Ghép), chi tiết bài, bài nộp, chấm bài (hai prompt rồi prompt Ghép), ngân hàng câu hỏi, soạn câu hỏi (bốn prompt theo nhóm loại câu rồi prompt Ghép). Mỗi prompt tự đứng được, có thể dán ở phiên riêng. Mỗi mục Liên kết nối các màn theo chuỗi: Danh sách bài, Soạn bài, chọn câu từ Ngân hàng câu hỏi (và ngược lại: soạn câu mới rồi quay lại bài đang soạn), Chi tiết bài, Bài nộp, Chấm bài, công bố kết quả. Các prompt Ghép dùng sau khi đã vẽ các phần.
 
 | Mã | Màn hình | Ghi chú |
 |---|---|---|
@@ -10,22 +10,25 @@ Nhóm này gồm các màn giáo viên dùng hằng ngày sau điểm danh: xem 
 | TC-10c | Soạn bài: chọn đối tượng giao | Phần việc 3 |
 | TC-10d | Soạn bài: xem trước và phát hành | Phần việc 4 |
 | TC-10e | Bài đã phát hành: đóng, mở lại, hủy, phiên bản mới | Vòng đời sau phát hành |
+| TC-10-G | Ghép: soạn và giao bài liền mạch | Gộp TC-10a đến TC-10e thành một quy trình |
 | TC-11 | Chi tiết bài | Theo dõi tiến độ, điều chỉnh riêng từng học sinh |
 | TC-12 | Bài nộp của một bài | Danh sách bài nộp, công bố hàng loạt |
 | TC-13a | Chấm bài: chấm điểm | Chấm từng câu, điểm tổng, bài bị vô hiệu |
 | TC-13b | Chấm bài: nhận xét và công bố kết quả | Nhận xét, công bố/rút kết quả |
+| TC-13-G | Ghép: chấm điểm, nhận xét và công bố cho một học sinh | Gộp TC-13a và TC-13b |
 | TC-07 | Ngân hàng câu hỏi | Tìm, lọc, lưu trữ câu hỏi |
 | TC-08a | Soạn câu hỏi: nhóm chọn đáp án | Một đáp án, nhiều đáp án, đúng/sai |
 | TC-08b | Soạn câu hỏi: nhóm trả lời bằng chữ | Điền khuyết, trả lời ngắn, tự luận |
 | TC-08c | Soạn câu hỏi: nhóm cấu trúc | Nối cặp, sắp xếp thứ tự |
 | TC-08d | Soạn câu hỏi: nộp tệp | Học sinh nộp ảnh hoặc tệp |
+| TC-08-G | Ghép: trình soạn câu hỏi thống nhất cho 9 loại | Gộp TC-08a đến TC-08d |
 
 ---
 
 ### TC-09 — Danh sách bài đánh giá
 
 ```text
-Màn hình: Danh sách bài đánh giá (giáo viên, kể cả quản trị viên; thiết bị ưu tiên: máy tính)
+Màn hình: Danh sách bài đánh giá (giáo viên, kể cả quản trị viên; responsive: ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại)
 
 Tình huống: Giáo viên Toán muốn biết mình đã giao những bài nào, bài nào còn nháp, bài nào đã đóng, và tạo bài mới. Quan trọng nhất là nhìn nhanh và tìm lại đúng bài trong danh sách dài.
 
@@ -37,6 +40,12 @@ Hành động:
 - Mở một bài để xem chi tiết.
 - Nhân bản một bài sang lớp hoặc kỳ khác.
 - Đóng hoặc hủy bài ngay từ danh sách, chỉ với bài của mình hoặc quản trị viên.
+
+Liên kết:
+- Đến màn này từ mục Giảng dạy của giáo viên (có thể tách riêng Bài tập, Kiểm tra, Bài thi hoặc gộp một màn có lọc loại), và từ màn Tổng quan giáo viên khi bấm "n bài chờ chấm" (khi đó danh sách đã lọc sẵn các bài chờ chấm).
+- Bấm vào một bài thì mở màn Chi tiết bài đánh giá của đúng bài đó (nếu màn này đã có trong dự án, hãy nối tới nó; nếu chưa, để một điểm dẫn tới).
+- Chọn "Tạo bài mới" (kèm loại bài đã chọn) thì mở màn Soạn bài, phần thông tin chung, loại bài được mang theo và không phải chọn lại.
+- Nhân bản xong thì mở bài nháp mới trong màn Soạn bài.
 
 Quy tắc nghiệp vụ:
 - Giáo viên chỉ thấy bài do mình tạo, bài giao cho lớp mình đang dạy, hoặc bài thuộc khóa học mình phụ trách; quản trị viên thấy tất cả.
@@ -57,7 +66,7 @@ Dữ liệu mẫu:
 ### TC-10a — Soạn bài: thông tin chung
 
 ```text
-Màn hình: Soạn bài, phần thông tin chung (giáo viên, kể cả quản trị viên; thiết bị ưu tiên: máy tính, dùng được trên máy tính bảng)
+Màn hình: Soạn bài, phần thông tin chung (giáo viên, kể cả quản trị viên; responsive: ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại)
 
 Tình huống: Giáo viên Toán 9 chuẩn bị bài kiểm tra 15 phút cho lớp Toán 9A. Đây là phần việc đầu tiên trong bốn phần việc soạn và giao bài (thông tin chung; câu hỏi và điểm; đối tượng; xem trước và phát hành). Người dùng cần biết mình đang ở phần nào, và rời đi giữa chừng không mất dữ liệu: ngay sau khi xong phần này bài đã được lưu thành nháp.
 
@@ -76,6 +85,11 @@ Thông tin cần nhập:
 
 Hành động: lưu và tiếp tục; lưu nháp và thoát; quay lại mà không mất dữ liệu.
 
+Liên kết:
+- Đến màn này từ "Tạo bài mới" ở Danh sách bài đánh giá (mang theo loại bài), từ "Sửa" bài nháp ở Chi tiết bài đánh giá, hoặc từ "Soạn phiên bản mới" ở Chi tiết bài đánh giá (mang theo bài và bản nháp đang soạn).
+- "Lưu và tiếp tục" đi tới Soạn bài, phần chọn câu hỏi và điểm, vẫn của bài đang soạn.
+- "Lưu nháp và thoát" quay về Danh sách bài đánh giá, hoặc về Chi tiết bài đánh giá nếu đã vào từ đó.
+
 Quy tắc nghiệp vụ:
 - Thứ tự thời gian phải là giờ mở, rồi hạn nộp, rồi giờ đóng. Sai thứ tự: "Thứ tự thời gian chưa hợp lý: giờ mở phải trước hạn nộp, hạn nộp phải trước giờ đóng."
 - Điểm đạt lớn hơn điểm tối đa: "Điểm đạt đang cao hơn điểm tối đa."
@@ -92,7 +106,7 @@ Dữ liệu mẫu: Kiểm tra ngắn "Kiểm tra 15 phút – Đại số chươ
 ### TC-10b — Soạn bài: chọn câu hỏi và điểm
 
 ```text
-Màn hình: Soạn bài, phần chọn câu hỏi và điểm (giáo viên, kể cả quản trị viên; thiết bị ưu tiên: máy tính)
+Màn hình: Soạn bài, phần chọn câu hỏi và điểm (giáo viên, kể cả quản trị viên; responsive: ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại)
 
 Tình huống: Giáo viên Toán 9 đang soạn bài (đã lưu nháp ở phần thông tin chung) và cần ghép đề từ ngân hàng câu hỏi dùng chung, hoặc soạn nhanh một câu mới. Quan trọng nhất là chọn được nhiều câu cùng lúc, thấy tổng điểm, và không phải nhập lại.
 
@@ -107,6 +121,12 @@ Hành động:
 - Sửa điểm từng câu tại chỗ, đổi thứ tự câu, bỏ câu khỏi bài (không xóa khỏi ngân hàng).
 - Xem đáp án của câu đang chọn để kiểm tra.
 - Đính kèm tệp đề (PDF, ảnh) cho học sinh xem.
+
+Liên kết:
+- Đến màn này từ phần thông tin chung (bấm tiếp tục) hoặc từ phần chọn đối tượng giao (bấm quay lại), luôn là cùng một bài đang soạn.
+- "Thêm từ ngân hàng" mở màn Ngân hàng câu hỏi ở chế độ chọn câu cho bài này (nếu màn này đã có trong dự án, hãy nối tới nó; nếu chưa, để một điểm dẫn tới); chọn xong thì quay về đúng bài đang soạn, các câu vừa chọn cùng điểm đã nằm trong bài, bộ lọc và vị trí cũ được giữ.
+- "Soạn câu mới" mở màn Soạn câu hỏi (chọn loại câu ngay tại đó); lưu xong thì quay về đúng bài đang soạn, câu mới tự được thêm vào bài và dữ liệu đang nhập của bài không mất.
+- Tiếp tục đi tới Soạn bài, phần chọn đối tượng giao; quay lại đi tới phần thông tin chung.
 
 Quy tắc nghiệp vụ:
 - Bài ghi nhớ đúng phiên bản của câu tại lúc chọn; sửa câu trong ngân hàng sau đó không làm đổi bài này. Nói rõ điều này khi chọn: "Bài sẽ giữ đúng phiên bản bạn chọn, dù câu gốc được sửa sau này."
@@ -128,7 +148,7 @@ Dữ liệu mẫu:
 ### TC-10c — Soạn bài: chọn đối tượng giao
 
 ```text
-Màn hình: Soạn bài, phần chọn đối tượng giao (giáo viên, kể cả quản trị viên; thiết bị ưu tiên: máy tính, dùng được trên máy tính bảng)
+Màn hình: Soạn bài, phần chọn đối tượng giao (giáo viên, kể cả quản trị viên; responsive: ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại)
 
 Tình huống: Giáo viên đã chọn xong câu hỏi và cần chọn ai sẽ nhận bài: cả lớp Toán 9A, một khóa học, hoặc vài học sinh riêng lẻ (ví dụ học sinh nghỉ bù). Quan trọng nhất là chọn nhanh, biết chính xác bao nhiêu học sinh sẽ nhận bài, và không giao nhầm.
 
@@ -141,6 +161,12 @@ Hành động:
 - Mỗi lần thêm đúng một đối tượng: một lớp, hoặc một học sinh, hoặc một khóa học; thêm nhiều lần để giao cho nhiều nhóm.
 - Rút một đối tượng đã thêm.
 - Lưu nháp và thoát, quay lại, tiếp tục.
+
+Liên kết:
+- Đến màn này từ Soạn bài, phần chọn câu hỏi và điểm (bấm tiếp tục), hoặc từ phần xem trước và phát hành (bấm quay lại để sửa đối tượng), luôn là cùng một bài đang soạn.
+- Tiếp tục đi tới Soạn bài, phần xem trước và phát hành; quay lại đi tới phần chọn câu hỏi và điểm.
+- "Lưu nháp và thoát" quay về Danh sách bài đánh giá, hoặc về Chi tiết bài đánh giá nếu đã vào từ đó.
+- Với bài đã phát hành, thêm hoặc rút đối tượng cũng đi từ Chi tiết bài đánh giá; thay đổi có hiệu lực ngay.
 
 Quy tắc nghiệp vụ:
 - Giáo viên chỉ giao được cho lớp mình dạy, khóa học mình phụ trách, học sinh đang học lớp mình; quản trị viên không giới hạn. Thông điệp khi vượt quyền: "Lớp này không thuộc phân công của bạn." / "Khóa học này không thuộc quyền sử dụng của bạn." / "Học sinh này không thuộc lớp bạn phụ trách."
@@ -163,7 +189,7 @@ Dữ liệu mẫu:
 ### TC-10d — Soạn bài: xem trước và phát hành
 
 ```text
-Màn hình: Soạn bài, phần xem trước và phát hành (giáo viên, kể cả quản trị viên; thiết bị ưu tiên: máy tính)
+Màn hình: Soạn bài, phần xem trước và phát hành (giáo viên, kể cả quản trị viên; responsive: ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại)
 
 Tình huống: Giáo viên đã điền xong thông tin, câu hỏi, đối tượng và muốn rà lại lần cuối trước khi phát hành. Quan trọng nhất là chính xác: phát hành xong thì nội dung bị cố định và học sinh được báo ngay, nên phải thấy rõ còn lỗi gì chưa ổn.
 
@@ -178,6 +204,12 @@ Hành động:
 - Quay lại sửa từng phần.
 - Phát hành.
 - Lưu nháp và thoát.
+
+Liên kết:
+- Đến màn này từ Soạn bài, phần chọn đối tượng giao (bấm tiếp tục), cùng một bài đang soạn.
+- Mỗi điều cần xem lại dẫn thẳng tới phần cần sửa: thông tin chung, câu hỏi và điểm, hoặc đối tượng giao; sửa xong quay lại đây và danh sách điều cần xem lại được cập nhật.
+- "Xem bài như học sinh sẽ thấy" mở bản xem trước của đúng bài này.
+- Phát hành thành công thì mở màn Chi tiết bài đánh giá của bài vừa phát hành (nếu màn này đã có trong dự án, hãy nối tới nó; nếu chưa, để một điểm dẫn tới). Lưu nháp và thoát quay về Danh sách bài đánh giá.
 
 Quy tắc nghiệp vụ:
 - Trước khi phát hành phải xác nhận: "Phát hành cho 25 học sinh của Toán 9A. Nội dung câu hỏi và đáp án sẽ được cố định, muốn sửa phải tạo phiên bản mới. Hệ thống sẽ báo cho học sinh."
@@ -195,7 +227,7 @@ Dữ liệu mẫu: "Kiểm tra 15 phút – Đại số chương 2" · mở 24/1
 ### TC-10e — Bài đã phát hành: đóng, mở lại, hủy, phiên bản mới
 
 ```text
-Màn hình: Quản lý vòng đời bài đã phát hành (giáo viên là người tạo bài, hoặc quản trị viên; thiết bị ưu tiên: máy tính)
+Màn hình: Quản lý vòng đời bài đã phát hành (giáo viên là người tạo bài, hoặc quản trị viên; responsive: ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại)
 
 Tình huống: Bài kiểm tra đã phát hành và giáo viên cần xử lý tình huống thực tế: đóng bài khi hết giờ, mở lại cho vài học sinh nghỉ ốm, hủy bài đưa nhầm, hoặc sửa đề bằng cách soạn phiên bản mới. Quan trọng nhất là hiểu rõ hậu quả trước khi bấm và không thao tác nhầm.
 
@@ -206,6 +238,11 @@ Hành động, kèm điều kiện:
 - Mở lại: chỉ khi bài đang Đã đóng. Phải chọn đúng một nhóm: một số học sinh cụ thể, hoặc một lớp, hoặc một khóa học. Học sinh chưa hoàn thành thuộc nhóm đó được làm lại.
 - Hủy bài: được ở mọi trạng thái trừ đã hủy. Bắt buộc nhập lý do. Xác nhận: "Bài nộp và lịch sử vẫn được giữ; bài không còn tính điểm."
 - Soạn phiên bản mới: chỉ khi bài chưa hủy và chưa có bản nháp đang mở. Sao chép cấu hình và câu hỏi từ bản hiện tại thành bản nháp mới để sửa, rồi phát hành.
+
+Liên kết:
+- Đến phần này từ màn Chi tiết bài đánh giá của đúng bài đang xem (bài đã phát hành, đã đóng hoặc đã hủy); bài, phiên bản hiện tại và trạng thái được mang theo.
+- "Soạn phiên bản mới" mở màn Soạn bài, phần thông tin chung, với bản nháp mới sao chép từ bản hiện tại (nếu màn này đã có trong dự án, hãy nối tới nó; nếu chưa, để một điểm dẫn tới). Nếu đã có bản nháp đang soạn thì dẫn thẳng tới bản nháp đó.
+- Đóng, mở lại, hủy xong thì ở lại Chi tiết bài đánh giá của bài này với trạng thái mới.
 
 Quy tắc nghiệp vụ:
 - Mở lại không kéo dài giờ đóng bài. Nếu giờ đóng đã qua thì học sinh vẫn không bắt đầu được; muốn kéo dài phải soạn phiên bản mới với giờ đóng mới. Nói rõ điều này khi mở lại, không hứa điều khác.
@@ -221,10 +258,28 @@ Dữ liệu mẫu: "Kiểm tra 15 phút – Đại số chương 2" · Đã đó
 
 ---
 
+### TC-10-G — Ghép: soạn và giao bài liền mạch
+
+```text
+Màn hình: Ghép: soạn và giao bài thành một quy trình liền mạch (giáo viên, kể cả quản trị viên; responsive: ưu tiên web máy tính, dùng được trên máy tính bảng)
+
+Yêu cầu: trong dự án đã vẽ các màn Soạn bài, phần thông tin chung; Soạn bài, phần chọn câu hỏi và điểm; Soạn bài, phần chọn đối tượng giao; Soạn bài, phần xem trước và phát hành; và phần quản lý bài đã phát hành (đóng, mở lại, hủy, phiên bản mới). Hãy gộp chúng thành MỘT chức năng "soạn và giao bài" duy nhất, đang làm việc trên MỘT bài chung. Nếu chưa vẽ đủ thì chỉ ghép những phần đã có.
+
+Dùng chung: tên bài, loại bài, trạng thái (Nháp, Đã phát hành, Đã đóng, Đã hủy), phiên bản, chỉ báo tiến độ cho biết đang ở phần nào và phần nào đã xong, tình trạng lưu nháp, thông báo, và danh sách điều cần xem lại.
+
+Giữ lại khi chuyển qua lại giữa các phần: mọi dữ liệu đã nhập chưa lưu, câu đã chọn và điểm, đối tượng đã thêm, bộ lọc và vị trí trong danh sách câu hỏi. Lưu nháp xuyên suốt: rời đi ở bất kỳ phần nào cũng không mất dữ liệu, và mở lại bài nháp thì quay về đúng phần đang làm dở. Chuyển giữa các phần không làm rời khỏi bài đang soạn, kể cả khi đi chọn câu từ Ngân hàng câu hỏi hoặc soạn câu mới rồi quay lại.
+
+Điều kiện hiện/ẩn: phần xem trước và phát hành chỉ cho phát hành khi bài còn là Nháp; bài đã phát hành thì các phần soạn chỉ đọc và chỉ còn các hành động đóng, mở lại, hủy, soạn phiên bản mới; các hành động này chỉ hiện với người tạo bài hoặc quản trị viên. Kiểm tra trước khi phát hành gom mọi điều chưa ổn từ cả ba phần soạn và dẫn đúng tới chỗ cần sửa.
+
+Liên kết: vào từ Danh sách bài đánh giá ("Tạo bài mới") hoặc Chi tiết bài đánh giá ("Sửa", "Soạn phiên bản mới"); phát hành xong thì mở Chi tiết bài đánh giá của bài này.
+```
+
+---
+
 ### TC-11 — Chi tiết bài
 
 ```text
-Màn hình: Chi tiết bài đánh giá (giáo viên, kể cả quản trị viên; thiết bị ưu tiên: máy tính)
+Màn hình: Chi tiết bài đánh giá (giáo viên, kể cả quản trị viên; responsive: ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại)
 
 Tình huống: Giáo viên Toán mở một bài đã giao để xem tiến độ: ai chưa nộp, ai cần gia hạn riêng, rồi đóng bài hoặc chuyển sang chấm. Quan trọng nhất là nắm tình hình cả lớp trong một lần xem, và thao tác đúng với từng học sinh.
 
@@ -243,6 +298,14 @@ Hành động, kèm điều kiện (chỉ người tạo bài hoặc quản tr�
 - Điều chỉnh riêng cho một học sinh đang được giao: đặt hạn nộp riêng (nộp sau hạn chung nhưng trước hạn riêng thì không bị tính trễ), đặt số lượt riêng (cũng là cách cho học sinh làm lại bài tập cần sửa), hoặc xóa điều chỉnh.
 - Xem bài nộp, chuyển sang chấm.
 
+Liên kết:
+- Đến màn này từ Danh sách bài đánh giá (bấm vào một bài), từ thông báo "học sinh đã nộp", và từ Tổng quan giáo viên; sau khi phát hành xong ở Soạn bài cũng về đây.
+- "Sửa" bài nháp hoặc "Soạn phiên bản mới" mở màn Soạn bài, phần thông tin chung của đúng bài và phiên bản này.
+- "Xem bài nộp" mở màn Bài nộp của một bài, bài đang xem được mang theo.
+- "Chuyển sang chấm" mở màn Chấm bài của bài nộp chờ chấm đầu tiên.
+- Đóng, mở lại, hủy bài dùng phần quản lý bài đã phát hành, rồi ở lại đây.
+- Bấm vào tệp đề đính kèm thì mở màn xem tệp (nếu màn này đã có trong dự án, hãy nối tới nó; nếu chưa, để một điểm dẫn tới).
+
 Quy tắc nghiệp vụ:
 - Hạn riêng chỉ ảnh hưởng nhãn "nộp trễ", không kéo dài giờ đóng bài chung. Nói rõ: "Hạn riêng không kéo dài giờ đóng bài."
 - Số lượt riêng tối thiểu 1: "Số lượt tối thiểu là 1".
@@ -258,7 +321,7 @@ Dữ liệu mẫu: "Kiểm tra 15 phút – Đại số chương 2" · Đã phá
 ### TC-12 — Bài nộp của một bài
 
 ```text
-Màn hình: Bài nộp của một bài (giáo viên, kể cả quản trị viên; thiết bị ưu tiên: máy tính, dùng được trên máy tính bảng)
+Màn hình: Bài nộp của một bài (giáo viên, kể cả quản trị viên; responsive: ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại)
 
 Tình huống: Học sinh đã nộp bài kiểm tra. Giáo viên muốn biết ai đã nộp, ai nộp trễ, bài nào còn chờ chấm, rồi chấm lần lượt hoặc công bố điểm cả loạt. Quan trọng nhất là xem được cả lớp 30 em mà không cuộn quá nhiều và nhận ra ngay bài cần chú ý.
 
@@ -269,6 +332,11 @@ Hành động:
 - Mở một bài nộp để chấm.
 - Công bố ngay từng kết quả; rút kết quả đã công bố.
 - Công bố hàng loạt mọi kết quả đã chấm xong mà chưa công bố.
+
+Liên kết:
+- Đến màn này từ Chi tiết bài đánh giá (xem bài nộp) và từ thông báo "học sinh đã nộp"; bài đang xem được mang theo.
+- Bấm vào một bài nộp thì mở màn Chấm bài của đúng học sinh và lượt đó (nếu màn này đã có trong dự án, hãy nối tới nó; nếu chưa, để một điểm dẫn tới); danh sách đã lọc (và thứ tự hiện tại) được mang theo để "Chấm bài kế tiếp" đi theo đúng thứ tự này.
+- Quay lại Chi tiết bài đánh giá của bài này.
 
 Quy tắc nghiệp vụ:
 - Giáo viên chỉ thấy bài nộp của học sinh thuộc lớp hoặc khóa mình; người tạo bài và quản trị viên thấy hết.
@@ -289,7 +357,7 @@ Dữ liệu mẫu:
 ### TC-13a — Chấm bài: chấm điểm
 
 ```text
-Màn hình: Chấm bài của một học sinh, phần chấm điểm (giáo viên, kể cả quản trị viên; thiết bị ưu tiên: máy tính hoặc máy tính bảng)
+Màn hình: Chấm bài của một học sinh, phần chấm điểm (giáo viên, kể cả quản trị viên; responsive: ưu tiên web máy tính, dùng tốt trên máy tính bảng)
 
 Tình huống: Giáo viên Toán đọc bài làm của một học sinh, cho điểm các câu tự luận, rồi chuyển ngay sang bài kế tiếp. Quan trọng nhất là đọc đề, bài làm và đáp án đúng cùng lúc để chấm chính xác và nhanh; mỗi điểm lưu ngay khi nhập.
 
@@ -305,6 +373,12 @@ Hành động:
 - Nhập điểm tổng thay cho điểm từng câu.
 - Lưu và sang bài chưa chấm xong kế tiếp; hết bài thì hiện "Đã chấm hết. Công bố cả lớp?".
 - Quản trị viên cấp lại lượt cho bài kiểm tra hoặc bài thi, bắt buộc nhập lý do. Giáo viên thấy dòng "Cần cấp lại lượt? Nhờ quản trị viên xử lý".
+
+Liên kết:
+- Đến màn này từ Bài nộp của một bài (bấm vào một bài nộp); bài, học sinh, lượt và danh sách đã lọc hiện tại được mang theo.
+- "Lưu và sang bài kế" đi tới màn Chấm bài của bài nộp chưa chấm xong kế tiếp trong danh sách đã lọc; hết bài thì hiện "Đã chấm hết. Công bố cả lớp?" và dẫn về Bài nộp của một bài.
+- Phần nhận xét và công bố kết quả là cùng một bài nộp đang chấm; chuyển qua lại không mất điểm đang nhập.
+- Với bài bị vô hiệu, đường dẫn tới lượt thay thế mở Chấm bài của lượt đó. Quản trị viên "Cấp lại lượt" dùng thao tác cấp lại lượt của quản trị viên rồi quay về đây.
 
 Quy tắc nghiệp vụ:
 - Điểm mỗi câu từ 0 đến điểm tối đa của câu: "Điểm phải từ 0 đến {điểm tối đa}".
@@ -324,7 +398,7 @@ Dữ liệu mẫu: Lê Gia Hân · Lượt 1 · nộp 24/10 18:40 · Câu 7 (T�
 ### TC-13b — Chấm bài: nhận xét và công bố kết quả
 
 ```text
-Màn hình: Chấm bài của một học sinh, phần nhận xét và công bố kết quả (giáo viên, kể cả quản trị viên; thiết bị ưu tiên: máy tính hoặc máy tính bảng)
+Màn hình: Chấm bài của một học sinh, phần nhận xét và công bố kết quả (giáo viên, kể cả quản trị viên; responsive: ưu tiên web máy tính, dùng tốt trên máy tính bảng)
 
 Tình huống: Giáo viên Toán đã chấm điểm cho Lê Gia Hân và muốn viết nhận xét cho từng câu hoặc cho cả bài, rồi công bố điểm để học sinh và phụ huynh xem. Quan trọng nhất là không hiểu nhầm: "đã công bố nhận xét" không có nghĩa học sinh đã thấy.
 
@@ -339,6 +413,11 @@ Hành động:
 - Rút lại nhận xét (khi đã công bố).
 - Công bố kết quả (chỉ khi đã chấm xong).
 - Rút kết quả (khi đã công bố).
+
+Liên kết:
+- Đến phần này từ Chấm bài, phần chấm điểm, của cùng học sinh và lượt đang chấm; điểm vừa nhập được mang theo.
+- Công bố hoặc rút kết quả xong thì ở lại màn này với trạng thái mới; "Sang bài kế" đi tới Chấm bài của bài nộp chưa chấm xong kế tiếp trong danh sách đã lọc của Bài nộp của một bài.
+- Quay lại Bài nộp của một bài (nếu màn này đã có trong dự án, hãy nối tới nó; nếu chưa, để một điểm dẫn tới).
 
 Quy tắc nghiệp vụ:
 - Quyền xem chọn lúc tạo và không đổi được sau đó. Giải thích ba lựa chọn bằng lời: "Chỉ giáo viên (ghi chú nội bộ)", "Học sinh và phụ huynh", "Chỉ phụ huynh (học sinh không thấy)".
@@ -356,10 +435,30 @@ Dữ liệu mẫu: nhận xét nháp ở Câu 7: "Lập luận đúng, thiếu p
 
 ---
 
+### TC-13-G — Ghép: chấm điểm, nhận xét và công bố cho một học sinh
+
+```text
+Màn hình: Ghép: chấm điểm, nhận xét và công bố kết quả cho một học sinh (giáo viên, kể cả quản trị viên; responsive: ưu tiên web máy tính, dùng tốt trên máy tính bảng)
+
+Yêu cầu: trong dự án đã vẽ các màn Chấm bài, phần chấm điểm; và Chấm bài, phần nhận xét và công bố kết quả. Hãy gộp chúng thành MỘT chức năng "chấm bài" duy nhất, đang xem MỘT bài nộp chung (một học sinh, một lượt làm). Nếu chưa vẽ đủ thì chỉ ghép những phần đã có.
+
+Dùng chung: tên học sinh, tên bài, lượt thứ mấy, giờ nộp, nhãn nộp trễ, điểm tổng và phần trăm, trạng thái chấm (Chưa chấm, Chấm dở, Chấm xong), trạng thái công bố, nhãn Đạt hoặc Chưa đạt, lời nhắc "Học sinh và phụ huynh chỉ thấy điểm khi kết quả đã công bố", và thông báo lỗi lưu.
+
+Giữ lại khi chuyển qua lại giữa chấm điểm và nhận xét: điểm đang nhập chưa lưu, nhận xét đang viết dở, câu đang xem, vị trí cuộn. Điểm từng câu lưu ngay khi nhập nên điểm tổng và trạng thái luôn cập nhật ở mọi phần. Chuyển phần không rời khỏi bài nộp đang chấm.
+
+Điều kiện hiện/ẩn: công bố hoặc rút kết quả chỉ khi đúng trạng thái (chỉ công bố được khi đã chấm xong); bài bị vô hiệu thì mọi phần chỉ đọc, hiện lý do và đường dẫn tới lượt thay thế; cấp lại lượt chỉ hiện với quản trị viên; giáo viên khác chỉ có quyền theo lớp thì vẫn chấm được.
+
+Chuyển bài kế: sau khi lưu có hành động sang bài nộp chưa chấm xong kế tiếp theo thứ tự danh sách đã lọc; mở bài kế thì bắt đầu ở phần chấm điểm; hết bài thì hiện "Đã chấm hết. Công bố cả lớp?".
+
+Liên kết: vào từ Bài nộp của một bài (bấm vào một bài nộp); quay lại Bài nộp của một bài.
+```
+
+---
+
 ### TC-07 — Ngân hàng câu hỏi
 
 ```text
-Màn hình: Ngân hàng câu hỏi (giáo viên, kể cả quản trị viên; thiết bị ưu tiên: máy tính)
+Màn hình: Ngân hàng câu hỏi (giáo viên, kể cả quản trị viên; responsive: ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại)
 
 Tình huống: Giáo viên Toán 9 muốn tìm lại một câu đã soạn từ học kỳ trước để dùng cho bài kiểm tra tuần này, hoặc soạn câu mới khi chưa có. Màn này cũng dùng khi đang ghép đề, lúc đó giáo viên cần chọn nhiều câu một lần. Quan trọng nhất là tìm nhanh trong kho lớn dùng chung.
 
@@ -371,6 +470,12 @@ Hành động:
 - Soạn câu hỏi mới; mở một câu để xem hoặc sửa.
 - Lưu trữ một câu ngay trên danh sách, chỉ với câu của mình hoặc quản trị viên.
 - Khi mở để ghép đề: chọn nhiều câu cùng lúc, đặt điểm cho từng câu (mặc định lấy điểm gợi ý hoặc 1), thêm n câu vào bài; câu đã có trong bài hiện "Đã thêm"; câu đã lưu trữ không được chọn.
+
+Liên kết:
+- Đến màn này từ mục Giảng dạy của giáo viên (mở để tìm, xem, soạn), hoặc từ Soạn bài, phần chọn câu hỏi và điểm (mở ở chế độ chọn câu cho bài đang soạn; bài đó được mang theo).
+- Bấm vào một câu thì mở màn Soạn câu hỏi của đúng câu đó (xem hoặc sửa theo quyền) (nếu màn này đã có trong dự án, hãy nối tới nó; nếu chưa, để một điểm dẫn tới).
+- "Soạn câu hỏi mới" mở màn Soạn câu hỏi ở chế độ tạo mới.
+- Ở chế độ chọn câu cho bài: chọn xong thì quay về đúng bài đang soạn với các câu vừa chọn và điểm; nếu giáo viên soạn câu mới từ đây thì lưu xong cũng quay về bài đang soạn, câu mới tự được chọn. Bộ lọc và vị trí trong danh sách được giữ khi đi và về.
 
 Quy tắc nghiệp vụ:
 - Mọi giáo viên và quản trị viên xem được toàn bộ ngân hàng; chỉ người tạo hoặc quản trị viên mới sửa, gắn topic/tag, lưu trữ.
@@ -390,7 +495,7 @@ Dữ liệu mẫu:
 ### TC-08a — Soạn câu hỏi: nhóm chọn đáp án
 
 ```text
-Màn hình: Soạn câu hỏi chọn đáp án, gồm ba loại: Một đáp án đúng, Nhiều đáp án đúng, Đúng/Sai (giáo viên, kể cả quản trị viên; thiết bị ưu tiên: máy tính)
+Màn hình: Soạn câu hỏi chọn đáp án, gồm ba loại: Một đáp án đúng, Nhiều đáp án đúng, Đúng/Sai (giáo viên, kể cả quản trị viên; responsive: ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại)
 
 Tình huống: Giáo viên Toán 9 soạn một câu trắc nghiệm để lưu vào ngân hàng và dùng lại nhiều bài. Quan trọng nhất là nhập đáp án nhanh và không thể lưu một câu thiếu đáp án đúng, vì lưu sai thì mọi học sinh bị 0 điểm.
 
@@ -402,6 +507,11 @@ Theo từng loại:
 - Đúng/Sai: hai lựa chọn "Đúng" và "Sai" tự có sẵn, giáo viên chỉ chọn "Đáp án là: Đúng / Sai".
 
 Hành động: lưu; xem câu hỏi ở chế độ chỉ đọc nếu của người khác; lưu trữ câu của mình; tải tệp đính kèm.
+
+Liên kết:
+- Đến màn này từ Ngân hàng câu hỏi ("Soạn câu hỏi mới", bấm vào một câu, hoặc nhân bản làm câu mới), hoặc từ Soạn bài, phần chọn câu hỏi và điểm ("Soạn câu mới").
+- Lưu xong thì quay về nơi đã đến: Ngân hàng câu hỏi (câu vừa lưu được làm nổi), hoặc đúng bài đang soạn nếu vào từ đó, kèm câu mới tự được thêm vào bài. Dữ liệu của bài đang soạn không mất.
+- Đổi sang loại câu khác (ví dụ tự luận hay nối cặp) thì vẫn ở trong cùng trình soạn câu hỏi.
 
 Quy tắc nghiệp vụ:
 - Trước khi lưu một câu đã có: "Lưu sẽ tạo phiên bản mới (v3). Bài đã giao trước đó vẫn dùng nội dung cũ." Tệp đính kèm phải gắn lại cho phiên bản mới.
@@ -420,7 +530,7 @@ Dữ liệu mẫu: Một đáp án: "Nghiệm của 2x + 3 = 11 là?" · A. 3 ·
 ### TC-08b — Soạn câu hỏi: nhóm trả lời bằng chữ
 
 ```text
-Màn hình: Soạn câu hỏi trả lời bằng chữ, gồm ba loại: Điền khuyết, Trả lời ngắn, Tự luận (giáo viên, kể cả quản trị viên; thiết bị ưu tiên: máy tính)
+Màn hình: Soạn câu hỏi trả lời bằng chữ, gồm ba loại: Điền khuyết, Trả lời ngắn, Tự luận (giáo viên, kể cả quản trị viên; responsive: ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại)
 
 Tình huống: Giáo viên soạn câu mà học sinh phải tự gõ câu trả lời, để lưu vào ngân hàng dùng lại. Với Điền khuyết và Trả lời ngắn, hệ thống tự chấm bằng cách so với các đáp án chấp nhận; với Tự luận, giáo viên chấm tay. Quan trọng nhất là nhập đủ các cách viết đúng để học sinh không bị chấm oan.
 
@@ -432,6 +542,11 @@ Theo từng loại:
 - Tự luận: không có đáp án. Hướng dẫn làm bài được học sinh nhìn thấy khi làm, nên đó là hướng dẫn chứ không phải đáp án mẫu; tiêu chí chấm cho giáo viên có thể ghi trong hướng dẫn. Ghi chú: "Giáo viên chấm tay."
 
 Hành động: lưu; chỉ đọc nếu câu của người khác; lưu trữ câu của mình; tải tệp đính kèm.
+
+Liên kết:
+- Đến màn này từ Ngân hàng câu hỏi ("Soạn câu hỏi mới", bấm vào một câu, hoặc nhân bản làm câu mới), hoặc từ Soạn bài, phần chọn câu hỏi và điểm ("Soạn câu mới").
+- Lưu xong thì quay về nơi đã đến: Ngân hàng câu hỏi (câu vừa lưu được làm nổi), hoặc đúng bài đang soạn nếu vào từ đó, kèm câu mới tự được thêm vào bài. Dữ liệu của bài đang soạn không mất.
+- Đổi sang loại câu khác (ví dụ chọn đáp án hay nối cặp) thì vẫn ở trong cùng trình soạn câu hỏi.
 
 Quy tắc nghiệp vụ:
 - Câu trả lời của học sinh được so với đáp án chấp nhận sau khi cắt khoảng trắng đầu và cuối; chưa bỏ dấu tiếng Việt khi so, nên nên thêm cả cách viết có dấu và không dấu.
@@ -449,7 +564,7 @@ Dữ liệu mẫu: Điền khuyết: "The capital of Viet Nam is ___." · chấp
 ### TC-08c — Soạn câu hỏi: nhóm cấu trúc
 
 ```text
-Màn hình: Soạn câu hỏi có cấu trúc, gồm hai loại: Nối cặp, Sắp xếp thứ tự (giáo viên, kể cả quản trị viên; thiết bị ưu tiên: máy tính)
+Màn hình: Soạn câu hỏi có cấu trúc, gồm hai loại: Nối cặp, Sắp xếp thứ tự (giáo viên, kể cả quản trị viên; responsive: ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại)
 
 Tình huống: Giáo viên soạn câu nối các cặp (ví dụ nối công thức với tên gọi) hoặc câu sắp xếp các mục theo thứ tự đúng (ví dụ các ý của một chứng minh). Hệ thống tự chấm theo kiểu tất cả hoặc không: sai một phần là 0 điểm. Quan trọng nhất là giáo viên nhập đáp án đúng rõ ràng và biết học sinh sẽ thấy gì.
 
@@ -460,6 +575,11 @@ Theo từng loại:
 - Sắp xếp thứ tự: các mục, sắp theo thứ tự đúng (đổi thứ tự được, thêm/xóa được), ít nhất 2 mục. Học sinh thấy các mục đã xáo trộn.
 
 Hành động: lưu; chỉ đọc nếu câu của người khác; lưu trữ câu của mình; tải tệp đính kèm.
+
+Liên kết:
+- Đến màn này từ Ngân hàng câu hỏi ("Soạn câu hỏi mới", bấm vào một câu, hoặc nhân bản làm câu mới), hoặc từ Soạn bài, phần chọn câu hỏi và điểm ("Soạn câu mới").
+- Lưu xong thì quay về nơi đã đến: Ngân hàng câu hỏi (câu vừa lưu được làm nổi), hoặc đúng bài đang soạn nếu vào từ đó, kèm câu mới tự được thêm vào bài. Dữ liệu của bài đang soạn không mất.
+- Đổi sang loại câu khác (ví dụ chọn đáp án hay điền khuyết) thì vẫn ở trong cùng trình soạn câu hỏi.
 
 Quy tắc nghiệp vụ:
 - Chặn lưu khi một vế để trống, khi còn vế trái chưa có vế phải, hoặc khi sắp xếp có ít hơn 2 mục. Lỗi gắn đúng chỗ: "Vui lòng nhập đề bài", "Cặp thứ 2 chưa đủ hai vế", "Cần ít nhất 2 mục để sắp xếp".
@@ -477,13 +597,18 @@ Dữ liệu mẫu: Nối cặp: "Nối hàm số với đồ thị của nó" ·
 ### TC-08d — Soạn câu hỏi: nộp tệp
 
 ```text
-Màn hình: Soạn câu hỏi nộp ảnh hoặc tệp (giáo viên, kể cả quản trị viên; thiết bị ưu tiên: máy tính)
+Màn hình: Soạn câu hỏi nộp ảnh hoặc tệp (giáo viên, kể cả quản trị viên; responsive: ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại)
 
 Tình huống: Giáo viên Toán muốn học sinh chụp bài giải viết tay và tải lên, rồi tự mình chấm. Câu này không có đáp án; giáo viên chấm tay. Tính năng học sinh nộp tệp còn đang hoàn thiện, nên người dùng cần biết rõ điều đó ngay khi soạn để không tạo câu chưa dùng được.
 
 Thông tin cần nhập: loại câu "Nộp ảnh hoặc tệp" (chọn khi tạo mới); môn (tùy chọn, không đổi được sau khi tạo); đề bài (bắt buộc); hướng dẫn nộp tệp (ví dụ "Chụp bài giải và tải lên"; học sinh thấy khi làm bài); điểm gợi ý; độ khó (Dễ, Trung bình, Khó); topic và tag (gõ để gợi ý, tên chưa có thì tự tạo; topic chỉ gắn khi đã chọn môn); tệp đính kèm tùy chọn từ phía giáo viên (hình minh họa, đề PDF/ảnh; PDF, Word, JPEG, PNG, ZIP, tối đa 10 MB). Cách chấm hiển thị là "Giáo viên chấm", không sửa tay. Có phần xem trước theo góc nhìn học sinh.
 
 Hành động: lưu; chỉ đọc nếu câu của người khác; lưu trữ câu của mình; tải tệp đính kèm.
+
+Liên kết:
+- Đến màn này từ Ngân hàng câu hỏi ("Soạn câu hỏi mới", bấm vào một câu, hoặc nhân bản làm câu mới), hoặc từ Soạn bài, phần chọn câu hỏi và điểm ("Soạn câu mới").
+- Lưu xong thì quay về nơi đã đến: Ngân hàng câu hỏi (câu vừa lưu được làm nổi), hoặc đúng bài đang soạn nếu vào từ đó, kèm câu mới tự được thêm vào bài. Dữ liệu của bài đang soạn không mất.
+- Đổi sang loại câu khác (ví dụ tự luận hay chọn đáp án) thì vẫn ở trong cùng trình soạn câu hỏi.
 
 Quy tắc nghiệp vụ:
 - Phải có thông báo rõ ngay trong lúc soạn: "Tính năng nộp tệp đang hoàn thiện, học sinh chưa nộp được tệp cho câu này." Câu loại này không nên được đưa vào bài đã giao cho học sinh cho tới khi tính năng sẵn sàng.
@@ -495,4 +620,22 @@ Quy tắc nghiệp vụ:
 Tình huống đặc biệt: trống; đang lưu; lỗi theo trường; chỉ đọc; đã lưu trữ; đang tải tệp; đã đính tệp; không có quyền; trạng thái "chưa dùng được" của loại câu này.
 
 Dữ liệu mẫu: "Giải hệ phương trình x + y = 5, x − y = 1 và chụp bài giải" · hướng dẫn: "Chụp rõ cả trang vở, ghi rõ họ tên" · Toán 9 · 2 điểm.
+```
+
+---
+
+### TC-08-G — Ghép: trình soạn câu hỏi thống nhất cho 9 loại
+
+```text
+Màn hình: Ghép: trình soạn câu hỏi thống nhất cho 9 loại (giáo viên, kể cả quản trị viên; responsive: ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại)
+
+Yêu cầu: trong dự án đã vẽ các màn Soạn câu hỏi: nhóm chọn đáp án (Một đáp án, Nhiều đáp án, Đúng/Sai); nhóm trả lời bằng chữ (Điền khuyết, Trả lời ngắn, Tự luận); nhóm cấu trúc (Nối cặp, Sắp xếp thứ tự); và nộp tệp. Hãy gộp chúng thành MỘT trình soạn câu hỏi duy nhất cho cả 9 loại, đang soạn MỘT câu hỏi chung. Nếu chưa vẽ đủ thì chỉ ghép những loại đã có.
+
+Dùng chung cho mọi loại: loại câu, môn, đề bài, hướng dẫn làm bài, điểm gợi ý, độ khó, topic và tag, tệp đính kèm, cách chấm (Tự động hoặc Giáo viên chấm), xem trước theo góc nhìn học sinh, lưu, lưu trữ, thông báo phiên bản mới ("Lưu sẽ tạo phiên bản mới") và thông báo lỗi theo trường. Chỉ phần riêng của từng loại (lựa chọn, đáp án chấp nhận, các cặp, các mục, số tệp tối đa) thay đổi theo loại được chọn.
+
+Giữ lại khi người dùng đổi loại câu mà không rời trình soạn: các phần dùng chung đã nhập (đề bài, hướng dẫn, điểm, độ khó, topic, tag, tệp). Phần riêng của loại cũ sẽ mất nên phải hỏi xác nhận trước khi đổi khi đang sửa câu đã có; khi tạo mới chưa nhập gì thì đổi tự do.
+
+Điều kiện hiện/ẩn: chọn loại chỉ đổi được khi tạo mới; câu của người khác hoặc đã lưu trữ thì chỉ đọc; môn không đổi được sau khi tạo; loại nộp tệp luôn hiện thông báo tính năng đang hoàn thiện.
+
+Liên kết: vào từ Ngân hàng câu hỏi hoặc từ Soạn bài, phần chọn câu hỏi và điểm; lưu xong quay về đúng nơi đã đến, và nếu đến từ bài đang soạn thì câu mới tự được thêm vào bài.
 ```

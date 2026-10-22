@@ -32,7 +32,7 @@
 ---
 
 ### TC-01 — Tổng quan   🟡 🎨
-- **Vai trò · thiết bị ưu tiên:** Teacher · máy tính (mở đầu ngày dạy), xem được trên máy tính bảng.
+- **Vai trò · responsive:** Teacher · responsive: ưu tiên web máy tính (mở đầu ngày dạy), vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** Sáng đến trung tâm, biết ngay hôm nay dạy lớp nào mấy giờ và việc nào đang tồn đọng (bài chưa chấm, đơn xin phép chưa duyệt, buổi hôm qua chưa điểm danh).
 - **Vào từ / đi tới:** trang đầu sau đăng nhập khi vai trò là Teacher. Từ thẻ "Cần xử lý": bài chờ chấm → TC-12 (bài nộp của bài đó); đơn chờ duyệt → TC-06; buổi chưa điểm danh → TC-05. Từ "Buổi dạy hôm nay/tuần này" → TC-05 (hoặc TC-04 cho lịch tuần). "Bài sắp hạn" → TC-11.
 - **Khối nội dung & dữ liệu hiển thị:**
@@ -49,7 +49,7 @@
 - **Dữ liệu mẫu gợi ý:** "Chào cô Lan · Thứ Hai 26/10". Cần xử lý: 7 bài chờ chấm · 2 đơn xin phép · 1 buổi chưa điểm danh. Hôm nay: 17:30–19:00 Toán 9A (Đã lên lịch) · 19:15–20:45 Văn 8B.
 
 ### TC-02 — Lớp của tôi   ✅ (số liệu bổ sung 🟡 G9) 🎨
-- **Vai trò · thiết bị ưu tiên:** Teacher · máy tính.
+- **Vai trò · responsive:** Teacher · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** Tìm nhanh lớp mình đang dạy và mở vào lớp đó.
 - **Vào từ / đi tới:** menu "Lớp của tôi". Bấm một lớp → TC-03. **Không có nút "Tạo lớp"** (chỉ Admin được tạo; mockup mẫu cần bỏ nút này, hoặc với tài khoản có thêm vai Admin thì nút nằm ở nhóm "Quản trị", AD-09).
 - **Khối nội dung & dữ liệu hiển thị:**
@@ -62,7 +62,7 @@
 - **Dữ liệu mẫu gợi ý:** "Toán 9A · Thứ 2-4-6 · Toán · Đang học"; "Văn 8B · Thứ 3-5 · Ngữ văn · Đang học"; "Anh giao tiếp K12 · Cuối tuần · Tiếng Anh · Đang chuẩn bị".
 
 ### TC-03 — Chi tiết lớp   ✅ (một số khối 🟡)
-- **Vai trò · thiết bị ưu tiên:** Teacher · máy tính.
+- **Vai trò · responsive:** Teacher · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** Xem một lớp từ đầu đến cuối: ai đang học, lịch, các buổi đã/sắp diễn ra, bài đã giao, em nào đang yếu.
 - **Vào từ / đi tới:** TC-02, thông báo, TC-01. Trong trang là các tab; từ tab Buổi học → TC-05; tab Lịch → TC-04 (khung lớp này); tab Bài → TC-11; tab Tiến độ → TC-14; tab Học sinh → TC-14 (bấm tên). Mọi thao tác thêm/bớt học sinh, phân công giáo viên, sửa thông tin lớp **không có** ở cổng này.
 - **Khối nội dung & dữ liệu hiển thị:**
@@ -82,7 +82,7 @@
 - **Dữ liệu mẫu gợi ý:** Toán 9A, 28 học sinh: Nguyễn Minh Khôi, Trần Thu Hà, Lê Gia Bảo; đã rời: Phạm Đức Anh (đến 30/09). Giáo viên: Cô Lan (từ 01/09).
 
 ### TC-04 — Lịch dạy   ✅ (lịch nhiều lớp 🟡 G2) 🎨
-- **Vai trò · thiết bị ưu tiên:** Teacher · máy tính.
+- **Vai trò · responsive:** Teacher · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** Xếp và chỉnh lịch dạy: mở lịch cố định hàng tuần cho một lớp, thêm một buổi lẻ hoặc buổi học bù, dời hoặc hủy một buổi khi bận, và báo cho học sinh biết lý do.
 - **Vào từ / đi tới:** menu "Lịch dạy" (xem mọi lớp mình dạy) hoặc tab Lịch/Buổi học trong TC-03 (một lớp). Bấm một buổi → drawer chi tiết → "Điểm danh" tới TC-05.
 - **Khối nội dung & dữ liệu hiển thị:**
@@ -104,7 +104,7 @@
 - **Dữ liệu mẫu gợi ý:** Lịch lặp Toán 9A: Thứ 2-4-6, 17:30, 90 phút, từ 05/10/2026. Buổi bù: Văn 8B, Chủ nhật 01/11, 08:00–09:30, nội dung "Ôn tập chương 2". Cảnh báo: "Trùng với Toán 9B, Thứ 4 17:00–18:30". Lý do hủy: "Giáo viên bị ốm, sẽ dạy bù vào Chủ nhật."
 
 ### TC-05 — Buổi học & điểm danh   ✅ (một phần 🟡 G15) 🎨
-- **Vai trò · thiết bị ưu tiên:** Teacher (và Admin) · **máy tính bảng** (thao tác nhanh ở đầu buổi), dùng được trên máy tính.
+- **Vai trò · responsive:** Teacher (và Admin) · responsive: dùng tốt trên **máy tính bảng** (thao tác nhanh ở đầu buổi), vẫn dùng được trên máy tính và điện thoại.
 - **Người dùng muốn làm gì:** Đầu buổi, điểm danh cả lớp nhanh; cuối buổi ghi nội dung đã dạy, rồi hoàn tất. Khi nhầm, sửa lại và ghi lý do.
 - **Vào từ / đi tới:** TC-01 (buổi hôm nay, buổi chưa điểm danh), TC-04 (drawer buổi), TC-03 (tab Buổi học). Từ đây: về TC-04/TC-03; "Đơn xin phép của buổi này" → TC-06 (lọc theo buổi).
 - **Khối nội dung & dữ liệu hiển thị:**
@@ -130,7 +130,7 @@
 - **Dữ liệu mẫu gợi ý:** Toán 9A · 17:30–19:00 · Thứ Hai 26/10. Nguyễn Minh Khôi (Có mặt), Trần Thu Hà (Đi muộn, "Muộn 10 phút"), Lê Gia Bảo (Vắng, có đơn xin phép chờ duyệt). Lỗi: "Phạm Đức Anh không còn trong lớp vào giờ này".
 
 ### TC-06 — Đơn xin phép   ✅ (hiển thị đủ thông tin 🟡 G9)
-- **Vai trò · thiết bị ưu tiên:** Teacher (và Admin) · máy tính; xem được trên máy tính bảng.
+- **Vai trò · responsive:** Teacher (và Admin) · responsive: ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** Đọc lý do phụ huynh xin cho con nghỉ và quyết định chấp nhận hoặc từ chối, để điểm danh phản ánh đúng.
 - **Vào từ / đi tới:** menu "Đơn xin phép" (có huy hiệu số đơn chờ), thẻ "Cần xử lý" ở TC-01, thông báo "có đơn xin phép mới". Từ dòng đơn → TC-05 của buổi đó.
 - **Khối nội dung & dữ liệu hiển thị:**
@@ -147,7 +147,7 @@
 - **Dữ liệu mẫu gợi ý:** "Lê Gia Bảo · Toán 9A · 26/10 17:30 · 'Con bị sốt, xin phép cho con nghỉ buổi hôm nay.' · Chờ duyệt".
 
 ### TC-14 — Tiến độ học sinh   ✅ (điểm danh và biểu đồ 🟡 G3, G8) 🎨
-- **Vai trò · thiết bị ưu tiên:** Teacher (và Admin) · máy tính.
+- **Vai trò · responsive:** Teacher (và Admin) · responsive: ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** Xem một em học thế nào để nói chuyện với phụ huynh hoặc quyết định phụ đạo: điểm trung bình, bài còn nợ, đi học đều không.
 - **Vào từ / đi tới:** bấm học sinh ở TC-03 (tab Học sinh/Tiến độ). Quay lại lớp; bấm một bài → TC-13 (chỉ khi có API nhận diện bài, hiện chưa).
 - **Khối nội dung & dữ liệu hiển thị:**
@@ -163,7 +163,7 @@
 - **Dữ liệu mẫu gợi ý:** Nguyễn Minh Khôi · Toán 9A: TB 82,5% · 6 bài đã chấm · 1 bài chờ chấm; theo môn: Toán 85%, Khác 70%.
 
 ### TC-15 — Khóa học của tôi   ✅ (số liệu bổ sung 🟡)
-- **Vai trò · thiết bị ưu tiên:** Teacher · máy tính.
+- **Vai trò · responsive:** Teacher · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** Quản lý nhóm bài tự học riêng của mình (ví dụ "Luyện đề vào 10"): ai được học, ai đã kết thúc; đồng thời xem các khóa dùng chung của trung tâm.
 - **Vào từ / đi tới:** menu "Khóa học". Mở một khóa → trang chi tiết (cùng màn, tab Ghi danh · Bài). "Giao bài cho khóa" dẫn tới TC-10 (đối tượng là khóa). Nội dung khóa **chính là các bài đánh giá gán qua khóa** (BR-COURSE-002): tab Bài dùng `GET /assessments?course_id=<id>` → TC-11.
 - **Khối nội dung & dữ liệu hiển thị:**

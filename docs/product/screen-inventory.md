@@ -24,7 +24,7 @@ Mã màn hình: `CM` chung · `AD` Admin · `TC` Teacher · `ST` Student · `PR`
 - **Lỗi form:** API trả 422 theo từng trường (`error.details.<trường>`), hiện ngay dưới trường; lỗi nghiệp vụ trả `error.code` + `error.message` (danh mục ở `architecture/error-codes.md`), hiện dạng thông báo.
 - **Vai trò:** một người có thể giữ nhiều vai trò; luôn có chỗ đổi vai trò đang hoạt động (CM-04). Điều hướng thay đổi theo vai trò.
 - **Thời gian:** hiển thị giờ Việt Nam (+07:00). **Thông báo** là kéo về (không realtime). **Danh sách** hiện chưa phân trang (trừ `GET /users`).
-- **Responsive:** Student/Parent ưu tiên điện thoại; Teacher/Admin ưu tiên máy tính nhưng điểm danh và chấm bài nên dùng được trên máy tính bảng.
+- **Responsive:** mọi cổng dùng tốt trên điện thoại, máy tính bảng và web máy tính (Student/Parent dùng cả hai; Teacher/Admin chủ yếu web máy tính, riêng điểm danh và chấm bài phải dùng tốt trên máy tính bảng). Không mất chức năng nào khi đổi khổ màn hình.
 - **File đính kèm:** tối đa 10 MB; pdf, doc/docx, jpg, png, zip. Link tải hết hạn sau 10 phút.
 
 ---

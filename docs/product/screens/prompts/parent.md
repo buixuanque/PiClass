@@ -1,6 +1,6 @@
 # Bộ prompt — Cổng Phụ huynh
 
-Gồm 8 prompt cho các màn hình của phụ huynh. Thứ tự vẽ gợi ý: chọn con, tổng quan, lịch học của con, điểm danh của con, bài và kết quả, nhận xét, tiến độ, đơn xin phép. Phụ huynh chỉ xem và gửi đơn xin phép; không làm bài, không thấy bài làm riêng của con, không thấy bạn cùng lớp. Mỗi prompt tự đứng được, có thể dán ở phiên riêng.
+Gồm 9 prompt cho các màn hình của phụ huynh, dùng tốt cả trên điện thoại lẫn web máy tính. Thứ tự vẽ gợi ý: chọn con, tổng quan, lịch học của con, điểm danh của con, bài và kết quả, nhận xét, tiến độ, đơn xin phép, rồi prompt Ghép gộp tất cả thành một chức năng theo dõi con. Phụ huynh chỉ xem và gửi đơn xin phép; không làm bài, không thấy bài làm riêng của con, không thấy bạn cùng lớp. Mỗi prompt tự đứng được, có thể dán ở phiên riêng; prompt Ghép dán sau khi đã vẽ các màn của nhóm.
 
 | Mã | Màn hình | Ghi chú |
 |---|---|---|
@@ -12,15 +12,16 @@ Gồm 8 prompt cho các màn hình của phụ huynh. Thứ tự vẽ gợi ý: 
 | PR-06 | Nhận xét | Nhận xét giáo viên đã công bố cho phụ huynh |
 | PR-07 | Tiến độ của con | Điểm trung bình và theo môn |
 | PR-08 | Đơn xin phép | Gửi đơn và theo dõi đơn đã gửi |
+| PR-03-G | Ghép: Theo dõi con | Chọn con ở một nơi, mọi màn theo con đó, đổi con thì mọi màn đổi theo |
 
 ---
 
 ### PR-01 — Chọn con
 
 ```text
-Màn hình: Chọn con (phụ huynh; thiết bị ưu tiên: điện thoại, dùng một tay)
+Màn hình: Chọn con (phụ huynh; responsive: dùng tốt cả trên điện thoại lẫn trên web máy tính)
 
-Tình huống: Phụ huynh có từ hai con học ở trung tâm, vừa đăng nhập hoặc muốn đổi sang xem con khác. Họ thường mở ứng dụng giữa giờ làm việc và chỉ muốn chọn đúng con trong một chạm. Quan trọng nhất là không nhầm con.
+Tình huống: Phụ huynh có từ hai con học ở trung tâm, vừa đăng nhập hoặc muốn đổi sang xem con khác. Họ thường mở ứng dụng giữa giờ làm việc (bằng điện thoại hoặc web máy tính) và chỉ muốn chọn đúng con trong một thao tác. Quan trọng nhất là không nhầm con.
 
 Thông tin cần có (mỗi con):
 - Họ tên đầy đủ.
@@ -30,6 +31,12 @@ Hành động:
 - Chọn một con để xem; sau đó vào thẳng tổng quan của con đó.
 - Con vừa chọn được nhớ cho lần sau.
 - Không có thêm hay xóa con; việc liên kết do trung tâm quản lý.
+
+Liên kết:
+- Đến màn này từ: ngay sau khi đăng nhập (chỉ khi có từ hai con); từ tên con đang xem ở mọi màn của phụ huynh khi muốn đổi con; khi vừa mất liên kết với con đang xem.
+- Chọn một con thì sang màn Tổng quan của con đó. Con vừa chọn được nhớ cho lần sau; mọi màn sau đó đều theo con này cho đến khi đổi con.
+- Phụ huynh chỉ có một con thì bỏ qua màn này, vào thẳng màn Tổng quan của con.
+- Nếu màn đích đã có trong dự án, hãy nối tới nó; nếu chưa, để một điểm dẫn tới.
 
 Quy tắc nghiệp vụ:
 - Chỉ hiện những con còn liên kết với tài khoản phụ huynh.
@@ -50,9 +57,9 @@ Dữ liệu mẫu:
 ### PR-02 — Tổng quan của con
 
 ```text
-Màn hình: Tổng quan của con (phụ huynh; thiết bị ưu tiên: điện thoại, dùng một tay)
+Màn hình: Tổng quan của con (phụ huynh; responsive: dùng tốt cả trên điện thoại lẫn trên web máy tính)
 
-Tình huống: Phụ huynh bận rộn mở ứng dụng và muốn trả lời ngay: hôm nay con có học không, có bài nào sắp đến hạn không, có kết quả hoặc nhận xét mới của cô không. Ứng dụng chỉ có thông báo trong ứng dụng nên đây là nơi phụ huynh biết "có gì mới". Quan trọng nhất là nhanh và nhìn là hiểu.
+Tình huống: Phụ huynh bận rộn mở ứng dụng, bằng điện thoại hoặc web máy tính, và muốn trả lời ngay: hôm nay con có học không, có bài nào sắp đến hạn không, có kết quả hoặc nhận xét mới của cô không. Ứng dụng chỉ có thông báo trong ứng dụng nên đây là nơi phụ huynh biết "có gì mới". Quan trọng nhất là nhanh và nhìn là hiểu.
 
 Thông tin cần có:
 - Tên con đang xem (và cách đổi sang con khác nếu có nhiều con).
@@ -67,6 +74,13 @@ Hành động:
 - Gửi đơn xin phép cho một buổi sắp tới ngay từ đây.
 - Mở thông báo.
 - Không có hành động làm bài hay chỉnh sửa gì thay con.
+
+Liên kết:
+- Đến màn này từ: trang đầu sau đăng nhập (sau màn Chọn con nếu có nhiều con); từ thông báo.
+- Tên con đang xem mở màn Chọn con để đổi sang con khác.
+- Đi tới: Lịch học của con, Bài và kết quả của con (bấm một bài thì mở đúng bài đó), Nhận xét (bấm nhận xét mới nhất thì mở đúng nhận xét), Tiến độ của con, Đơn xin phép (từ một buổi sắp tới hoặc buổi con vừa vắng, mang theo buổi đó).
+- Mọi nơi đến đều mang theo con đang xem; không phải chọn lại con.
+- Nếu màn đích chưa có trong dự án, để một điểm dẫn tới.
 
 Quy tắc nghiệp vụ:
 - Chỉ hiện thông tin của con đang chọn; không hiện bạn cùng lớp.
@@ -91,7 +105,7 @@ Dữ liệu mẫu:
 ### PR-03 — Lịch học của con
 
 ```text
-Màn hình: Lịch học của con (phụ huynh; thiết bị ưu tiên: điện thoại, dùng một tay)
+Màn hình: Lịch học của con (phụ huynh; responsive: dùng tốt cả trên điện thoại lẫn trên web máy tính)
 
 Tình huống: Phụ huynh muốn biết tuần này con học khi nào, buổi nào đổi giờ hoặc bị hủy để sắp xếp đưa đón, và xem con có mặt hay vắng ở các buổi đã qua. Nếu con sắp nghỉ, họ muốn gửi đơn xin phép ngay từ buổi đó. Quan trọng nhất là đọc nhanh, không nhầm giờ, không nhầm con.
 
@@ -105,6 +119,13 @@ Hành động:
 - Mở một buổi xem chi tiết.
 - Gửi đơn xin phép cho buổi sắp diễn ra, hoặc cho buổi con vừa vắng. Không gửi cho buổi đã hủy.
 - Không sửa lịch, không sửa điểm danh.
+
+Liên kết:
+- Đến màn này từ: mục Lịch học của con; từ màn Tổng quan của con; từ thông báo về lịch học hoặc buổi học.
+- Bấm một buổi thì mở chi tiết buổi đó ngay trong màn này, không mất kỳ đang xem.
+- Từ chi tiết buổi, "Gửi đơn xin phép" mở màn Đơn xin phép với buổi đó đã chọn sẵn (chỉ cho buổi sắp diễn ra hoặc buổi con vừa vắng, không cho buổi đã hủy).
+- Con đang xem được mang theo khi chuyển màn; không phải chọn lại con.
+- Nếu màn đích chưa có trong dự án, để một điểm dẫn tới.
 
 Quy tắc nghiệp vụ:
 - Buổi bị hủy vẫn hiện, phải nhìn ra là đã hủy ("Đã hủy").
@@ -130,7 +151,7 @@ Dữ liệu mẫu:
 ### PR-04 — Điểm danh của con
 
 ```text
-Màn hình: Điểm danh của con (phụ huynh; thiết bị ưu tiên: điện thoại, dùng một tay)
+Màn hình: Điểm danh của con (phụ huynh; responsive: dùng tốt cả trên điện thoại lẫn trên web máy tính)
 
 Tình huống: Phụ huynh muốn biết con đi học đều không, buổi nào con vắng, và nếu vắng có lý do thì giải trình với giáo viên. Đây là việc phụ huynh thường làm lúc rảnh buổi tối. Quan trọng nhất là thấy ngay buổi nào vắng chưa có đơn để xử lý.
 
@@ -144,6 +165,13 @@ Hành động:
 - Mở một buổi để xem chi tiết.
 - Gửi đơn giải trình cho buổi vắng chưa có đơn; buổi có đơn bị từ chối có thể gửi lại.
 - Không có hành động sửa điểm danh.
+
+Liên kết:
+- Đến màn này từ: mục Điểm danh của con; từ màn Tổng quan của con.
+- Bấm một buổi thì xem chi tiết buổi đó ngay trong màn này.
+- Buổi vắng chưa có đơn (hoặc có đơn bị từ chối): "Gửi đơn giải trình" mở màn Đơn xin phép với buổi vắng đó đã chọn sẵn.
+- Con đang xem được mang theo khi chuyển màn.
+- Nếu màn đích chưa có trong dự án, để một điểm dẫn tới.
 
 Quy tắc nghiệp vụ:
 - Đơn của phụ huynh chỉ là yêu cầu để giáo viên xem xét và không tự đổi điểm danh. Phải nói rõ trên màn: "Đơn của bạn là yêu cầu để giáo viên xem xét, không tự đổi điểm danh."
@@ -166,7 +194,7 @@ Dữ liệu mẫu:
 ### PR-05 — Bài và kết quả của con
 
 ```text
-Màn hình: Bài và kết quả của con (phụ huynh; thiết bị ưu tiên: điện thoại, dùng một tay)
+Màn hình: Bài và kết quả của con (phụ huynh; responsive: dùng tốt cả trên điện thoại lẫn trên web máy tính)
 
 Tình huống: Phụ huynh muốn biết con có những bài tập, bài kiểm tra, bài thi nào, con đã nộp chưa và kết quả ra sao. Họ chỉ quan sát và nhắc con, không làm bài thay. Quan trọng nhất là biết nhanh bài nào cần nhắc và bài nào đã có điểm.
 
@@ -180,6 +208,12 @@ Hành động:
 - Lọc theo loại: Bài tập, Kiểm tra, Thi.
 - Mở một bài; mở kết quả khi có.
 - Không có làm bài, nộp bài hay sửa gì.
+
+Liên kết:
+- Đến màn này từ: mục Bài tập của con; từ màn Tổng quan của con; từ thông báo về bài hoặc kết quả; từ màn Nhận xét (bấm một nhận xét thì mở đúng bài tương ứng).
+- Bấm một bài thì mở chi tiết bài của con ngay trong màn này; từ đó mở kết quả khi đã công bố.
+- Con đang xem được mang theo khi chuyển màn; không phải chọn lại con. Khi quay lại phải giữ bộ lọc loại bài.
+- Nếu màn nối tới chưa có trong dự án, để một điểm dẫn tới.
 
 Quy tắc nghiệp vụ (quyền riêng tư):
 - Phụ huynh không thấy câu hỏi, câu trả lời hay bài làm riêng của con, không có đồng hồ, không biết con đã dùng mấy lượt. Chỉ thấy điểm và nhận xét.
@@ -203,7 +237,7 @@ Dữ liệu mẫu:
 ### PR-06 — Nhận xét
 
 ```text
-Màn hình: Nhận xét của giáo viên (phụ huynh; thiết bị ưu tiên: điện thoại, dùng một tay)
+Màn hình: Nhận xét của giáo viên (phụ huynh; responsive: dùng tốt cả trên điện thoại lẫn trên web máy tính)
 
 Tình huống: Phụ huynh muốn đọc giáo viên nhận xét gì về con. Đây là kênh chính để biết tình hình học vì ứng dụng không có tin nhắn trao đổi. Họ đọc kỹ, đọc lại nhiều lần, nên cần chữ dễ đọc và biết nhận xét thuộc bài nào, ngày nào.
 
@@ -215,6 +249,11 @@ Thông tin cần có:
 Hành động:
 - Đọc nhận xét; mở bài tương ứng.
 - Không có trả lời hay nhắn lại giáo viên.
+
+Liên kết:
+- Đến màn này từ: mục Nhận xét; từ màn Tổng quan của con (nhận xét mới nhất); từ thông báo về kết quả.
+- Bấm một nhận xét thì mở màn Bài và kết quả của con tại đúng bài tương ứng (nếu màn này đã có trong dự án, hãy nối tới nó; nếu chưa, để một điểm dẫn tới).
+- Con đang xem được mang theo khi chuyển màn.
 
 Quy tắc nghiệp vụ (quyền riêng tư):
 - Chỉ hiện nhận xét giáo viên đã công bố cho học sinh hoặc cho phụ huynh. Ghi chú nội bộ của giáo viên không bao giờ hiện.
@@ -237,7 +276,7 @@ Dữ liệu mẫu:
 ### PR-07 — Tiến độ của con
 
 ```text
-Màn hình: Tiến độ của con (phụ huynh; thiết bị ưu tiên: điện thoại, dùng một tay)
+Màn hình: Tiến độ của con (phụ huynh; responsive: dùng tốt cả trên điện thoại lẫn trên web máy tính)
 
 Tình huống: Phụ huynh muốn biết điểm trung bình của con, môn nào con mạnh và môn nào yếu để có định hướng nhắc nhở hoặc cho con học thêm. Họ xem qua nhanh, cần con số rõ và dễ hiểu, không cần đi sâu từng bài.
 
@@ -251,6 +290,12 @@ Thông tin cần có:
 Hành động:
 - Đổi khoảng thời gian và môn muốn xem.
 - Chọn một môn để xem các bài của môn đó.
+
+Liên kết:
+- Đến màn này từ: mục Tiến độ của con; từ màn Tổng quan của con.
+- Chọn một môn thì xem các bài của môn đó trong màn Bài và kết quả của con (mang theo môn đã chọn và khoảng thời gian đang xem).
+- Con đang xem được mang theo khi chuyển màn.
+- Nếu màn đích chưa có trong dự án, để một điểm dẫn tới.
 
 Quy tắc nghiệp vụ:
 - Mỗi bài chỉ tính một lần dù con làm nhiều lượt.
@@ -275,9 +320,9 @@ Dữ liệu mẫu:
 ### PR-08 — Đơn xin phép
 
 ```text
-Màn hình: Đơn xin phép nghỉ / giải trình vắng (phụ huynh; thiết bị ưu tiên: điện thoại, dùng một tay, bàn phím ảo bật khi viết lý do)
+Màn hình: Đơn xin phép nghỉ / giải trình vắng (phụ huynh; responsive: dùng tốt cả trên điện thoại lẫn trên web máy tính)
 
-Tình huống: Phụ huynh cần báo trước việc con sắp nghỉ một buổi, hoặc giải trình sau khi con đã vắng, và muốn biết giáo viên đã chấp nhận chưa. Họ thường làm việc này nhanh khi đang bận, trên điện thoại, nên quan trọng nhất là ít thao tác, không mất nội dung đã gõ, và biết chắc đơn đã gửi.
+Tình huống: Phụ huynh cần báo trước việc con sắp nghỉ một buổi, hoặc giải trình sau khi con đã vắng, và muốn biết giáo viên đã chấp nhận chưa. Họ thường làm việc này nhanh khi đang bận, bằng điện thoại hoặc máy tính, nên quan trọng nhất là ít thao tác, không mất nội dung đã gõ, và biết chắc đơn đã gửi.
 
 Thông tin cần có:
 - Các đơn đã gửi cho con đang chọn: buổi học (ngày giờ, lớp, môn), lý do đã viết, trạng thái (Đã gửi, Đang xem xét, Đã chấp nhận, Bị từ chối).
@@ -290,6 +335,12 @@ Hành động:
 - Không sửa hay thu hồi đơn đã gửi.
 - Không có thao tác duyệt đơn (đó là việc của giáo viên).
 
+Liên kết:
+- Đến màn này từ: mục Đơn xin phép; từ màn Lịch học của con (gửi đơn cho một buổi, mang theo buổi đó); từ màn Điểm danh của con (giải trình một buổi vắng, mang theo buổi đó); từ màn Tổng quan của con.
+- Gửi xong thì quay lại danh sách đơn của con, đơn mới ở đầu; có thể quay về màn Lịch học hoặc Điểm danh nơi đã bắt đầu.
+- Con đang xem được mang theo khi chuyển màn; không phải chọn lại con.
+- Nếu màn đích chưa có trong dự án, để một điểm dẫn tới.
+
 Quy tắc nghiệp vụ:
 - Đơn không tự đổi điểm danh. Với đơn được chấp nhận ghi: "Giáo viên đã chấp nhận; điểm danh sẽ do giáo viên cập nhật".
 - Lý do bắt buộc; để trống thì báo ngay dưới ô: "Vui lòng nhập lý do". Chưa chọn buổi: "Vui lòng chọn buổi học".
@@ -297,6 +348,7 @@ Quy tắc nghiệp vụ:
 - Gửi thành công: "Đã gửi đơn. Giáo viên sẽ xem xét", đơn mới hiện đầu danh sách.
 - Gửi thất bại: báo lỗi và giữ nguyên nội dung đã gõ.
 - Mất liên kết với con: "Bạn không còn liên kết với học sinh này" và đưa về chọn con.
+- Phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ. Bàn phím ảo (khi có) không được che ô viết lý do.
 - Chỉ phụ huynh gửi đơn; học sinh không thấy và không gửi được.
 
 Tình huống đặc biệt:
@@ -309,4 +361,26 @@ Tình huống đặc biệt:
 Dữ liệu mẫu:
 - Toán 9A, Thứ Ba 21/10 17:30 — "Con bị sốt, xin phép nghỉ" — Đã chấp nhận
 - Văn 9A, Thứ Năm 23/10 — "Gia đình có việc" — Đã gửi
+```
+
+### PR-03-G — Ghép: Theo dõi con
+
+```text
+Màn hình: Ghép: Theo dõi con (phụ huynh; responsive: dùng tốt cả trên điện thoại lẫn trên web máy tính)
+
+Tình huống: Phụ huynh có một hoặc nhiều con và theo dõi con ở nhiều mặt: lịch học, điểm danh, bài và kết quả, nhận xét, tiến độ, đơn xin phép. Với họ đây là MỘT việc: "đang xem con nào, thì mọi thứ là của con đó". Điều tối quan trọng là không bao giờ nhầm con.
+
+Yêu cầu: hãy gộp các màn Chọn con, Tổng quan của con, Lịch học của con, Điểm danh của con, Bài và kết quả của con, Nhận xét, Tiến độ của con và Đơn xin phép (đã vẽ trong dự án; nếu chưa vẽ đủ thì chỉ ghép những phần đã có) thành một chức năng liền mạch của phụ huynh, xoay quanh một đối tượng chung: con đang xem.
+
+Dùng chung: tên con đang xem luôn thấy được ở mọi màn, cách đổi con, thông báo, thông điệp "Bạn không còn liên kết với học sinh này".
+
+Con được chọn ở MỘT nơi duy nhất. Mọi màn sau đó đều tự theo con đó, không bao giờ hỏi lại. Khi đổi con, TẤT CẢ các màn đổi theo con mới cùng lúc: lịch, điểm danh, bài, nhận xét, tiến độ, đơn xin phép đều chuyển sang dữ liệu của con mới, không để sót dữ liệu của con cũ. Đổi con thì quay về màn đang xem (cùng loại màn) của con mới, không văng về đầu. Mở lại liên kết, quay lại hay tải lại vẫn đúng con. Con vừa chọn được nhớ cho lần sau.
+
+Giữ lại khi chuyển giữa các màn: con đang xem, kỳ lịch đang xem, bộ lọc, buổi hoặc bài đang chọn, nội dung đơn đang viết dở.
+
+Điều kiện: phụ huynh một con thì ẩn phần chọn con, chỉ hiện tên con. Mất liên kết với con đang xem thì mọi màn báo "Bạn không còn liên kết với học sinh này" và về chọn con (hoặc màn trống nếu không còn con nào). Chỉ phụ huynh mới gửi đơn.
+
+Liên kết: vào từ trang đầu sau đăng nhập hoặc thông báo. Nếu màn đích chưa có trong dự án, để một điểm dẫn tới.
+
+Phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
 ```

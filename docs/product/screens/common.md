@@ -30,7 +30,7 @@ Quy ước: ✅ BE đã có · 🟡 thiếu API (mã G) · 🔵 đề xuất ngo
 ---
 
 ### CM-01 — Đăng nhập   ✅
-- **Vai trò · thiết bị ưu tiên:** Mọi vai trò (chưa đăng nhập) · điện thoại cho Student/Parent, máy tính cho Admin/Teacher; form một cột dùng tốt ở cả hai.
+- **Vai trò · thiết bị ưu tiên:** Mọi vai trò (chưa đăng nhập) · responsive: Student/Parent dùng tốt cả trên điện thoại lẫn web máy tính; Admin/Teacher ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại; form một cột dùng tốt ở mọi khổ.
 - **Người dùng muốn làm gì:** Vào hệ thống để xem lịch học, bài tập hoặc điểm danh lớp đầu giờ.
 - **Vào từ / đi tới:** Địa chỉ gốc khi chưa có phiên; chuyển hướng từ mọi màn khi 401. Đăng nhập thành công → nếu 1 vai trò: tự chọn, vào trang chủ vai trò đó (AD/TC/ST/PR-xx tổng quan); nhiều vai trò: CM-04 (dạng màn chọn). "Quên mật khẩu?" → CM-02. Quay lại đúng trang đang mở dở nếu bị đá ra vì hết phiên (FE giữ đường dẫn cũ).
 - **Khối nội dung & dữ liệu hiển thị:** (1) Logo + tên trung tâm. (2) Form: ô "Email" (`login_identifier`), ô "Mật khẩu" có nút hiện/ẩn, ô tick "Ghi nhớ đăng nhập" (`remember`, mặc định tắt), nút "Đăng nhập", liên kết "Quên mật khẩu?". (3) Vùng báo lỗi chung phía trên form. Không có đăng ký tự do (tài khoản chỉ tạo qua lời mời, xem CM-09).
@@ -45,7 +45,7 @@ Quy ước: ✅ BE đã có · 🟡 thiếu API (mã G) · 🔵 đề xuất ngo
 - **Dữ liệu mẫu gợi ý:** `co.huong@trungtam-pi.vn` / `••••••••`; lỗi mẫu: "Thông tin đăng nhập không đúng."; khóa: "Thử lại sau 42 giây".
 
 ### CM-02 — Quên mật khẩu   ✅
-- **Vai trò · thiết bị ưu tiên:** Mọi vai trò (chưa đăng nhập) · điện thoại.
+- **Vai trò · thiết bị ưu tiên:** Mọi vai trò (chưa đăng nhập) · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** Phụ huynh quên mật khẩu, cần nhận thư để đặt lại.
 - **Vào từ / đi tới:** Từ CM-01 ("Quên mật khẩu?"). Gửi xong ở lại cùng màn (đổi sang trạng thái đã gửi); "Quay lại đăng nhập" → CM-01. Email có liên kết mở CM-03.
 - **Khối nội dung & dữ liệu hiển thị:** (1) Tiêu đề + 1 câu giải thích ("Nhập email đăng nhập, chúng tôi sẽ gửi hướng dẫn đặt lại mật khẩu"). (2) Ô "Email" (`login_identifier`), nút "Gửi hướng dẫn". (3) Liên kết "Quay lại đăng nhập".
@@ -56,7 +56,7 @@ Quy ước: ✅ BE đã có · 🟡 thiếu API (mã G) · 🔵 đề xuất ngo
 - **Dữ liệu mẫu gợi ý:** `phuhuynh.lan@gmail.com`; thông điệp đã gửi như trên.
 
 ### CM-03 — Đặt lại mật khẩu   ✅
-- **Vai trò · thiết bị ưu tiên:** Mọi vai trò (chưa đăng nhập) · điện thoại.
+- **Vai trò · thiết bị ưu tiên:** Mọi vai trò (chưa đăng nhập) · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** Đặt mật khẩu mới sau khi bấm liên kết trong email.
 - **Vào từ / đi tới:** Liên kết email `/reset-password?token=…&login_identifier=…` (FE đọc cả hai từ query, ẩn token khỏi giao diện). Thành công → CM-01 kèm thông báo "Đã đặt lại mật khẩu, hãy đăng nhập". Token hỏng/hết hạn → nút "Gửi lại liên kết" → CM-02.
 - **Khối nội dung & dữ liệu hiển thị:** (1) Tiêu đề "Đặt mật khẩu mới"; hiển thị email đang đặt (chỉ đọc, lấy từ `login_identifier` trong query). (2) Ô "Mật khẩu mới" (hiện/ẩn) với gợi ý "Ít nhất 8 ký tự" và chỉ báo độ dài; ô "Nhập lại mật khẩu" (kiểm tra khớp ở FE, BE không nhận trường này). (3) Nút "Lưu mật khẩu".
@@ -67,7 +67,7 @@ Quy ước: ✅ BE đã có · 🟡 thiếu API (mã G) · 🔵 đề xuất ngo
 - **Dữ liệu mẫu gợi ý:** `phuhuynh.lan@gmail.com`; mật khẩu mới `Matkhau2026`.
 
 ### CM-04 — Chọn / đổi vai trò   ✅
-- **Vai trò · thiết bị ưu tiên:** Tài khoản giữ từ 2 vai trò trở lên (Admin + Teacher phổ biến nhất, theo `product-definition.md`; hiếm hơn Teacher + Parent) · cả hai thiết bị.
+- **Vai trò · thiết bị ưu tiên:** Tài khoản giữ từ 2 vai trò trở lên (Admin + Teacher phổ biến nhất, theo `product-definition.md`; hiếm hơn Teacher + Parent) · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** Chọn "đang vào với tư cách ai", hoặc chuyển nhanh giữa Giảng dạy và Quản trị.
 - **Vào từ / đi tới:** (a) màn chọn vai trò ngay sau đăng nhập khi `available_roles` có > 1 phần tử; (b) menu người dùng trong khung điều hướng (CM-10) mở danh sách đổi vai trò. Chọn xong → trang chủ của vai trò đó (tổng quan AD/TC/ST/PR); đổi vai trò giữa phiên cũng về trang chủ vai trò mới và làm mới dữ liệu (xóa cache của vai trò cũ).
 - **Khối nội dung & dữ liệu hiển thị:** Danh sách thẻ vai trò từ `available_roles` (mã `admin|teacher|student|parent`) kèm nhãn Việt ("Quản trị viên", "Giáo viên", "Học sinh", "Phụ huynh") và 1 dòng mô tả ("Quản lý tài khoản, lớp, môn học", "Lịch dạy, điểm danh, chấm bài", "Lịch học, bài tập, kết quả", "Theo dõi việc học của con"). Đánh dấu vai trò đang hoạt động (từ `GET /auth/me` → `active_role`). Vai trò đã kết thúc hạn (valid_to đã qua) không có trong danh sách. Không bắt buộc ghi nhớ lựa chọn lần trước (FE có thể lưu cục bộ để gợi ý sẵn; chọn mặc định là việc FE).
@@ -78,7 +78,7 @@ Quy ước: ✅ BE đã có · 🟡 thiếu API (mã G) · 🔵 đề xuất ngo
 - **Dữ liệu mẫu gợi ý:** `available_roles: ["admin","teacher"]`; thẻ "Giáo viên — Lịch dạy, điểm danh, chấm bài" (đang chọn).
 
 ### CM-05 — Hồ sơ cá nhân   ✅ (ảnh đại diện 🔵, đề xuất bỏ khỏi V1: N8)
-- **Vai trò · thiết bị ưu tiên:** Teacher, Student, Parent xem/sửa đủ; Admin chỉ có phần tài khoản (xem dưới) · điện thoại cho Student/Parent.
+- **Vai trò · thiết bị ưu tiên:** Teacher, Student, Parent xem/sửa đủ; Admin chỉ có phần tài khoản (xem dưới) · responsive: Student/Parent dùng tốt cả trên điện thoại lẫn web máy tính; Admin/Teacher ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** Cập nhật số điện thoại để trung tâm liên hệ được, đổi mật khẩu, đăng xuất.
 - **Vào từ / đi tới:** Menu người dùng (CM-10) → "Hồ sơ của tôi". "Đăng xuất" → CM-01. "Đổi vai trò" → CM-04.
 - **Khối nội dung & dữ liệu hiển thị:**
@@ -94,7 +94,7 @@ Quy ước: ✅ BE đã có · 🟡 thiếu API (mã G) · 🔵 đề xuất ngo
 - **Dữ liệu mẫu gợi ý:** Nguyễn Thị Lan · lan.nguyen@gmail.com · 0912 345 678 · vai trò Phụ huynh (đang hoạt động, hồ sơ "Đang hoạt động").
 
 ### CM-06 — Trung tâm thông báo   ✅ (đếm chưa đọc, đọc tất cả: 🟡 G10; phân trang/lọc ngày: 🟡 G5)
-- **Vai trò · thiết bị ưu tiên:** Mọi vai trò · điện thoại (Student/Parent), máy tính (Admin/Teacher).
+- **Vai trò · thiết bị ưu tiên:** Mọi vai trò · responsive: Student/Parent dùng tốt cả trên điện thoại lẫn web máy tính; Admin/Teacher ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** Biết có gì mới (bài mới giao, đổi lịch, đã có kết quả, đơn xin phép) và mở thẳng nội dung đó. V1 chỉ có thông báo trong ứng dụng (BR-NOTIF-001), nên đây là kênh duy nhất.
 - **Vào từ / đi tới:** Chuông trên khung điều hướng (CM-10) → bảng nhỏ (5–10 mục mới nhất) hoặc "Xem tất cả" → trang CM-06. Bấm một thông báo → đánh dấu đã đọc và mở màn đích theo `context` (bảng bên dưới).
 - **Khối nội dung & dữ liệu hiển thị:** (1) Tiêu đề + bộ lọc "Tất cả / Chưa đọc / Đã đọc" (`?read=false|true`) và nút "Đánh dấu tất cả đã đọc" (🟡 G10). (2) Danh sách mới nhất trước, mỗi dòng từ `GET /me/notifications` → `{data:[{id, event_type, title, body, created_at, read_at, context:{type,id}|null}]}`: chấm chưa đọc (`read_at === null`), biểu tượng theo `event_type`, `title`, `body`, thời gian tương đối (từ `created_at`, giờ VN). Không có phân trang nên tải hết (🟡 G5). Thông báo là kéo về: không tự cập nhật; làm mới khi mở trang, khi quay lại ứng dụng, hoặc bấm "Làm mới".
@@ -121,7 +121,7 @@ Quy ước: ✅ BE đã có · 🟡 thiếu API (mã G) · 🔵 đề xuất ngo
 - **Dữ liệu mẫu gợi ý:** "Bạn được giao bài mới — Có một bài kiểm tra/bài tập mới được giao cho bạn." (hôm nay 16:05, chưa đọc); "Buổi học đã bị hủy — Một buổi học của lớp bạn tham gia vừa bị hủy." (hôm qua); "Kết quả bài làm đã được công bố" (3 ngày trước, đã đọc).
 
 ### CM-07 — Trang lỗi   ✅ (thiết kế)
-- **Vai trò · thiết bị ưu tiên:** Mọi vai trò · cả hai.
+- **Vai trò · thiết bị ưu tiên:** Mọi vai trò · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** Hiểu chuyện gì xảy ra và có lối ra rõ ràng (không phải "ngõ cụt").
 - **Vào từ / đi tới:** FE chuyển tới khi API trả lỗi toàn trang, hoặc đường dẫn không tồn tại. Lối ra: "Về trang chủ" (theo vai trò hiện tại), "Thử lại", "Đăng nhập lại", "Đổi vai trò".
 - **Khối nội dung & dữ liệu hiển thị:** Biểu tượng + tiêu đề + 1–2 dòng giải thích + nút hành động; mã lỗi nhỏ ở cuối (cho người dùng đọc cho Admin khi cần hỗ trợ). Biến thể:
@@ -143,7 +143,7 @@ Quy ước: ✅ BE đã có · 🟡 thiếu API (mã G) · 🔵 đề xuất ngo
 - **Dữ liệu mẫu gợi ý:** Mã nhỏ: `NOT_FOUND` · 22/10/2026 17:41.
 
 ### CM-08 — Xem / tải file   ✅ (G6 cho file bài làm/feedback)
-- **Vai trò · thiết bị ưu tiên:** Admin, Teacher (mọi file hợp lệ theo quyền), Student, Parent (chỉ file theo `visibility`) · điện thoại cho Student/Parent.
+- **Vai trò · thiết bị ưu tiên:** Admin, Teacher (mọi file hợp lệ theo quyền), Student, Parent (chỉ file theo `visibility`) · responsive: Student/Parent dùng tốt cả trên điện thoại lẫn web máy tính; Admin/Teacher ưu tiên web máy tính.
 - **Người dùng muốn làm gì:** Mở/tải đề bài PDF, hình minh họa của câu hỏi.
 - **Vào từ / đi tới:** Không phải màn riêng mà là thành phần "tệp đính kèm" xuất hiện ở ST-05 (chi tiết bài), ST-06 (câu hỏi), PR-05 (bài của con), TC-08/TC-10 (soạn). Bấm tên file → mở/tải. Không có trang "kho file".
 - **Khối nội dung & dữ liệu hiển thị:** Thẻ tệp: biểu tượng theo loại, `file_name`, `size_bytes` đổi sang KB/MB, `media_type`. Thông tin này lấy từ chính màn chứa file (dữ liệu của câu hỏi/bài đính kèm); `GET /attachments/{id}` trả thêm `attachment:{id, file_name, media_type, size_bytes, status, created_at, checksum, storage_key, uploaded_by_user_id, links}` và `download_url` (FE chỉ dùng `file_name`, `media_type`, `size_bytes`, `download_url`). Ảnh jpg/png: xem trước (lightbox); PDF: mở tab mới; doc/docx/zip: tải về.
@@ -154,7 +154,7 @@ Quy ước: ✅ BE đã có · 🟡 thiếu API (mã G) · 🔵 đề xuất ngo
 - **Dữ liệu mẫu gợi ý:** `De-kiem-tra-Toan-9A-tuan-5.pdf` · 1,2 MB · application/pdf; `Hinh-minh-hoa-cau-3.png` · 340 KB.
 
 ### CM-09 — Kích hoạt tài khoản lần đầu   🟡 G11 (thêm mới)
-- **Vai trò · thiết bị ưu tiên:** Học viên, phụ huynh, giáo viên vừa được mời · điện thoại (mở từ email).
+- **Vai trò · thiết bị ưu tiên:** Học viên, phụ huynh, giáo viên vừa được mời · responsive: dùng tốt cả trên điện thoại lẫn web máy tính (thường mở từ email trên điện thoại).
 - **Người dùng muốn làm gì:** Lần đầu vào hệ thống sau khi trung tâm gửi lời mời: đặt mật khẩu và bắt đầu dùng.
 - **Vào từ / đi tới:** Liên kết trong thư mời. Hiện BE dùng chung cơ chế với đặt lại mật khẩu: Admin bấm "Mời" (`POST /person-profiles/{id}/invite`, AD-05) → tạo tài khoản + gửi thư "Đặt lại mật khẩu PiClass" có liên kết `/reset-password?token&login_identifier` (cùng URL và cùng văn bản với quên mật khẩu). Màn kích hoạt riêng cần BE phân biệt lời mời (vd `/activate?token=…`). Thành công → CM-01 (hoặc tự đăng nhập, xem câu hỏi mở).
 - **Khối nội dung & dữ liệu hiển thị:** Khác CM-03 ở văn bản: "Chào mừng đến với PiClass" + "Tài khoản của bạn đã được trung tâm tạo. Hãy đặt mật khẩu để bắt đầu"; hiển thị email đăng nhập (chỉ đọc); tên (nếu BE trả được; hiện thì không); ô "Mật khẩu" (≥ 8) và "Nhập lại mật khẩu"; (tùy) tick "Tôi đồng ý điều khoản sử dụng" (nội dung điều khoản chưa có trong requirements: cần xác nhận). Nút "Kích hoạt tài khoản".
@@ -165,7 +165,7 @@ Quy ước: ✅ BE đã có · 🟡 thiếu API (mã G) · 🔵 đề xuất ngo
 - **Dữ liệu mẫu gợi ý:** Email `hs.minhanh@gmail.com`; tiêu đề "Chào mừng em Nguyễn Minh Anh (Toán 9A)" nếu BE trả được tên.
 
 ### CM-10 — Khung điều hướng (app shell)   ✅ + 🔵 gộp Admin/Teacher (Q6 chưa chốt) (thêm mới)
-- **Vai trò · thiết bị ưu tiên:** Mọi vai trò đã đăng nhập · máy tính: thanh bên + thanh trên; điện thoại: thanh dưới (3–5 mục chính) + ngăn kéo.
+- **Vai trò · thiết bị ưu tiên:** Mọi vai trò đã đăng nhập · responsive: Student/Parent dùng tốt cả trên điện thoại lẫn web máy tính; Admin/Teacher ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại (máy tính: thanh bên + thanh trên; điện thoại: thanh dưới (3–5 mục chính) + ngăn kéo).
 - **Người dùng muốn làm gì:** Đi tới đúng chức năng của vai trò mình, biết có thông báo mới, đổi vai trò hoặc đăng xuất ở cùng một chỗ.
 - **Vào từ / đi tới:** Bao quanh mọi màn sau đăng nhập. Logo → trang chủ vai trò đang chọn.
 - **Khối nội dung & dữ liệu hiển thị:**

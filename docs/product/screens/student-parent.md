@@ -2,7 +2,7 @@
 
 > **Phạm vi:** nội dung, hành vi và trạng thái của 11 màn hình Student (ST-01…09 cùng hai màn tách thêm ST-06b, ST-07b) và 8 màn hình Parent (PR-01…08). Không bàn màu sắc, kiểu dáng. Nguồn: `docs/product/screen-inventory.md` (mã màn hình, ký hiệu), `piclass-api` (route, Resource, Query, Policy, Action), `docs/requirements/*` (`BR-`/`DEC-`), `docs/architecture/error-codes.md`. Ký hiệu ✅🟡🔵🎨 và mã khoảng trống G1…G14 theo `screen-inventory.md`; các khoảng trống phát hiện thêm khi đọc code đặt tên **N-A…N-E** ở cuối file, chưa nằm trong danh sách G.
 >
-> **Ưu tiên điện thoại.** Hai cổng này là nơi học sinh làm bài và phụ huynh xem tình hình, hầu hết dùng điện thoại. Mỗi màn hình nên vẽ khổ điện thoại trước, khổ rộng chỉ là giãn cột.
+> **Responsive: dùng tốt cả trên điện thoại lẫn trên web máy tính.** Hai cổng này là nơi học sinh làm bài và phụ huynh xem tình hình; cả hai thường mở bằng điện thoại nhưng cũng hay dùng web máy tính ở nhà. Mỗi màn hình phải dùng tốt ở khổ hẹp và khổ rộng, không mất chức năng nào khi thu nhỏ.
 
 ## Mục lục
 
@@ -57,7 +57,7 @@
 Mọi màn hình Student chạy với vai trò đang hoạt động là `student`. Tài khoản chưa có hồ sơ Student gặp 403 "Tài khoản không có hồ sơ Student." hoặc 404 "Request failed." (xem Q4 trong `screen-inventory.md`: học sinh nhỏ chưa có tài khoản không dùng cổng này).
 
 ### ST-01 — Tổng quan   🟡 🎨
-- **Vai trò · thiết bị ưu tiên:** Student · điện thoại.
+- **Vai trò · responsive:** Student · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** mở app là biết ngay hôm nay có buổi học nào, bài nào sắp đến hạn, có gì mới.
 - **Vào từ / đi tới:** trang đầu sau đăng nhập. Bấm buổi học → ST-02 (chi tiết buổi); bấm bài → ST-05; "Xem tất cả bài" → ST-03; chuông → CM-06.
 - **Khối nội dung & dữ liệu hiển thị:**
@@ -73,7 +73,7 @@ Mọi màn hình Student chạy với vai trò đang hoạt động là `student
 - **Dữ liệu mẫu gợi ý:** "Chào Minh Anh!" · 17:30–19:00 Toán 9A (Còn 3 giờ nữa) · "Bài tập Hàm số bậc nhất — hạn 23:59 Thứ Sáu, chưa làm".
 
 ### ST-02 — Lịch học   ✅ (lịch tổng hợp 🟡 G2) 🎨
-- **Vai trò · thiết bị ưu tiên:** Student · điện thoại.
+- **Vai trò · responsive:** Student · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** xem tuần này/tháng này học gì, lúc nào, buổi nào đổi hoặc hủy, em có mặt hay vắng.
 - **Vào từ / đi tới:** menu "Lịch học", ST-01, thông báo `schedule`/`lesson_session` (CM-06). Bấm một buổi mở bảng chi tiết buổi (cùng màn, dạng trang con/ngăn kéo).
 - **Khối nội dung & dữ liệu hiển thị:**
@@ -88,7 +88,7 @@ Mọi màn hình Student chạy với vai trò đang hoạt động là `student
 - **Dữ liệu mẫu gợi ý:** Thứ Ba 21/10 · 17:30–19:00 Toán 9A (đã học, em có mặt) · Thứ Năm 23/10 · 17:30–19:00 Văn 9A (đã hủy) · nội dung buổi: "Ôn tập hệ phương trình bậc nhất hai ẩn".
 
 ### ST-03 — Bài tập   ✅ 🎨
-- **Vai trò · thiết bị ưu tiên:** Student · điện thoại.
+- **Vai trò · responsive:** Student · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** biết mình còn bài tập nào chưa nộp, hạn khi nào, bài nào đã có điểm.
 - **Vào từ / đi tới:** menu "Bài tập", ST-01. Bấm dòng → ST-05 (chi tiết bài).
 - **Khối nội dung & dữ liệu hiển thị:**
@@ -102,7 +102,7 @@ Mọi màn hình Student chạy với vai trò đang hoạt động là `student
 - **Dữ liệu mẫu gợi ý:** "Bài tập Hàm số bậc nhất" · hạn Thứ Sáu 24/10 23:59 · 10 điểm · Chưa làm; "Luyện đọc hiểu: Lão Hạc" · Đã có điểm 8/10.
 
 ### ST-04 — Bài kiểm tra   ✅ 🎨
-- **Vai trò · thiết bị ưu tiên:** Student · điện thoại.
+- **Vai trò · responsive:** Student · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** biết kỳ kiểm tra/bài thi nào sắp mở, mở lúc nào, làm bao lâu, đã làm chưa.
 - **Vào từ / đi tới:** menu "Bài kiểm tra", ST-01. Bấm dòng → ST-05.
 - **Khối nội dung & dữ liệu hiển thị:** như ST-03 nhưng `type = quiz` (trắc nghiệm) và `type = exam` (thi). Mỗi dòng thêm: nhãn loại (Kiểm tra / Thi), **khung giờ** `opens_at`–`closes_at` (nổi bật hơn hạn; `deadline_at` của bài thi trùng khung giờ), trạng thái "Chưa mở" nếu giờ hiện tại trước `opens_at`, "Đang mở" nếu trong khung. **Thời lượng làm bài và số câu chưa có trong danh sách** (N-A): hiển thị ở ST-05 sau khi có API; tạm chỉ hiện khung giờ.
@@ -113,7 +113,7 @@ Mọi màn hình Student chạy với vai trò đang hoạt động là `student
 - **Dữ liệu mẫu gợi ý:** "Kiểm tra 15 phút — Căn bậc hai" · mở 18:00–18:30 ngày 25/10 · Chưa mở; "Thi giữa kỳ I — Toán 9" · 08:00–09:30 Thứ Bảy 01/11 · Chưa làm.
 
 ### ST-05 — Chi tiết bài   🟡 🎨
-- **Vai trò · thiết bị ưu tiên:** Student · điện thoại.
+- **Vai trò · responsive:** Student · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** đọc hướng dẫn, biết còn mấy lượt, điểm lượt trước, rồi bấm làm bài.
 - **Vào từ / đi tới:** ST-03/ST-04/ST-01, thông báo `assessment`. Nút "Làm bài" → ST-06; "Xem kết quả" → ST-07.
 - **Khối nội dung & dữ liệu hiển thị:**
@@ -132,7 +132,7 @@ Mọi màn hình Student chạy với vai trò đang hoạt động là `student
 - **Dữ liệu mẫu gợi ý:** "Kiểm tra 15 phút — Căn bậc hai" · Mở 18:00, đóng 18:30 · Thời lượng 15 phút · 10 câu · Còn 1/1 lượt · "Em có thể thoát và quay lại, đồng hồ vẫn chạy."
 
 ### ST-06 — Làm bài   ✅ (câu nộp file 🟡 G6) 🎨
-- **Vai trò · thiết bị ưu tiên:** Student · điện thoại (phải dùng tốt cả khi màn hình nhỏ, xoay ngang, bàn phím ảo che màn hình).
+- **Vai trò · responsive:** Student · responsive: dùng tốt cả trên điện thoại lẫn web máy tính (phải dùng tốt cả khi màn hình nhỏ, xoay ngang, bàn phím ảo che màn hình, và khi dùng chuột, bàn phím).
 - **Người dùng muốn làm gì:** trả lời từng câu mà không sợ mất bài, biết còn bao lâu, nộp khi xong.
 - **Vào từ / đi tới:** ST-05 ("Làm bài"/"Tiếp tục"). Nộp xong → ST-06b. Thoát giữa chừng → ST-05 (bài vẫn đang mở, đồng hồ vẫn chạy).
 - **Khối nội dung & dữ liệu hiển thị:**
@@ -174,7 +174,7 @@ Mọi màn hình Student chạy với vai trò đang hoạt động là `student
 - **Dữ liệu mẫu gợi ý:** "Kiểm tra 15 phút — Căn bậc hai · Câu 3/10 · 1 điểm · √49 bằng bao nhiêu? ○ 5 ○ 7 ○ 9 ○ 14" · đồng hồ "12:40" · "Đã lưu 18:07" · câu 7 (sắp xếp): "Xếp các bước giải phương trình theo thứ tự đúng".
 
 ### ST-06b — Đã nộp bài   ✅ (thêm mới)
-- **Vai trò · thiết bị ưu tiên:** Student · điện thoại.
+- **Vai trò · responsive:** Student · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** biết chắc bài đã được nộp, và bước tiếp theo là gì.
 - **Vào từ / đi tới:** sau khi nộp (bấm nộp thành công hoặc hết giờ tự nộp) từ ST-06. Nút "Về chi tiết bài" → ST-05; "Về trang chủ" → ST-01; "Xem kết quả" → ST-07 (khi có).
 - **Khối nội dung & dữ liệu hiển thị:** dấu hiệu thành công; tên bài; giờ nhận bài (`submission.received_at`); nhãn "Nộp trễ" nếu `submission.is_late`; trạng thái `submission.status`: `graded` (chấm máy xong, chờ giáo viên công bố) hoặc `awaiting_grading` (có câu tự luận chờ giáo viên chấm); câu "Điểm sẽ hiện khi giáo viên công bố". **Không hiển thị điểm** dù response nộp bài có `result.score` (chưa công bố; xem Quy ước chung). Còn lượt hay không: 🟡 N-A.
@@ -185,7 +185,7 @@ Mọi màn hình Student chạy với vai trò đang hoạt động là `student
 - **Dữ liệu mẫu gợi ý:** "Đã nộp lúc 18:14. Bài có 2 câu tự luận, cô sẽ chấm và công bố điểm."
 
 ### ST-07 — Kết quả   ✅ (xem lại câu hỏi 🟡 N-B) 🎨
-- **Vai trò · thiết bị ưu tiên:** Student · điện thoại.
+- **Vai trò · responsive:** Student · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** biết mình được bao nhiêu điểm, đạt không, cô nhận xét gì, có đáp án không.
 - **Vào từ / đi tới:** ST-05 ("Xem kết quả"), ST-03/ST-04 (dòng đã có điểm), thông báo `result` (CM-06). Nút "Xem lại bài làm" → ST-07b.
 - **Khối nội dung & dữ liệu hiển thị:** (nguồn `GET /me/assessments/{id}/result` → `{ result, attempts_history, feedbacks }`; chỉ trả khi đã công bố)
@@ -200,7 +200,7 @@ Mọi màn hình Student chạy với vai trò đang hoạt động là `student
 - **Dữ liệu mẫu gợi ý:** "8,5 / 10 · 85% · Đạt" · lượt 1: 6/10, lượt 2: 8,5/10 (được tính) · nhận xét: "Em làm tốt phần căn bậc hai, cần chú ý bước đặt điều kiện."
 
 ### ST-07b — Xem lại bài làm   🟡 (thêm mới)
-- **Vai trò · thiết bị ưu tiên:** Student · điện thoại.
+- **Vai trò · responsive:** Student · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** xem lại mình đã trả lời gì cho từng câu, đối chiếu với nhận xét của giáo viên.
 - **Vào từ / đi tới:** ST-07 ("Xem lại bài làm"). Quay lại ST-07.
 - **Khối nội dung & dữ liệu hiển thị:** danh sách câu theo `position`: nội dung `snapshot.prompt`, loại, điểm tối đa `points`, **đáp án em đã chọn/viết** (`attempt.answers[].answer_payload` khớp theo `assessment_question_id`), nhận xét theo câu (`feedbacks[]` có `assessment_question_id`). Khi G/N-B xong: thêm đúng/sai, điểm câu, đáp án đúng, giải thích, theo các cờ `show_*`.
@@ -211,7 +211,7 @@ Mọi màn hình Student chạy với vai trò đang hoạt động là `student
 - **Dữ liệu mẫu gợi ý:** "Câu 3 — √49 bằng bao nhiêu? Em chọn: 7 (đúng) · 1/1 điểm".
 
 ### ST-08 — Tiến độ học tập   ✅ (biểu đồ theo thời gian 🟡 G8)
-- **Vai trò · thiết bị ưu tiên:** Student · điện thoại.
+- **Vai trò · responsive:** Student · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** biết điểm mình đang ở đâu so với cả quá trình, môn nào yếu.
 - **Vào từ / đi tới:** menu "Tiến độ". Bấm một môn → lọc danh sách bài của môn đó (ST-03/ST-04, lọc FE, sau khi N-A xong).
 - **Khối nội dung & dữ liệu hiển thị:** (nguồn `GET /me/progress`, phẳng, không bọc `data`)
@@ -228,7 +228,7 @@ Mọi màn hình Student chạy với vai trò đang hoạt động là `student
 - **Dữ liệu mẫu gợi ý:** TB 78,5% · 6 bài đã có điểm · 1 bài chờ · Toán 82% (4 bài) · Văn 72% (2 bài).
 
 ### ST-09 — Khóa học của em   ✅ (bài thuộc khóa 🟡 N-A)
-- **Vai trò · thiết bị ưu tiên:** Student · điện thoại.
+- **Vai trò · responsive:** Student · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** xem mình đang ghi danh khóa nào và các bài thuộc khóa đó (nội dung khóa chính là các bài đánh giá gán qua khóa, `BR-COURSE-002`).
 - **Vào từ / đi tới:** menu "Khóa học". Bấm khóa → chi tiết khóa; bấm bài → ST-05.
 - **Khối nội dung & dữ liệu hiển thị:**
@@ -248,7 +248,7 @@ Mọi màn hình Student chạy với vai trò đang hoạt động là `student
 Mọi màn hình Parent chạy với vai trò đang hoạt động là `parent`. Phụ huynh chỉ **xem** và **gửi đơn xin phép**; không làm bài, không sửa gì khác. Luôn chọn con trước (PR-01); `studentId` nằm trong đường dẫn (xem "Quy ước chung").
 
 ### PR-01 — Chọn con   ✅
-- **Vai trò · thiết bị ưu tiên:** Parent · điện thoại.
+- **Vai trò · responsive:** Parent · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** chọn con cần xem (nếu có nhiều con) và chuyển nhanh giữa các con.
 - **Vào từ / đi tới:** tự hiện sau đăng nhập khi có từ hai con; trình chuyển con ở đầu mọi màn hình Parent mở lại màn hình này (hoặc ngăn kéo cùng nội dung). Chọn con → PR-02 của con đó. Phụ huynh có đúng một con: bỏ qua màn hình này, vào thẳng PR-02.
 - **Khối nội dung & dữ liệu hiển thị:** thẻ từng con: tên `full_name`, quan hệ `relationship_type` (bố / mẹ / người giám hộ... hiển thị nhãn tiếng Việt, giá trị thật cần xác nhận khi dựng), `student_id`. Chưa có: lớp đang học, ảnh, "có gì mới" (G9, G1). Sau khi chọn, con vừa chọn được ghi nhớ cục bộ.
@@ -259,7 +259,7 @@ Mọi màn hình Parent chạy với vai trò đang hoạt động là `parent`.
 - **Dữ liệu mẫu gợi ý:** "Nguyễn Minh Anh — con gái" · "Nguyễn Gia Bảo — con trai".
 
 ### PR-02 — Tổng quan của con   🟡 🎨
-- **Vai trò · thiết bị ưu tiên:** Parent · điện thoại.
+- **Vai trò · responsive:** Parent · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** mở app là trả lời ngay "hôm nay con có học không, có bài nào sắp đến hạn, có kết quả/nhận xét mới không" (Q5: V1 chỉ có thông báo trong ứng dụng nên màn này là chỗ phụ huynh biết "có gì mới").
 - **Vào từ / đi tới:** trang đầu sau đăng nhập (sau PR-01 nếu nhiều con). Điều hướng tới PR-03 (lịch), PR-05 (bài), PR-06 (nhận xét), PR-07 (tiến độ), PR-08 (gửi đơn từ buổi sắp tới).
 - **Khối nội dung & dữ liệu hiển thị:**
@@ -276,7 +276,7 @@ Mọi màn hình Parent chạy với vai trò đang hoạt động là `parent`.
 - **Dữ liệu mẫu gợi ý:** "Hôm nay Minh Anh có 1 buổi: Toán 9A 17:30–19:00" · "Bài Hàm số bậc nhất — hạn Thứ Sáu 23:59" · "Cô vừa nhận xét bài Căn bậc hai".
 
 ### PR-03 — Lịch học của con   🟡 (G9: chưa biết lớp của con) 🎨
-- **Vai trò · thiết bị ưu tiên:** Parent · điện thoại.
+- **Vai trò · responsive:** Parent · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** biết tuần này con học khi nào, buổi nào đổi hoặc hủy để đưa đón.
 - **Vào từ / đi tới:** menu "Lịch học", PR-02, thông báo `schedule`/`lesson_session`. Bấm buổi → chi tiết buổi; trong chi tiết có "Gửi đơn xin phép" → PR-08.
 - **Khối nội dung & dữ liệu hiển thị:** như ST-02 (tuần/tháng, danh sách buổi, buổi hủy gạch ngang) cho con đang chọn. Chi tiết buổi: `lesson_content` hiển thị; `notes` chờ chốt (G12); `review_required` **ẩn**; điểm danh buổi đó của con (từ `GET /lesson-sessions/{id}/attendance`, BE chỉ trả bản ghi của các con của phụ huynh này) và trạng thái đơn xin phép của buổi (ghép từ PR-08). Không hiển thị bạn cùng lớp.
@@ -287,7 +287,7 @@ Mọi màn hình Parent chạy với vai trò đang hoạt động là `parent`.
 - **Dữ liệu mẫu gợi ý:** Thứ Ba 21/10 · 17:30–19:00 Toán 9A (con có mặt) · Thứ Năm 23/10 · 17:30–19:00 Văn 9A (đã hủy).
 
 ### PR-04 — Điểm danh của con   🟡 (G3) 🎨
-- **Vai trò · thiết bị ưu tiên:** Parent · điện thoại.
+- **Vai trò · responsive:** Parent · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** xem con đi học đều không, buổi nào vắng; từ đó gửi đơn giải trình nếu vắng có lý do.
 - **Vào từ / đi tới:** menu "Điểm danh", PR-02. Bấm buổi vắng → "Gửi đơn giải trình" → PR-08.
 - **Khối nội dung & dữ liệu hiển thị:** (dự kiến, khi G3 xong) *tỷ lệ chuyên cần* (có mặt + đi muộn + có phép / tổng buổi đã điểm danh); *10 buổi gần nhất*: ngày, môn/lớp, trạng thái (Có mặt / Đi muộn / Vắng / Có phép — `present/late/absent/excused`), ghi chú `note`; *buổi vắng* tô nổi bật kèm trạng thái đơn xin phép nếu có (`submitted/under_review/accepted/rejected`). Buổi đã hủy không tính vào chuyên cần.
@@ -298,7 +298,7 @@ Mọi màn hình Parent chạy với vai trò đang hoạt động là `parent`.
 - **Dữ liệu mẫu gợi ý:** "Chuyên cần 90% (9/10 buổi)" · Thứ Hai 13/10 Toán 9A: Vắng — chưa có đơn · Thứ Tư 15/10 Văn 9A: Có phép.
 
 ### PR-05 — Bài tập & kết quả của con   ✅ 🎨
-- **Vai trò · thiết bị ưu tiên:** Parent · điện thoại.
+- **Vai trò · responsive:** Parent · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** biết con có bài gì, đã nộp chưa, kết quả ra sao.
 - **Vào từ / đi tới:** menu "Bài tập", PR-02, thông báo `assessment`/`result`. Bấm dòng → chi tiết bài của con; từ đó "Xem kết quả" (chỉ khi có).
 - **Khối nội dung & dữ liệu hiển thị:**
@@ -312,7 +312,7 @@ Mọi màn hình Parent chạy với vai trò đang hoạt động là `parent`.
 - **Dữ liệu mẫu gợi ý:** "Bài tập Hàm số bậc nhất — hạn Thứ Sáu 24/10 — Chưa làm" · "Kiểm tra 15 phút — Căn bậc hai — 8,5/10 — Đạt".
 
 ### PR-06 — Nhận xét   ✅ theo từng bài / 🟡 danh sách (G7) 🎨
-- **Vai trò · thiết bị ưu tiên:** Parent · điện thoại.
+- **Vai trò · responsive:** Parent · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** đọc giáo viên nhận xét gì về con (kênh chính để biết tình hình học vì V1 không có chat).
 - **Vào từ / đi tới:** menu "Nhận xét", PR-02 (nhận xét mới nhất), thông báo `result`. Bấm nhận xét → bài tương ứng ở PR-05.
 - **Khối nội dung & dữ liệu hiển thị:** danh sách nhận xét đã công bố cho phụ huynh, mới nhất trước: tên bài, ngày (`created_at`), nội dung `body`, nhãn "Nhận xét chung" hoặc "Về câu số …" (khi `assessment_question_id` khác null; số câu không biết được nếu phụ huynh không thấy đề: hiển thị "Về một câu hỏi trong bài"). Tên giáo viên chưa có (chỉ `author_user_id`). Mức hiển thị: phụ huynh thấy `learner` và `parent_if_published`; mức `private` (ghi chú nội bộ của giáo viên) **không bao giờ** hiện. Danh sách tổng hợp **chưa có API** (G7): tạm ghép bằng cách duyệt `…/result` của từng bài đã có điểm (N+1). Nhận xét theo tuần/tháng không gắn bài (N6) là 🔵, không vẽ.
@@ -323,7 +323,7 @@ Mọi màn hình Parent chạy với vai trò đang hoạt động là `parent`.
 - **Dữ liệu mẫu gợi ý:** "Kiểm tra 15 phút — Căn bậc hai · 22/10 · 'Minh Anh làm tốt phần căn bậc hai, cần chú ý bước đặt điều kiện.'"
 
 ### PR-07 — Tiến độ của con   ✅ (biểu đồ theo thời gian 🟡 G8)
-- **Vai trò · thiết bị ưu tiên:** Parent · điện thoại.
+- **Vai trò · responsive:** Parent · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** biết điểm trung bình của con, môn nào mạnh/yếu.
 - **Vào từ / đi tới:** menu "Tiến độ", PR-02.
 - **Khối nội dung & dữ liệu hiển thị:** như ST-08 cho con đang chọn: `average_percentage`, `graded_count`, `pending_count`, `by_subject[]`, bộ lọc thời gian/môn; điểm danh và biểu đồ theo thời gian/"bài gần đây" là 🟡 (G3, G8).
@@ -334,7 +334,7 @@ Mọi màn hình Parent chạy với vai trò đang hoạt động là `parent`.
 - **Dữ liệu mẫu gợi ý:** "Điểm TB 78,5% · Toán 82% · Văn 72% · 1 bài đang chờ chấm".
 
 ### PR-08 — Đơn xin phép / giải trình vắng   ✅ 🎨
-- **Vai trò · thiết bị ưu tiên:** Parent · điện thoại.
+- **Vai trò · responsive:** Parent · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** báo trước hoặc giải trình sau việc con nghỉ buổi nào, biết giáo viên đã chấp nhận chưa.
 - **Vào từ / đi tới:** menu "Đơn xin phép", PR-03 (nút trên buổi), PR-04 (nút trên buổi vắng). Gửi xong quay lại danh sách.
 - **Khối nội dung & dữ liệu hiển thị:**
