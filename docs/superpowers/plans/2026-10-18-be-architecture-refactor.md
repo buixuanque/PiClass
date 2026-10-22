@@ -32,7 +32,7 @@ Các checkbox bên dưới là bản gốc của plan và **cố ý không đư�
 | 9h `File` | Xong (Opus đã review), chờ push/PR | docs `docs/be-file` / BE `refactor/file` | `2026-10-22-be-file.md`; quyết định `ARCH-30` |
 | 9i `Notification` + `Audit` | Xong (Opus đã review), chờ push/PR | docs `docs/be-notification-audit` / BE `refactor/notification-audit` | `2026-10-22-be-notification-audit.md`; quyết định `ARCH-31` |
 | 10 (Phase C) | Đã hủy | | `ARCH-17` sửa đổi 2026-10-19 |
-| 11 (Phase D) | Chưa làm | | Điều kiện đã đủ (9b–9i xong); việc kế tiếp |
+| 11 (Phase D) | Xong (Step 1, 3), chờ push/PR; Step 2 (PHPStan) chờ user duyệt | docs `docs/refactor-wrap-up` / BE `chore/refactor-wrap-up` | Playbook tách thành `backend-gotchas.md` + `known-debt.md` |
 
 ## Global Constraints
 
@@ -201,9 +201,9 @@ Mọi task "refactor module X" thực hiện đúng các bước sau, kèm bản
 
 ### Task 11: Hoàn tất
 
-- [ ] **Step 1:** Xóa `app/Services` và thư mục `app/Http/Controllers/Api` khi rỗng (**giữ nguyên `app/Models`** — không xóa, xem Phase C đã hủy ở trên). `MODULES` trong `ArchitectureTest` gồm đủ 12 module; thêm kiểm tra không còn thư mục cấp cao theo tầng khác (ngoại trừ `app/Models`).
+- [x] **Step 1:** Xóa `app/Services` và thư mục `app/Http/Controllers/Api` khi rỗng (**giữ nguyên `app/Models`** — không xóa, xem Phase C đã hủy ở trên). `MODULES` trong `ArchitectureTest` gồm đủ 12 module; thêm kiểm tra không còn thư mục cấp cao theo tầng khác (ngoại trừ `app/Models`).
 - [ ] **Step 2:** Tạo task riêng cài PHPStan/Larastan (level thấp, tăng dần) — chỉ làm khi user duyệt.
-- [ ] **Step 3:** Cập nhật `piclass-api/CLAUDE.md` mục Trạng thái (bỏ "đích đến", ghi "đã áp dụng") và `docs/progress.md`; chuyển `ARCH-17` kèm ngày hoàn tất.
+- [x] **Step 3:** Cập nhật `piclass-api/CLAUDE.md` mục Trạng thái (bỏ "đích đến", ghi "đã áp dụng") và `docs/progress.md`; chuyển `ARCH-17` kèm ngày hoàn tất.
 
 ## Self-review
 
