@@ -1,6 +1,6 @@
 # Danh sách màn hình FE (bản nháp 1)
 
-> **Mục đích:** nguồn để thiết kế mockup hàng loạt (Claude Design) và để lập Plan FE. Dựng từ: backend hiện có (`piclass-api/routes/api.php`, 125 endpoint), `product/feature-map.md`, `flows/*`, và 3 mockup mẫu đã duyệt (`piclass-mockup/sample`: Giáo viên, Học sinh, Phụ huynh). **Chưa duyệt** — cần bạn chốt các mục 🔵 và 🟡 trước khi coi là phạm vi.
+> **Mục đích:** nguồn để thiết kế mockup hàng loạt (Claude Design) và để lập Plan FE. Dựng từ: backend hiện có (`piclass-api/routes/api.php`, 125 endpoint), `product/feature-map.md`, `flows/*`, và nghiệp vụ trong `product-definition.md`, `requirements/*`. Mockup mẫu (`piclass-mockup/sample`) chỉ dùng để hình dung giao diện sau khi có design system, **không phải nguồn yêu cầu**; dấu 🎨 chỉ nghĩa là "đã có hình dung". **Chưa duyệt** — cần bạn chốt các mục 🔵 và 🟡 trước khi coi là phạm vi.
 >
 > **Thứ tự ưu tiên tài liệu:** `requirements/*` > `access-control/*` > `database/*` > tài liệu này. Chức năng ngoài `requirements/*` (🔵) phải qua Decision Log trước khi làm.
 
@@ -123,40 +123,48 @@ Mã màn hình: `CM` chung · `AD` Admin · `TC` Teacher · `ST` Student · `PR`
 | G6 | **Nộp / xem file bài làm và feedback** (ST-06, TC-13) | Câu `file_upload` chưa dùng được | Issue #50 (cần chốt số file tối đa mỗi câu) |
 | G7 | **Danh sách nhận xét theo con** (PR-06) | Phụ huynh muốn đọc nhận xét một chỗ | Lọc feedback đã công bố theo học sinh |
 
-### B. Đề xuất mới có giá trị, ngoài phạm vi đã chốt — 🔵 (cần quyết định)
+### B. Đề xuất mới, ngoài phạm vi đã chốt — 🔵 (cần quyết định; cột cuối là khuyến nghị theo nghiệp vụ)
 
-| Mã | Chức năng | Giá trị nghiệp vụ | Mức độ |
+| Mã | Chức năng | Giá trị nghiệp vụ (lớp học thêm) | Khuyến nghị |
 |---|---|---|---|
-| N1 | Đánh dấu tất cả thông báo đã đọc + đếm chưa đọc | Giáo viên / phụ huynh nhận nhiều thông báo | Nhỏ |
-| N2 | Nhắc bài sắp đến hạn (thông báo tự động cho học sinh và phụ huynh) | Giảm bài nộp muộn | Vừa |
-| N3 | Xuất bảng điểm / điểm danh của lớp ra CSV | Giáo viên gửi báo cáo cho phụ huynh, lưu sổ | Vừa |
-| N4 | Nhân bản bài đánh giá sang lớp khác | Giáo viên dạy nhiều lớp cùng một đề | Nhỏ |
-| N5 | Gợi ý "học sinh cần chú ý" theo quy tắc đơn giản (vắng liên tiếp N buổi, nhiều bài chưa nộp) | Giáo viên phát hiện sớm; mockup mẫu đã có | Vừa (thống kê cơ bản) |
-| N6 | Nhận xét theo tuần cho phụ huynh (không gắn với bài) | Mockup mẫu đã có ô "Nhận xét gửi phụ huynh"; hiện BE chỉ có nhận xét gắn với bài làm | Vừa |
-| N7 | Ghi chú nội bộ của giáo viên về học sinh (không gửi phụ huynh) | Theo dõi tiến bộ, buổi bù | Nhỏ |
-| N8 | Ảnh đại diện (feature-map 1.2 có nhưng chưa có API) | Hồ sơ cá nhân | Nhỏ |
-| N9 | Tìm kiếm trong từng danh sách (lớp, học sinh, bài) | Mockup mẫu có ô tìm; hiện chỉ `GET /users` có lọc tên | Vừa |
+| N1 | Đánh dấu tất cả thông báo đã đọc + đếm chưa đọc | V1 chỉ có thông báo trong ứng dụng (`BR-NOTIF-001`), nên chuông thông báo là kênh duy nhất; phải dễ dùng | **Nhận** (nhỏ) |
+| N4 | Nhân bản bài đánh giá sang lớp / kỳ khác | Giáo viên dùng lại cùng một đề cho nhiều lớp, nhiều kỳ; thao tác lặp hằng tuần | **Nhận** (nhỏ) |
+| N9 | Lọc / tìm trong từng danh sách (học sinh, lớp, bài) | Lớp học thêm vài chục đến vài trăm học viên; không tìm được là không dùng được | **Nhận** (vừa) |
+| N6 | Nhận xét theo tuần / tháng cho phụ huynh (không gắn với bài) | V1 không có chat (⛔), nên đây là kênh chính để giáo viên báo tình hình cho phụ huynh; hiện BE chỉ có nhận xét gắn với bài làm | **Nên cân nhắc nhận**, cần thêm yêu cầu và bảng dữ liệu |
+| N2 | Nhắc bài sắp đến hạn (thông báo tự động) | Giảm nộp muộn; có thể hiểu thuộc `BR-NOTIF-002` ("sự kiện cần hành động") nhưng vì chỉ có thông báo trong ứng dụng nên hiệu quả phụ thuộc người dùng có mở app không | **Hoãn**, làm sau khi lõi chạy ổn |
+| N3 | Xuất bảng điểm / điểm danh của lớp ra CSV | Giáo viên lưu sổ, gửi báo cáo; chỉ cần xuất cơ bản (phân tích nâng cao ⛔) | **Hoãn** |
+| N5 | Gợi ý "học sinh cần chú ý" (vắng liên tiếp N buổi, nhiều bài chưa nộp) | Giúp giáo viên phát hiện sớm; tính được ở FE khi có G3 | **Hoãn** đến sau G3 |
+| N7 | Ghi chú nội bộ của giáo viên về học sinh | Ít cấp bách; cần quy tắc ai được xem | **Bỏ khỏi V1** |
+| N8 | Ảnh đại diện | Không ảnh hưởng vận hành lớp | **Bỏ khỏi V1** |
 
-### C. Mockup mẫu cần chỉnh cho khớp backend và phạm vi
+### C. Điểm cần chốt theo nghiệp vụ (độc lập với mockup)
 
-| Chỗ trong mockup mẫu | Vấn đề | Đề xuất |
-|---|---|---|
-| "Chuỗi ngày liên tiếp" (Học sinh) | Trò chơi hóa nằm ngoài V1 ⛔ | Bỏ |
-| "Tin nhắn" (Giáo viên) | Chat nằm ngoài V1 ⛔ | Bỏ; liên lạc đi qua thông báo và nhận xét |
-| "Gửi nhắc nhở" (Giáo viên) | Chưa có chức năng nhắc thủ công | Gộp vào N2, hoặc bỏ |
-| "Tạo lớp" ở cổng Giáo viên | BE chỉ cho **Admin** tạo lớp | Bỏ khỏi Teacher, hoặc chốt lại quyền (cần đổi `access-control`) |
-| Loại lớp "Lớp nhóm / Kèm 1-1" và nơi dạy ("Tại nhà", "TT Ánh Dương · P.201") | `classes`, `schedules`, `lesson_sessions` **không có** trường loại lớp hay địa điểm | Cần quyết định: thêm trường (đổi database + requirements) hay bỏ khỏi mockup |
-| "Buổi bù" | Hỗ trợ: tạo buổi học lẻ (không thuộc lịch lặp) | Giữ; chỉ là nhãn / cách tạo trên FE |
-| "Chuyên cần trung bình", "Học sinh cần chú ý" | Cần G3 (điểm danh theo học sinh) và N5 | Giữ nếu chấp nhận G3 |
-| Ô tìm kiếm "Tìm lớp, học sinh, bài tập…" | Không có tìm kiếm toàn cục | Đổi thành tìm trong từng danh sách (N9) |
-| "Nộp ảnh hoặc file" khi giao bài tập | Chờ G6 | Giữ trong mockup, ghi chú "chờ BE" |
-| Tab Học sinh: "Bài tập" và "Bài kiểm tra" | Tương ứng loại `assignment` và `quiz`/`exam` | Giữ |
+| # | Câu hỏi | Vì sao ảnh hưởng | Khuyến nghị |
+|---|---|---|---|
+| Q1 | **Địa điểm của buổi học / lớp** (phòng, cơ sở, tại nhà): có lưu không? Hiện `classes`, `schedules`, `lesson_sessions` **không có** trường này | V1 **không có lớp trực tuyến** (⛔), nghĩa là mọi buổi học đều ở một nơi thật; học sinh và phụ huynh cần biết đi đâu, nhất là khi đổi phòng hoặc học bù. Lịch học không có địa điểm là lịch thiếu | **Nên thêm** `location` cho lớp, cho phép ghi đè ở từng buổi (đổi database + requirements) |
+| Q2 | **Loại lớp** (nhóm / kèm 1-1) có cần là trường riêng không | Chỉ để lọc / hiển thị; có thể suy ra từ số học sinh hoặc dùng `label` có sẵn | **Chưa cần** trường riêng |
+| Q3 | **Quyền tạo lớp** của Teacher: BE chỉ cho Admin | Trong V1 một tài khoản thường mang cả Admin và Teacher (`product-definition.md`), nên khác biệt ít; nhưng giáo viên thuần thì phải nhờ Admin | **Giữ nguyên**: Admin tạo lớp |
+| Q4 | **Học sinh nhỏ tuổi không có tài khoản** thì làm / nộp bài thế nào | Các endpoint làm bài đều yêu cầu đăng nhập vai trò Student; hồ sơ học viên có thể tồn tại không tài khoản. Nếu nhiều học sinh không có tài khoản thì cần luồng giáo viên nhập điểm hộ hoặc phụ huynh giúp con | **Cần xác nhận với nghiệp vụ thực tế** trước khi vẽ luồng làm bài |
+| Q5 | **Kênh báo tin cho phụ huynh** khi V1 chỉ có thông báo trong ứng dụng (không email / SMS / push, `BR-NOTIF-001`) | Phụ huynh không mở app thì không biết bài mới, kết quả, đổi lịch. Đây là rủi ro sản phẩm lớn hơn bất kỳ màn hình nào | Ghi rõ trong định hướng sau V1 (email hoặc Zalo); ở V1, trang chủ phụ huynh phải trả lời ngay câu "có gì mới" |
+| Q6 | **Gộp cổng Admin và Teacher** khi một tài khoản có cả hai vai trò | Cùng một người dùng cả hai; hai cổng tách biệt buộc phải đổi vai trò liên tục | **Một khung điều hướng**: phần "Giảng dạy" và phần "Quản trị" cùng nằm trong một giao diện khi có cả hai vai trò |
+
+## Ưu tiên theo nghiệp vụ
+
+Trong lớp học thêm, vòng lặp dùng hằng ngày là: *chuẩn bị buổi học → điểm danh → giao bài → chấm bài → phụ huynh xem kết quả*. Admin chỉ thiết lập một lần (người dùng, lớp, môn), ít dùng hằng ngày nên giữ đơn giản.
+
+| Lát | Nội dung | Màn hình chính | Phụ thuộc BE |
+|---|---|---|---|
+| 1. Vận hành lớp | Đăng nhập, thiết lập (người dùng, lớp, lịch), điểm danh, Student / Parent xem lịch và điểm danh | CM-01…08, AD-02…12, TC-04/05/06, ST-02, PR-03/04/08 | G2, G3, G4 |
+| 2. Giao và làm bài | Ngân hàng câu hỏi, soạn & giao bài, học sinh làm bài, chấm, công bố, xem kết quả | TC-07…13, ST-03…07, PR-05/06 | G6 (câu nộp file) |
+| 3. Theo dõi | Tổng quan từng cổng, tiến độ, thông báo, nhật ký | AD-01, TC-01/14, ST-01/08, PR-02/07, AD-14 | G1, G5, G7 |
+
+Vì BE của 5 nhóm module đã xong, FE có thể làm theo **lát theo giá trị người dùng** như trên, thay vì theo thứ tự nhóm module của Plan 1b–5b.
 
 ---
 
 ## Thứ tự gợi ý làm mockup hàng loạt
 
-1. **Đã có:** các màn mẫu Giáo viên, Học sinh, Phụ huynh (🎨).
+1. **Đã có:** các màn hình mẫu để hình dung (🎨), dùng cùng design system.
 2. **Lô 1 — Nền tảng & xác thực:** CM-01 → CM-08 + khung điều hướng Admin (Admin chưa có mockup nào).
 3. **Lô 2 — Admin CRUD:** AD-02 … AD-12. Các màn dạng bảng + form giống nhau nên chỉ cần vài mẫu đại diện (danh sách có lọc, chi tiết nhiều tab, form tạo / sửa) rồi áp dụng lại.
 4. **Lô 3 — Giáo viên luồng khó:** TC-07/08 (ngân hàng & soạn câu hỏi), TC-10 (soạn & giao bài), TC-11/12/13 (chấm bài). Đây là phần phức tạp nhất, nên mockup kỹ.
