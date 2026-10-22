@@ -91,8 +91,8 @@ Lịch sử đợt chuyển sang quy ước (kết quả từng task, số PR, s
 **Việc tiếp theo (hướng phát triển):**
 1. **Frontend** (Next.js) theo từng nhóm module, bắt đầu từ Plan 1b (Auth) rồi 2b (User Management)…; cần design system từ track mockup (xem dưới). Contract API hiện được coi là ổn định: đổi `error.code`, shape JSON hay status từ nay phải báo trước, ghi `architecture/error-codes.md` và có test ghim.
 2. **PR đổi hành vi / hoàn thiện nghiệp vụ theo issue:** File retrofit Module 4 (gắn và xem file của bài làm, feedback; #50, cùng #46); Notification/Audit (#52–#56, #47, #48); thảo luận #21 (tách site theo vai trò, vai trò đang hoạt động ở tầng Policy), #32 (chạy Scheduler local/production), #40–#43 (Auth); quyết định mở `ARCH-14` (đồng bộ `StudentAssessment` khi học viên vào lớp/Course sau khi gắn audience), `ARCH-12` (retention file/audit).
-3. **Task kỹ thuật chờ user duyệt:** PHPStan/Larastan (level thấp, tăng dần).
-4. **Vận hành:** sau khi deploy cần restart queue worker (thông báo của `ResultProgress`, `Attendance`, `Lesson`, `Assessment` chạy qua queue).
+3. **PHPStan + Larastan đã cài (2026-10-22)**: mức 5, `composer analyse` / `make analyse`, 188 lỗi cũ nằm trong `phpstan-baseline.neon`, chỉ lỗi mới làm lệnh đỏ. Việc tiếp: thêm kiểu trả về cho quan hệ Eloquent để thu nhỏ baseline rồi nâng mức (`architecture/known-debt.md`); gắn vào CI khi có CI.
+4. **Vận hành:** sau khi pull/deploy code backend phải restart queue worker (thông báo của `ResultProgress`, `Attendance`, `Lesson`, `Assessment` chạy qua queue). Máy dev: `make install && make migrate && make restart-queue` trong `piclass-infra/local` (hướng dẫn ở README của `piclass-infra`); production: restart worker (Supervisor/systemd) trong quy trình deploy.
 5. Tùy chọn: dịch comment tiếng Anh còn lại ở code cũ sang tiếng Việt (task riêng, không đổi logic).
 - **Danh mục mã lỗi API:** `architecture/error-codes.md`; thêm mã mới phải cập nhật cùng PR.
 - **Contract cho FE:** BE là nguồn sự thật về endpoint/shape/mã lỗi; FE bám theo spec ở `docs/superpowers/specs/` và `error-codes.md`.
