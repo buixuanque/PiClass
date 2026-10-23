@@ -4,6 +4,8 @@ Design system và mockup mẫu (thư mục `design-system` trong repo `piclass-m
 
 Hướng đã chốt: **PiClass V1 là web app responsive**. Bản app điện thoại riêng sẽ thiết kế lại sau.
 
+**UI của mockup hiện tại là base đã chốt.** Mọi màn là sửa hoặc bổ sung trên base đó, không thiết kế lại từ đầu. Điều hướng từng vai trò theo mockup; prompt từng màn trong thư mục này chỉ dùng để lấy phần **thiếu** (thông tin, quy tắc, trạng thái, tình huống đặc biệt) cho màn đã có, hoặc làm màn mới theo đúng kiểu mockup.
+
 ```text
 Bạn đang thiết kế giao diện web cho PiClass, hệ thống quản lý lớp học thêm ở Việt Nam, bằng tiếng Việt. Đây là web app responsive chạy trên trình duyệt (máy tính, máy tính bảng, điện thoại), không phải app điện thoại: không vẽ khung thiết bị, status bar hay thanh điều hướng kiểu native. Phần "mobile app" trong readme của design system không áp dụng cho bản này.
 
@@ -16,7 +18,7 @@ Bốn nhóm người dùng, mỗi nhóm một cổng riêng:
 Vòng việc hằng ngày: chuẩn bị buổi học, điểm danh, giao bài, học sinh làm bài, giáo viên chấm bài, phụ huynh xem kết quả.
 
 Quy ước cho mọi màn:
-- Bám design system và mockup mẫu: giữ khung (sidebar, top bar, thẻ) và kiểu trình bày của mockup; màn nào mockup đã vẽ thì giữ bố cục đó, chỉ bổ sung phần còn thiếu. Không tự tạo kiểu mới khi design system đã có. Bố cục chi tiết bên trong vùng nội dung do bạn quyết định.
+- Mockup hiện tại là UI đã chốt: giữ nguyên bố cục, thứ tự và tên mục điều hướng, kiểu thẻ và bảng của các màn đã vẽ; chỉ bổ sung hoặc sửa theo yêu cầu. Màn chưa có trong mockup thì thêm mục điều hướng mới theo cùng kiểu. Bám design system và mockup mẫu: giữ khung (sidebar, top bar, thẻ) và kiểu trình bày của mockup; màn nào mockup đã vẽ thì giữ bố cục đó, chỉ bổ sung phần còn thiếu. Không tự tạo kiểu mới khi design system đã có. Bố cục chi tiết bên trong vùng nội dung do bạn quyết định.
 - Quy tắc co giãn thống nhất cho mọi màn và mọi vai trò:
   - Máy tính (từ 1180px): sidebar mở rộng như mockup.
   - Máy tính bảng: sidebar thu gọn thành cột icon; bảng dữ liệu giữ dạng bảng; cột phụ chuyển xuống dưới nội dung chính.

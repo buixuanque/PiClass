@@ -6,6 +6,8 @@ Mỗi mục dưới đây là một prompt. Mở file tương ứng, copy khối
 
 ## Cách dùng
 
+**Chế độ làm việc (chốt 2026-10-23):** UI của mockup hiện tại là base đã chốt, làm tiếp bằng cách sửa và bổ sung trên đó. Với màn mockup đã có, chỉ lấy từ prompt các phần còn thiếu (thông tin, quy tắc, trạng thái, tình huống đặc biệt) và yêu cầu Claude Design sửa trên màn đang có; với màn chưa có, dùng nguyên prompt và dặn bám kiểu màn tương tự trong mockup. Điều hướng của `CM-10` có chỗ khác mockup (ví dụ giáo viên: mockup có "Điểm danh", "Bài tập", "Bài kiểm tra" riêng); khi khác thì theo mockup.
+
 **Hướng đã chốt:** PiClass V1 là **web app responsive** (một giao diện web co giãn từ máy tính xuống điện thoại); bản app điện thoại riêng sẽ thiết kế lại sau. Design system và mockup mẫu trong repo `piclass-mockup` (thư mục `design-system`) là chuẩn bắt buộc về khung, kiểu thẻ và điều hướng.
 
 1. Mở phiên Claude Design mới, đính kèm design system và mockup mẫu (token, component, mockup Giáo viên/Học sinh/Phụ huynh), rồi dán prompt trong [00-nen.md](00-nen.md) một lần.
