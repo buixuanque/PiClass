@@ -4,7 +4,8 @@ File này là nơi theo dõi tiến độ mockup UI. Làm việc trên nhiều m
 
 ## Quy ước chung
 
-- UI của `piclass-mockup/design-system/` là base đã chốt: chỉ thêm hoặc sửa, không vẽ lại từ đầu. Web responsive (xem `prompts/00-nen.md`).
+- UI của `piclass-mockup/design-system/` (design system v2, chốt 2026-10-23, xem `design-system/CHANGES.md`) là base đã chốt: chỉ thêm hoặc sửa, không vẽ lại từ đầu. Web responsive (xem `prompts/00-nen.md`). Mockup làm trong Claude Code, không dùng Claude Design.
+- Màn mới dùng token (`var(--...)`) và component trong `_ds_bundle.js`, không để màu hoặc cỡ chữ rời; chữ tối thiểu 12px; viền ô nhập dùng `--border-control`. Giữ ngoại lệ nút primary md/lg 4.42:1.
 - Mỗi vai trò một file `PiClass <Vai trò>.dc.html`. Admin đã xong và là mẫu cho cách làm: dữ liệu mẫu nằm trong state của component, thao tác sửa dữ liệu thật trong trang, bấm qua lại được.
 - Sau mỗi lần sửa file `.dc.html`, chạy lại `python3 tools/make_standalone.py` (trong `piclass-mockup`) để sinh `design-system/standalone/*.html`, rồi commit cả hai.
 - Mỗi nhóm xong phải kiểm tra: `node --check` trên phần script, so khóa `{{binding}}` với `renderVals`, chạy kịch bản bấm thử bằng Chrome headless, chụp màn hình ở 500, 900 và 1300px.
@@ -32,6 +33,10 @@ Repo mockup: `buixuanque/piclass-mockup`. Mở bằng double-click file trong `d
 ## Các nhóm
 
 Làm theo thứ tự. Đánh dấu `[x]` và ghi ngày, máy, commit khi xong.
+
+### Nhóm 0. Responsive cho ba file còn lại (làm trước các nhóm sau)
+- [ ] `PiClass Giáo viên.dc.html`, `PiClass Học sinh.dc.html`, `PiClass Phụ huynh.dc.html`: bỏ `min-width:1180px`, thu sidebar thành rail ở khoảng 1100px, ẩn sidebar và thêm nút menu ở khoảng 760px, theo mẫu `PiClass Quản trị.dc.html`. Kiểm tra không cuộn ngang ở 500px.
+- Ghi chú khi xong:
 
 ### Nhóm 1. Học sinh A: làm bài và kết quả (file `PiClass Học sinh.dc.html`)
 - [ ] ST-05 Chi tiết bài (điều kiện làm, số lượt, hạn)
@@ -75,5 +80,5 @@ Làm theo thứ tự. Đánh dấu `[x]` và ghi ngày, máy, commit khi xong.
 
 ### Sau cùng
 - [ ] Màn chung (`common.md`) cho cả bốn vai trò
-- [ ] Đồng bộ lại `prompts/admin.md` với mockup Admin cuối; làm prompt cho vai trò khác nếu còn dùng Claude Design
+- [ ] Đồng bộ lại `prompts/admin.md` với mockup Admin cuối (giữ làm mô tả yêu cầu; không làm prompt cho vai trò khác vì không còn dùng Claude Design)
 - [ ] Thử đúng khổ 390px trên điện thoại thật hoặc devtools (Chrome headless không xuống dưới khoảng 500px)

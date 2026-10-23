@@ -59,4 +59,4 @@ Workspace này gồm nhiều git repo độc lập sống cùng thư mục (`pic
 
 ## Thứ tự triển khai Step 9
 
-Mỗi nhóm module: spec → plan BE → code BE → plan FE → code FE, rồi mới sang spec nhóm module tiếp theo. Không gộp BE+FE vào cùng 1 plan/task (khác ngôn ngữ/test tool). Không dồn spec hết 5 nhóm rồi mới code. Stitch + MASTER.md (design system) là track riêng, làm một lần, không phụ thuộc BE, có thể làm song song bất cứ lúc nào. Chi tiết trạng thái: `docs/progress.md`.
+Mỗi nhóm module: spec → plan BE → code BE → plan FE → code FE, rồi mới sang spec nhóm module tiếp theo. Không gộp BE+FE vào cùng 1 plan/task (khác ngôn ngữ/test tool). Không dồn spec hết 5 nhóm rồi mới code. Mockup + design system (`piclass-mockup/design-system/`, v2) là track riêng, làm một lần, không phụ thuộc BE, có thể làm song song bất cứ lúc nào. Chi tiết trạng thái: `docs/progress.md`.
