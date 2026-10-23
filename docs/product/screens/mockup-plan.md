@@ -28,7 +28,7 @@ Repo mockup: `buixuanque/piclass-mockup`. Mở bằng double-click file trong `d
 | Admin | Đủ 10 mục menu | Xong (nhóm 1 đến 4) |
 | Học sinh | 7 mục (thêm Tiến độ, Khóa học) | Xong nhóm 0 đến 2 |
 | Phụ huynh | 7 mục (thêm Tiến độ, Đơn xin phép) và màn Chọn con | Xong nhóm 0 và 2 |
-| Giáo viên | 7 mục (Tổng quan, Lớp học, Lịch dạy, Điểm danh, Bài tập, Bài kiểm tra, Tiến độ) | Chưa bổ sung |
+| Giáo viên | 9 mục (thêm Đơn xin phép, Khóa học) | Xong nhóm 0 và 3; còn soạn nội dung và chấm bài |
 
 ## Các nhóm
 
@@ -57,12 +57,12 @@ Làm theo thứ tự. Đánh dấu `[x]` và ghi ngày, máy, commit khi xong.
 - Ghi chú khi xong: 2026-10-23, repo `piclass-mockup` branch `feat/mockup-group2`. Dữ liệu mẫu chung nằm ở `design-system/pc-data.js` (lớp, bài, lượt làm, kết quả, hai con); Học sinh và Phụ huynh đều nạp file này, Giáo viên (nhóm 3, 5) sẽ nạp tiếp. Tiến độ tính từ kết quả đã công bố (mỗi bài một lần, bài hủy và bài chờ chấm không tính; bài chờ chấm đếm riêng), có lọc 7/30 ngày và môn, bấm môn để lọc danh sách bài; biểu đồ theo ngày là bản mẫu chờ G8. Khóa học học sinh: danh sách và chi tiết, bài thuộc khóa là bản mẫu chờ N-A. Phụ huynh: màn chọn con có trạng thái chưa liên kết và mất quyền xem con; Bài tập & kết quả xem được điểm và nhận xét, không xem bài làm; nhận xét mức private không bao giờ hiện, mức riêng cho phụ huynh chỉ phụ huynh thấy; đơn xin phép có biểu mẫu kiểm lỗi, giả lập lỗi máy chủ và `STUDENT_NOT_ELIGIBLE`. Đơn của phụ huynh nằm trong bộ nhớ trang nên chưa sang Giáo viên (TC-06 ở nhóm 3 dùng dữ liệu mẫu riêng từ `pc-data.js` nếu cần).
 
 ### Nhóm 3. Giáo viên A: vận hành lớp (file `PiClass Giáo viên.dc.html`)
-- [ ] TC-03 Chi tiết lớp
-- [ ] TC-05 Buổi học và điểm danh (mở rộng từ mục Điểm danh hiện có)
-- [ ] TC-06 Đơn xin phép (nhận từ phụ huynh nhóm 2)
-- [ ] TC-15 Khóa học của tôi
-- [ ] TC-14 Tiến độ học sinh (bổ sung điểm danh và biểu đồ)
-- Ghi chú khi xong:
+- [x] TC-03 Chi tiết lớp
+- [x] TC-05 Buổi học và điểm danh (mở rộng từ mục Điểm danh hiện có)
+- [x] TC-06 Đơn xin phép (nhận từ phụ huynh nhóm 2)
+- [x] TC-15 Khóa học của tôi
+- [x] TC-14 Tiến độ học sinh (bổ sung điểm danh và biểu đồ)
+- Ghi chú khi xong: 2026-10-23, repo `piclass-mockup` branch `feat/mockup-group3`. Giáo viên: bỏ nút Tạo lớp (chỉ Admin tạo lớp); chi tiết lớp thêm tab Giáo viên, Lịch, Tiến độ, tìm học sinh và nhóm Đã rời lớp, buổi học chia Sắp tới và Đã diễn ra; điểm danh có nội dung buổi học, hoàn tất và hủy buổi (lý do bắt buộc, hủy sau khi có điểm danh thì đánh dấu cần rà soát), sửa bản ghi bắt buộc lý do kèm lịch sử, lô bị từ chối khi có em không còn trong lớp (`STUDENT_NOT_ELIGIBLE`) có nút bỏ các em đó rồi lưu lại; màn Đơn xin phép (lọc theo trạng thái, chấp nhận hoặc từ chối kèm ghi chú, đổi quyết định, gợi ý mở điểm danh, chấp nhận không tự đổi điểm danh); Khóa học (của tôi và dùng chung, tạo, sửa, lưu trữ, ghi danh theo học sinh hoặc theo lớp, kết thúc ghi danh có lý do, khóa dùng chung chỉ xem); Tiến độ có lọc 7 hoặc 30 ngày và môn, theo môn, chuyển em trước và sau. Chưa làm: tab Lịch sử thay đổi của lớp (🔵 chưa chốt). Dữ liệu của file Giáo viên vẫn là bộ riêng (lớp, học sinh sinh ra trong file), chỉ Đỗ Minh Khuê và hai đơn xin phép của em khớp với Phụ huynh. Ngày hiện tại trong file Giáo viên là 14/10 còn Học sinh và Phụ huynh là 15/10 (cần thống nhất ở nhóm 5 khi nối bài nộp và chấm bài qua `pc-data.js`).
 
 ### Nhóm 4. Giáo viên B: soạn nội dung
 - [ ] TC-07 Ngân hàng câu hỏi
