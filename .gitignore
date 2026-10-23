@@ -17,3 +17,6 @@ piclass-infra/
 # ...except custom agents we author ourselves — these are project content, not per-machine install state
 !.claude/agents/
 !.claude/agents/**
+
+# piclass-web: repo git riêng (nested), sống trong cùng workspace window — không track trong repo này
+piclass-web/
