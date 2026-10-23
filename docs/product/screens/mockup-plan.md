@@ -26,8 +26,8 @@ Repo mockup: `buixuanque/piclass-mockup`. Mở bằng double-click file trong `d
 | Vai trò | Mockup đã có | Trạng thái |
 |---|---|---|
 | Admin | Đủ 10 mục menu | Xong (nhóm 1 đến 4) |
-| Học sinh | 5 mục (Tổng quan, Lịch học, Bài tập, Bài kiểm tra, Kết quả) | Đã responsive; xong nhóm 1 (làm bài và kết quả); còn tiến độ, khóa học |
-| Phụ huynh | 5 mục (Tổng quan, Lịch học, Điểm danh, Bài tập & kết quả, Nhận xét) | Chưa bổ sung |
+| Học sinh | 7 mục (thêm Tiến độ, Khóa học) | Xong nhóm 0 đến 2 |
+| Phụ huynh | 7 mục (thêm Tiến độ, Đơn xin phép) và màn Chọn con | Xong nhóm 0 và 2 |
 | Giáo viên | 7 mục (Tổng quan, Lớp học, Lịch dạy, Điểm danh, Bài tập, Bài kiểm tra, Tiến độ) | Chưa bổ sung |
 
 ## Các nhóm
@@ -48,13 +48,13 @@ Làm theo thứ tự. Đánh dấu `[x]` và ghi ngày, máy, commit khi xong.
 - Ghi chú khi xong: 2026-10-23, repo `piclass-mockup` branch `feat/responsive-3-roles` (`a8f409b`). Danh sách Bài tập và Bài kiểm tra dùng chung một mô hình bài (loại, khung giờ, số lượt, trạng thái suy ra như `student-parent.md`). Có hộp thoại bắt đầu, đồng hồ đếm ngược, tự lưu, mất mạng, cảnh báo 5 phút và 1 phút, tự nộp khi hết giờ (nút giả lập ở cuối màn làm bài), hộp thoại danh sách câu và xác nhận nộp. Đủ 9 loại câu; câu nộp file hiện ở trạng thái khóa. Kết quả ẩn khối chi tiết theo cờ `show_*`. Mỗi trang có thanh Xem thử trạng thái (tải, rỗng, lỗi, không có quyền hoặc chưa công bố). Dữ liệu bài nằm trong file Học sinh (`ASM`, `ATT0`, `RES0`), nhóm 2 và 5 cần tách ra dùng chung cho Phụ huynh và Giáo viên. Bài nộp mới của học sinh chưa có giáo viên chấm nên không bao giờ có điểm trong bản mẫu.
 
 ### Nhóm 2. Học sinh B và Phụ huynh (hai file `Học sinh`, `Phụ huynh`)
-- [ ] ST-08 Tiến độ học tập
-- [ ] ST-09 Khóa học của em
-- [ ] PR-01 Chọn con (nhiều con, mang ngữ cảnh con đang xem)
-- [ ] PR-07 Tiến độ của con
-- [ ] PR-08 Đơn xin phép, giải trình vắng (tạo, theo dõi, hủy)
-- [ ] Phụ huynh xem kết quả của con dùng chung dữ liệu với Học sinh (nhóm 1)
-- Ghi chú khi xong:
+- [x] ST-08 Tiến độ học tập
+- [x] ST-09 Khóa học của em
+- [x] PR-01 Chọn con (nhiều con, mang ngữ cảnh con đang xem)
+- [x] PR-07 Tiến độ của con
+- [x] PR-08 Đơn xin phép, giải trình vắng (tạo, theo dõi; không có hủy hay sửa đơn vì BE chưa có endpoint, theo `student-parent.md`)
+- [x] Phụ huynh xem kết quả của con dùng chung dữ liệu với Học sinh (nhóm 1)
+- Ghi chú khi xong: 2026-10-23, repo `piclass-mockup` branch `feat/mockup-group2`. Dữ liệu mẫu chung nằm ở `design-system/pc-data.js` (lớp, bài, lượt làm, kết quả, hai con); Học sinh và Phụ huynh đều nạp file này, Giáo viên (nhóm 3, 5) sẽ nạp tiếp. Tiến độ tính từ kết quả đã công bố (mỗi bài một lần, bài hủy và bài chờ chấm không tính; bài chờ chấm đếm riêng), có lọc 7/30 ngày và môn, bấm môn để lọc danh sách bài; biểu đồ theo ngày là bản mẫu chờ G8. Khóa học học sinh: danh sách và chi tiết, bài thuộc khóa là bản mẫu chờ N-A. Phụ huynh: màn chọn con có trạng thái chưa liên kết và mất quyền xem con; Bài tập & kết quả xem được điểm và nhận xét, không xem bài làm; nhận xét mức private không bao giờ hiện, mức riêng cho phụ huynh chỉ phụ huynh thấy; đơn xin phép có biểu mẫu kiểm lỗi, giả lập lỗi máy chủ và `STUDENT_NOT_ELIGIBLE`. Đơn của phụ huynh nằm trong bộ nhớ trang nên chưa sang Giáo viên (TC-06 ở nhóm 3 dùng dữ liệu mẫu riêng từ `pc-data.js` nếu cần).
 
 ### Nhóm 3. Giáo viên A: vận hành lớp (file `PiClass Giáo viên.dc.html`)
 - [ ] TC-03 Chi tiết lớp
