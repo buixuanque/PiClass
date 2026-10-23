@@ -26,7 +26,7 @@ Repo mockup: `buixuanque/piclass-mockup`. Mở bằng double-click file trong `d
 | Vai trò | Mockup đã có | Trạng thái |
 |---|---|---|
 | Admin | Đủ 10 mục menu | Xong (nhóm 1 đến 4) |
-| Học sinh | 5 mục (Tổng quan, Lịch học, Bài tập, Bài kiểm tra, Kết quả) | Đã responsive; chưa bổ sung màn |
+| Học sinh | 5 mục (Tổng quan, Lịch học, Bài tập, Bài kiểm tra, Kết quả) | Đã responsive; xong nhóm 1 (làm bài và kết quả); còn tiến độ, khóa học |
 | Phụ huynh | 5 mục (Tổng quan, Lịch học, Điểm danh, Bài tập & kết quả, Nhận xét) | Chưa bổ sung |
 | Giáo viên | 7 mục (Tổng quan, Lớp học, Lịch dạy, Điểm danh, Bài tập, Bài kiểm tra, Tiến độ) | Chưa bổ sung |
 
@@ -39,13 +39,13 @@ Làm theo thứ tự. Đánh dấu `[x]` và ghi ngày, máy, commit khi xong.
 - Ghi chú khi xong: 2026-10-23, repo `piclass-mockup` branch `feat/responsive-3-roles` (`fbba5f1`). Công cụ `tools/make_responsive.py`. Đã kiểm 17 màn ở 500/900/1300px, không cuộn ngang; chưa thử 390px; học sinh và phụ huynh chưa có thanh điều hướng dưới.
 
 ### Nhóm 1. Học sinh A: làm bài và kết quả (file `PiClass Học sinh.dc.html`)
-- [ ] ST-05 Chi tiết bài (điều kiện làm, số lượt, hạn)
-- [ ] ST-06 Làm bài, đủ 9 loại câu hỏi, đếm giờ, lưu nháp, xác nhận nộp
-- [ ] ST-06b Đã nộp bài
-- [ ] ST-07 Chi tiết kết quả
-- [ ] ST-07b Xem lại bài làm
-- [ ] Nối từ các mục Bài tập, Bài kiểm tra, Kết quả hiện có sang các màn trên
-- Ghi chú khi xong:
+- [x] ST-05 Chi tiết bài (điều kiện làm, số lượt, hạn)
+- [x] ST-06 Làm bài, đủ 9 loại câu hỏi, đếm giờ, lưu nháp, xác nhận nộp
+- [x] ST-06b Đã nộp bài
+- [x] ST-07 Chi tiết kết quả
+- [x] ST-07b Xem lại bài làm
+- [x] Nối từ các mục Bài tập, Bài kiểm tra, Kết quả hiện có sang các màn trên
+- Ghi chú khi xong: 2026-10-23, repo `piclass-mockup` branch `feat/responsive-3-roles` (`a8f409b`). Danh sách Bài tập và Bài kiểm tra dùng chung một mô hình bài (loại, khung giờ, số lượt, trạng thái suy ra như `student-parent.md`). Có hộp thoại bắt đầu, đồng hồ đếm ngược, tự lưu, mất mạng, cảnh báo 5 phút và 1 phút, tự nộp khi hết giờ (nút giả lập ở cuối màn làm bài), hộp thoại danh sách câu và xác nhận nộp. Đủ 9 loại câu; câu nộp file hiện ở trạng thái khóa. Kết quả ẩn khối chi tiết theo cờ `show_*`. Mỗi trang có thanh Xem thử trạng thái (tải, rỗng, lỗi, không có quyền hoặc chưa công bố). Dữ liệu bài nằm trong file Học sinh (`ASM`, `ATT0`, `RES0`), nhóm 2 và 5 cần tách ra dùng chung cho Phụ huynh và Giáo viên. Bài nộp mới của học sinh chưa có giáo viên chấm nên không bao giờ có điểm trong bản mẫu.
 
 ### Nhóm 2. Học sinh B và Phụ huynh (hai file `Học sinh`, `Phụ huynh`)
 - [ ] ST-08 Tiến độ học tập
