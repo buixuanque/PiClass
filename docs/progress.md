@@ -43,7 +43,7 @@ Chi tiết đầy đủ: [architecture/technology-decisions.md](architecture/tec
 - `piclass-mockup/` (sibling `C:\Workspaces\home\piclass-mockup`) → repo riêng cho export Stitch.
 - `piclass-infra/` → repo riêng cho hạ tầng local dev (Docker Compose: Postgres, Laravel qua Nginx/PHP-FPM, Next.js, Swagger UI cho `docs/api-docs`, Mailpit, Playwright). Xem `piclass-infra/README.md` để dựng môi trường.
 - Repo hiện tại (docs + plan/spec/ledger) → **`piclass-docs`**.
-- frontend thật (Next.js, chưa khởi tạo) sẽ là **`piclass-web`** khi bắt đầu Plan 1b.
+- frontend thật (Next.js) là **`piclass-web`**: repo git local đã khởi tạo 2026-10-24 với `CLAUDE.md` là quy ước code FE (`ARCH-32`); chưa có code, chưa tạo remote. Plan 1b sẽ scaffold.
 
 **Việc còn mở để `piclass-infra` chạy được đầy đủ:** chưa có `docs/api-docs/` (đặc tả OpenAPI viết tay, chưa viết) — service `docs` của stack sẽ phục vụ trang trắng cho tới khi có.
 
@@ -89,7 +89,7 @@ Review spec theo **nhóm module**, không duyệt một lượt toàn bộ — t
 Lịch sử đợt chuyển sang quy ước (kết quả từng task, số PR, số liệu đột biến): `superpowers/plans/2026-10-18-be-architecture-refactor-results.md`.
 
 **Việc tiếp theo (hướng phát triển):**
-1. **Frontend** (Next.js) theo từng nhóm module, bắt đầu từ Plan 1b (Auth) rồi 2b (User Management)…; cần design system từ track mockup (xem dưới). Contract API hiện được coi là ổn định: đổi `error.code`, shape JSON hay status từ nay phải báo trước, ghi `architecture/error-codes.md` và có test ghim.
+1. **Frontend** (Next.js) theo từng nhóm module, bắt đầu từ Plan 1b (Auth) rồi 2b (User Management)… Plan 1b mở đầu bằng "nền" (scaffold theo `piclass-web/CLAUDE.md`, `lib/`, design system, app shell, guard, `architecture.test.ts`) và thử `rewrites`/Sanctum cookie với hạ tầng đã chỉnh (`piclass-infra` #3); cần design system từ track mockup (xem dưới). Contract API hiện được coi là ổn định: đổi `error.code`, shape JSON hay status từ nay phải báo trước, ghi `architecture/error-codes.md` và có test ghim.
 2. **PR đổi hành vi / hoàn thiện nghiệp vụ theo issue:** các phát hiện từ đặc tả màn hình (#60: id bản ghi điểm danh, id Role khi kết thúc vai trò, có thể lộ điểm chưa công bố khi nộp bài, hẹn giờ công bố điểm, dữ liệu cho học sinh); xem thêm `product/screens/api-gaps.md`; File retrofit Module 4 (gắn và xem file của bài làm, feedback; #50, cùng #46); Notification/Audit (#52–#56, #47, #48); thảo luận #21 (tách site theo vai trò, vai trò đang hoạt động ở tầng Policy), #32 (chạy Scheduler local/production), #40–#43 (Auth); quyết định mở `ARCH-14` (đồng bộ `StudentAssessment` khi học viên vào lớp/Course sau khi gắn audience), `ARCH-12` (retention file/audit).
 3. **PHPStan + Larastan đã cài (2026-10-22; docs #58 / BE #38 / infra #2)**: mức 5, `composer analyse` / `make analyse`, 188 lỗi cũ nằm trong `phpstan-baseline.neon`, chỉ lỗi mới làm lệnh đỏ. Việc tiếp: thêm kiểu trả về cho quan hệ Eloquent để thu nhỏ baseline rồi nâng mức (`architecture/known-debt.md`); gắn vào CI khi có CI.
 4. **Vận hành:** sau khi pull/deploy code backend phải restart queue worker (thông báo của `ResultProgress`, `Attendance`, `Lesson`, `Assessment` chạy qua queue). Máy dev: `make install && make migrate && make restart-queue` trong `piclass-infra/local` (hướng dẫn ở README của `piclass-infra`); production: restart worker (Supervisor/systemd) trong quy trình deploy.

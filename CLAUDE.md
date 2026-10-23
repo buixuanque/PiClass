@@ -18,7 +18,7 @@ Khi có mâu thuẫn giữa các tài liệu, ưu tiên theo thứ tự:
 
 ## Quy ước code backend
 
-Code backend (`piclass-api/`) viết theo `piclass-api/CLAUDE.md` (module `app/Modules/<Module>/`, `ArchitectureTest` canh tự động). Bẫy thực hành và cách viết test: [docs/architecture/backend-gotchas.md](docs/architecture/backend-gotchas.md). Nợ kỹ thuật đã biết: [docs/architecture/known-debt.md](docs/architecture/known-debt.md) — khi chạm tới code có trong đó thì cân nhắc xử lý và xóa dòng.
+Code backend (`piclass-api/`) viết theo `piclass-api/CLAUDE.md` (module `app/Modules/<Module>/`, `ArchitectureTest` canh tự động). Bẫy thực hành và cách viết test: [docs/architecture/backend-gotchas.md](docs/architecture/backend-gotchas.md). Code frontend (`piclass-web/`) viết theo `piclass-web/CLAUDE.md` (`ARCH-32`). Nợ kỹ thuật đã biết: [docs/architecture/known-debt.md](docs/architecture/known-debt.md) — khi chạm tới code có trong đó thì cân nhắc xử lý và xóa dòng.
 
 ## Khi chốt quyết định mới
 
@@ -51,9 +51,9 @@ Khi dùng `superpowers:brainstorming` cho việc kiến trúc/API (loại "archi
 
 ## Push nhiều repo (monorepo-workspace, nhiều git repo riêng)
 
-Workspace này gồm nhiều git repo độc lập sống cùng thư mục (`piclass-api/`, `piclass-infra/`, `piclass-web` = repo hiện tại chứa docs, `piclass-mockup` riêng ngoài workspace). Mỗi khi push một trong các repo con (`piclass-api`, ...), **luôn kiểm tra `git status`/`git log origin/main..HEAD` ở repo `piclass-web` (repo docs, hiện tại) xem có commit local chưa push không** — việc code ở repo con gần như luôn kéo theo cập nhật `docs/progress.md`, spec, plan, hoặc `open-decisions.md` ở đây. Nếu có, **báo cho user luôn trong cùng lượt trả lời** (không chờ hỏi riêng) rằng repo docs cũng có thay đổi chưa push, và hỏi có muốn push cùng không.
+Workspace này gồm nhiều git repo độc lập sống cùng thư mục (`piclass-api/`, `piclass-infra/`, `piclass-web/` = frontend Next.js, `piclass-mockup/`; repo hiện tại chứa docs, tên `piclass-docs`). Mỗi khi push một trong các repo con (`piclass-api`, ...), **luôn kiểm tra `git status`/`git log origin/main..HEAD` ở repo docs (hiện tại) xem có commit local chưa push không** — việc code ở repo con gần như luôn kéo theo cập nhật `docs/progress.md`, spec, plan, hoặc `open-decisions.md` ở đây. Nếu có, **báo cho user luôn trong cùng lượt trả lời** (không chờ hỏi riêng) rằng repo docs cũng có thay đổi chưa push, và hỏi có muốn push cùng không.
 
-**Quy trình git giống nhau cho mọi repo, kể cả repo docs (`piclass-web`, hiện tại):** không commit/push trực tiếp lên `main`. Tạo branch mới từ `main` đã pull mới nhất (`git checkout main && git pull && git checkout -b <branch>`), commit vào đó, push branch, mở PR (`gh pr create`), rồi merge PR (`gh pr merge`) — áp dụng kể cả cho thay đổi chỉ gồm file `.md` (spec/plan/progress.md/open-decisions.md). **Không xóa branch sau khi merge** (không dùng `--delete-branch`/`-d` trên `gh pr merge`, và không tự xóa branch local/remote sau đó) — giữ lại để tham khảo lịch sử.
+**Quy trình git giống nhau cho mọi repo, kể cả repo docs (hiện tại):** không commit/push trực tiếp lên `main`. Tạo branch mới từ `main` đã pull mới nhất (`git checkout main && git pull && git checkout -b <branch>`), commit vào đó, push branch, mở PR (`gh pr create`), rồi merge PR (`gh pr merge`) — áp dụng kể cả cho thay đổi chỉ gồm file `.md` (spec/plan/progress.md/open-decisions.md). **Không xóa branch sau khi merge** (không dùng `--delete-branch`/`-d` trên `gh pr merge`, và không tự xóa branch local/remote sau đó) — giữ lại để tham khảo lịch sử.
 
 **Không tự động push/mở PR/merge.** Commit vào branch local là được, nhưng chỉ push/tạo PR/merge khi user yêu cầu rõ ràng ("push đi", "xong rồi, push nhé"...) — không tự làm ngay sau khi code/docs xong, dù đã có branch sẵn.
 
