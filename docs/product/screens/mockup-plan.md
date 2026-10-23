@@ -26,7 +26,7 @@ Repo mockup: `buixuanque/piclass-mockup`. Mở bằng double-click file trong `d
 | Vai trò | Mockup đã có | Trạng thái |
 |---|---|---|
 | Admin | Đủ 10 mục menu | Xong (nhóm 1 đến 4) |
-| Học sinh | 5 mục (Tổng quan, Lịch học, Bài tập, Bài kiểm tra, Kết quả) | Chưa bổ sung |
+| Học sinh | 5 mục (Tổng quan, Lịch học, Bài tập, Bài kiểm tra, Kết quả) | Đã responsive; chưa bổ sung màn |
 | Phụ huynh | 5 mục (Tổng quan, Lịch học, Điểm danh, Bài tập & kết quả, Nhận xét) | Chưa bổ sung |
 | Giáo viên | 7 mục (Tổng quan, Lớp học, Lịch dạy, Điểm danh, Bài tập, Bài kiểm tra, Tiến độ) | Chưa bổ sung |
 
@@ -35,8 +35,8 @@ Repo mockup: `buixuanque/piclass-mockup`. Mở bằng double-click file trong `d
 Làm theo thứ tự. Đánh dấu `[x]` và ghi ngày, máy, commit khi xong.
 
 ### Nhóm 0. Responsive cho ba file còn lại (làm trước các nhóm sau)
-- [ ] `PiClass Giáo viên.dc.html`, `PiClass Học sinh.dc.html`, `PiClass Phụ huynh.dc.html`: bỏ `min-width:1180px`, thu sidebar thành rail ở khoảng 1100px, ẩn sidebar và thêm nút menu ở khoảng 760px, theo mẫu `PiClass Quản trị.dc.html`. Kiểm tra không cuộn ngang ở 500px.
-- Ghi chú khi xong:
+- [x] `PiClass Giáo viên.dc.html`, `PiClass Học sinh.dc.html`, `PiClass Phụ huynh.dc.html`: bỏ `min-width:1180px`, thu sidebar thành rail ở khoảng 1100px, ẩn sidebar và thêm nút menu ở khoảng 760px, theo mẫu `PiClass Quản trị.dc.html`. Kiểm tra không cuộn ngang ở 500px.
+- Ghi chú khi xong: 2026-10-23, repo `piclass-mockup` branch `feat/responsive-3-roles` (`fbba5f1`). Công cụ `tools/make_responsive.py`. Đã kiểm 17 màn ở 500/900/1300px, không cuộn ngang; chưa thử 390px; học sinh và phụ huynh chưa có thanh điều hướng dưới.
 
 ### Nhóm 1. Học sinh A: làm bài và kết quả (file `PiClass Học sinh.dc.html`)
 - [ ] ST-05 Chi tiết bài (điều kiện làm, số lượt, hạn)
