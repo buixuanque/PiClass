@@ -29,7 +29,7 @@ Gồm 17 prompt cho các màn hình của học sinh, dùng tốt cả trên đi
 ```text
 Màn hình: Tổng quan (học sinh; responsive: dùng tốt cả trên điện thoại lẫn trên web máy tính)
 
-Tình huống: Học sinh lớp 9 mở ứng dụng, thường bằng điện thoại vào giờ nghỉ hoặc ngay trước giờ đi học thêm, cũng có khi mở web trên máy tính ở nhà. Em chỉ muốn biết trong vài giây: hôm nay có buổi học nào, bài nào sắp đến hạn, có điểm mới chưa. Quan trọng nhất là nhanh và ít thao tác.
+Tình huống: Học sinh lớp 9 mở web PiClass, thường bằng trình duyệt điện thoại vào giờ nghỉ hoặc ngay trước giờ đi học thêm, cũng có khi mở web trên máy tính ở nhà. Em chỉ muốn biết trong vài giây: hôm nay có buổi học nào, bài nào sắp đến hạn, có điểm mới chưa. Quan trọng nhất là nhanh và ít thao tác.
 
 Thông tin cần có:
 - Lời chào kèm tên em và ngày hôm nay.
@@ -280,7 +280,7 @@ Quy tắc nghiệp vụ:
 - Rời trang giữa chừng phải hỏi: "Em có chắc muốn rời trang? Bài vẫn đang mở và đồng hồ vẫn chạy."
 - Tải lại trang vẫn về đúng câu đang làm.
 
-Yêu cầu chung: Phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ. Phải dùng được cả bằng chạm lẫn bằng chuột và bàn phím; khi bàn phím ảo bật lên hoặc xoay ngang vẫn thấy câu hỏi và trạng thái lưu.
+Yêu cầu chung: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ. Phải dùng được cả bằng chạm lẫn bằng chuột và bàn phím; khi bàn phím ảo bật lên hoặc xoay ngang vẫn thấy câu hỏi và trạng thái lưu.
 
 Tình huống đặc biệt: đang tải bài; vừa bắt đầu; đang lưu, đã lưu, lưu lỗi; mất kết nối; còn 5 phút, còn 1 phút; hết giờ đang nộp; xác nhận nộp có và không có câu bỏ trống; đang nộp; bài không còn mở; phiên đăng nhập hết hạn (giữ lại phần đang làm và quay lại đúng bài sau khi đăng nhập).
 
@@ -292,7 +292,7 @@ Dữ liệu mẫu: "Kiểm tra 15 phút — Căn bậc hai · Câu 3/10 · 1 đi
 ```text
 Màn hình: Làm bài — các câu chọn đáp án: một đáp án, nhiều đáp án, đúng/sai (học sinh; responsive: dùng tốt cả trên điện thoại lẫn trên web máy tính)
 
-Tình huống: Học sinh đang làm bài và gặp câu trắc nghiệm. Em cần chọn nhanh bằng một thao tác (chạm hoặc nhấp chuột), chọn trúng dễ dàng và biết chắc mình đã chọn gì. Phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ. Đang trong bài có đồng hồ đếm ngược và trạng thái tự lưu, câu trả lời được lưu ngay khi chọn.
+Tình huống: Học sinh đang làm bài và gặp câu trắc nghiệm. Em cần chọn nhanh bằng một thao tác (chạm hoặc nhấp chuột), chọn trúng dễ dàng và biết chắc mình đã chọn gì. Theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ. Đang trong bài có đồng hồ đếm ngược và trạng thái tự lưu, câu trả lời được lưu ngay khi chọn.
 
 Thông tin cần có:
 - Số câu trên tổng số câu, điểm của câu, nội dung câu, ghi chú đi kèm nếu có.
@@ -353,7 +353,7 @@ Liên kết:
 
 Quy tắc nghiệp vụ:
 - Tự lưu khi em ngừng gõ khoảng 1 giây, khi rời ô nhập và khi chuyển câu; không bao giờ chỉ lưu khi em bấm lưu.
-- Bàn phím ảo (khi có) không được che chỗ đang gõ. Phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+- Bàn phím ảo (khi có) không được che chỗ đang gõ. Theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 - Câu tự luận sẽ được giáo viên chấm tay: sau khi nộp trạng thái là "Chờ chấm". Câu điền chỗ trống và trả lời ngắn được chấm tự động so với các đáp án giáo viên chấp nhận, nên không hiện đáp án đúng khi làm.
 - Để trống được; câu chưa gõ gì tính là chưa trả lời.
 - Hết giờ thì khóa nhập; phần đang gõ dở sau giờ không được lưu và phải báo rõ.
@@ -391,7 +391,7 @@ Liên kết:
 - Nếu màn nối tới chưa có trong dự án, để một điểm dẫn tới.
 
 Quy tắc nghiệp vụ:
-- Phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+- Theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 - Mỗi lựa chọn chỉ nối được với một mục; lựa chọn đã dùng phải nhìn ra là đã dùng.
 - Câu sắp xếp: chưa chạm vào thì chưa tính là đã trả lời, dù danh sách đang hiện một thứ tự nào đó; sau khi chạm thì lưu ngay.
 - Mỗi lần ghép hoặc đổi vị trí tự lưu ngay.
@@ -429,7 +429,7 @@ Liên kết:
 - Nếu màn nối tới chưa có trong dự án, để một điểm dẫn tới.
 
 Quy tắc nghiệp vụ:
-- Phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+- Theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 - Chỉ nhận loại tệp và dung lượng nêu trên. Sai loại: "Tệp này không được nhận. Em chọn pdf, doc, docx, jpg, png hoặc zip nhé". Quá dung lượng: "Tệp lớn hơn 10 MB. Em chọn tệp nhỏ hơn hoặc chụp lại nhé".
 - Câu chỉ tính là đã trả lời khi tệp đã tải lên xong; việc nộp bài phải chờ tải xong.
 - Câu nộp tệp do giáo viên chấm tay, nên sau khi nộp trạng thái là "Chờ chấm".
@@ -460,7 +460,7 @@ Mỗi câu hỏi hiển thị đúng theo loại của nó (chọn đáp án, nh
 
 Liên kết: vào từ màn Chi tiết bài, ra về màn Chi tiết bài, Tổng quan hoặc Kết quả (khi đã công bố). Nếu màn đích chưa có trong dự án, để một điểm dẫn tới.
 
-Phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 ```
 
 ### ST-06b — Đã nộp bài
@@ -598,7 +598,7 @@ Chuyển qua lại giữa tổng kết điểm và từng câu không rời kh�
 
 Liên kết: vào từ màn Chi tiết bài, Bài tập, Bài kiểm tra, Đã nộp bài hoặc thông báo công bố điểm; ra về màn Chi tiết bài. Nếu màn đích chưa có trong dự án, để một điểm dẫn tới.
 
-Phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 ```
 
 ### ST-08 — Tiến độ học tập

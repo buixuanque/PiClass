@@ -21,7 +21,7 @@ Gồm 9 prompt cho các màn hình của phụ huynh, dùng tốt cả trên đi
 ```text
 Màn hình: Chọn con (phụ huynh; responsive: dùng tốt cả trên điện thoại lẫn trên web máy tính)
 
-Tình huống: Phụ huynh có từ hai con học ở trung tâm, vừa đăng nhập hoặc muốn đổi sang xem con khác. Họ thường mở ứng dụng giữa giờ làm việc (bằng điện thoại hoặc web máy tính) và chỉ muốn chọn đúng con trong một thao tác. Quan trọng nhất là không nhầm con.
+Tình huống: Phụ huynh có từ hai con học ở trung tâm, vừa đăng nhập hoặc muốn đổi sang xem con khác. Họ thường mở web PiClass giữa giờ làm việc (bằng điện thoại hoặc web máy tính) và chỉ muốn chọn đúng con trong một thao tác. Quan trọng nhất là không nhầm con.
 
 Thông tin cần có (mỗi con):
 - Họ tên đầy đủ.
@@ -59,7 +59,7 @@ Dữ liệu mẫu:
 ```text
 Màn hình: Tổng quan của con (phụ huynh; responsive: dùng tốt cả trên điện thoại lẫn trên web máy tính)
 
-Tình huống: Phụ huynh bận rộn mở ứng dụng, bằng điện thoại hoặc web máy tính, và muốn trả lời ngay: hôm nay con có học không, có bài nào sắp đến hạn không, có kết quả hoặc nhận xét mới của cô không. Ứng dụng chỉ có thông báo trong ứng dụng nên đây là nơi phụ huynh biết "có gì mới". Quan trọng nhất là nhanh và nhìn là hiểu.
+Tình huống: Phụ huynh bận rộn mở web PiClass, bằng điện thoại hoặc web máy tính, và muốn trả lời ngay: hôm nay con có học không, có bài nào sắp đến hạn không, có kết quả hoặc nhận xét mới của cô không. Hệ thống chỉ có thông báo trong web nên đây là nơi phụ huynh biết "có gì mới". Quan trọng nhất là nhanh và nhìn là hiểu.
 
 Thông tin cần có:
 - Tên con đang xem (và cách đổi sang con khác nếu có nhiều con).
@@ -239,7 +239,7 @@ Dữ liệu mẫu:
 ```text
 Màn hình: Nhận xét của giáo viên (phụ huynh; responsive: dùng tốt cả trên điện thoại lẫn trên web máy tính)
 
-Tình huống: Phụ huynh muốn đọc giáo viên nhận xét gì về con. Đây là kênh chính để biết tình hình học vì ứng dụng không có tin nhắn trao đổi. Họ đọc kỹ, đọc lại nhiều lần, nên cần chữ dễ đọc và biết nhận xét thuộc bài nào, ngày nào.
+Tình huống: Phụ huynh muốn đọc giáo viên nhận xét gì về con. Đây là kênh chính để biết tình hình học vì hệ thống không có tin nhắn trao đổi. Họ đọc kỹ, đọc lại nhiều lần, nên cần chữ dễ đọc và biết nhận xét thuộc bài nào, ngày nào.
 
 Thông tin cần có:
 - Tên con đang xem.
@@ -348,7 +348,7 @@ Quy tắc nghiệp vụ:
 - Gửi thành công: "Đã gửi đơn. Giáo viên sẽ xem xét", đơn mới hiện đầu danh sách.
 - Gửi thất bại: báo lỗi và giữ nguyên nội dung đã gõ.
 - Mất liên kết với con: "Bạn không còn liên kết với học sinh này" và đưa về chọn con.
-- Phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ. Bàn phím ảo (khi có) không được che ô viết lý do.
+- Theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ. Bàn phím ảo (khi có) không được che ô viết lý do.
 - Chỉ phụ huynh gửi đơn; học sinh không thấy và không gửi được.
 
 Tình huống đặc biệt:
@@ -382,5 +382,5 @@ Giữ lại khi chuyển giữa các màn: con đang xem, kỳ lịch đang xem,
 
 Liên kết: vào từ trang đầu sau đăng nhập hoặc thông báo. Nếu màn đích chưa có trong dự án, để một điểm dẫn tới.
 
-Phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 ```

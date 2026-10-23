@@ -66,7 +66,7 @@ Quy tắc nghiệp vụ:
 - Hệ thống chưa có dữ liệu nào thì không hiện các con số 0 vô nghĩa, chỉ hướng dẫn thiết lập.
 - Mỗi phần tải độc lập, phần nào xong thì hiện trước.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt:
 - Đang tải từng phần; hệ thống trống hoàn toàn; không có việc cần xử lý ("Không có việc cần xử lý"); một phần tải lỗi (có cách thử lại riêng, các phần khác vẫn dùng được); không có quyền truy cập.
@@ -99,7 +99,7 @@ Quy tắc nghiệp vụ:
 - Thứ tự chỉ là gợi ý, không chặn: có thể tạo lớp trước khi có giáo viên, khi đó lớp ở trạng thái Đang chuẩn bị.
 - Khi tạo lớp phải chọn môn đang được dùng, nên cần nhắc điều này ở bước tạo lớp.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt:
 - Đang tải; tất cả đã xong ("Hệ thống đã sẵn sàng" kèm lối quay về màn tổng quan); không xác định được một bước nào đó (hiện là "chưa rõ", không được đánh dấu xong sai).
@@ -131,7 +131,7 @@ Quy tắc nghiệp vụ:
 - Thiếu môn hoặc tên: "Vui lòng chọn môn." / "Vui lòng nhập tên lớp."
 - Đổi bộ lọc thì quay về đầu danh sách; quay lại từ màn chi tiết vẫn giữ nguyên bộ lọc.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: đang tải; chưa có lớp nào ("Chưa có lớp. Tạo lớp đầu tiên"; nếu chưa có môn nào thì gợi ý tạo môn trước); không có kết quả khớp bộ lọc; lỗi tải có thử lại; không có quyền; lớp đã lưu trữ hiển thị mờ nhưng vẫn mở được.
 
@@ -159,7 +159,7 @@ Quy tắc nghiệp vụ:
 - Trạng thái lớp tự động theo giáo viên: có giáo viên đầu tiên thì thành Đang hoạt động; giáo viên cuối cùng bị kết thúc phân công thì về Đang chuẩn bị; Đã lưu trữ do Admin đặt tay và không tự khôi phục. Vì vậy không có hành động "kích hoạt lớp".
 - Lớp đã lưu trữ không nhận thêm hoạt động mới nên các hành động ghi bị vô hiệu hóa.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: đang tải; không tìm thấy lớp ("Không tìm thấy lớp học"); một nhóm nội dung lỗi nhưng phần còn lại vẫn dùng được; lớp ở cả ba trạng thái.
 
@@ -185,7 +185,7 @@ Quy tắc nghiệp vụ:
 - Không có hành động chuyển trạng thái nào khác ngoài lưu trữ; trạng thái Đang chuẩn bị / Đang hoạt động tự thay đổi theo việc phân công giáo viên.
 - Tên lớp không được để trống: "Vui lòng nhập tên lớp."
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: đang tải; lỗi tải có thử lại; chưa có lịch sử thay đổi; lớp đã lưu trữ (toàn bộ thông tin chỉ đọc, kèm thông báo); đang lưu; lưu thất bại giữ nguyên nội dung đã nhập.
 
@@ -215,7 +215,7 @@ Quy tắc nghiệp vụ:
 - Thiếu lý do: "Vui lòng nhập lý do."
 - Thành viên không còn hiệu lực khi đang sửa: báo "Học sinh này không còn trong lớp", làm mới danh sách.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: đang tải; lớp chưa có học sinh ("Lớp chưa có học sinh" kèm gợi ý thêm); lỗi tải; đang lưu; lớp đã lưu trữ (không cho thêm, sửa).
 
@@ -244,7 +244,7 @@ Quy tắc nghiệp vụ:
 - Hai thông báo trên phải hiện được kể cả khi danh sách chọn đã lọc đúng (có thể hai quản trị viên thao tác cùng lúc).
 - Kết thúc phân công người không còn hiệu lực: báo và làm mới.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: đang tải; lớp chưa có giáo viên ("Chưa có giáo viên phụ trách, lớp chưa vận hành" kèm hành động phân công); lỗi tải; thông báo lớp đổi trạng thái; lớp đã lưu trữ (không phân công thêm).
 
@@ -271,7 +271,7 @@ Quy tắc nghiệp vụ:
 - Thiếu thông tin: "Vui lòng chọn ngày bắt đầu." / "Ngày kết thúc phải sau hoặc bằng ngày bắt đầu." / "Thời lượng phải từ 1 phút." / "Vui lòng chọn ít nhất một ngày trong tuần." / "Vui lòng nhập lý do."
 - Không kiểm tra trùng phòng học.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: đang tải; lớp chưa có lịch ("Chưa có lịch học" kèm hành động tạo lịch); lỗi tải; lịch đã hủy hiển thị mờ, không sửa được; đang lưu; kết quả tạo lịch có cảnh báo trùng; không có quyền.
 
@@ -302,7 +302,7 @@ Quy tắc nghiệp vụ:
 - Lỗi mẫu: "Giờ kết thúc phải sau giờ bắt đầu." / "Vui lòng nhập lý do sửa buổi đã hoàn tất." / "Vui lòng nhập lý do hủy."
 - Giờ nhập được hiểu theo giờ Việt Nam.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: đang tải; không có buổi nào trong khoảng ngày ("Chưa có buổi nào trong khoảng này" kèm gợi ý thêm buổi hoặc tạo lịch); lỗi tải; buổi đã hủy hiển thị mờ; buổi cần rà soát; đang lưu; ngày lọc sai định dạng.
 
@@ -326,7 +326,7 @@ Dùng chung: tên lớp, nhãn, môn học, trạng thái lớp và thông đi�
 
 Liên kết: mở từ các danh sách và màn tổng quan đã nêu ở từng phần; chuyển giữa các phần không được rời khỏi đối tượng đang xem. Quay về danh sách thì giữ ô tìm, bộ lọc và vị trí đang xem.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 ```
 
 ### AD-11 — Lịch tổng hợp
@@ -350,7 +350,7 @@ Quy tắc nghiệp vụ:
 - Cảnh báo trùng giờ giáo viên chỉ để thông tin, không chặn việc nào.
 - Không kiểm tra trùng phòng học (hệ thống chưa quản lý địa điểm).
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: đang tải; tuần không có buổi ("Không có buổi học trong tuần này"); dữ liệu của một lớp tải lỗi nhưng các lớp còn lại vẫn hiện; buổi đã hủy; lớp chưa có lịch; không có quyền.
 
@@ -378,7 +378,7 @@ Quy tắc nghiệp vụ:
 - Hồ sơ nghi trùng (cùng tên và số điện thoại) do Admin tự kiểm tra, hệ thống không tự gộp.
 - Đổi bộ lọc thì về đầu danh sách; quay lại từ chi tiết vẫn giữ bộ lọc; sau khi tạo hoặc sửa xong, học sinh vừa thay đổi được làm nổi.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: đang tải; chưa có học sinh ("Chưa có học sinh. Thêm học sinh đầu tiên"); không có kết quả khớp bộ lọc; lỗi tải có thử lại; không có quyền; học sinh Ngừng hoạt động hiển thị mờ nhưng vẫn mở được.
 
@@ -408,7 +408,7 @@ Quy tắc nghiệp vụ:
 - Ngừng hoạt động hồ sơ không xóa việc học sinh đang ở trong lớp hay liên kết với phụ huynh; lịch sử vẫn giữ.
 - Một học sinh có thể có nhiều phụ huynh.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: mỗi phần tải riêng, lỗi riêng; không tìm thấy học sinh; hồ sơ Ngừng hoạt động ("Học sinh ngừng hoạt động. Lịch sử vẫn được giữ."); chưa có lớp, chưa có phụ huynh, chưa có tài khoản (mỗi chỗ trống kèm lời mời hành động).
 
@@ -436,7 +436,7 @@ Quy tắc nghiệp vụ:
 - Khi sửa, chỉ những trường thay đổi mới được lưu.
 - Thành công chỉ cần thông báo ngắn "Đã lưu".
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: chưa nhập gì khi tạo; đang lưu; lỗi theo từng trường; mất kết nối nhưng giữ nguyên nội dung đã nhập; cảnh báo nghi trùng hồ sơ.
 
@@ -461,7 +461,7 @@ Quy tắc nghiệp vụ:
 - Tên đăng nhập trùng hoặc bỏ trống: "Tên đăng nhập này đã được dùng." / "Vui lòng nhập tên đăng nhập."
 - Tài khoản được tạo trước, thư gửi sau; thư gửi lỗi vẫn không hủy tài khoản, nên có thể hiện "đã mời" mà người nhận không có thư, khi đó hướng dẫn xem cách gửi lại lời mời.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: trạng thái nhập; đang gửi; thành công; tên đăng nhập trùng; hồ sơ đã có tài khoản; thiếu email; gửi thư lỗi.
 
@@ -489,7 +489,7 @@ Quy tắc nghiệp vụ:
 - Người mở liên kết đã hết hạn sẽ thấy lỗi; câu hướng dẫn cho họ là "Liên hệ quản trị viên để được gửi lại."
 - Vẽ cả trạng thái hướng dẫn hiện có lẫn trạng thái đầy đủ khi gửi lại trực tiếp được.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: trạng thái hướng dẫn (hiện tại); đã gửi lại thành công; đã sao chép liên kết; bị giới hạn số lần gửi trong một khoảng thời gian; gửi lỗi, có thử lại.
 
@@ -513,7 +513,7 @@ Dùng chung: tên học sinh, trạng thái hồ sơ, tình trạng tài khoản
 
 Liên kết: mở từ các danh sách và màn tổng quan đã nêu ở từng phần; chuyển giữa các phần không được rời khỏi đối tượng đang xem. Quay về danh sách thì giữ ô tìm, bộ lọc và vị trí đang xem.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 ```
 
 ### AD-06 — Danh sách phụ huynh
@@ -536,7 +536,7 @@ Quy tắc nghiệp vụ:
 - Không bắt buộc học sinh nào cũng có phụ huynh, nhưng phụ huynh không có liên kết thì cổng phụ huynh trống.
 - Đổi bộ lọc thì về đầu danh sách; quay lại từ chi tiết giữ bộ lọc.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: đang tải; chưa có phụ huynh ("Chưa có phụ huynh. Thêm phụ huynh đầu tiên"); không có kết quả khớp bộ lọc; lỗi tải có thử lại; không có quyền; hồ sơ Ngừng hoạt động hiển thị mờ; phụ huynh chưa liên kết con nào.
 
@@ -560,7 +560,7 @@ Quy tắc nghiệp vụ:
 - Đổi trạng thái hồ sơ không ảnh hưởng các liên kết đang có.
 - Kết thúc liên kết có hiệu lực ngay, kể cả với dữ liệu lịch sử của con.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: đang tải; lỗi tải; không tìm thấy phụ huynh; hồ sơ Ngừng hoạt động; chưa có con nào liên kết (kèm lời mời liên kết).
 
@@ -585,7 +585,7 @@ Quy tắc nghiệp vụ:
 - Email sai định dạng: "Email không hợp lệ."
 - Lỗi hiện ngay cạnh trường bị lỗi; khi sửa chỉ lưu trường đã đổi; thành công chỉ cần thông báo ngắn "Đã lưu".
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: chưa nhập gì khi tạo; đang lưu (không bấm lưu hai lần); lỗi theo trường; mất kết nối nhưng giữ nội dung đã nhập; cảnh báo nghi trùng hồ sơ.
 
@@ -616,7 +616,7 @@ Quy tắc nghiệp vụ:
 - Liên kết đã kết thúc trước đó: "Liên kết này đã kết thúc rồi." (làm mới danh sách).
 - Thiếu lý do: "Vui lòng nhập lý do."
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: trạng thái nhập; đang lưu; trùng liên kết; liên kết đã kết thúc; lỗi tải kết quả tìm; không có quyền.
 
@@ -640,7 +640,7 @@ Dùng chung: tên phụ huynh, trạng thái hồ sơ, tình trạng tài khoả
 
 Liên kết: mở từ các danh sách và màn tổng quan đã nêu ở từng phần; chuyển giữa các phần không được rời khỏi đối tượng đang xem. Quay về danh sách thì giữ ô tìm, bộ lọc và vị trí đang xem.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 ```
 
 ### AD-07 — Danh sách giáo viên
@@ -663,7 +663,7 @@ Quy tắc nghiệp vụ:
 - Giáo viên Ngừng hoạt động không được phân công vào lớp mới.
 - Đổi bộ lọc thì về đầu danh sách; quay lại từ chi tiết giữ bộ lọc; sau khi tạo hoặc sửa xong, giáo viên vừa thay đổi được làm nổi.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: đang tải; chưa có giáo viên ("Chưa có giáo viên. Thêm giáo viên đầu tiên"); không có kết quả khớp bộ lọc; lỗi tải có thử lại; không có quyền; giáo viên Ngừng hoạt động hiển thị mờ nhưng vẫn mở được.
 
@@ -687,7 +687,7 @@ Quy tắc nghiệp vụ:
 - Giáo viên còn phân công lớp đang hoạt động thì không ngừng hoạt động được: "Cô Hạnh còn dạy Toán 9A, Toán 8B. Hãy kết thúc phân công trước." Thông báo liệt kê các lớp, mỗi lớp là lối đi tới phần Giáo viên của lớp đó.
 - Ngừng hoạt động hồ sơ giáo viên khác với vô hiệu hóa tài khoản đăng nhập; cả hai đều bị chặn khi còn phân công. Cần có chú thích giúp Admin không nhầm hai việc này.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: mỗi phần tải riêng, lỗi riêng; không tìm thấy giáo viên; hồ sơ Ngừng hoạt động; chưa dạy lớp nào (kèm gợi ý phân công); bị chặn khi ngừng hoạt động.
 
@@ -713,7 +713,7 @@ Quy tắc nghiệp vụ:
 - Chuyển sang Ngừng hoạt động có thể thất bại khi giáo viên còn dạy lớp: "Giáo viên còn phụ trách lớp đang hoạt động. Hãy kết thúc phân công trước." kèm tên các lớp.
 - Lỗi hiện ngay cạnh trường bị lỗi; khi sửa chỉ lưu trường đã đổi; thành công chỉ cần thông báo ngắn "Đã lưu".
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: chưa nhập gì khi tạo; đang lưu (không bấm lưu hai lần); lỗi theo trường; bị chặn khi ngừng hoạt động; mất kết nối nhưng giữ nội dung đã nhập.
 
@@ -737,7 +737,7 @@ Dùng chung: tên giáo viên, chuyên môn, trạng thái hồ sơ, tình trạ
 
 Liên kết: mở từ các danh sách và màn tổng quan đã nêu ở từng phần; chuyển giữa các phần không được rời khỏi đối tượng đang xem. Quay về danh sách thì giữ ô tìm, bộ lọc và vị trí đang xem.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 ```
 
 ### AD-08 — Môn học
@@ -763,7 +763,7 @@ Quy tắc nghiệp vụ:
 - Không kiểm tra trùng tên môn.
 - Môn ngừng sử dụng không xuất hiện khi chọn môn lúc tạo lớp.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: đang tải; chưa có môn nào ("Chưa có môn học. Thêm môn đầu tiên", kèm giải thích chưa có môn thì chưa tạo được lớp); lỗi tải có thử lại; môn ngừng sử dụng hiển thị mờ; đang lưu.
 
@@ -794,7 +794,7 @@ Quy tắc nghiệp vụ:
 - Thiếu tên: "Vui lòng nhập tên khóa học."
 - Khóa đã lưu trữ thì khóa việc ghi danh thêm.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: đang tải; chưa có khóa ("Chưa có khóa học" kèm hành động tạo khóa); không có kết quả khớp bộ lọc; lỗi tải có thử lại; khóa đã lưu trữ kèm thông báo; không tìm thấy khóa; không có quyền.
 
@@ -823,7 +823,7 @@ Quy tắc nghiệp vụ:
 - Chưa chọn học sinh hay lớp, hoặc chọn cả hai: "Hãy chọn một học sinh hoặc một lớp."
 - Thiếu lý do: "Vui lòng nhập lý do."
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: đang tải; khóa chưa có học sinh ("Chưa có học sinh trong khóa" kèm hành động ghi danh); lỗi tải; khóa đã lưu trữ; kết quả không có em nào mới.
 
@@ -847,7 +847,7 @@ Dùng chung: tên khóa, chủ sở hữu, trạng thái khóa, số học sinh 
 
 Liên kết: mở từ các danh sách và màn tổng quan đã nêu ở từng phần; chuyển giữa các phần không được rời khỏi đối tượng đang xem. Quay về danh sách thì giữ ô tìm, bộ lọc và vị trí đang xem.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 ```
 
 ### AD-02 — Danh sách tài khoản
@@ -870,7 +870,7 @@ Quy tắc nghiệp vụ:
 - Lọc theo vai trò chỉ tính vai trò còn hiệu lực.
 - Đổi bộ lọc thì về trang đầu; quay lại từ chi tiết giữ bộ lọc.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: đang tải; chưa có tài khoản ("Chưa có tài khoản nào. Hãy tạo hồ sơ rồi mời" kèm lối tới danh sách học sinh); không có kết quả khớp bộ lọc; lỗi tải có thử lại; không có quyền; tài khoản đã vô hiệu hóa hiển thị mờ.
 
@@ -898,7 +898,7 @@ Quy tắc nghiệp vụ:
 - Giáo viên còn dạy lớp đang hoạt động: "Cô Hạnh còn dạy Toán 9A, Văn 8B. Hãy kết thúc phân công trước." Liệt kê các lớp, mỗi lớp dẫn tới phần phân công giáo viên của lớp.
 - Đã giữ vai trò: "Người này đang giữ vai trò này rồi."
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: đang tải; lỗi tải; không tìm thấy tài khoản; tài khoản đã vô hiệu hóa (thông báo, hành động chính thành "Kích hoạt lại"); chưa có vai trò nào (lời mời "Gán vai trò đầu tiên"); đang gửi.
 
@@ -925,7 +925,7 @@ Quy tắc nghiệp vụ:
 - Lượt mới vẫn theo giờ đóng hiện tại của bài; cần nói điều này để Admin không hiểu nhầm là được thêm thời gian.
 - Khi lỗi, giữ nguyên lý do đã gõ.
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: trạng thái nhập; đang gửi; thành công; các lỗi trên; bài tập (không hiện hành động); lượt đã hủy (không hiện hành động).
 
@@ -953,7 +953,7 @@ Quy tắc nghiệp vụ:
 - Lọc sai giá trị chỉ cho kết quả rỗng, không báo lỗi.
 - Sự kiện tạo mới không có giá trị "trước".
 
-Yêu cầu hiển thị: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu hiển thị: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: đang tải; chưa có hoạt động nào; không có bản ghi khớp bộ lọc; lỗi tải có thử lại; không có quyền; nhật ký rất lớn (cảnh báo "Đang tải toàn bộ nhật ký, có thể chậm"); sự kiện lẽ ra phải có lý do nhưng thiếu.
 

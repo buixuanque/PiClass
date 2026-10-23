@@ -6,9 +6,11 @@ Mỗi mục dưới đây là một prompt. Mở file tương ứng, copy khối
 
 ## Cách dùng
 
-1. Mở phiên Claude Design mới, đính kèm design system và mockup mẫu, rồi dán prompt trong [00-nen.md](00-nen.md) một lần.
+**Hướng đã chốt:** PiClass V1 là **web app responsive** (một giao diện web co giãn từ máy tính xuống điện thoại); bản app điện thoại riêng sẽ thiết kế lại sau. Design system và mockup mẫu trong repo `piclass-mockup` (thư mục `design-system`) là chuẩn bắt buộc về khung, kiểu thẻ và điều hướng.
+
+1. Mở phiên Claude Design mới, đính kèm design system và mockup mẫu (token, component, mockup Giáo viên/Học sinh/Phụ huynh), rồi dán prompt trong [00-nen.md](00-nen.md) một lần.
 2. Với mỗi màn: copy khối prompt trong file của cổng, dán vào phiên. Mỗi prompt tự đứng được, không cần dán cùng prompt khác.
-3. Prompt chỉ nói **cần gì** (tình huống, thông tin, hành động, liên kết, quy tắc, trường hợp đặc biệt, dữ liệu mẫu), không áp đặt bố cục. Mọi màn được viết như thể API đã đầy đủ. Giao diện **responsive** cho cả bốn nhóm (học sinh và phụ huynh dùng cả điện thoại lẫn web).
+3. Prompt chỉ nói **cần gì** (tình huống, thông tin, hành động, liên kết, quy tắc, trường hợp đặc biệt, dữ liệu mẫu), không áp đặt bố cục bên trong vùng nội dung (khung ngoài và kiểu trình bày bám mockup). Mọi màn được viết như thể API đã đầy đủ. Giao diện là web **responsive** cho cả bốn nhóm theo một quy tắc co giãn duy nhất ghi trong prompt nền (học sinh và phụ huynh dùng cả điện thoại lẫn máy tính).
 4. Thứ tự trong mỗi nhóm là thứ tự vẽ gợi ý (màn nền và màn dùng hằng ngày trước, màn thiết lập một lần sau). Thứ tự giữa các nhóm: chung → giáo viên → học sinh → phụ huynh → Admin → hành trình.
 5. **Gắn kết các màn:** mỗi prompt có mục `Liên kết` (đến từ đâu, dẫn tới màn nào, mang theo thông tin gì). Các chức năng lớn đã tách thành nhiều prompt (chi tiết lớp, soạn bài, soạn câu hỏi, làm bài…) có thêm một prompt **Ghép** (mã kết thúc bằng `-G`): dán sau khi đã vẽ các phần để gộp chúng thành một chức năng liền mạch. Cuối cùng, các prompt **Hành trình** (`HT-…`) nối các màn thành luồng bấm thử được từ đầu đến cuối.
 

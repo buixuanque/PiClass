@@ -56,7 +56,7 @@ Quy tắc nghiệp vụ:
 
 Tình huống đặc biệt: đang tải; lớp không có học sinh hiệu lực ("Không có học sinh nào trong lớp ở buổi này"); chưa điểm danh; điểm danh một phần; lưu thành công; buổi đã hủy; buổi đã hủy cần rà soát; buổi đã hoàn tất; lỗi lưu (giữ nguyên dữ liệu đã chọn); mất kết nối; không có quyền hoặc không tìm thấy buổi.
 
-Yêu cầu chung: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu chung: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Dữ liệu mẫu: Toán 9A, 17:30–19:00, Thứ Hai 26/10. Nguyễn Minh Khôi (Có mặt); Trần Thu Hà (Đi muộn, "Muộn 10 phút"); Lê Gia Bảo (Vắng, có đơn xin phép chờ duyệt). Nội dung buổi: "Ôn tập chương 2: hệ phương trình".
 ```
@@ -98,7 +98,7 @@ Quy tắc nghiệp vụ:
 
 Tình huống đặc biệt: đang tải; tuần/tháng chưa có buổi ("Chưa có buổi nào trong tuần này", gợi ý thêm buổi hoặc tạo lịch lặp); chưa được phân công lớp nào; lỗi tải; lỗi nhập từng ô; cảnh báo trùng lịch; buổi đã hủy (kèm lý do); buổi cần rà soát; lớp đã lưu trữ; mất quyền với lớp giữa chừng ("Không có quyền thao tác với lớp này", tải lại).
 
-Yêu cầu chung: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu chung: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Dữ liệu mẫu: Lịch lặp Toán 9A: Thứ 2-4-6, 17:30, 90 phút, từ 05/10/2026. Buổi bù Văn 8B, Chủ nhật 01/11, 08:00–09:30, nội dung "Ôn tập chương 2". Lý do hủy: "Giáo viên bị ốm, sẽ dạy bù vào Chủ nhật."
 ```
@@ -138,7 +138,7 @@ Quy tắc nghiệp vụ:
 
 Tình huống đặc biệt: đang tải (từng phần tải độc lập nhau); chưa được phân công lớp nào ("Bạn chưa được phân công lớp nào. Liên hệ quản trị viên."); hôm nay không có buổi ("Hôm nay không có buổi dạy", gợi ý thêm buổi bù); không còn việc cần xử lý ("Đã xử lý hết"); lỗi riêng từng phần có hành động thử lại; hết phiên đăng nhập.
 
-Yêu cầu chung: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu chung: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Dữ liệu mẫu: "Chào cô Lan · Thứ Hai 26/10". Cần xử lý: 7 bài chờ chấm · 2 đơn xin phép · 1 buổi chưa điểm danh. Hôm nay: 17:30–19:00 Toán 9A (Đã lên lịch); 19:15–20:45 Văn 8B. Bài sắp hạn: "Kiểm tra 15 phút - Chương 2", Toán 9A, hạn 28/10, đã nộp 22/28.
 ```
@@ -172,7 +172,7 @@ Quy tắc nghiệp vụ:
 
 Tình huống đặc biệt: đang tải; chưa được phân công lớp nào ("Bạn chưa được phân công lớp nào"); không có lớp khớp bộ lọc ("Không có lớp khớp", gợi ý xóa bộ lọc); lỗi tải có thử lại; lớp đang chuẩn bị; lớp đã lưu trữ.
 
-Yêu cầu chung: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu chung: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Dữ liệu mẫu: "Toán 9A · Thứ 2-4-6 · Toán · Đang học"; "Văn 8B · Thứ 3-5 · Ngữ văn · Đang học"; "Anh giao tiếp K12 · Cuối tuần · Tiếng Anh · Đang chuẩn bị".
 ```
@@ -211,7 +211,7 @@ Quy tắc nghiệp vụ:
 
 Tình huống đặc biệt: đang tải từng nhóm thông tin; chưa có học sinh ("Quản trị viên chưa thêm học sinh"); chưa có lịch lặp ("Chưa có lịch lặp", gợi ý thêm lịch); chưa có buổi; chưa giao bài (gợi ý giao bài, lớp này đã chọn sẵn); lỗi tải; hết phân công hoặc không tìm thấy lớp (thông báo chung, không tiết lộ lớp có tồn tại); lớp đã lưu trữ.
 
-Yêu cầu chung: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu chung: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Dữ liệu mẫu: Toán 9A, 28 học sinh. Nguyễn Minh Khôi, Trần Thu Hà, Lê Gia Bảo; đã rời lớp: Phạm Đức Anh (đến 30/09). Giáo viên: Cô Lan (từ 01/09).
 ```
@@ -243,7 +243,7 @@ Quy tắc nghiệp vụ:
 
 Tình huống đặc biệt: đang tải; lớp chưa có thay đổi nào ("Chưa có thay đổi nào được ghi lại"); không có mục khớp bộ lọc (gợi ý xóa lọc); lỗi tải có thử lại; không có quyền hoặc hết phân công lớp.
 
-Yêu cầu chung: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu chung: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Dữ liệu mẫu: "26/10 16:05 · Sửa buổi học · Toán 9A · đổi giờ từ 17:30–19:00 sang 18:00–19:30 · Lý do: Giáo viên có việc đột xuất". "26/10 19:12 · Sửa điểm danh · Lê Gia Bảo · Vắng → Có phép · Lý do: Phụ huynh xin phép, đã chấp nhận".
 ```
@@ -281,7 +281,7 @@ Quy tắc nghiệp vụ:
 
 Tình huống đặc biệt: đang tải; không có đơn chờ duyệt ("Không có đơn nào chờ duyệt"); không có đơn khớp bộ lọc; lỗi tải có thử lại; đơn của buổi đã hủy (cảnh báo, vẫn duyệt được); đơn đã chấp nhận hoặc đã từ chối kèm ghi chú; đang xử lý; hết phân công lớp thì đơn biến mất.
 
-Yêu cầu chung: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu chung: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Dữ liệu mẫu: "Lê Gia Bảo · Toán 9A · 26/10 17:30 · 'Con bị sốt, xin phép cho con nghỉ buổi hôm nay.' · Chờ duyệt". "Phạm Thu Trang · Văn 8B · 27/10 19:15 · 'Gia đình có việc, xin cho con nghỉ.' · Đã từ chối: 'Cần giấy xác nhận của trường'".
 ```
@@ -316,7 +316,7 @@ Quy tắc nghiệp vụ:
 
 Tình huống đặc biệt: đang tải; chưa có bài nào được công bố ("Chưa có điểm. Có 3 bài đang chờ chấm"); chưa có dữ liệu điểm danh; chưa có dữ liệu diễn biến điểm; lỗi tải có thử lại; không có quyền hoặc em không thuộc phạm vi.
 
-Yêu cầu chung: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu chung: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Dữ liệu mẫu: Nguyễn Minh Khôi · Toán 9A: trung bình 82,5% · 6 bài đã chấm · 1 bài chờ chấm; theo môn: Toán 85%, Khác 70%.
 ```
@@ -357,7 +357,7 @@ Quy tắc nghiệp vụ:
 
 Tình huống đặc biệt: đang tải; chưa có khóa nào của tôi ("Bạn chưa có khóa nào. Tạo khóa đầu tiên", vẫn hiện khóa dùng chung nếu có); khóa chưa có ghi danh; khóa chưa có bài; khóa đã lưu trữ; khóa dùng chung chỉ xem; lỗi tải; không có quyền hoặc khóa không còn trong phạm vi.
 
-Yêu cầu chung: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu chung: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Dữ liệu mẫu: "Luyện đề vào 10 (Của tôi) · Đang mở · 24 học sinh"; "Ôn thi tốt nghiệp THPT (Dùng chung, quản trị viên quản lý)". Lý do kết thúc ghi danh: "Học sinh chuyển sang nhóm khác."
 ```
@@ -377,5 +377,5 @@ Hiện/ẩn: giáo viên chỉ xem, không có thao tác thêm bớt học sinh 
 
 Liên kết ra ngoài chức năng (lớp đang xem được mang theo): Lớp của tôi (quay về), Buổi học và điểm danh, Lịch dạy, Danh sách bài đánh giá, Soạn và giao bài, Tiến độ học sinh. Nếu màn kia đã có trong dự án, hãy nối tới nó; nếu chưa, để một điểm dẫn tới.
 
-Yêu cầu chung: phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Yêu cầu chung: theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 ```

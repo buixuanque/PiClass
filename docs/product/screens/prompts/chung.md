@@ -23,7 +23,7 @@ Gồm 10 màn (kèm 1 prompt Ghép cuối file) dùng chung cho mọi vai trò: 
 ```text
 Màn hình: Khung điều hướng chung sau đăng nhập (cả 4 vai trò: Quản trị viên, Giáo viên, Học sinh, Phụ huynh; responsive: Học sinh/Phụ huynh dùng tốt cả trên điện thoại lẫn trên web máy tính; Quản trị viên/Giáo viên ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại)
 
-Tình huống: Người dùng vừa đăng nhập vào hệ thống quản lý lớp học thêm. Họ muốn đi nhanh tới đúng chức năng của vai trò mình, biết có thông báo mới hay không, và đổi vai trò hoặc đăng xuất ở cùng một chỗ. Học sinh/phụ huynh thường mở bằng điện thoại nhưng cũng hay mở web trên máy tính ở nhà, cần chạm một lần là tới nơi; giáo viên/quản trị viên chủ yếu dùng máy tính và cần thấy toàn bộ chức năng. Phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Tình huống: Người dùng vừa đăng nhập vào hệ thống quản lý lớp học thêm. Họ muốn đi nhanh tới đúng chức năng của vai trò mình, biết có thông báo mới hay không, và đổi vai trò hoặc đăng xuất ở cùng một chỗ. Học sinh/phụ huynh thường mở bằng điện thoại nhưng cũng hay mở web trên máy tính ở nhà, cần chạm một lần là tới nơi; giáo viên/quản trị viên chủ yếu dùng máy tính và cần thấy toàn bộ chức năng. Theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Thông tin cần có:
 - Danh mục chức năng thay đổi theo vai trò đang chọn:
@@ -90,7 +90,7 @@ Quy tắc nghiệp vụ:
 - Khi đang gửi, hành động đăng nhập bị vô hiệu và có chỉ báo đang xử lý.
 - Nếu người dùng bị đưa ra do hết phiên, hiện thông báo "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại." và sau khi đăng nhập quay lại đúng nơi đang làm dở.
 - Sau khi đặt lại mật khẩu thành công, màn này hiện thông báo "Đã đặt lại mật khẩu, hãy đăng nhập".
-- Phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+- Theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: mặc định; đang gửi; sai thông tin; bị tạm khóa có đếm ngược; mất mạng hoặc lỗi hệ thống ("Có lỗi xảy ra phía hệ thống. Hãy thử lại sau ít phút." kèm thử lại); thành công (đang chuyển trang); hết phiên; vừa đặt lại mật khẩu.
 
@@ -127,7 +127,7 @@ Quy tắc nghiệp vụ:
 - Bỏ trống email: "Vui lòng nhập email".
 - Thao tác quá nhanh: "Bạn thao tác quá nhanh, vui lòng thử lại sau ít phút."
 - Sau khi gửi, màn chuyển sang trạng thái đã gửi, người dùng ở lại cùng màn.
-- Phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+- Theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: mặc định; đang gửi; đã gửi (thông điệp trung tính, có đếm ngược trước khi gửi lại được); lỗi mạng hoặc lỗi hệ thống ("Có lỗi xảy ra phía hệ thống. Hãy thử lại sau ít phút."); bị giới hạn tần suất.
 
@@ -165,7 +165,7 @@ Quy tắc nghiệp vụ:
 - Liên kết hết hạn sau 60 phút và chỉ dùng được một lần: "Liên kết đã hết hạn hoặc không hợp lệ. Vui lòng yêu cầu liên kết mới."
 - Nếu liên kết thiếu thông tin thì không hiện phần nhập mật khẩu, báo ngay liên kết không hợp lệ.
 - Đặt xong, mọi thiết bị đang đăng nhập bằng tài khoản này bị đăng xuất; người dùng không được đăng nhập tự động mà được đưa về trang đăng nhập kèm lời nhắn "Đã đặt lại mật khẩu, hãy đăng nhập".
-- Phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+- Theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: mặc định; đang gửi; thành công (thông điệp ngắn rồi chuyển trang); liên kết không hợp lệ hoặc hết hạn; mật khẩu quá ngắn; hai mật khẩu không khớp; lỗi mạng.
 
@@ -202,7 +202,7 @@ Quy tắc nghiệp vụ:
 - Chỉ kích hoạt được khi đã đồng ý điều khoản.
 - Lời mời chỉ có hiệu lực trong một thời gian và chỉ dùng được một lần.
 - Chưa kích hoạt thì không thể đăng nhập.
-- Phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+- Theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: mặc định; đang gửi; thành công ("Tài khoản đã sẵn sàng" kèm lối Đăng nhập); lời mời đã hết hạn (tiêu đề "Lời mời đã hết hạn", giải thích "Liên kết mời chỉ có hiệu lực trong thời gian ngắn", lối "Nhận liên kết mới"); liên kết đã dùng hoặc không hợp lệ ("Liên kết đã hết hạn hoặc không hợp lệ. Vui lòng yêu cầu liên kết mới."); tài khoản đã kích hoạt trước đó (gợi ý Đăng nhập hoặc Quên mật khẩu); lỗi mạng.
 
@@ -239,7 +239,7 @@ Quy tắc nghiệp vụ:
 - Tài khoản chỉ có một vai trò thì không hiện màn này, hệ thống tự vào.
 - Vai trò vừa bị gỡ: "Tài khoản của bạn không còn vai trò này." rồi tự làm mới danh sách.
 - Tài khoản chưa được cấp vai trò nào: "Tài khoản chưa được cấp quyền truy cập. Vui lòng liên hệ quản trị viên."
-- Phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+- Theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: đang tải danh sách vai trò; đang đổi vai trò; lỗi khi đổi; không có vai trò nào.
 
@@ -275,7 +275,7 @@ Quy tắc nghiệp vụ:
 - Trước khi đổi mật khẩu phải cảnh báo "Đổi mật khẩu sẽ đăng xuất các thiết bị khác" và xin xác nhận nhẹ; thiết bị đang dùng vẫn giữ đăng nhập. Đổi xong, xóa sạch các ô mật khẩu.
 - Rời màn khi có thay đổi chưa lưu thì hỏi xác nhận.
 - Quản trị viên chỉ có vai trò Quản trị viên thì không có phần thông tin cá nhân, thay vào đó có dòng "Tài khoản quản trị không có hồ sơ cá nhân". Nếu đồng thời là Giáo viên thì thấy đầy đủ như giáo viên.
-- Phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+- Theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: đang tải; đang lưu; lưu thành công (thông báo ngắn); lỗi theo từng ô; mật khẩu hiện tại sai; tài khoản quản trị không có hồ sơ; lỗi mạng.
 
@@ -300,7 +300,7 @@ Hành động:
 - Lọc theo trạng thái đọc.
 - Mở một thông báo: tự đánh dấu đã đọc rồi đi tới nội dung liên quan. Thông báo đã đọc vẫn đi tới như cũ.
 - Đánh dấu tất cả đã đọc.
-- Làm mới (thông báo không tự cập nhật, chỉ làm mới khi mở màn, khi quay lại ứng dụng hoặc khi người dùng yêu cầu).
+- Làm mới (thông báo không tự cập nhật, chỉ làm mới khi mở màn, khi quay lại trang hoặc khi người dùng yêu cầu).
 
 Liên kết:
 - Vào từ: chỉ báo thông báo trong Khung điều hướng (mở nhanh vài thông báo mới nhất, hoặc "Xem tất cả" để mở màn này).
@@ -318,7 +318,7 @@ Quy tắc nghiệp vụ:
 - Đích đến theo loại thông báo: bài mới giao tới chi tiết bài; kết quả được công bố tới danh sách kết quả; buổi học đổi hoặc hủy tới chi tiết buổi học (buổi đã hủy hiện trạng thái "đã hủy"); lịch đổi tới màn lịch tuần hiện tại; đơn xin phép mới gửi (giáo viên nhận) tới đơn đang chờ duyệt; đơn xin phép đã được xét (học sinh/phụ huynh nhận) tới trạng thái đơn, ghi bằng tiếng Việt "Đã chấp nhận" hoặc "Đã từ chối".
 - Có thông báo không dẫn đi đâu, chỉ để đọc. Loại thông báo lạ vẫn hiện bình thường nhưng không điều hướng.
 - Nếu người dùng không còn quyền xem nội dung đích, hiện: "Không tìm thấy nội dung hoặc bạn không có quyền xem."
-- Phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+- Theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: đang tải; lọc "Chưa đọc" mà hết thông báo ("Bạn đã xem hết thông báo"); chưa có thông báo nào ("Chưa có thông báo. Khi có bài mới, đổi lịch hoặc kết quả, bạn sẽ thấy ở đây"); lỗi tải có thử lại; đang đánh dấu đã đọc; nội dung đích không còn khả dụng.
 
@@ -369,7 +369,7 @@ Tình huống: Học sinh hoặc phụ huynh muốn mở đề bài PDF hoặc x
 Thông tin cần có cho mỗi tệp: biểu tượng theo loại tệp, tên tệp, dung lượng (đổi sang KB hoặc MB), loại tệp.
 
 Hành động: bấm vào tệp để mở hoặc tải:
-- Ảnh (jpg, png): xem trước ngay trong ứng dụng, không rời màn.
+- Ảnh (jpg, png): xem trước ngay trên trang, không rời màn.
 - PDF: mở ra xem.
 - Word (doc, docx) và zip: tải về.
 
@@ -385,7 +385,7 @@ Quy tắc nghiệp vụ:
 - Học sinh và phụ huynh chỉ xem và tải, không tải lên hay xóa tệp.
 - Tệp không tìm thấy hoặc không có quyền xem: "Không tìm thấy tệp hoặc bạn không có quyền xem".
 - Giới hạn khi tải lên (nhắc người soạn bài): tối đa 10 MB; định dạng pdf, doc/docx, jpg, png, zip.
-- Phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+- Theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Tình huống đặc biệt: tệp bình thường; đang lấy liên kết; tải thất bại (có thử lại); liên kết hết hạn đang tự tạo lại; tệp không còn khả dụng; ảnh không xem trước được thì chuyển sang chỉ cho tải về.
 
@@ -411,7 +411,7 @@ Dùng chung: vai trò đang chọn và danh mục chức năng của nó; họ t
 
 Hiện/ẩn: Chọn vai trò và lối "Đổi vai trò" chỉ có khi tài khoản có từ 2 vai trò; Hồ sơ cá nhân của quản trị viên chỉ có phần tài khoản; vai trò vừa bị gỡ thì đưa về Chọn vai trò; phụ huynh chưa có con liên kết chỉ còn "Chọn con".
 
-Việc chuyển giữa các phần không làm người dùng mất ngữ cảnh: luôn biết mình đang là vai trò nào và quay về trang chủ được bằng một thao tác. Phải dùng tốt ở khổ màn hình hẹp và rộng; không để mất chức năng nào khi thu nhỏ.
+Việc chuyển giữa các phần không làm người dùng mất ngữ cảnh: luôn biết mình đang là vai trò nào và quay về trang chủ được bằng một thao tác. Theo quy tắc co giãn của web responsive trong prompt nền, dùng tốt ở khổ hẹp lẫn rộng; không để mất chức năng nào khi thu nhỏ.
 
 Liên kết: Đăng nhập → (Chọn vai trò) → trang chủ vai trò; Khung điều hướng → Trung tâm thông báo / Hồ sơ cá nhân / Chọn vai trò / Đăng nhập; Trung tâm thông báo → màn nội dung liên quan (nếu có trong dự án).
 ```
