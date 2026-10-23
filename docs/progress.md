@@ -18,7 +18,7 @@
 ## Stack đã chốt (Step 8)
 
 - **Backend:** Laravel 13 + PHP 8.4 (nâng từ Laravel 11 / PHP 8.2 ngày 2026-10-21, xem `architecture/technology-decisions.md`), modular monolith.
-- **Frontend:** Next.js, deploy tách riêng khỏi backend (không dùng Inertia.js).
+- **Frontend:** Next.js, deploy tách riêng khỏi backend (không dùng Inertia.js). Version đã chốt 2026-10-23 (Next 16.4, React 19.3, TS 6.0, Tailwind 4.3, Node 24 LTS, pnpm): xem `architecture/technology-decisions.md`.
 - **Database:** PostgreSQL, self-host trên EC2 cho V1 (chưa có backup đầy đủ — rủi ro tạm chấp nhận, xem `ARCH-09`).
 - **Auth:** Laravel Sanctum, cookie-based session cho Next.js SPA — **không dùng JWT**. Lý do: cần revoke quyền ngay lập tức theo `DEC-USR-011`, `DEC-USR-012`, `DEC-USER-008` đã chốt ở Step 5; JWT chuẩn không làm được điều này nếu không tự xây blacklist.
 - **File storage:** Laravel Storage abstraction, driver S3-compatible — MinIO/bên thứ ba rẻ cho dev/staging, AWS S3 thật cho production (đổi qua env, không đổi code).
