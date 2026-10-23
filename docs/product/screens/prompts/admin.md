@@ -1,5 +1,7 @@
 # Bộ prompt — Cổng Admin (làm trên base mockup đã chốt)
 
+> **Lưu ý (2026-10-23):** không còn dùng Claude Design. File này giữ làm mô tả yêu cầu từng màn; màn mới dựng trực tiếp trong Claude Code, xem `../mockup-plan.md`.
+
 Gồm 34 prompt (29 màn và 5 prompt Ghép) cho cổng quản trị viên. **Mockup hiện tại chưa có màn Admin**, nên mọi màn ở đây là màn mới nhưng phải trông như cùng một sản phẩm với mockup Giáo viên: mỗi prompt có dòng `Mẫu bám theo` chỉ rõ lấy màn nào của mockup làm mẫu.
 
 ## Cách dùng

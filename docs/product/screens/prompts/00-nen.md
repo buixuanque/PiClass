@@ -1,5 +1,7 @@
 # Prompt nền (dán một lần ở đầu phiên Claude Design)
 
+> **Lưu ý (2026-10-23):** không còn dùng Claude Design. File này giữ làm mô tả yêu cầu từng màn; màn mới dựng trực tiếp trong Claude Code, xem `../mockup-plan.md`.
+
 Design system và mockup mẫu (thư mục `design-system` trong repo `piclass-mockup`) đã được tải lên project Claude Design, nên prompt nền chỉ giữ những gì design system **không** có: bối cảnh sản phẩm, hướng web responsive, trạng thái bắt buộc, cách nối màn. Token, component, quy tắc nội dung (xưng hô, từ vựng trạng thái, ngày giờ, không emoji, không logo) đã nằm trong design system, không lặp lại ở đây.
 
 Hướng đã chốt: **PiClass V1 là web app responsive**. Bản app điện thoại riêng sẽ thiết kế lại sau.
