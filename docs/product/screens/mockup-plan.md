@@ -28,7 +28,7 @@ Repo mockup: `buixuanque/piclass-mockup`. Mở bằng double-click file trong `d
 | Admin | Đủ 10 mục menu | Xong (nhóm 1 đến 4) |
 | Học sinh | 7 mục (thêm Tiến độ, Khóa học) | Xong nhóm 0 đến 2 |
 | Phụ huynh | 7 mục (thêm Tiến độ, Đơn xin phép) và màn Chọn con | Xong nhóm 0 và 2 |
-| Giáo viên | 9 mục (Bài đánh giá thay Bài tập và Bài kiểm tra, thêm Ngân hàng câu hỏi, Đơn xin phép, Khóa học) | Xong nhóm 0, 3 và 4; còn chấm bài |
+| Giáo viên | 9 mục (Bài đánh giá thay Bài tập và Bài kiểm tra, thêm Ngân hàng câu hỏi, Đơn xin phép, Khóa học) | Xong nhóm 0, 3 và 4; còn chấm bài; đã review và sửa 2026-10-23 (`reviews/2026-10-23-giao-vien-uiux.md`, 18/18 mã đã xử lý) |
 
 ## Các nhóm
 
