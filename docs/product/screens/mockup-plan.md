@@ -28,7 +28,7 @@ Repo mockup: `buixuanque/piclass-mockup`. Mở bằng double-click file trong `d
 | Admin | Đủ 10 mục menu | Xong (nhóm 1 đến 4) |
 | Học sinh | 7 mục (thêm Tiến độ, Khóa học) | Xong nhóm 0 đến 2 |
 | Phụ huynh | 7 mục (thêm Tiến độ, Đơn xin phép) và màn Chọn con | Xong nhóm 0 và 2 |
-| Giáo viên | 9 mục (thêm Đơn xin phép, Khóa học) | Xong nhóm 0 và 3; còn soạn nội dung và chấm bài |
+| Giáo viên | 9 mục (Bài đánh giá thay Bài tập và Bài kiểm tra, thêm Ngân hàng câu hỏi, Đơn xin phép, Khóa học) | Xong nhóm 0, 3 và 4; còn chấm bài |
 
 ## Các nhóm
 
@@ -65,11 +65,11 @@ Làm theo thứ tự. Đánh dấu `[x]` và ghi ngày, máy, commit khi xong.
 - Ghi chú khi xong: 2026-10-23, repo `piclass-mockup` branch `feat/mockup-group3`. Giáo viên: bỏ nút Tạo lớp (chỉ Admin tạo lớp); chi tiết lớp thêm tab Giáo viên, Lịch, Tiến độ, tìm học sinh và nhóm Đã rời lớp, buổi học chia Sắp tới và Đã diễn ra; điểm danh có nội dung buổi học, hoàn tất và hủy buổi (lý do bắt buộc, hủy sau khi có điểm danh thì đánh dấu cần rà soát), sửa bản ghi bắt buộc lý do kèm lịch sử, lô bị từ chối khi có em không còn trong lớp (`STUDENT_NOT_ELIGIBLE`) có nút bỏ các em đó rồi lưu lại; màn Đơn xin phép (lọc theo trạng thái, chấp nhận hoặc từ chối kèm ghi chú, đổi quyết định, gợi ý mở điểm danh, chấp nhận không tự đổi điểm danh); Khóa học (của tôi và dùng chung, tạo, sửa, lưu trữ, ghi danh theo học sinh hoặc theo lớp, kết thúc ghi danh có lý do, khóa dùng chung chỉ xem); Tiến độ có lọc 7 hoặc 30 ngày và môn, theo môn, chuyển em trước và sau. Chưa làm: tab Lịch sử thay đổi của lớp (🔵 chưa chốt). Dữ liệu của file Giáo viên vẫn là bộ riêng (lớp, học sinh sinh ra trong file), chỉ Đỗ Minh Khuê và hai đơn xin phép của em khớp với Phụ huynh. Ngày hiện tại trong file Giáo viên là 14/10 còn Học sinh và Phụ huynh là 15/10 (cần thống nhất ở nhóm 5 khi nối bài nộp và chấm bài qua `pc-data.js`).
 
 ### Nhóm 4. Giáo viên B: soạn nội dung
-- [ ] TC-07 Ngân hàng câu hỏi
-- [ ] TC-08 Soạn câu hỏi (9 loại)
-- [ ] TC-10 Soạn và giao bài (nhiều bước)
-- [ ] TC-09 Danh sách bài đánh giá (bổ sung đối tượng, số đã nộp, chờ chấm)
-- Ghi chú khi xong:
+- [x] TC-07 Ngân hàng câu hỏi
+- [x] TC-08 Soạn câu hỏi (9 loại)
+- [x] TC-10 Soạn và giao bài (nhiều bước)
+- [x] TC-09 Danh sách bài đánh giá (bổ sung đối tượng, số đã nộp, chờ chấm)
+- Ghi chú khi xong: 2026-10-23, repo `piclass-mockup` branch `feat/mockup-group4`. Menu Giáo viên: "Bài tập" và "Bài kiểm tra" gộp thành "Bài đánh giá" (TC-09, lọc theo loại, trạng thái, lớp, "Bài tôi tạo", phân trang; mỗi dòng có đối tượng, đã nộp, chờ chấm, và thao tác Soạn tiếp, Soạn phiên bản mới, Đóng bài, Nhân bản, Hủy bài kèm lý do; bài của giáo viên khác chỉ có Xem), thêm "Ngân hàng câu hỏi" (TC-07, lọc môn, loại, topic, của tôi, tìm không dấu, lưu trữ có xác nhận, chế độ chọn câu cho bài với nhãn Đã thêm). TC-08 đủ 9 loại với kiểm tra phía giao diện theo `teacher-bai-danh-gia.md` (đúng 1 đáp án đúng, tối thiểu 2 lựa chọn, đáp án chấp nhận, 2 cặp, 2 mục), chế độ xem chỉ đọc cho câu của người khác, câu đã lưu trữ, đổi loại có hộp xác nhận, lưu tạo phiên bản mới kèm dòng "Bài đã giao trước đó vẫn dùng nội dung cũ", đính file mô phỏng, xem trước theo góc nhìn học sinh, loại nộp file có cảnh báo chưa dùng được. TC-10 bốn bước (Thông tin, Câu hỏi, Đối tượng, Xem trước và phát hành), lưu bản nháp ngay khi xong bước 1 và mở lại đúng bước, kiểm lỗi thứ tự giờ, chọn câu từ ngân hàng hoặc soạn câu mới rồi quay lại, mỗi câu hiện "Phiên bản n của câu này", giao theo lớp, học sinh hoặc khóa (không trùng, rút được), bảng kiểm lỗi mềm và chặn phát hành khi thiếu câu hoặc thiếu đối tượng, phiên bản mới của bài đã phát hành. Chưa làm: màn chi tiết bài (nhóm 5, nút Xem hiện thông báo bản mẫu); mở lại bài; đính file đề cho bài (TB-4); "Xem như học sinh" (🔵); tab đối tượng chưa mô phỏng lỗi 403; ô Điểm trong chế độ chọn câu dùng điểm gợi ý, sửa ở bước 2. Dữ liệu bài và câu của file Giáo viên vẫn là bộ riêng (chưa nối `pc-data.js`), việc nối với Học sinh và Phụ huynh để nhóm 5 làm cùng bài nộp.
 
 ### Nhóm 5. Giáo viên C: chấm bài
 - [ ] TC-11 Chi tiết bài
