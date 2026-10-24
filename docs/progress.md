@@ -69,6 +69,8 @@ Sau lượt review phạm vi ngày 2026-10-24 (`research/2026-10-24-review-pham-
 
 ## Step 9 — API Specification + triển khai
 
+**Quy trình làm việc theo lát:** [process/working-flow.md](process/working-flow.md).
+
 **Backend: xong và đã merge `main`.** Năm nhóm module, spec ở `superpowers/specs/`, plan ở `superpowers/plans/`, lịch sử từng task ở git và `superpowers/plans/2026-10-18-be-architecture-refactor-results.md`:
 
 | Nhóm | Nội dung | PR chính |

@@ -57,6 +57,6 @@ Workspace này gồm nhiều git repo độc lập sống cùng thư mục (`pic
 
 **Không tự động push/mở PR/merge.** Commit vào branch local là được, nhưng chỉ push/tạo PR/merge khi user yêu cầu rõ ràng ("push đi", "xong rồi, push nhé"...) — không tự làm ngay sau khi code/docs xong, dù đã có branch sẵn.
 
-## Thứ tự triển khai Step 9
+## Quy trình làm việc theo lát (từ 2026-10-24)
 
-Mỗi nhóm module: spec → plan BE → code BE → plan FE → code FE, rồi mới sang spec nhóm module tiếp theo. Không gộp BE+FE vào cùng 1 plan/task (khác ngôn ngữ/test tool). Không dồn spec hết 5 nhóm rồi mới code. Mockup + design system (`piclass-mockup/design-system/`, v2) là track riêng, làm một lần, không phụ thuộc BE, có thể làm song song bất cứ lúc nào. Chi tiết trạng thái: `docs/progress.md`.
+Làm theo từng nhóm màn hình, mỗi nhóm đi hết vòng: bàn nghiệp vụ → chốt trực quan bằng mockup → plan và code BE → plan và code FE → chạy thử cả lát → cập nhật tài liệu → ship. BE và FE là hai plan riêng (không gộp vào một plan hay task), nhưng xen kẽ trong cùng một lát. Phạm vi V1 là chức năng cơ bản nhất của một trung tâm; mở rộng sau khi hỏi giáo viên. Chi tiết, thứ tự lát và skill dùng ở mỗi bước: [docs/process/working-flow.md](docs/process/working-flow.md). Trạng thái hiện tại: `docs/progress.md`.
