@@ -28,7 +28,7 @@ Repo mockup: `buixuanque/piclass-mockup`. Mở bằng double-click file trong `d
 | Admin | Đủ 10 mục menu | Xong (nhóm 1 đến 4) |
 | Học sinh | 7 mục (thêm Tiến độ, Khóa học) | Xong nhóm 0 đến 2 |
 | Phụ huynh | 7 mục (thêm Tiến độ, Đơn xin phép) và màn Chọn con | Xong nhóm 0 và 2; đã review và sửa 2026-10-23 (`reviews/2026-10-23-phu-huynh-uiux.md`, 15/15 mã đã sửa) |
-| Giáo viên | 9 mục (Bài đánh giá thay Bài tập và Bài kiểm tra, thêm Ngân hàng câu hỏi, Đơn xin phép, Khóa học) | Xong nhóm 0, 3 và 4; còn chấm bài; đã review và sửa 2026-10-23 (`reviews/2026-10-23-giao-vien-uiux.md`, 18/18 mã đã xử lý) |
+| Giáo viên | 9 mục (Bài đánh giá thay Bài tập và Bài kiểm tra, thêm Ngân hàng câu hỏi, Đơn xin phép, Khóa học) | Xong nhóm 0, 3, 4 và 5 (nhóm 5 chưa review); đã review và sửa 2026-10-23 (`reviews/2026-10-23-giao-vien-uiux.md`, 18/18 mã đã xử lý) |
 
 ## Các nhóm
 
@@ -72,13 +72,32 @@ Làm theo thứ tự. Đánh dấu `[x]` và ghi ngày, máy, commit khi xong.
 - Ghi chú khi xong: 2026-10-23, repo `piclass-mockup` branch `feat/mockup-group4`. Menu Giáo viên: "Bài tập" và "Bài kiểm tra" gộp thành "Bài đánh giá" (TC-09, lọc theo loại, trạng thái, lớp, "Bài tôi tạo", phân trang; mỗi dòng có đối tượng, đã nộp, chờ chấm, và thao tác Soạn tiếp, Soạn phiên bản mới, Đóng bài, Nhân bản, Hủy bài kèm lý do; bài của giáo viên khác chỉ có Xem), thêm "Ngân hàng câu hỏi" (TC-07, lọc môn, loại, topic, của tôi, tìm không dấu, lưu trữ có xác nhận, chế độ chọn câu cho bài với nhãn Đã thêm). TC-08 đủ 9 loại với kiểm tra phía giao diện theo `teacher-bai-danh-gia.md` (đúng 1 đáp án đúng, tối thiểu 2 lựa chọn, đáp án chấp nhận, 2 cặp, 2 mục), chế độ xem chỉ đọc cho câu của người khác, câu đã lưu trữ, đổi loại có hộp xác nhận, lưu tạo phiên bản mới kèm dòng "Bài đã giao trước đó vẫn dùng nội dung cũ", đính file mô phỏng, xem trước theo góc nhìn học sinh, loại nộp file có cảnh báo chưa dùng được. TC-10 bốn bước (Thông tin, Câu hỏi, Đối tượng, Xem trước và phát hành), lưu bản nháp ngay khi xong bước 1 và mở lại đúng bước, kiểm lỗi thứ tự giờ, chọn câu từ ngân hàng hoặc soạn câu mới rồi quay lại, mỗi câu hiện "Phiên bản n của câu này", giao theo lớp, học sinh hoặc khóa (không trùng, rút được), bảng kiểm lỗi mềm và chặn phát hành khi thiếu câu hoặc thiếu đối tượng, phiên bản mới của bài đã phát hành. Chưa làm: màn chi tiết bài (nhóm 5, nút Xem hiện thông báo bản mẫu); mở lại bài; đính file đề cho bài (TB-4); "Xem như học sinh" (🔵); tab đối tượng chưa mô phỏng lỗi 403; ô Điểm trong chế độ chọn câu dùng điểm gợi ý, sửa ở bước 2. Dữ liệu bài và câu của file Giáo viên vẫn là bộ riêng (chưa nối `pc-data.js`), việc nối với Học sinh và Phụ huynh để nhóm 5 làm cùng bài nộp.
 
 ### Nhóm 5. Giáo viên C: chấm bài
-- [ ] TC-11 Chi tiết bài
-- [ ] TC-12 Bài nộp của một bài (dùng bài nộp từ nhóm 1)
-- [ ] TC-13 Chấm bài, kết quả hiện lại bên Học sinh và Phụ huynh
-- [ ] Kiểm tra vòng khép kín: giao bài, làm bài, chấm, xem kết quả
-- Ghi chú khi xong:
+- [x] TC-11 Chi tiết bài
+- [x] TC-12 Bài nộp của một bài
+- [x] TC-13 Chấm bài
+- [~] Kiểm tra vòng khép kín: giao bài, làm bài, chấm, xem kết quả (xong phần dữ liệu khớp, chưa đồng bộ trực tiếp giữa các file, xem ghi chú)
+- Ghi chú khi xong: 2026-10-24, repo `piclass-mockup` branch `feat/mockup-group5` (`8d25ef3`), chỉ sửa file `PiClass Giáo viên.dc.html`. Thay màn chấm bài cũ (một bài Writing, một ô điểm) bằng ba màn theo `teacher-bai-danh-gia.md`.
+  - **TC-11:** bấm "Xem" ở danh sách bài đánh giá (bản nháp có thêm "Xem chi tiết"). Đầu trang có loại, trạng thái, phiên bản, thanh tóm tắt "Đã nộp x/y · Chờ chấm n · Đã công bố m" và nút theo vòng đời: Sửa và phát hành (nháp), Soạn phiên bản mới, Đóng bài (có xác nhận), Mở lại (chọn nhóm, ghi chú không kéo dài giờ đóng), Hủy bài (bắt buộc lý do); bài của giáo viên khác chỉ xem. Năm tab: Tổng quan, Câu hỏi, Đối tượng (Rút chỉ là thông báo bản mẫu), Học sinh (Đã giao, Đã rút, Đã nộp, Chưa nộp, hộp thoại Gia hạn / điều chỉnh với hạn riêng và số lượt riêng, kiểm lỗi "Số lượt tối thiểu là 1"), Bài nộp. Có các trạng thái bản nháp, đã hủy (lý do), bản nháp mới khi đang chạy, rỗng đối tượng.
+  - **TC-12:** tab Bài nộp. Lọc theo trạng thái chấm và trạng thái công bố, nhãn Nộp trễ, điểm và phần trăm, Đạt hoặc Chưa đạt, công bố hoặc rút nhanh trên dòng, "Công bố tất cả đã chấm xong (n)" có xác nhận và hộp kết quả "Đã công bố n kết quả. Bỏ qua m bài vì chưa chấm xong". Có trạng thái rỗng ("Chưa có bài nộp. Hạn nộp: ..."), rỗng sau lọc, dòng bị vô hiệu ("Đã cấp lại lượt").
+  - **TC-13:** đủ 9 loại câu (bài làm của học sinh, đáp án đúng, đúng hoặc sai kèm biểu tượng và chữ, câu bỏ trống, câu file chưa xem được vì G6), chấm từng câu (kiểm lỗi "Điểm phải từ 0 đến n"; câu tự chấm sửa được sau khi bấm "Sửa điểm câu này"), điểm tổng thủ công kèm cảnh báo "Điểm tổng đang thay cho điểm từng câu", lý do sửa bắt buộc khi kết quả đã công bố, chấm xong thì tự công bố như backend (BR-SYS-007, Q-A), nhận xét ba trạng thái (Nháp, Đã công bố, Đã rút theo một chiều) và ba quyền xem, công bố hoặc rút kết quả có xác nhận, bài trước/sau và "Lưu và chấm bài kế" ("Đã chấm hết. Công bố cả lớp?"), bài bị vô hiệu chỉ đọc có liên kết sang lượt thay thế, dòng "Cần cấp lại lượt? Nhờ Admin xử lý" (bài tập thì chuyển sang tăng số lượt riêng).
+  - **Dữ liệu mẫu:** `SUBM0` sinh bài nộp cho mọi bài đã phát hành, đóng hoặc hủy theo danh sách lớp. Số "6 bài chờ chấm" khớp Unit 3 — Writing; huy hiệu menu, tổng quan và danh sách đều tính từ cùng nguồn. Khớp với Học sinh và Phụ huynh: Đỗ Minh Khuê được 8,5/10 ở "Kiểm tra 15 phút: Căn bậc hai" (đã công bố, kèm 3 nhận xét đã công bố và 1 nháp riêng tư giống màn Phụ huynh) và 7,0/10 ở "Đề luyện số 4"; chưa nộp "Phiếu bài tập: Hệ thức Vi-ét".
+  - **Chưa làm:** đồng bộ trực tiếp kết quả công bố sang file Học sinh và Phụ huynh (ba file riêng, cần kho dữ liệu chung như `localStorage`, chưa làm); lịch sử sửa điểm và tab Lịch sử thay đổi (🔵); giao thêm đối tượng; tải file bài làm và file đề (G6, TB-4); mở lại theo đúng nhóm đã chọn chỉ là hộp thoại mô phỏng; trạng thái đang tải và lỗi dùng khối chung nên chưa có `role="alert"`. Chưa review ui-ux-pro-max cho ba màn mới. Dữ liệu ngày của file Giáo viên vẫn lệch một ngày so với Học sinh và Phụ huynh (14/10 so với 15/10).
+
+### Nhóm 6. Màn chung (`common.md`)
+- [x] CM-01 Đăng nhập, CM-02 Quên mật khẩu, CM-03 Đặt lại mật khẩu, CM-09 Kích hoạt tài khoản
+- [x] CM-04 Chọn và đổi vai trò, CM-05 Hồ sơ cá nhân, CM-06 Trung tâm thông báo
+- [x] CM-07 Trang lỗi (7 biến thể), CM-08 Xem và tải tệp, CM-10 Khung điều hướng
+- Ghi chú khi xong: 2026-10-24, repo `piclass-mockup` branch `feat/mockup-common`, file mới `design-system/PiClass Màn chung.dc.html` (và bản `standalone/`). Chưa review ui-ux-pro-max.
+  - **Cách dùng:** hộp "Đi tới màn" và các thẻ trạng thái ở thanh trên cùng để xem từng màn. Có tài khoản mẫu (điền sẵn): Lê Thị Hương (Quản trị + Giáo viên), Quản trị hệ thống (không có hồ sơ), Nguyễn Thị Lan, Đỗ Minh Khuê, Đỗ Thu Hương, và một tài khoản chưa được cấp vai trò. Mật khẩu tùy ý, nhập "sai" để thử lỗi.
+  - **Đăng nhập:** kiểm lỗi từng ô, sai 5 lần thì khóa có đếm ngược 42 giây, lỗi mạng có "Thử lại", banner hết phiên và "đã đặt lại mật khẩu". Sau đăng nhập tự vào trang chủ nếu có một vai trò, ngược lại sang màn chọn vai trò.
+  - **Quên và đặt mật khẩu, kích hoạt:** thông điệp trung tính, "Gửi lại" khóa 60 giây, chỉ báo độ dài mật khẩu, liên kết hết hạn, đã dùng, đã kích hoạt, thành công. Kích hoạt dùng cùng form với đặt lại nhưng văn bản khác (theo đề xuất G11).
+  - **Khung điều hướng:** menu đúng theo từng vai trò (lấy từ bốn mockup), chuông có huy hiệu (0, số, 99+), menu người dùng (Hồ sơ, Đổi vai trò khi có hơn một vai trò, Đăng xuất), trạng thái đang khởi tạo và mất mạng. Tài khoản Quản trị + Giáo viên dùng phương án "đổi vai trò" (không dựng khung gộp hai nhóm vì Q6 chưa chốt).
+  - **Hồ sơ:** sửa email và số điện thoại, họ tên chỉ đọc, đổi mật khẩu có xác nhận "đăng xuất thiết bị khác", rời trang khi chưa lưu thì hỏi, biến thể Admin không có hồ sơ.
+  - **Thông báo:** lọc Tất cả, Chưa đọc, Đã đọc, đánh dấu tất cả, bấm dòng thì đọc và chuyển tới màn đích (có thông báo dẫn tới nội dung không còn khả dụng).
+  - **Tệp:** các trạng thái đang lấy liên kết, liên kết hết hạn tự tạo lại, tải lỗi có thử lại, 404, ảnh xem trước, ảnh không xem trước được.
+  - **Nối với bốn mockup:** chuông và avatar trên thanh trên của Quản trị, Giáo viên, Học sinh, Phụ huynh mở thẳng thông báo và hồ sơ ở file Màn chung, có nút "Quay lại mockup …".
+  - **Chưa làm:** điều hướng giữa các mục menu thật (menu chỉ mở stub dẫn về mockup của vai trò), thanh dưới trên điện thoại (dùng ngăn kéo như các mockup khác), điều khoản sử dụng ở màn kích hoạt (chưa có trong requirements), khung gộp Giảng dạy và Quản trị (chờ Q6).
 
 ### Sau cùng
-- [ ] Màn chung (`common.md`) cho cả bốn vai trò
 - [ ] Đồng bộ lại `prompts/admin.md` với mockup Admin cuối (giữ làm mô tả yêu cầu; không làm prompt cho vai trò khác vì không còn dùng Claude Design)
 - [ ] Thử đúng khổ 390px trên điện thoại thật hoặc devtools (Chrome headless không xuống dưới khoảng 500px)
