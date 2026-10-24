@@ -17,7 +17,7 @@ Quy trình này thay cách làm cũ "BE xong cả 5 nhóm module rồi mới là
 | Bước | Việc | Ra gì | Công cụ / skill gợi ý |
 |---|---|---|---|
 | 1. Bàn nghiệp vụ | Với mỗi màn hỏi 3 câu: ai dùng, bao lâu một lần; bỏ màn này thì trung tâm có làm tay được không; giữ, đơn giản hóa hay tạm bỏ. Nêu API đã có và chỗ thiếu | Quyết định giữ / đơn giản / bỏ, ghi vào Decision Log và đặc tả màn | Nạp `requirements/*`, `access-control/*`, `database/*` trước; `superpowers:brainstorming` chỉ khi có tính năng mới ngoài Decision Log |
-| 2. Chốt trực quan | Sửa mockup (`.dc.html`), chạy `tools/make_standalone.py`, user xem bản `standalone/` và chốt | Mockup khớp quyết định | `mockup-review-uiux`, `mockup-review-fix` sau khi dựng nhóm lớn; `ui-ux-pro-max` (a11y, responsive), `frontend-design` (review nhất quán) |
+| 2. Chốt trực quan | Sửa mockup (`.dc.html`), chạy `tools/make_standalone.py`, user xem bản `standalone/` và chốt | Mockup khớp quyết định | Chọn mức nhẹ nhất đủ dùng, xem mục "Chọn skill ở bước 2" bên dưới |
 | 3. BE | Spec ngắn nếu có hành vi mới, rồi plan BE, code theo TDD, review | API đủ cho lát, test xanh, ghi `error-codes.md` nếu thêm mã lỗi | `superpowers:writing-plans`, `test-driven-development`, `subagent-driven-development`, `requesting-code-review`; quy ước ở `piclass-api/CLAUDE.md` |
 | 4. FE | Plan FE, code Next.js bám design system v2, gọi API thật | Màn chạy được, test xanh | `writing-plans`, `ui-ux-pro-max:ui-styling` và `design-system` (khi code), `frontend-design` (review cuối); quy ước ở `piclass-web/CLAUDE.md` |
 | 5. Chạy thử cả lát | Làm đúng kịch bản thật từ đầu đến cuối trên màn thật (ví dụ: Admin tạo hồ sơ, sao chép liên kết, người đó kích hoạt và đăng nhập) | Kết quả chạy thử, lỗi phát sinh được sửa tại chỗ | `superpowers:verification-before-completion` |
@@ -25,6 +25,25 @@ Quy trình này thay cách làm cũ "BE xong cả 5 nhóm module rồi mới là
 | 7. Ship | Branch, PR, merge (xem dưới) | PR đã merge | `ship-prs` |
 
 Bước 3 và 4 có thể chạy song song khi hình dạng API đã rõ (ví dụ: BE chỉ thêm một trường). Nếu API chưa rõ thì làm BE trước.
+
+## Chọn skill ở bước 2 (tiết kiệm token)
+
+Các skill review (`mockup-review-uiux`, `mockup-review-fix`, `ui-ux-pro-max`, `frontend-design`) nạp nhiều chữ và chạy nhiều lượt đo, chụp ảnh. Chỉ dùng khi lợi ích đáng chi phí. Chọn **mức thấp nhất đủ dùng**:
+
+| Mức | Khi nào | Làm gì | Skill |
+|---|---|---|---|
+| 0. Sửa nhỏ | Đổi nhãn, thêm hoặc bỏ nút, đổi chữ, thêm một hộp thoại theo mẫu có sẵn | Sửa file, `node --check` phần script, `make_standalone.py`, chụp một ảnh màn đã sửa, user xem | **Không dùng skill** |
+| 1. Màn mới theo mẫu có sẵn | Màn mới nhưng dùng đúng component và token của design system, có dòng "Mẫu bám theo" | Dựng bám mẫu, tự kiểm theo checklist ngắn bên dưới, chụp ở 500, 900 và 1300px | **Không dùng skill** |
+| 2. Kiểu giao diện mới hoặc hoàn tất một nhóm lớn | Có pattern chưa từng có trong mockup, hoặc vừa dựng xong cả một nhóm (nhiều màn) | Review một lượt cho cả nhóm, không review từng màn | `mockup-review-uiux` (chỉ đọc), rồi `mockup-review-fix` nếu có lỗi cần sửa |
+
+Quy tắc kèm theo:
+- Review **một lần ở cuối nhóm**, không review sau mỗi màn.
+- `frontend-design` chỉ dùng khi cần xét tính nhất quán thị giác của pattern mới (nằm trong `mockup-review-fix`), không dùng để dựng màn.
+- `ui-ux-pro-max` dùng ở bước 4 (code FE), không dùng để chọn màu, font hay style: design system v2 đã chốt.
+- Không chạy lại review cho màn đã có báo cáo ở `product/screens/reviews/` nếu chỉ sửa nhỏ.
+- Báo cáo review lưu ở `product/screens/reviews/`; kết quả cuối cùng chỉ cần ghi vào báo cáo, không lặp lại trong chat.
+
+Checklist tự kiểm (mức 0 và 1): dùng `var(--...)` không hard-code màu; chữ tối thiểu 12px; viền ô nhập `--border-control`; vùng bấm đủ 44px trên cảm ứng; ô nhập có nhãn và báo lỗi; không cuộn ngang ở 500px; trạng thái tải, rỗng, lỗi nếu màn có dữ liệu.
 
 ## Thứ tự các lát
 
