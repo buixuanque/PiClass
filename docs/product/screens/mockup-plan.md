@@ -57,7 +57,7 @@ Mỗi màn cần giải thích cả hướng kỹ thuật lẫn nghiệp vụ kh
 **Thứ tự: theo luồng ngày đầu của một trung tâm, không theo thứ tự menu.**
 
 - [x] Nhóm 0 chốt 2026-10-24 (`DEC-USR-013`, `DEC-USR-014`, `DEC-USR-015`): học sinh đều có tài khoản; `login_identifier` là tên đăng nhập, Admin sao chép liên kết kích hoạt gửi qua Zalo; mỗi tài khoản một vai trò (`DEC-USR-015`), bỏ màn chọn / đổi vai trò (CM-04) và công tắc. Cần sửa mockup: nhãn ô đăng nhập thành "Tên đăng nhập" (CM-01 đến CM-03), màn mời tài khoản hiện liên kết để sao chép (AD-05b, AD-05c).
-- [ ] 1. Tạo giáo viên (AD-07, AD-07a, AD-07b)
+- [x] 1. Tạo giáo viên (AD-07, AD-07a, AD-07b) — bàn xong 2026-10-24: giữ đủ bộ lọc AD-07 như mockup; giữ "lớp đang dạy" ở AD-07a, cần API mới `GET /teachers/{id}/classes` (A8/GM-2) thay cho N+1; cần API hồ sơ giáo viên riêng không phụ thuộc tài khoản (A7/G4). Mockup không cần sửa. **BE xong** (`piclass-api` branch `feat/teacher-list-and-classes`, chưa PR): `GET /teachers` (danh sách, lọc `name`/`status`/`account`/`has_classes`, kèm `active_classes_count`) và `GET /teachers/{teacher}/classes`. Spec/plan: `superpowers/specs/2026-10-24-teacher-list-and-classes-api-design.md`, `superpowers/plans/2026-10-24-be-teacher-list-and-classes.md`. Tiếp theo: ghép FE (bước 4) cho AD-07/AD-07a.
 - [ ] 2. Môn học và tạo lớp, gán giáo viên (AD-08, AD-09, AD-10)
 - [ ] 3. Tạo học sinh, thêm vào lớp (AD-04, AD-05, AD-05a)
 - [ ] 4. Tạo phụ huynh và liên kết với con (AD-06, AD-06a, AD-06b, AD-06c)
