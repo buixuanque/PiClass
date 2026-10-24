@@ -69,6 +69,8 @@ Sau lượt review phạm vi ngày 2026-10-24 (`research/2026-10-24-review-pham-
 
 ## Step 9 — API Specification + triển khai
 
+**Quy trình làm việc theo lát:** [process/working-flow.md](process/working-flow.md).
+
 **Backend: xong và đã merge `main`.** Năm nhóm module, spec ở `superpowers/specs/`, plan ở `superpowers/plans/`, lịch sử từng task ở git và `superpowers/plans/2026-10-18-be-architecture-refactor-results.md`:
 
 | Nhóm | Nội dung | PR chính |
@@ -86,12 +88,13 @@ Tình trạng BE (2026-10-22): 12 module theo `app/Modules/<Module>/` (Action + 
 ## Việc tiếp theo
 
 1. **Mockup: làm lại theo quy trình mới, Admin trước**, bàn nghiệp vụ tại từng màn theo luồng ngày đầu của trung tâm. Kế hoạch và danh sách chủ đề cần bàn sau Admin (Tiến độ, Bài đánh giá, Ngân hàng câu hỏi, Khóa học, UX học sinh): `product/screens/mockup-plan.md`.
-2. **BE bổ sung nhỏ cho vòng chính** (danh sách "phải có" ở `research/2026-10-24-api-v1-toi-thieu.md`): sửa lộ điểm chưa công bố (B1), kiểm tra dữ liệu bài ở BE (B4), danh sách hồ sơ có tìm kiếm không dấu và phân trang (A7, C2, C7), lớp theo người (A8), lịch và điểm danh theo người (A6, A9), id bản ghi điểm danh (A1), chi tiết bài cho học sinh (A3), tìm lại lượt đang làm (A4), danh sách bài nộp có tên (A12), lời mời sống lâu hơn và gửi lại (A10), `role_id` (A2). Làm song song với bàn mockup Admin; mỗi mục thành issue riêng khi chốt.
+2. **BE nhóm 0 (liên kết kích hoạt, A10) đã xong và merge `main` (`piclass-api` PR #39)** (plan `superpowers/plans/2026-10-24-be-account-activation-link.md`). **BE bổ sung nhỏ còn lại cho vòng chính** (danh sách "phải có" ở `research/2026-10-24-api-v1-toi-thieu.md`): sửa lộ điểm chưa công bố (B1), kiểm tra dữ liệu bài ở BE (B4), danh sách hồ sơ có tìm kiếm không dấu và phân trang (A7, C2, C7), lớp theo người (A8), lịch và điểm danh theo người (A6, A9), id bản ghi điểm danh (A1), chi tiết bài cho học sinh (A3), tìm lại lượt đang làm (A4), danh sách bài nộp có tên (A12), lời mời sống lâu hơn và gửi lại (A10), `role_id` (A2). Làm song song với bàn mockup Admin; mỗi mục thành issue riêng khi chốt.
 3. **Chức năng tạm bỏ** (chưa làm giao diện, chưa sửa API, backend giữ nguyên): danh sách đầy đủ ở mục 3 của `research/2026-10-24-api-v1-toi-thieu.md`.
-4. **Frontend:** lập plan FE sau khi Admin được bàn xong; scaffold "nền" (theo `piclass-web/CLAUDE.md`, design system, app shell, guard, `architecture.test.ts`, thử `rewrites`/Sanctum cookie) là bước đầu.
-5. **Quyết định mở còn lại:** `ARCH-14` (đồng bộ `StudentAssessment` khi học viên vào lớp hoặc Course sau khi gắn audience), `ARCH-12` (retention file/audit), các issue #21, #32, #40–#43, #46–#56, #60 (xem GitHub).
-6. **Vận hành:** sau khi pull/deploy BE phải restart queue worker (thông báo chạy qua queue). Máy dev: `make install && make migrate && make restart-queue` trong `piclass-infra/local`.
-7. Tùy chọn: dịch comment tiếng Anh còn lại ở code cũ sang tiếng Việt (task riêng, không đổi logic).
+4. **Sinh OpenAPI tự động từ code Laravel** (ví dụ Scramble) làm hợp đồng API cho FE và service `docs` của `piclass-infra`: việc nền, làm trước hoặc cùng lúc dựng `piclass-web`.
+5. **Frontend:** lập plan FE sau khi Admin được bàn xong; scaffold "nền" (theo `piclass-web/CLAUDE.md`, design system, app shell, guard, `architecture.test.ts`, thử `rewrites`/Sanctum cookie) là bước đầu.
+6. **Quyết định mở còn lại:** `ARCH-14` (đồng bộ `StudentAssessment` khi học viên vào lớp hoặc Course sau khi gắn audience), `ARCH-12` (retention file/audit), các issue #21, #32, #40–#43, #46–#56, #60 (xem GitHub).
+7. **Vận hành:** sau khi pull/deploy BE phải restart queue worker (thông báo chạy qua queue). Máy dev: `make install && make migrate && make restart-queue` trong `piclass-infra/local`.
+8. Tùy chọn: dịch comment tiếng Anh còn lại ở code cũ sang tiếng Việt (task riêng, không đổi logic).
 
 **Quy trình git:** không commit hay push thẳng `main`; mỗi thay đổi một branch từ `origin/main` mới nhất (luôn `git fetch origin` trước), PR rồi merge, không xóa branch. Chỉ push, tạo PR, merge khi user yêu cầu.
 
