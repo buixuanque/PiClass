@@ -229,6 +229,8 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 ### AD-05b — Mời tạo tài khoản (hộp thoại dùng chung 3 loại hồ sơ)   ✅ (G11, GM-5)
 
+> **Cập nhật 2026-10-24 (`DEC-USR-014`):** hồ sơ không có email vẫn mời được (bỏ chặn "bổ sung email trước"). Sau khi bấm "Tạo tài khoản", hộp thoại hiện **liên kết kích hoạt để sao chép** (gửi qua Zalo), hiệu lực 7 ngày; có email thì hệ thống gửi thêm một thư. Ô "Tên đăng nhập" không cần là email. Cần BE: trả liên kết trong phản hồi của `POST /person-profiles/{id}/invite` (gap A10).
+
 - **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** cho một học sinh/phụ huynh/giáo viên đăng nhập được: tạo tài khoản và gửi email để họ tự đặt mật khẩu.
 - **Vào từ / đi tới:** nút "Mời tạo tài khoản" ở AD-04/05, AD-06/06a, AD-07/07a. Thành công → đóng hộp thoại, hồ sơ chuyển "Đã mời"; hiện nút "Gán vai trò ngay" → AD-03 (GM-5).
@@ -240,6 +242,8 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 - **Dữ liệu mẫu gợi ý:** Tên đăng nhập "tung.pt2012@gmail.com"; lỗi "Tên đăng nhập này đã được dùng".
 
 ### AD-05c — Gửi lại lời mời / đặt mật khẩu hộ   🔵🟡 (G11)
+
+> **Cập nhật 2026-10-24:** đổi tên thành **"Tạo lại liên kết"**. Tạo liên kết mới (liên kết cũ hết tác dụng), sao chép gửi qua Zalo, gửi thêm thư nếu có email. "Đặt mật khẩu hộ" dời sang nhóm 5.
 
 - **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** người được mời báo "link hết hạn" hoặc "không nhận được mail"; Admin cần gửi lại hoặc tự đưa họ một đường vào.

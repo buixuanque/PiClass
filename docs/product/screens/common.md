@@ -30,6 +30,8 @@ Quy ước: ✅ BE đã có · 🟡 thiếu API (mã G) · 🔵 đề xuất ngo
 ---
 
 ### CM-01 — Đăng nhập   ✅
+
+> **Cập nhật 2026-10-24 (`DEC-USR-014`):** nhãn ô là **"Tên đăng nhập"**, không phải "Email"; `login_identifier` không bắt buộc là email (học sinh dùng tên tự đặt). Áp dụng cho CM-01, CM-02, CM-03, CM-09. Lời nhắc lỗi: "Vui lòng nhập tên đăng nhập".
 - **Vai trò · thiết bị ưu tiên:** Mọi vai trò (chưa đăng nhập) · responsive: Student/Parent dùng tốt cả trên điện thoại lẫn web máy tính; Admin/Teacher ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại; form một cột dùng tốt ở mọi khổ.
 - **Người dùng muốn làm gì:** Vào hệ thống để xem lịch học, bài tập hoặc điểm danh lớp đầu giờ.
 - **Vào từ / đi tới:** Địa chỉ gốc khi chưa có phiên; chuyển hướng từ mọi màn khi 401. Đăng nhập thành công → nếu 1 vai trò: tự chọn, vào trang chủ vai trò đó (AD/TC/ST/PR-xx tổng quan); nhiều vai trò: CM-04 (dạng màn chọn). "Quên mật khẩu?" → CM-02. Quay lại đúng trang đang mở dở nếu bị đá ra vì hết phiên (FE giữ đường dẫn cũ).
@@ -45,6 +47,8 @@ Quy ước: ✅ BE đã có · 🟡 thiếu API (mã G) · 🔵 đề xuất ngo
 - **Dữ liệu mẫu gợi ý:** `co.huong@trungtam-pi.vn` / `••••••••`; lỗi mẫu: "Thông tin đăng nhập không đúng."; khóa: "Thử lại sau 42 giây".
 
 ### CM-02 — Quên mật khẩu   ✅
+
+> **Cập nhật 2026-10-24:** thư đặt lại mật khẩu chỉ gửi được khi hồ sơ có email. Màn ghi rõ: "Không có email? Hãy nhờ quản trị viên tạo lại liên kết." (AD-05c).
 - **Vai trò · thiết bị ưu tiên:** Mọi vai trò (chưa đăng nhập) · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** Phụ huynh quên mật khẩu, cần nhận thư để đặt lại.
 - **Vào từ / đi tới:** Từ CM-01 ("Quên mật khẩu?"). Gửi xong ở lại cùng màn (đổi sang trạng thái đã gửi); "Quay lại đăng nhập" → CM-01. Email có liên kết mở CM-03.
@@ -67,6 +71,8 @@ Quy ước: ✅ BE đã có · 🟡 thiếu API (mã G) · 🔵 đề xuất ngo
 - **Dữ liệu mẫu gợi ý:** `phuhuynh.lan@gmail.com`; mật khẩu mới `Matkhau2026`.
 
 ### CM-04 — Chọn / đổi vai trò   ✅
+
+> **Bỏ khỏi V1 (2026-10-24, `DEC-USR-015`):** mỗi tài khoản một vai trò, không có màn chọn / đổi vai trò, không có công tắc. Màn này chỉ còn dùng cho trạng thái "Chưa có quyền truy cập" (tài khoản chưa được gán vai trò). Backend vẫn hỗ trợ nhiều vai trò.
 - **Vai trò · thiết bị ưu tiên:** Tài khoản giữ từ 2 vai trò trở lên (Admin + Teacher phổ biến nhất, theo `product-definition.md`; hiếm hơn Teacher + Parent) · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** Chọn "đang vào với tư cách ai", hoặc chuyển nhanh giữa Giảng dạy và Quản trị.
 - **Vào từ / đi tới:** (a) màn chọn vai trò ngay sau đăng nhập khi `available_roles` có > 1 phần tử; (b) menu người dùng trong khung điều hướng (CM-10) mở danh sách đổi vai trò. Chọn xong → trang chủ của vai trò đó (tổng quan AD/TC/ST/PR); đổi vai trò giữa phiên cũng về trang chủ vai trò mới và làm mới dữ liệu (xóa cache của vai trò cũ).
@@ -154,6 +160,8 @@ Quy ước: ✅ BE đã có · 🟡 thiếu API (mã G) · 🔵 đề xuất ngo
 - **Dữ liệu mẫu gợi ý:** `De-kiem-tra-Toan-9A-tuan-5.pdf` · 1,2 MB · application/pdf; `Hinh-minh-hoa-cau-3.png` · 340 KB.
 
 ### CM-09 — Kích hoạt tài khoản lần đầu   🟡 G11 (thêm mới)
+
+> **Cập nhật 2026-10-24 (`DEC-USR-014`):** liên kết kích hoạt có hiệu lực 7 ngày (đề xuất, chốt khi làm plan BE); hết hạn thì nhờ trung tâm tạo lại liên kết, không có nút "Nhận liên kết mới" tự phục vụ.
 - **Vai trò · thiết bị ưu tiên:** Học viên, phụ huynh, giáo viên vừa được mời · responsive: dùng tốt cả trên điện thoại lẫn web máy tính (thường mở từ email trên điện thoại).
 - **Người dùng muốn làm gì:** Lần đầu vào hệ thống sau khi trung tâm gửi lời mời: đặt mật khẩu và bắt đầu dùng.
 - **Vào từ / đi tới:** Liên kết trong thư mời. Hiện BE dùng chung cơ chế với đặt lại mật khẩu: Admin bấm "Mời" (`POST /person-profiles/{id}/invite`, AD-05) → tạo tài khoản + gửi thư "Đặt lại mật khẩu PiClass" có liên kết `/reset-password?token&login_identifier` (cùng URL và cùng văn bản với quên mật khẩu). Màn kích hoạt riêng cần BE phân biệt lời mời (vd `/activate?token=…`). Thành công → CM-01 (hoặc tự đăng nhập, xem câu hỏi mở).
