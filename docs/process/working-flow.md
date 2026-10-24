@@ -18,7 +18,7 @@ Mỗi lát là một nhóm màn hình, đi hết các bước dưới đây rồ
    - Sửa nhỏ hoặc màn mới theo mẫu có sẵn: tự kiểm.
    - Xong cả một nhóm lớn hoặc có kiểu giao diện mới: review một lần ở cuối.
 3. **Cập nhật API.** Chốt xong UI thì bổ sung/sửa API nếu thiếu. Spec ngắn nếu có hành vi mới, plan, code theo TDD, review một lần ở cuối branch (opus, effort medium). Quy ước: `piclass-api/CLAUDE.md`.
-4. **Ghép FE với API thật.** Plan, code bám design system v2 và mockup, gọi API thật, test. Quy ước: `piclass-web/CLAUDE.md`.
+4. **Ghép FE với API thật.** Plan, code bám design system v2 và mockup, gọi API thật, test. Trước khi dựng UI màn mới, mở file tương ứng ở `piclass-mockup/ds-v2-source/ui_kits/<vai-trò>/` làm tham chiếu (đọc tại chỗ, không copy nguyên — xem mục "Design system" ở `piclass-web/CLAUDE.md`). Quy ước: `piclass-web/CLAUDE.md`.
 5. **Chạy test trên màn thật.** Làm đúng kịch bản thật trên màn thật, sửa lỗi phát sinh tại chỗ.
 6. **Cập nhật tài liệu.** Đánh dấu lát xong ở `mockup-plan.md` và `progress.md`.
 
