@@ -56,7 +56,7 @@ Mỗi màn cần giải thích cả hướng kỹ thuật lẫn nghiệp vụ kh
 
 **Thứ tự: theo luồng ngày đầu của một trung tâm, không theo thứ tự menu.**
 
-- [ ] Chốt trước: học sinh chưa có tài khoản thì làm bài thế nào (Q4); `login_identifier` có luôn là email không. Chặn màn mời tài khoản.
+- [x] Nhóm 0 chốt 2026-10-24 (`DEC-USR-013`, `DEC-USR-014`, `DEC-USR-015`): học sinh đều có tài khoản; `login_identifier` là tên đăng nhập, Admin sao chép liên kết kích hoạt gửi qua Zalo; mỗi tài khoản một vai trò (`DEC-USR-015`), bỏ màn chọn / đổi vai trò (CM-04) và công tắc. Cần sửa mockup: nhãn ô đăng nhập thành "Tên đăng nhập" (CM-01 đến CM-03), màn mời tài khoản hiện liên kết để sao chép (AD-05b, AD-05c).
 - [ ] 1. Tạo giáo viên (AD-07, AD-07a, AD-07b)
 - [ ] 2. Môn học và tạo lớp, gán giáo viên (AD-08, AD-09, AD-10)
 - [ ] 3. Tạo học sinh, thêm vào lớp (AD-04, AD-05, AD-05a)
