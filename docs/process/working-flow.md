@@ -13,17 +13,16 @@ Mỗi lát là một nhóm màn hình, đi hết các bước dưới đây rồ
 
 ## Các bước mỗi lát
 
-1. **Bàn nghiệp vụ.** Mỗi màn hỏi: ai dùng, bao lâu một lần; bỏ đi thì trung tâm làm tay được không; giữ, đơn giản hóa hay tạm bỏ. Liệt kê API đã có và chỗ thiếu. Giải thích cả nghiệp vụ lẫn kỹ thuật. Ghi quyết định vào tài liệu.
-2. **Chốt trực quan.** Sửa mockup, chạy `python3 tools/make_standalone.py` (repo `piclass-mockup`), user xem bản `standalone/`.
+1. **List chức năng.** Liệt kê chức năng dựa trên API đã có, cộng các chức năng bổ sung cần thêm. Hỏi: ai dùng, bao lâu một lần; bỏ đi thì trung tâm làm tay được không; giữ, đơn giản hóa hay tạm bỏ. Giải thích cả nghiệp vụ lẫn kỹ thuật. Ghi quyết định vào tài liệu.
+2. **Kiểm tra màn hình.** Sau khi chốt mục 1, rà lại mockup xem cần bổ sung/sửa gì. Sửa mockup, chạy `python3 tools/make_standalone.py` (repo `piclass-mockup`), user xem bản `standalone/`.
    - Sửa nhỏ hoặc màn mới theo mẫu có sẵn: tự kiểm.
    - Xong cả một nhóm lớn hoặc có kiểu giao diện mới: review một lần ở cuối.
-3. **BE.** Spec ngắn nếu có hành vi mới, plan, code theo TDD, review một lần ở cuối branch (opus, effort medium). Quy ước: `piclass-api/CLAUDE.md`.
-4. **FE.** Plan, code bám design system v2 và mockup, gọi API thật, test. Quy ước: `piclass-web/CLAUDE.md`.
-5. **Chạy thử cả lát.** Làm đúng kịch bản thật trên màn thật, sửa lỗi phát sinh tại chỗ.
+3. **Cập nhật API.** Chốt xong UI thì bổ sung/sửa API nếu thiếu. Spec ngắn nếu có hành vi mới, plan, code theo TDD, review một lần ở cuối branch (opus, effort medium). Quy ước: `piclass-api/CLAUDE.md`.
+4. **Ghép FE với API thật.** Plan, code bám design system v2 và mockup, gọi API thật, test. Quy ước: `piclass-web/CLAUDE.md`.
+5. **Chạy test trên màn thật.** Làm đúng kịch bản thật trên màn thật, sửa lỗi phát sinh tại chỗ.
 6. **Cập nhật tài liệu.** Đánh dấu lát xong ở `mockup-plan.md` và `progress.md`.
-7. **Ship.** Chỉ khi user yêu cầu rõ ("push đi").
 
-Bước 3 và 4 có thể chạy song song khi hình dạng API đã rõ; chưa rõ thì làm BE trước.
+Bước 3 và 4 có thể chạy song song khi hình dạng API đã rõ; chưa rõ thì làm bước 3 trước. Ship (push/PR/merge) chỉ làm khi user yêu cầu rõ ("push đi") — xem mục Git dưới đây.
 
 ## Git
 
