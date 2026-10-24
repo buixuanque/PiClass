@@ -19,6 +19,9 @@
 | DEC-USR-010 | Admin tạo và xác nhận liên kết Parent–Student; lưu loại quan hệ cơ bản nếu gia đình cung cấp. V1 không yêu cầu quy trình tải bằng chứng riêng. | ĐÃ QUYẾT ĐỊNH |
 | DEC-USR-011 | Gỡ liên kết thu hồi quyền xem ngay, gồm dữ liệu lịch sử qua cổng Parent. Dữ liệu vẫn được giữ trong hồ sơ Student cho Admin/Teacher có quyền. | ĐÃ QUYẾT ĐỊNH |
 | DEC-USR-012 | Inactive chặn đăng nhập/truy cập mới; hồ sơ và lịch sử được giữ. Có thể tái kích hoạt, không làm sống lại các quan hệ đã kết thúc. | ĐÃ QUYẾT ĐỊNH |
+| DEC-USR-013 | Mọi học sinh có tài khoản riêng để làm bài; hồ sơ không có tài khoản thì không làm bài online (không làm luồng giáo viên nhập hộ hay phụ huynh làm giúp ở V1). Giải quyết Q4. User chốt 2026-10-24. | ĐÃ QUYẾT ĐỊNH |
+| DEC-USR-014 | `login_identifier` là **tên đăng nhập**, không bắt buộc là email (nhãn ô đăng nhập "Tên đăng nhập"). Học sinh dùng tên tự đặt; phụ huynh và giáo viên dùng email hoặc số điện thoại. Phát tài khoản: Admin sao chép **liên kết kích hoạt** gửi qua kênh ngoài (Zalo), có "tạo lại liên kết" và "đặt mật khẩu hộ"; liên kết sống lâu hơn 60 phút (đề xuất 7 ngày, chốt khi làm plan BE); vẫn gửi email nếu hồ sơ có email. Email hệ thống (SMTP) vẫn cần cấu hình cho mỗi bản triển khai. Cần BE: gap A10 của `product/screens/api-gaps.md`. User chốt 2026-10-24. | ĐÃ QUYẾT ĐỊNH |
+| DEC-USR-015 | Tài khoản có cả Admin và Teacher: giữ **công tắc đổi vai trò** (`ARCH-11`, `POST /auth/context`), chưa gộp menu "Giảng dạy / Quản trị" (gộp cần sửa BE để hiệu lực đồng thời hai vai trò, issue #21). Xem lại sau khi hỏi chủ trung tâm. Giải quyết Q6. User chốt 2026-10-24. | ĐÃ QUYẾT ĐỊNH |
 
 ## Học vụ, lịch và điểm danh
 
