@@ -19,7 +19,7 @@ Quy trình này thay cách làm cũ "BE xong cả 5 nhóm module rồi mới là
 | 1. Bàn nghiệp vụ | Với mỗi màn hỏi 3 câu: ai dùng, bao lâu một lần; bỏ màn này thì trung tâm có làm tay được không; giữ, đơn giản hóa hay tạm bỏ. Nêu API đã có và chỗ thiếu | Quyết định giữ / đơn giản / bỏ, ghi vào Decision Log và đặc tả màn | Nạp `requirements/*`, `access-control/*`, `database/*` trước; `superpowers:brainstorming` chỉ khi có tính năng mới ngoài Decision Log |
 | 2. Chốt trực quan | Sửa mockup (`.dc.html`), chạy `tools/make_standalone.py`, user xem bản `standalone/` và chốt | Mockup khớp quyết định | Chọn mức nhẹ nhất đủ dùng, xem mục "Chọn skill ở bước 2" bên dưới |
 | 3. BE | Spec ngắn nếu có hành vi mới, rồi plan BE, code theo TDD, review | API đủ cho lát, test xanh, ghi `error-codes.md` nếu thêm mã lỗi | `superpowers:writing-plans`, `test-driven-development`, `subagent-driven-development`, `requesting-code-review`; quy ước ở `piclass-api/CLAUDE.md` |
-| 4. FE | Plan FE, code Next.js bám design system v2, gọi API thật | Màn chạy được, test xanh | `writing-plans`, `ui-ux-pro-max:ui-styling` và `design-system` (khi code), `frontend-design` (review cuối); quy ước ở `piclass-web/CLAUDE.md` |
+| 4. FE | Plan FE, code Next.js bám design system v2, gọi API thật | Màn chạy được, test xanh | `superpowers:writing-plans`, `test-driven-development`; **không dùng `frontend-design`**; `ui-ux-pro-max:ui-styling` và `design-system` chỉ dùng một lần khi port `components/ui/*` (xem mục dưới); quy ước ở `piclass-web/CLAUDE.md` |
 | 5. Chạy thử cả lát | Làm đúng kịch bản thật từ đầu đến cuối trên màn thật (ví dụ: Admin tạo hồ sơ, sao chép liên kết, người đó kích hoạt và đăng nhập) | Kết quả chạy thử, lỗi phát sinh được sửa tại chỗ | `superpowers:verification-before-completion` |
 | 6. Cập nhật tài liệu | Đánh dấu lát xong trong `product/screens/mockup-plan.md` và `progress.md` | Tài liệu theo dõi đúng hiện trạng | |
 | 7. Ship | Branch, PR, merge (xem dưới) | PR đã merge | `ship-prs` |
@@ -38,8 +38,9 @@ Các skill review (`mockup-review-uiux`, `mockup-review-fix`, `ui-ux-pro-max`, `
 
 Quy tắc kèm theo:
 - Review **một lần ở cuối nhóm**, không review sau mỗi màn.
-- `frontend-design` chỉ dùng khi cần xét tính nhất quán thị giác của pattern mới (nằm trong `mockup-review-fix`), không dùng để dựng màn.
-- `ui-ux-pro-max` dùng ở bước 4 (code FE), không dùng để chọn màu, font hay style: design system v2 đã chốt.
+- **Không dùng `frontend-design` và `ui-ux-pro-max` làm bước thường quy.** Design system v2 đã chốt và mockup đã qua review; hai skill này dễ kéo màn hình lệch khỏi base. Chúng chỉ chạy gián tiếp bên trong `mockup-review-uiux` và `mockup-review-fix` ở mức 2.
+- `ui-ux-pro-max:ui-styling` (Tailwind, shadcn) và `ui-ux-pro-max:design-system` (token sang `@theme`) dùng **một lần** khi port `components/ui/*` (Button, Dialog, Input, Badge...) sang `piclass-web`. Port xong thì không nạp lại: màn mới ghép từ component đã có, bám mockup, kiểm bằng test và so ảnh với mockup.
+- Màn FE mới **không có mockup** thì dựng mockup trước (bước 2), không dùng skill để tự nghĩ giao diện.
 - Không chạy lại review cho màn đã có báo cáo ở `product/screens/reviews/` nếu chỉ sửa nhỏ.
 - Báo cáo review lưu ở `product/screens/reviews/`; kết quả cuối cùng chỉ cần ghi vào báo cáo, không lặp lại trong chat.
 
