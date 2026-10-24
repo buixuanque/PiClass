@@ -16,7 +16,7 @@ Quy ước: ✅ BE đã có · 🟡 thiếu API (mã G) · 🔵 đề xuất ngo
 | [CM-06](#cm-06--trung-tâm-thông-báo) | Trung tâm thông báo | ✅ (đếm chưa đọc, đọc tất cả 🟡 G10) |
 | [CM-07](#cm-07--trang-lỗi) | Trang lỗi | ✅ (thiết kế) |
 | [CM-08](#cm-08--xem--tải-file) | Xem / tải file | ✅ |
-| [CM-09](#cm-09--kích-hoạt-tài-khoản-lần-đầu) | Kích hoạt tài khoản lần đầu (thêm) | 🟡 G11 |
+| [CM-09](#cm-09--kích-hoạt-tài-khoản-lần-đầu) | Kích hoạt tài khoản lần đầu (thêm) | ✅ (G11 đã đóng 2026-10-24) |
 | [CM-10](#cm-10--khung-điều-hướng-app-shell) | Khung điều hướng (app shell) theo vai trò (thêm) | ✅ + 🔵 (gộp Admin/Teacher, Q6) |
 
 ## Ghi chú nền về xác thực (áp dụng cho CM-01…CM-10)
@@ -159,17 +159,17 @@ Quy ước: ✅ BE đã có · 🟡 thiếu API (mã G) · 🔵 đề xuất ngo
 - **API:** `GET /attachments/{id}`; (tải lên/gắn/xóa ở Teacher/Admin: `POST /attachments`, `POST /attachments/{id}/link`, `DELETE /attachments/{id}`).
 - **Dữ liệu mẫu gợi ý:** `De-kiem-tra-Toan-9A-tuan-5.pdf` · 1,2 MB · application/pdf; `Hinh-minh-hoa-cau-3.png` · 340 KB.
 
-### CM-09 — Kích hoạt tài khoản lần đầu   🟡 G11 (thêm mới)
+### CM-09 — Kích hoạt tài khoản lần đầu   ✅ (thêm mới)
 
-> **Cập nhật 2026-10-24 (`DEC-USR-014`):** liên kết kích hoạt có hiệu lực 7 ngày (đề xuất, chốt khi làm plan BE); hết hạn thì nhờ trung tâm tạo lại liên kết, không có nút "Nhận liên kết mới" tự phục vụ.
+> **Cập nhật 2026-10-24 (G11 đóng, `DEC-USR-013/014`):** có endpoint kích hoạt riêng `POST /auth/activate` (broker `invitations`, 7 ngày), không còn dùng chung `password/reset`; hết hạn thì nhờ trung tâm tạo lại liên kết, không có nút "Nhận liên kết mới" tự phục vụ. FE (`piclass-web`) đã ghép theo mục dưới đây.
 - **Vai trò · thiết bị ưu tiên:** Học viên, phụ huynh, giáo viên vừa được mời · responsive: dùng tốt cả trên điện thoại lẫn web máy tính (thường mở từ email trên điện thoại).
 - **Người dùng muốn làm gì:** Lần đầu vào hệ thống sau khi trung tâm gửi lời mời: đặt mật khẩu và bắt đầu dùng.
-- **Vào từ / đi tới:** Liên kết trong thư mời. Hiện BE dùng chung cơ chế với đặt lại mật khẩu: Admin bấm "Mời" (`POST /person-profiles/{id}/invite`, AD-05) → tạo tài khoản + gửi thư "Đặt lại mật khẩu PiClass" có liên kết `/reset-password?token&login_identifier` (cùng URL và cùng văn bản với quên mật khẩu). Màn kích hoạt riêng cần BE phân biệt lời mời (vd `/activate?token=…`). Thành công → CM-01 (hoặc tự đăng nhập, xem câu hỏi mở).
-- **Khối nội dung & dữ liệu hiển thị:** Khác CM-03 ở văn bản: "Chào mừng đến với PiClass" + "Tài khoản của bạn đã được trung tâm tạo. Hãy đặt mật khẩu để bắt đầu"; hiển thị email đăng nhập (chỉ đọc); tên (nếu BE trả được; hiện thì không); ô "Mật khẩu" (≥ 8) và "Nhập lại mật khẩu"; (tùy) tick "Tôi đồng ý điều khoản sử dụng" (nội dung điều khoản chưa có trong requirements: cần xác nhận). Nút "Kích hoạt tài khoản".
-- **Chức năng & hành động:** Hiện chạy tạm bằng cùng `POST /auth/password/reset` như CM-03 nhưng với văn bản kích hoạt (FE không phân biệt được lời mời với đặt lại, nên nếu dùng chung URL thì chỉ có thể dùng văn bản trung tính "Đặt mật khẩu cho tài khoản PiClass"). Đề xuất BE (G11): endpoint kích hoạt riêng hoặc tham số phân loại trong liên kết; thời hạn lời mời dài hơn 60 phút (vd 7 ngày vì người nhận có thể mở thư trễ); "Gửi lại lời mời" cho Admin (nay mời lần hai bị `409 ALREADY_INVITED`) và cho phép Admin gửi link hộ.
-- **Trạng thái cần vẽ:** form · đang gửi · thành công ("Tài khoản đã sẵn sàng" + nút Đăng nhập) · **liên kết hết hạn** (tiêu đề "Lời mời đã hết hạn", giải thích "Liên kết mời chỉ có hiệu lực trong thời gian ngắn", nút "Nhận liên kết mới" → CM-02 tạm thời; đề xuất sau G11: liên hệ trung tâm để được gửi lại) · liên kết đã dùng/không hợp lệ · tài khoản đã kích hoạt (mở lại liên kết cũ → gợi ý "Đăng nhập" hoặc "Quên mật khẩu") · lỗi mạng.
-- **Quy tắc & lỗi nghiệp vụ:** Như CM-03 (422 `token` "Token không hợp lệ hoặc đã hết hạn."; 422 `password` ≥ 8). Tài khoản mời có mật khẩu ngẫu nhiên 32 ký tự (không ai biết), nên cho đến khi đặt mật khẩu không thể đăng nhập; thử đăng nhập sẽ nhận "Thông tin đăng nhập không đúng.". Trạng thái tài khoản ngay khi mời đã là `active` (BE không có trạng thái "chờ kích hoạt"), nên Admin không phân biệt được ai chưa kích hoạt ở AD-02/AD-03: nếu cần, đề xuất `last_login_at`/cờ chưa kích hoạt trong danh sách (🟡 cần xác nhận với G11; không có trường này trong response hiện tại).
-- **API:** `POST /auth/password/reset` (dùng tạm); 🟡 G11: kích hoạt riêng, gửi lại lời mời, Admin gửi link hộ, thời hạn lời mời.
+- **Vào từ / đi tới:** Liên kết trong thư mời, dạng `{FRONTEND_URL}/activate?token=…&login_identifier=…` (khác URL của CM-03). Admin bấm "Mời" (`POST /person-profiles/{id}/invite`, AD-05) → tạo tài khoản + trả liên kết kích hoạt (7 ngày) để Admin sao chép gửi qua Zalo (`DEC-USR-013`); có email thì còn gửi thêm thư. Lời mời hết hạn hoặc cần gửi lại: `POST /person-profiles/{id}/invitation` (chỉ dùng được khi tài khoản chưa từng đăng nhập). Thành công → CM-01 kèm thông báo.
+- **Khối nội dung & dữ liệu hiển thị:** Khác CM-03 ở văn bản: "Chào mừng đến với PiClass" + "Tài khoản của bạn đã được trung tâm tạo. Hãy đặt mật khẩu để bắt đầu"; hiển thị tên đăng nhập (chỉ đọc, từ query); ô "Mật khẩu mới" (≥ 8) và "Nhập lại mật khẩu" (so khớp ở FE). Nút "Kích hoạt tài khoản". (Bỏ tick "Tôi đồng ý điều khoản sử dụng" khi dựng FE: chưa có nội dung điều khoản trong requirements.)
+- **Chức năng & hành động:** `POST /auth/activate` `{login_identifier, token, password}` (broker mật khẩu riêng `invitations`, 7 ngày, dùng một lần) → 200 rỗng, hủy mọi session khác, không tự đăng nhập. Thiếu `token` hoặc `login_identifier` trên URL: hiện ngay trạng thái liên kết không hợp lệ, không hiện form (giống CM-03).
+- **Trạng thái cần vẽ:** form · đang gửi · thành công ("Tài khoản đã sẵn sàng" + nút Đăng nhập) · liên kết hết hạn/đã dùng (BE trả cùng lỗi cho cả hai trường hợp, không phân biệt được — FE gộp một trạng thái, gợi ý cả "Đăng nhập" và "Quên mật khẩu") · lỗi mạng.
+- **Quy tắc & lỗi nghiệp vụ:** 422 `error.details.token` = "Token không hợp lệ hoặc đã hết hạn." (dùng chung cho hết hạn thật sự VÀ cho tài khoản đã từng đăng nhập — tránh ai cầm liên kết cũ chiếm lại tài khoản); 422 `password` ≥ 8. Tài khoản mời có mật khẩu ngẫu nhiên, nên tới khi đặt mật khẩu không thể đăng nhập; thử đăng nhập sẽ nhận "Thông tin đăng nhập không đúng.".
+- **API:** `POST /auth/activate`. Liên quan (Admin): `POST /person-profiles/{id}/invite`, `POST /person-profiles/{id}/invitation` (gửi lại). Chi tiết: `superpowers/specs/2026-10-24-account-activation-link-design.md`.
 - **Dữ liệu mẫu gợi ý:** Email `hs.minhanh@gmail.com`; tiêu đề "Chào mừng em Nguyễn Minh Anh (Toán 9A)" nếu BE trả được tên.
 
 ### CM-10 — Khung điều hướng (app shell)   ✅ + 🔵 gộp Admin/Teacher (Q6 chưa chốt) (thêm mới)
