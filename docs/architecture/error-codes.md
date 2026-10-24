@@ -24,6 +24,7 @@ Mọi lỗi nghiệp vụ của API trả về theo envelope `{ "error": { "code
 | `ALREADY_INVITED` | 409 | UserManagement | Mời một hồ sơ cá nhân đã có tài khoản đăng nhập. |
 | `NOT_INVITED` | 409 | UserManagement | Tạo lại liên kết kích hoạt (`POST /person-profiles/{id}/invitation`) cho hồ sơ chưa có tài khoản. |
 | `ALREADY_ACTIVATED` | 409 | UserManagement | Tạo lại liên kết kích hoạt cho tài khoản đã từng đăng nhập (`users.last_login_at` khác rỗng); người đó dùng "Quên mật khẩu". |
+| `ACCOUNT_DEACTIVATED` | 409 | UserManagement | Tạo lại liên kết kích hoạt cho tài khoản đang bị vô hiệu hóa (`status` khác `active`); cần kích hoạt lại tài khoản. |
 | `NO_PROFILE` | 404 | UserManagement | User tự sửa hồ sơ (`PATCH /me/profile`) nhưng tài khoản chưa liên kết hồ sơ cá nhân. |
 | `ALREADY_A_MEMBER` | 409 | UserManagement | Thêm học viên vào lớp khi đã là thành viên đang hoạt động (`POST /classes/{class}/members`). Học viên đã `ended` được thêm lại bằng dòng mới. |
 | `ALREADY_ASSIGNED` | 409 | UserManagement | Phân công teacher vào lớp khi đã có phân công đang hoạt động (`POST /classes/{class}/teachers`). |

@@ -23,7 +23,7 @@
 |---|---|---|---|
 | `POST /auth/activate` | công khai | 200 `{}` | 422 `token` (sai, hết hạn hoặc đã dùng), 422 `password` (dưới 8 ký tự) |
 | `POST /person-profiles/{id}/invite` | Admin | 201 `{user:{id, login_identifier}, activation:{url, expires_at}}` | 409 `ALREADY_INVITED`, 422 `login_identifier` (thiếu hoặc trùng) |
-| `POST /person-profiles/{id}/invitation` | Admin | 200 `{user:{id, login_identifier}, activation:{url, expires_at}}` | 409 `NOT_INVITED` (hồ sơ chưa có tài khoản), 409 `ALREADY_ACTIVATED` (tài khoản đã đăng nhập) |
+| `POST /person-profiles/{id}/invitation` | Admin | 200 `{user:{id, login_identifier}, activation:{url, expires_at}}` | 409 `NOT_INVITED` (hồ sơ chưa có tài khoản), 409 `ALREADY_ACTIVATED` (tài khoản đã đăng nhập), 409 `ACCOUNT_DEACTIVATED` (tài khoản đang bị vô hiệu hóa; chỉ cần kích hoạt lại tài khoản) |
 
 `expires_at` là ISO 8601 `+07:00` (`DEC-SYS-002`). Hai mã lỗi mới thêm vào `architecture/error-codes.md`.
 
