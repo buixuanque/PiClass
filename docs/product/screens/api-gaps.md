@@ -58,10 +58,10 @@
 
 **Sản phẩm / luồng**
 1. Khung điều hướng cho tài khoản giữ cả Admin và Teacher: gộp hai nhóm "Giảng dạy / Quản trị" hay công tắc đổi vai trò (Q6).
-2. Học sinh chưa có tài khoản làm bài thế nào (Q4) — ảnh hưởng toàn bộ cổng Student.
+2. ~~Học sinh chưa có tài khoản làm bài thế nào (Q4)~~ — đã chốt: `DEC-USR-013` (học sinh đều có tài khoản) + `DEC-USR-016` (Teacher hoặc Admin tạo hồ sơ và mời kích hoạt, không chỉ Admin).
 3. Tab "Lịch sử thay đổi" cho Teacher có làm không (🔵).
 4. Nhận hay không: AD-15 (checklist thiết lập lần đầu), AD-05c (gửi lại lời mời).
-5. `login_identifier` có luôn là email không (quyết định nhãn ô đăng nhập); sau khi đặt mật khẩu ở CM-09 có tự đăng nhập không; thời hạn lời mời.
+5. ~~`login_identifier` có luôn là email không~~ — đã chốt: không bắt buộc, nhưng luôn có lựa chọn dùng email (`DEC-USR-017`). Còn mở: sau khi đặt mật khẩu ở CM-09 có tự đăng nhập không; thời hạn lời mời (60 phút hay 7 ngày).
 
 **Nghiệp vụ**
 6. Học sinh có được xem lại bài làm và đáp án đúng trước khi công bố điểm không.
