@@ -9,13 +9,13 @@
 | # | Việc cần làm | Mã gốc | Vì sao chặn | Màn hình |
 |---|---|---|---|---|
 | A1 | Trả `id` của bản ghi điểm danh (và `lesson_session_id`) trong `GET` và `PUT /lesson-sessions/{id}/attendance` | G15 | `PATCH /attendance-records/{id}` cần id nhưng không endpoint nào trả; không sửa được điểm danh từng học sinh | TC-05 |
-| A2 | Cho kết thúc vai trò theo mã role, hoặc trả `role_id` ở `GET /users/{id}` | GM-6 | `DELETE /users/{id}/roles/{roleId}` cần id của Role, không nơi nào trả id đó | AD-03 |
+| A2 | ~~Cho kết thúc vai trò theo mã role, hoặc trả `role_id` ở `GET /users/{id}`~~ | GM-6 | **Đã xong 2026-10-25** (`piclass-api` nhánh `feat/invite-auto-assign-role`): `GET /users/{id}` trả `active_roles: [{role_id, role}]`, `role_id` dùng thẳng cho `DELETE /users/{id}/roles/{roleId}` (có test end-to-end). | AD-03 |
 | A3 | Trả chi tiết bài cho Student/Parent: hướng dẫn, thời lượng, số câu, số lượt tối đa và đã dùng, hạn riêng, nguồn lớp/khóa, tệp đính kèm | N-A, N-D | `GET /me/assessments/{id}` chỉ có tên, loại, giờ, điểm tối đa; không vẽ được màn "chi tiết bài" và "thông tin trước khi làm" | ST-04, ST-05, PR-05 |
 | A4 | Tìm lại lượt đang làm dở (`GET /me/assessments/{id}/attempts` hoặc trả lượt `in_progress` ở chi tiết bài); thêm `attempt.id` vào lịch sử lượt | N-E, N-B | Mất `attempt.id` (đổi máy, xóa dữ liệu trình duyệt) là mất bài và tốn một lượt, trái BR-ASSESS-018 | ST-05, ST-06, ST-07 |
 | A5 | Kết quả chi tiết theo câu cho Student/Parent (điểm từng câu, đáp án đúng, giải thích), tôn trọng `show_answers`, `show_explanations`, `show_question_scores` | N-B | `…/result` chỉ có điểm tổng và nhận xét, nên không có màn "xem lại bài" | ST-07, ST-07b, PR-05 |
 | A6 | Lịch theo người dùng: `GET /me/lesson-sessions?from&until`, mỗi buổi kèm tên lớp, môn, địa điểm | G2, G13 | Lịch tuần của một người phải lặp qua mọi lớp; buổi học không có tên lớp | TC-01, TC-04, ST-01, ST-02, PR-02, PR-03, AD-11 |
-| A7 | Danh sách hồ sơ học viên, phụ huynh, giáo viên (tìm kiếm, phân trang), kèm liên kết hai chiều tài khoản ↔ hồ sơ | G4, GM-1 | `/users` chỉ liệt kê hồ sơ đã có tài khoản; không mở được hồ sơ từ tài khoản | AD-02…AD-07 — **Teacher xong** 2026-10-24 (`GET /teachers`, `piclass-api` nhánh `feat/teacher-list-and-classes`); Student/Parent còn mở |
-| A8 | Danh sách lớp của một người: lớp của từng người con, lớp đang học/dạy của một học viên/giáo viên | G9, GM-2 | Phụ huynh nhiều con không biết lớp nào của con nào; chi tiết học viên không có lớp | PR-01, PR-03, PR-04, AD-05, AD-07a — **giáo viên xong** 2026-10-24 (`GET /teachers/{teacher}/classes`); học viên (AD-05, PR) còn mở |
+| A7 | Danh sách hồ sơ học viên, phụ huynh, giáo viên (tìm kiếm, phân trang), kèm liên kết hai chiều tài khoản ↔ hồ sơ | G4, GM-1 | `/users` chỉ liệt kê hồ sơ đã có tài khoản; không mở được hồ sơ từ tài khoản | AD-02…AD-07 — **Teacher/Student/Parent xong** 2026-10-24/25 (`GET /teachers`, `GET /students`, `GET /parents`, kèm `GET /*/{id}` trả `account`, `piclass-api` nhánh `feat/teacher-list-and-classes` + `feat/invite-auto-assign-role`); chiều ngược (mở hồ sơ từ tài khoản, ở AD-03) vẫn chưa làm — không chặn FE vì AD-03 không cần, chỉ cần `role_id`. |
+| A8 | Danh sách lớp của một người: lớp của từng người con, lớp đang học/dạy của một học viên/giáo viên | G9, GM-2 | Phụ huynh nhiều con không biết lớp nào của con nào; chi tiết học viên không có lớp | PR-01, PR-03, PR-04, AD-05, AD-07a — **giáo viên và học viên xong** (`GET /teachers/{teacher}/classes` 2026-10-24; `classes: [{id,name}]` trong `GET /students`/`GET /students/{id}` 2026-10-25); Phụ huynh nhiều con (PR) còn mở |
 | A9 | Điểm danh theo học sinh: `GET /students/{id}/attendance`, `GET /me/attendance` | G3 | Chỉ có điểm danh theo từng buổi | PR-04, TC-14, ST-02, AD-05 |
 | A10 | Lời mời tài khoản: màn/token riêng cho lời mời (sống lâu hơn 60 phút), "gửi lại lời mời", Admin gửi link đặt mật khẩu hộ, mời có thể gán vai trò luôn | G11, GM-5 | Phụ huynh mở mail hôm sau gặp link hết hạn; mời lần hai bị từ chối | CM-09, AD-05b, AD-05c — **xong** 2026-10-24: BE (`piclass-api` PR #39, G11 đóng) + FE CM-09 (`piclass-web` nhánh `feat/auth-screens`). Admin gửi link hộ dùng `POST /person-profiles/{id}/invitation` đã có; gán vai trò luôn khi mời chưa làm. |
 | A11 | File bài làm và file trong nhận xét | G6 (issue #50) | Câu `file_upload` chưa dùng được | ST-06, TC-13 |
@@ -40,16 +40,16 @@
 |---|---|---|
 | C1 | API tổng quan theo cổng và hàng đợi "cần xử lý" (bài chờ chấm, đơn chờ duyệt, buổi chưa điểm danh) | G1 |
 | C2 | Phân trang + lọc ngày/người/lớp cho thông báo, audit, các danh sách lớn; audit trả tên người và tên đối tượng | G5, GM-7 |
-| C3 | Làm giàu danh sách để tránh N+1: lớp (tên môn, giáo viên, sĩ số, buổi kế tiếp), liên kết phụ huynh–học sinh, khóa học, ghi danh (tên), đơn xin phép (tên, giờ buổi, `submitted_at`, `review_note`) | G9, GM-4, N-C |
+| C3 | Làm giàu danh sách để tránh N+1: lớp (tên môn, giáo viên, sĩ số, buổi kế tiếp — **phần lớp chốt làm luôn 2026-10-25, nhóm 2 Admin**), liên kết phụ huynh–học sinh, khóa học, ghi danh (tên), đơn xin phép (tên, giờ buổi, `submitted_at`, `review_note`) | G9, GM-4, N-C |
 | C4 | Lịch sử điểm: danh sách kết quả đã công bố (tên bài, ngày, %, môn) cho biểu đồ | G8 |
 | C5 | Danh sách nhận xét đã công bố theo con | G7 |
 | C6 | Thông báo: đếm chưa đọc, đánh dấu tất cả đã đọc; thêm id đích vào `context` (`result_published` thiếu `assessment_id`, `schedule_*` thiếu `class_id`); `body` của thông báo duyệt đơn đang là giá trị trạng thái thô | G10 |
-| C7 | Tìm văn bản không dấu (`unaccent`) cho `/users`, `/questions`, `/assessments`; thêm tham số tìm kiếm cho hai danh sách sau | TB-1 |
+| C7 | Tìm văn bản không dấu (`unaccent`) cho `/users`, `/questions`, `/assessments`; thêm tham số tìm kiếm cho hai danh sách sau. **Chốt 2026-10-25:** viết cơ chế chung một lần ở BE khi làm nhóm 2 Admin (`/classes`), tái dùng cho `/subjects`, `/students`, `/parents`, `/teachers` | TB-1 |
 | C8 | Tên người tạo/chấm/viết nhận xét trong response | TB-2 |
 | C9 | Lịch sử phiên bản câu hỏi, "câu này đang dùng ở bài nào", liệt kê tệp đính kèm của câu/bài | TB-3, TB-4 |
 | C10 | Xem thành viên/phân công đã kết thúc của lớp | GM-3 |
 | C11 | `cancellation_reason`, `lesson_content`, `schedule_id` trong response buổi học | G15b |
-| C12 | Địa điểm lớp/buổi học | G13 |
+| C12 | Địa điểm lớp/buổi học. **Chốt 2026-10-25: tạm bỏ ở V1** (nhóm 2 Admin) — Admin ghi phòng vào Nhãn/Mô tả, quyết lại sau khi hỏi giáo viên | G13 |
 | C13 | Nhân bản bài đánh giá | G14 |
 | C14 | Giờ máy chủ cho đồng hồ làm bài (hiện FE lấy từ header `Date`); số giây khóa đăng nhập thành trường riêng thay vì nằm trong message | — |
 | C15 | "Yêu cầu nộp lại" cho Bài tập (hiện reissue chỉ Quiz/Exam và chỉ Admin) | TB-11 |
@@ -71,6 +71,6 @@
 10. Câu `file_upload`: ẩn khỏi bài giao cho tới khi G6 xong?
 11. Có cần "giữ kết quả, công bố sau" ở TC-10 (cần B3); có cần thao tác gỡ điểm tổng để quay lại chấm từng câu.
 12. Quy ước `weekdays` (1 là Thứ Hai hay Chủ nhật), lịch `repeat_weekly = false` có sinh buổi không.
-13. Việc gán vai trò sau khi mời: BE tự gán hay Admin gán tay.
+13. ~~Việc gán vai trò sau khi mời: BE tự gán hay Admin gán tay~~ — đã chốt: BE tự gán (`DEC-USR-018`).
 
 **Vẽ mockup khi chưa chốt:** các mục 1, 3, 4, 10 chỉ ảnh hưởng một vài màn, vẽ phương án đề xuất và đánh dấu "chờ chốt". Mục 2 ảnh hưởng lớn nhất, nên chốt trước khi vẽ ST-05/ST-06.

@@ -82,6 +82,10 @@ Kỳ vọng thấy `SKILL.md` và `LICENSE.txt`.
 
 **Nạp lại trong session đang chạy** bằng lệnh slash `/reload-plugins` (gõ trực tiếp trong Claude Code, không phải lệnh shell) — không cần thoát/mở lại. Kết quả mong đợi dạng `Reloaded: N plugins · N skills · ...`. Nếu đổi cả MCP server/LSP mà không thấy áp dụng, dùng `/reload-plugins --force`.
 
+## 5. `mockup-screen-review` (skill tự viết, có commit vào git)
+
+Khác với 3 skill trên: skill này **do dự án tự viết riêng cho PiClass** (rà soát một màn hình FE hoặc toàn bộ màn hình đã port so với mockup), không cài từ marketplace nên không phải trạng thái cài theo máy — nằm ở `.claude/skills/mockup-screen-review/SKILL.md`, được `.gitignore` trừ ra (`!.claude/skills/mockup-screen-review/`) nên **tự có khi clone repo**, không cần chạy lại bước nào ở đây. Sửa nội dung thì sửa trực tiếp file đó và commit như code bình thường.
+
 ## Ghi chú
 
 - Lệnh `plugin marketplace add` luôn ghi marketplace vào config **user-level** (`~/.claude/`) của máy đang chạy, dù plugin cài với `--scope local` — đây là hành vi mặc định của Claude Code, không tránh được và vô hại (chỉ là "biết nguồn", chưa bật gì cho project khác).
