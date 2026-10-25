@@ -26,7 +26,7 @@ Cập nhật ngay tài liệu nguồn tương ứng (Decision Log, `open-decisio
 
 ## Cập nhật `docs/progress.md` khi xong mốc
 
-Vì user làm việc xen kẽ nhiều máy/nhiều session, **chủ động ghi chú vào `docs/progress.md` ngay khi hoàn thành một mốc** — plan của một nhóm/step xong, code xong, PR merge xong — không chờ user yêu cầu. Ghi ngắn gọn: nhóm/step nào, trạng thái gì, PR số mấy, còn thiếu gì nếu có. Vẫn theo quy trình git ở mục "Push nhiều repo" (branch riêng + PR, không commit thẳng `main`), trừ khi user bảo cập nhật nhanh/tạm.
+Vì user làm việc xen kẽ nhiều máy/nhiều session và có thể đổi máy/chuyển session ngay sau khi một bước hoàn thiện, **chủ động ghi chú vào `docs/progress.md` ngay khi xong từng bước nhỏ trong lát** (không chỉ khi xong cả nhóm) — không chờ user yêu cầu. Dùng trạng thái ngắn, nhất quán cho từng nhóm/lát đang làm, ví dụ: `plan xong, đang chờ code` → `code xong, đang review` → `review xong, đã merge` → `nhóm N đã xong`. Ghi kèm nhóm/step nào, PR số mấy (nếu có), còn thiếu gì. Vẫn theo quy trình git ở mục "Push nhiều repo" (branch riêng + PR, không commit thẳng `main`), trừ khi user bảo cập nhật nhanh/tạm.
 
 ## Ngôn ngữ
 

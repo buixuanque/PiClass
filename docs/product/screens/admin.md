@@ -9,7 +9,7 @@
 - [Quy ước trình bày](#quy-ước-trình-bày)
 - [Mẫu chung](#mẫu-chung) (M1 bảng danh sách · M2 form tạo/sửa · M3 chi tiết nhiều tab · M4 hộp thoại xác nhận có lý do · M5 trạng thái và lỗi dùng chung · M6 nhãn tiếng Việt)
 - [Khoảng trống BE riêng cổng Admin (mã GM)](#khoảng-trống-be-riêng-cổng-admin-mã-gm)
-- **Tổng quan và thiết lập:** [AD-01 Tổng quan](#ad-01--tổng-quan) · [AD-15 Thiết lập lần đầu](#ad-15--thiết-lập-lần-đầu-checklist)
+- **Tổng quan:** [AD-01 Tổng quan](#ad-01--tổng-quan) · ~~AD-15 Thiết lập lần đầu~~ (bỏ, chốt 2026-10-25)
 - **Tài khoản:** [AD-02 Danh sách tài khoản](#ad-02--danh-sách-tài-khoản) · [AD-03 Chi tiết tài khoản](#ad-03--chi-tiết-tài-khoản)
 - **Học viên:** [AD-04 Danh sách](#ad-04--học-viên-danh-sách) · [AD-05 Chi tiết](#ad-05--học-viên-chi-tiết) · [AD-05a Form tạo/sửa](#ad-05a--học-viên-tạo--sửa) · [AD-05b Mời tài khoản](#ad-05b--mời-tạo-tài-khoản-hộp-thoại-dùng-chung-3-loại-hồ-sơ) · [AD-05c Gửi lại lời mời](#ad-05c--gửi-lại-lời-mời--đặt-mật-khẩu-hộ)
 - **Phụ huynh:** [AD-06 Danh sách](#ad-06--phụ-huynh-danh-sách) · [AD-06a Chi tiết](#ad-06a--phụ-huynh-chi-tiết) · [AD-06b Form tạo/sửa](#ad-06b--phụ-huynh-tạo--sửa) · [AD-06c Liên kết phụ huynh–học sinh](#ad-06c--liên-kết-phụ-huynhhọc-sinh)
@@ -109,35 +109,27 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 ## Tổng quan và thiết lập
 
-### AD-01 — Tổng quan   🟡 (G1)
+### AD-01 — Tổng quan   🟢
 
 - **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** mở app buổi sáng và biết ngay hôm nay trung tâm có bao nhiêu lớp/buổi học, có việc gì cần Admin xử lý.
-- **Vào từ / đi tới:** trang đầu sau đăng nhập khi vai trò Admin. Bấm thẻ số → danh sách tương ứng (AD-04, AD-07, AD-09). Bấm buổi hôm nay → AD-10e của lớp đó. Bấm mục "cần xử lý" → màn đích tương ứng. Banner thiết lập lần đầu → AD-15.
+- **Vào từ / đi tới:** trang đầu sau đăng nhập khi vai trò Admin. Bấm thẻ số → danh sách tương ứng (AD-04, AD-07, AD-09); không kèm filter trạng thái qua URL vì các màn đó chưa đọc query param lọc (state cục bộ) — chỉ điều hướng tới trang, người dùng tự chọn tab/lọc ở đó. Bấm buổi hôm nay hoặc mục "cần xử lý" → AD-10 (tab tương ứng) của lớp đó.
 - **Khối nội dung & dữ liệu hiển thị:**
-  1. Lời chào + ngày hôm nay (giờ VN). Nếu có vai trò Teacher: chip chuyển nhóm "Giảng dạy".
-  2. Banner "Hoàn tất thiết lập" (chỉ khi AD-15 còn bước chưa xong) với thanh tiến độ.
-  3. Thẻ số: học viên, giáo viên, lớp đang hoạt động, lớp đang chuẩn bị. Dự kiến: API tổng quan (G1).
-  4. Danh sách "Buổi học hôm nay": giờ, lớp, giáo viên, trạng thái buổi (Dự kiến/Hoàn tất/Hủy), đã điểm danh chưa.
-  5. "Cần xử lý": buổi hủy cần rà soát điểm danh (`review_required = true`), lớp đang chuẩn bị chưa có giáo viên, tài khoản được mời nhưng chưa kích hoạt (nếu BE cung cấp), đơn xin phép chờ duyệt, bài chờ chấm (đều theo G1).
-  6. Lối tắt: Tạo lớp, Tạo học viên, Xem nhật ký audit.
+  1. Lời chào + ngày hôm nay (giờ VN). Nếu có vai trò Teacher: chip chuyển nhóm "Giảng dạy" — **hoãn ở nhóm 5** (chưa làm UI), vì phụ thuộc Q6 (gộp khung điều hướng Admin/Teacher) chưa chốt (`api-gaps.md` mục 1); chưa có cơ chế đổi vai trò nào ở FE để chip này gọi tới. Làm khi Q6 chốt.
+  2. Thẻ số: học viên, giáo viên, lớp đang hoạt động, lớp đang chuẩn bị.
+  3. Danh sách "Buổi học hôm nay": giờ, lớp, giáo viên, trạng thái buổi (Sắp diễn ra/Đã hoàn tất/Đã hủy). **Bỏ cột "đã điểm danh chưa" ở V1** (chốt 2026-10-25): `GET /me/lesson-sessions` không trả trạng thái điểm danh (chỉ `status`/`review_required`), thêm được nhưng phải gọi riêng từng buổi (N+1) — không cần cho mục tiêu "biết hôm nay có gì", làm sau nếu Admin thấy thiếu khi dùng thật.
+  4. "Cần xử lý" — **chốt 2026-10-25, phạm vi V1 chỉ 2 mục** (xem Quyết định bên dưới): buổi hủy cần rà soát điểm danh (`review_required = true`); lớp đang chuẩn bị chưa có giáo viên (`status = preparing`).
+  5. Lối tắt: Tạo lớp, Tạo học viên. **Bỏ "Xem nhật ký audit" ở nhóm 5** — AD-14 chưa có route FE (thuộc nhóm 6, chưa làm); thêm lại khi AD-14 xong. **Đơn giản hóa hành vi:** điều hướng tới AD-09/AD-04 (danh sách), không tự mở hộp thoại tạo như mockup (mockup mở dialog ngay tại chỗ) — người dùng bấm nút tạo ở màn đích; tránh phải thêm cơ chế auto-open bằng query param cho 2 màn khác chỉ để tiết kiệm một lượt bấm.
 - **Chức năng & hành động:** chỉ điều hướng; nút "Làm mới" kéo lại dữ liệu (không realtime). Mỗi thẻ/mục là liên kết.
-- **Trạng thái cần vẽ:** tải (khung xương từng khối, khối nào xong hiện trước); rỗng toàn hệ thống (chưa có dữ liệu → chỉ hiện banner AD-15, không hiện số 0 vô nghĩa); khối "cần xử lý" rỗng ("Không có việc cần xử lý"); lỗi từng khối; không có quyền.
+- **Trạng thái cần vẽ:** tải (khung xương từng khối, khối nào xong hiện trước); rỗng toàn hệ thống (chưa có dữ liệu — không hiện số 0 vô nghĩa, có thể gợi ý bắt đầu từ Môn học/AD-08); khối "cần xử lý" rỗng ("Không có việc cần xử lý"); lỗi từng khối; không có quyền.
 - **Quy tắc & lỗi nghiệp vụ:** không có lỗi nghiệp vụ riêng.
-- **API:** 🟡 thiếu: API tổng quan theo cổng Admin kèm hàng đợi "cần xử lý" (G1). Ghép tạm: `GET /users?role=student&per_page=1` → `meta.total` (đếm **tài khoản** học sinh, không phải hồ sơ: G4); tương tự `role=teacher`; `GET /classes` (đếm theo `status`); buổi hôm nay cần duyệt từng lớp bằng `GET /classes/{id}/lesson-sessions?from=&until=` (N+1, G2), buổi chỉ có `id,starts_at,ends_at,status,review_required`, không có tên lớp (FE tự ghép từ `GET /classes`).
+- **Quyết định (2026-10-25, nhóm 5 Admin):** bỏ banner/màn AD-15 (xem dưới) — không còn điều hướng nào tới AD-15 từ màn này. Khối "cần xử lý" ở V1 **chỉ nhận** "buổi hủy cần rà soát điểm danh" và "lớp đang chuẩn bị chưa có giáo viên" (cả hai tính được từ API sẵn có, không cần BE mới). **Không nhận** ở V1: "tài khoản được mời chưa kích hoạt" (thiếu field tách trạng thái lời mời khỏi tài khoản, gap G4 — làm sau nếu cần), "đơn xin phép chờ duyệt" và "bài chờ chấm" (thuộc việc của Giáo viên, không phải Admin xử lý trực tiếp — để dành bàn ở chủ đề "Việc cần xử lý ở màn tổng quan" cho cổng Giáo viên, xem `mockup-plan.md`).
+- **API:** 🟢 đủ, không cần API mới. Thẻ số: `GET /users?role=student&per_page=1` → `meta.total` (đếm **tài khoản**, không phải hồ sơ: G4); tương tự `role=teacher`; `GET /classes` đếm theo `status`. Buổi hôm nay: `GET /me/lesson-sessions?from=&until=` (đã có từ nhóm 4, phạm vi Admin thấy toàn hệ thống), kèm sẵn `class_name`/`teacher_names`, không cần ghép thêm. "Cần xử lý": lọc cùng response `GET /me/lesson-sessions` (mở rộng khoảng ngày lùi lại vài tuần, lọc `status = cancelled && review_required = true`) và `GET /classes?status=preparing`.
 - **Dữ liệu mẫu gợi ý:** 128 học viên · 9 giáo viên · 14 lớp hoạt động · 2 lớp đang chuẩn bị; hôm nay: 17:30–19:00 Toán 9A (cô Hạnh) — Đã hoàn tất; 19:15–20:45 Anh 6C — Dự kiến; cần xử lý: "Buổi Văn 8B ngày 20/10 đã hủy nhưng đã có điểm danh".
 
-### AD-15 — Thiết lập lần đầu (checklist)   🔵
+### AD-15 — Thiết lập lần đầu (checklist)   ❌ Bỏ (chốt 2026-10-25)
 
-- **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
-- **Người dùng muốn làm gì:** Admin mới nhận hệ thống trống, cần biết làm gì trước, gì sau để lớp chạy được.
-- **Vào từ / đi tới:** banner ở AD-01 hoặc mục "Bắt đầu" trong menu (ẩn khi đã xong hết). Mỗi bước dẫn tới màn thao tác (AD-08, AD-07b, AD-09, AD-04/05a, AD-10b, AD-10d).
-- **Khối nội dung & dữ liệu hiển thị:** danh sách 7 bước có tick tự động, mỗi bước một dòng mô tả "vì sao cần": (1) Tạo môn học · (2) Thêm giáo viên và mời tài khoản · (3) Tạo lớp · (4) Phân công giáo viên cho lớp (lớp chuyển sang Đang hoạt động) · (5) Thêm học viên và xếp vào lớp · (6) Tạo lịch học cho lớp · (7) Mời phụ huynh và liên kết với học sinh. Thanh tiến độ "4/7".
-- **Chức năng & hành động:** "Làm bước này" dẫn thẳng tới form; "Ẩn checklist" (lưu ở trình duyệt, tùy chọn); không có thao tác ghi dữ liệu trên màn này.
-- **Trạng thái cần vẽ:** tải; tất cả xong ("Hệ thống đã sẵn sàng", nút tới AD-01); lỗi tải một bước (hiện bước ở trạng thái "không rõ", không tick sai).
-- **Quy tắc & lỗi nghiệp vụ:** thứ tự là gợi ý, không chặn (BE cho tạo lớp trước khi có giáo viên: lớp chỉ ở Đang chuẩn bị, `DEC-LRN-001`). Bước 3 lưu ý: môn phải đang dùng (`SUBJECT_INACTIVE`).
-- **API:** 🔵 ngoài phạm vi đã chốt (cần qua Decision Log). Tính hoàn toàn ở FE từ API sẵn có: `GET /subjects`, `GET /users?role=teacher&per_page=1`, `GET /classes` (có lớp `active` chưa?), `GET /users?role=student&per_page=1`; bước 6, 7 cần kiểm tra từng lớp/liên kết (`GET /classes/{id}/schedules`, `GET /parent-student-relationships`). Hồ sơ chưa có tài khoản không đếm được (G4).
-- **Dữ liệu mẫu gợi ý:** ✓ Môn học (3: Toán, Văn, Anh) · ✓ Giáo viên (2) · ✓ Lớp (Toán 9A) · ✗ Phân công giáo viên · ✗ Học viên vào lớp · ✗ Lịch học · ✗ Phụ huynh.
+**Bỏ hẳn khỏi phạm vi V1, không làm UI này.** Lý do (nghiệp vụ): mỗi trung tâm là một bản triển khai riêng (Hướng A, `ARCH-33`) — việc "thiết lập lần đầu" chỉ xảy ra đúng một lần khi dựng trung tâm mới, do dev/Admin kỹ thuật làm, không phải việc một Admin nghiệp vụ tự lặp lại nhiều lần nên không cần đầu tư một màn hình hướng dẫn riêng. Lý do (kỹ thuật): tránh phải xây và giữ đồng bộ một API tổng hợp tiến độ 7 bước cùng state "ẩn checklist" cho một màn chỉ dùng một lần. Admin đầu tiên của một trung tâm tạo dữ liệu nền (môn học, giáo viên, lớp...) bằng seed Laravel, hoặc tự làm tuần tự qua các màn đã có sẵn theo gợi ý thứ tự cũ (AD-08 → AD-07b → AD-09 → AD-04/05a → AD-10b → AD-10d) — thứ tự chỉ là gợi ý, không bị chặn (`DEC-LRN-001`: tạo lớp trước khi có giáo viên vẫn được, lớp chỉ ở "Đang chuẩn bị"). Mục menu "Bắt đầu" cũng bỏ theo.
 
 ---
 
@@ -219,7 +211,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 - **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại. Mẫu M2.
 - **Người dùng muốn làm gì:** nhập hồ sơ học sinh mới ngay khi phụ huynh đăng ký, hoặc chỉnh thông tin liên hệ.
-- **Vào từ / đi tới:** AD-04 ("Thêm học viên"), AD-05 ("Sửa"), AD-15 bước 5. Lưu xong → AD-05 của học viên vừa tạo, kèm gợi ý "Mời tạo tài khoản" và "Thêm vào lớp".
+- **Vào từ / đi tới:** AD-04 ("Thêm học viên"), AD-05 ("Sửa"). Lưu xong → AD-05 của học viên vừa tạo, kèm gợi ý "Mời tạo tài khoản" và "Thêm vào lớp".
 - **Khối nội dung & dữ liệu hiển thị:** các trường — Họ tên* (`full_name`), Email, Số điện thoại, Ghi chú (`notes`, nhiều dòng). Khi sửa có thêm Trạng thái hồ sơ (`status`). **Sửa tách hai nơi**: họ tên/email/SĐT lưu qua `PATCH /person-profiles/{person_profile.id}`, còn trạng thái/ghi chú qua `PATCH /students/{id}`; FE gọi tuần tự và gộp lỗi, người dùng chỉ thấy một nút Lưu.
 - **Chức năng & hành động:** Lưu / Hủy. Cảnh báo mềm khi cùng họ tên hoặc cùng SĐT đã có (cần G4 để so sánh; ghép tạm bằng danh sách đã tải). Email hiển thị chú thích "Cần email nếu muốn mời tạo tài khoản" (GM-5).
 - **Trạng thái cần vẽ:** form trống; đang lưu; lỗi 422 theo trường; lỗi mạng giữ nguyên nội dung; thành công.
@@ -339,7 +331,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 - **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại. Mẫu M2.
 - **Người dùng muốn làm gì:** thêm giáo viên mới và ghi chuyên môn.
-- **Vào từ / đi tới:** AD-07, AD-07a, AD-15 bước 2. Lưu xong → AD-07a, gợi ý "Mời tài khoản" rồi "Phân công vào lớp".
+- **Vào từ / đi tới:** AD-07, AD-07a. Lưu xong → AD-07a, gợi ý "Mời tài khoản" rồi "Phân công vào lớp".
 - **Khối nội dung & dữ liệu hiển thị:** Họ tên*, Email, SĐT, Chuyên môn (`specialty`, chữ tự do); khi sửa thêm Trạng thái hồ sơ. Họ tên/email/SĐT qua `/person-profiles/{id}`, trạng thái/chuyên môn qua `/teachers/{id}`.
 - **Chức năng & hành động:** Lưu/Hủy; đổi trạng thái sang Ngừng hoạt động có thể thất bại (xem AD-07a).
 - **Trạng thái cần vẽ:** như M2.
@@ -367,7 +359,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 - **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** xem mọi lớp, tìm lớp, mở lớp hoặc tạo lớp mới.
-- **Vào từ / đi tới:** menu Quản trị › Lớp học; AD-01, AD-15. Dòng → AD-10 (tab Tổng quan). Nút "Tạo lớp" mở hộp thoại tạo (ngay trên màn này).
+- **Vào từ / đi tới:** menu Quản trị › Lớp học; AD-01. Dòng → AD-10 (tab Tổng quan). Nút "Tạo lớp" mở hộp thoại tạo (ngay trên màn này).
 - **Khối nội dung & dữ liệu hiển thị:** mẫu M1. Bộ lọc: tìm tên; trạng thái lớp (Đang chuẩn bị/Đang hoạt động/Đã lưu trữ); môn (dropdown từ `GET /subjects`). Cột: Tên lớp (`name`), Nhãn (`label`, vd "Khóa 2026", "Ca tối"), Môn (tên, ghép từ `subject_id`), Trạng thái (`status`). Dự kiến thêm (G9): giáo viên, sĩ số, buổi kế tiếp. Mặc định ẩn lớp đã lưu trữ (có công tắc "Hiện lớp đã lưu trữ"); BR-CLASS-003: tên trùng được phép nên cột Nhãn/Môn là thông tin phân biệt, hiện đậm.
 - **Chức năng & hành động:** *Tạo lớp* (hộp thoại): Môn* (chỉ liệt kê môn **Đang dùng**), Tên lớp*, Nhãn, Mô tả → lớp mới ở "Đang chuẩn bị", sau khi tạo dẫn vào AD-10c với gợi ý "Phân công giáo viên để lớp bắt đầu hoạt động". Menu "…": Mở, Lưu trữ (xem AD-10a).
 - **Trạng thái cần vẽ:** tải; rỗng ("Chưa có lớp. Tạo lớp đầu tiên", nút; nếu chưa có môn thì dẫn AD-08); rỗng do lọc; lỗi; lớp đã lưu trữ mờ.
@@ -562,4 +554,4 @@ Tách thành khung + 5 tab: **AD-10a Tổng quan · 10b Học sinh · 10c Giáo 
 | AD-06a, 06b, 06c | Tách AD-06 | Chi tiết, form, liên kết phụ huynh–học sinh |
 | AD-07a, 07b | Tách AD-07 | Chi tiết và form giáo viên |
 | AD-12a | Tách AD-12 | Ghi danh theo học sinh hoặc theo lớp |
-| AD-15 | Thêm (🔵) | Checklist thiết lập lần đầu |
+| AD-15 | ❌ Bỏ (chốt 2026-10-25) | Checklist thiết lập lần đầu — không làm, xem lý do ở mục AD-15 |
