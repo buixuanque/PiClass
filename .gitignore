@@ -14,9 +14,12 @@ piclass-infra/
 
 # Claude Code: skills/plugins installed locally per machine (see docs/setup/claude-skills-setup.md)
 .claude/*
-# ...except custom agents we author ourselves — these are project content, not per-machine install state
+# ...except custom agents/skills we author ourselves — these are project content, not per-machine install state
 !.claude/agents/
 !.claude/agents/**
+!.claude/skills/
+!.claude/skills/mockup-screen-review/
+!.claude/skills/mockup-screen-review/**
 
 # piclass-web: repo git riêng (nested), sống trong cùng workspace window — không track trong repo này
 piclass-web/
