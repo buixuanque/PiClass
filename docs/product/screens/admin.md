@@ -443,7 +443,7 @@ Tách thành khung + 5 tab: **AD-10a Tổng quan · 10b Học sinh · 10c Giáo 
   - **Sửa buổi:** giờ, nội dung, ghi chú. **Lý do bắt buộc khi buổi đã hoàn tất**, tùy chọn ở trạng thái khác (`BR-CLASS-011`): ô lý do chuyển sang "bắt buộc" theo trạng thái buổi.
   - **Hủy buổi:** M4, **lý do bắt buộc** (`cancellation_reason`). Hủy buổi đã điểm danh không xóa điểm danh mà gắn `review_required`; thông báo cho học sinh/phụ huynh. Buổi đã hủy: nút điểm danh bị khóa (`SESSION_CANCELLED`, không ngoại lệ Admin).
   - **Hoàn tất buổi:** xác nhận đơn giản.
-  - **Mở buổi** → TC-05 (điểm danh, chi tiết buổi) dùng chung với Teacher; Admin được vào mọi lớp.
+  - **Mở buổi** → TC-05 (điểm danh, chi tiết buổi) dùng chung với Teacher; Admin được vào mọi lớp. **Lệch mockup có chủ ý (2026-10-25):** chưa có nút "Điểm danh" ở FE — TC-05/cổng Giáo viên chưa port FE, nút sẽ thêm khi tới lượt làm cổng đó. Dòng buổi học không hiện snippet nội dung (`lesson_content` chỉ có ở `GET /lesson-sessions/{id}`, danh sách không có — tránh gọi chi tiết N+1 cho mỗi dòng).
 - **Trạng thái cần vẽ:** tải; rỗng ("Chưa có buổi nào trong khoảng này" + nút Thêm buổi hoặc Tạo lịch); lỗi; buổi đã hủy (mờ, hiện lý do trong chi tiết); buổi cần rà soát (chấm cảnh báo); đang lưu.
 - **Quy tắc & lỗi nghiệp vụ:** 422 `starts_at`, `ends_at` bắt buộc, `ends_at` sau `starts_at`; 422 `reason` bắt buộc khi sửa buổi `completed`. Giờ không kèm múi giờ được hiểu là giờ Việt Nam. 403 như AD-10d. Lọc `from/until` không validate (giá trị sai gây lỗi 500 phía BE): FE phải chặn định dạng.
 - **API:** `GET /classes/{id}/lesson-sessions?from=&until=`; `GET /lesson-sessions/{id}`; `POST /classes/{id}/lesson-sessions` → 201 `{lesson_session:{id,class_id,starts_at,ends_at,status}}`; `PATCH /lesson-sessions/{id}` (`starts_at,ends_at,lesson_content,notes,reason`) → `{lesson_session:{id,status,notes}}`; `POST …/cancel` body `{cancellation_reason}`; `POST …/complete` → `{lesson_session:{id,status}}`. Audit `lesson_session.update|cancel`. 🟡 G12 (`notes` và `review_required` đang trả cả Student/Parent), G13 (địa điểm).
@@ -453,7 +453,7 @@ Tách thành khung + 5 tab: **AD-10a Tổng quan · 10b Học sinh · 10c Giáo 
 
 ## Lịch và khóa học
 
-### AD-11 — Lịch tổng hợp toàn hệ thống   🟡 (G2)
+### AD-11 — Lịch tổng hợp toàn hệ thống   ✅
 
 - **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** nhìn cả trung tâm trong một tuần: lớp nào học khi nào, giáo viên nào bận, chỗ nào trống/trùng.
@@ -462,7 +462,7 @@ Tách thành khung + 5 tab: **AD-10a Tổng quan · 10b Học sinh · 10c Giáo 
 - **Chức năng & hành động:** điều hướng tuần/tháng, lọc, bấm mở buổi; nút "Thêm buổi" chọn lớp rồi vào AD-10e. Chỉ xem và điều hướng, thao tác ghi làm ở AD-10.
 - **Trạng thái cần vẽ:** tải; tuần rỗng ("Không có buổi học trong tuần này"); lỗi từng lớp (một lớp lỗi vẫn hiện các lớp còn lại); buổi đã hủy; lớp chưa có lịch.
 - **Quy tắc & lỗi nghiệp vụ:** không có lỗi nghiệp vụ riêng. Cảnh báo xung đột chỉ thông tin (`DEC-SCH-002`).
-- **API:** 🟡 thiếu: lịch toàn hệ thống theo khoảng ngày, mỗi buổi kèm tên lớp/môn/giáo viên (G2, G9). Ghép tạm: `GET /classes` rồi `GET /classes/{id}/lesson-sessions?from=&until=` từng lớp (N+1, chỉ nên dùng cho vài chục lớp), tên giáo viên từ `GET /classes/{id}/teachers` (thêm một vòng N+1). Buổi trong response không có tên lớp nên FE ghép bằng id lớp đang lặp.
+- **API:** `GET /me/lesson-sessions?from=&until=&class_id=&teacher_id=&subject_id=&hide_cancelled=` → `{data:[{id,starts_at,ends_at,status,review_required,class_id,class_name,subject_name,teacher_names}]}` — một endpoint dùng chung mọi vai trò, phạm vi theo `ClassScope` (Admin thấy toàn hệ thống). Cờ "▲ Giáo viên trùng giờ" tính ở FE (so khung giờ giao nhau + tên giáo viên chung giữa các buổi cùng ngày), không cần BE. **Lệch mockup có chủ ý (2026-10-25):** không tô màu theo lớp (`hue` trong mockup là dữ liệu giả không có field BE tương ứng); giữ nguyên dòng chú thích "Chưa kiểm tra trùng phòng học" vì G13 (địa điểm) chưa làm.
 - **Dữ liệu mẫu gợi ý:** Thứ Ba: 17:30–19:00 Toán 9A (cô Hạnh); 17:30–19:00 Văn 8B (cô Hạnh) → cảnh báo trùng giáo viên; 19:15–20:45 Anh 6C (thầy Nam).
 
 ### AD-12 — Khóa học (danh sách và chi tiết)   ✅
