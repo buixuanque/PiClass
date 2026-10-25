@@ -10,7 +10,7 @@
 - [x] 1. Tạo giáo viên
 - [x] 2. Môn học, tạo lớp, gán giáo viên
 - [x] 3. Tài khoản, Học sinh, Phụ huynh — xong, đã merge `main` (bảng lớp học AD-05: `piclass-api` PR #44, `piclass-web` PR #8)
-- [ ] 4. Lịch học và buổi học
+- [~] 4. Lịch học và buổi học — BE xong (AD-10 không cần API mới; AD-11 có `GET /me/lesson-sessions`), FE chưa làm
 - [ ] 5. Tổng quan Admin + thiết lập lần đầu
 - [ ] 6. Khóa học/ghi danh, nhật ký audit, cấp lại lượt làm
 
@@ -20,7 +20,7 @@
 - [ ] Phụ huynh (chưa bắt đầu port FE, chỉ có mockup)
 
 ## Đang làm tiếp theo
-Nhóm 3 xong, đã merge. Còn 2 quyết định mở không chặn: #4 (AD-05c "gửi lại lời mời"), Q6 (khung điều hướng Admin+Teacher). Tiếp theo: sang nhóm 4 (Lịch học và buổi học).
+Nhóm 4: BE xong (chưa PR). Tiếp theo — bước 2 quy trình (kiểm tra mockup AD-10d/e và AD-11, AD-11 là kiểu giao diện lịch mới chưa làm bao giờ) rồi lập plan FE. Quyết định mở không chặn còn lại: #4 (AD-05c "gửi lại lời mời"), Q6 (khung điều hướng Admin+Teacher).
 
 ---
 `[x]` xong · `[~]` gần xong, còn chốt nhỏ · `[ ]` chưa làm

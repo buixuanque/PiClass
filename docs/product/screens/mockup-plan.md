@@ -68,8 +68,10 @@ Mỗi nhóm có thêm dòng **API ghép** — các mã A/B/C từ `api-gaps.md` 
   - **Quyết định đã chốt:** #13 — BE tự gán vai trò ngay khi mời theo loại hồ sơ (`DEC-USR-018`, thay cho A2/nút "Gán vai trò ngay" ở AD-03).
   - **Quyết định mở còn lại:** #4 (nhận AD-05c "gửi lại lời mời" không), Q6 (khung điều hướng cho tài khoản vừa Admin vừa Teacher).
 - [ ] 4. Lịch học và buổi học (AD-10 tab Lịch và Buổi học, AD-11)
-  - **API ghép:** A6 (lịch theo người, cho AD-11), C12 (địa điểm buổi học), C11 (`cancellation_reason`, `lesson_content`, `schedule_id` trong response buổi học, nếu AD-11 hiển thị).
-  - **Quyết định mở:** #9 (hủy lịch lặp có hủy hàng loạt buổi đã sinh không), #12 (quy ước `weekdays`, `repeat_weekly = false` có sinh buổi không).
+  - **AD-10 (5 tab: Tổng quan/Học sinh/Giáo viên/Lịch/Buổi học): BE đã xong sẵn trước đó** (đánh dấu ✅ trong `admin.md`) — chỉ cần build FE, không cần thêm API.
+  - **API ghép AD-11 — xong 2026-10-25** (`piclass-api` nhánh `feat/my-lesson-sessions-endpoint`, chưa PR): A6 — `GET /me/lesson-sessions` dùng chung cho mọi vai trò (Admin thấy toàn hệ thống, dùng ngay cho AD-11; Teacher/Student/Parent tái dùng sau), lọc `from/until/class_id/teacher_id/subject_id/hide_cancelled`, kèm `class_name/subject_name/teacher_names`. C12 (địa điểm buổi học) đã chốt tạm bỏ ở nhóm 2. C11 (`cancellation_reason`, `lesson_content`, `schedule_id`) không cần cho ô lịch AD-11 (chỉ hiện giờ/tên lớp/giáo viên/trạng thái); bấm mở buổi thì điều hướng sang AD-10e dùng API đã có.
+  - **Quyết định đã chốt 2026-10-25:** #9 (hủy Schedule không hủy hàng loạt buổi đã sinh, giữ nguyên code — `BR-CLASS-009`), #12 (`weekdays` theo ISO, `repeat_weekly=false` vẫn sinh 1 buổi — `database/schema.md`).
+  - **Phát hiện kèm lúc làm A6:** sửa vài model (`LessonSession`, `SchoolClass`, `TeacherClassAssignment`, `Teacher`) thêm type hint quan hệ (`BelongsTo`/`HasMany` + generic) để Larastan đọc đúng chuỗi quan hệ lồng — tiện tay dọn luôn vài lỗi PHPStan giả (false positive) đã baseline từ trước ở các Resource khác, `phpstan-baseline.neon` nhỏ đi.
 - [ ] 5. Tổng quan Admin (AD-01) và thiết lập lần đầu (AD-15)
   - **API ghép:** C1 (API tổng quan theo cổng, hàng đợi cần xử lý — cần bàn có áp dụng cho Admin không hay chỉ Giáo viên).
   - **Quyết định mở:** #4 (nhận AD-15 hay bỏ — `api-v1-toi-thieu.md` đề xuất bỏ, Admin đầu tiên tạo bằng seed/lệnh).
