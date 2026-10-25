@@ -113,13 +113,13 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 - **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** mở app buổi sáng và biết ngay hôm nay trung tâm có bao nhiêu lớp/buổi học, có việc gì cần Admin xử lý.
-- **Vào từ / đi tới:** trang đầu sau đăng nhập khi vai trò Admin. Bấm thẻ số → danh sách tương ứng (AD-04, AD-07, AD-09). Bấm buổi hôm nay → AD-10e của lớp đó. Bấm mục "cần xử lý" → màn đích tương ứng.
+- **Vào từ / đi tới:** trang đầu sau đăng nhập khi vai trò Admin. Bấm thẻ số → danh sách tương ứng (AD-04, AD-07, AD-09); không kèm filter trạng thái qua URL vì các màn đó chưa đọc query param lọc (state cục bộ) — chỉ điều hướng tới trang, người dùng tự chọn tab/lọc ở đó. Bấm buổi hôm nay hoặc mục "cần xử lý" → AD-10 (tab tương ứng) của lớp đó.
 - **Khối nội dung & dữ liệu hiển thị:**
-  1. Lời chào + ngày hôm nay (giờ VN). Nếu có vai trò Teacher: chip chuyển nhóm "Giảng dạy".
+  1. Lời chào + ngày hôm nay (giờ VN). Nếu có vai trò Teacher: chip chuyển nhóm "Giảng dạy" — **hoãn ở nhóm 5** (chưa làm UI), vì phụ thuộc Q6 (gộp khung điều hướng Admin/Teacher) chưa chốt (`api-gaps.md` mục 1); chưa có cơ chế đổi vai trò nào ở FE để chip này gọi tới. Làm khi Q6 chốt.
   2. Thẻ số: học viên, giáo viên, lớp đang hoạt động, lớp đang chuẩn bị.
-  3. Danh sách "Buổi học hôm nay": giờ, lớp, giáo viên, trạng thái buổi (Dự kiến/Hoàn tất/Hủy), đã điểm danh chưa.
+  3. Danh sách "Buổi học hôm nay": giờ, lớp, giáo viên, trạng thái buổi (Sắp diễn ra/Đã hoàn tất/Đã hủy). **Bỏ cột "đã điểm danh chưa" ở V1** (chốt 2026-10-25): `GET /me/lesson-sessions` không trả trạng thái điểm danh (chỉ `status`/`review_required`), thêm được nhưng phải gọi riêng từng buổi (N+1) — không cần cho mục tiêu "biết hôm nay có gì", làm sau nếu Admin thấy thiếu khi dùng thật.
   4. "Cần xử lý" — **chốt 2026-10-25, phạm vi V1 chỉ 2 mục** (xem Quyết định bên dưới): buổi hủy cần rà soát điểm danh (`review_required = true`); lớp đang chuẩn bị chưa có giáo viên (`status = preparing`).
-  5. Lối tắt: Tạo lớp, Tạo học viên, Xem nhật ký audit.
+  5. Lối tắt: Tạo lớp, Tạo học viên. **Bỏ "Xem nhật ký audit" ở nhóm 5** — AD-14 chưa có route FE (thuộc nhóm 6, chưa làm); thêm lại khi AD-14 xong. **Đơn giản hóa hành vi:** điều hướng tới AD-09/AD-04 (danh sách), không tự mở hộp thoại tạo như mockup (mockup mở dialog ngay tại chỗ) — người dùng bấm nút tạo ở màn đích; tránh phải thêm cơ chế auto-open bằng query param cho 2 màn khác chỉ để tiết kiệm một lượt bấm.
 - **Chức năng & hành động:** chỉ điều hướng; nút "Làm mới" kéo lại dữ liệu (không realtime). Mỗi thẻ/mục là liên kết.
 - **Trạng thái cần vẽ:** tải (khung xương từng khối, khối nào xong hiện trước); rỗng toàn hệ thống (chưa có dữ liệu — không hiện số 0 vô nghĩa, có thể gợi ý bắt đầu từ Môn học/AD-08); khối "cần xử lý" rỗng ("Không có việc cần xử lý"); lỗi từng khối; không có quyền.
 - **Quy tắc & lỗi nghiệp vụ:** không có lỗi nghiệp vụ riêng.
