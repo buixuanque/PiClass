@@ -24,6 +24,10 @@ Code backend (`piclass-api/`) viết theo `piclass-api/CLAUDE.md` (module `app/M
 
 Cập nhật ngay tài liệu nguồn tương ứng (Decision Log, `open-decisions.md`, `technology-decisions.md`...) trong cùng lúc — không để quyết định chỉ tồn tại trong lịch sử chat. Nếu phát hiện mâu thuẫn giữa tài liệu, ghi vào `open-decisions.md` của tầng liên quan, không tự chọn một phía rồi im lặng.
 
+## Cập nhật `docs/progress.md` khi xong mốc
+
+Vì user làm việc xen kẽ nhiều máy/nhiều session, **chủ động ghi chú vào `docs/progress.md` ngay khi hoàn thành một mốc** — plan của một nhóm/step xong, code xong, PR merge xong — không chờ user yêu cầu. Ghi ngắn gọn: nhóm/step nào, trạng thái gì, PR số mấy, còn thiếu gì nếu có. Vẫn theo quy trình git ở mục "Push nhiều repo" (branch riêng + PR, không commit thẳng `main`), trừ khi user bảo cập nhật nhanh/tạm.
+
 ## Ngôn ngữ
 
 - Tài liệu (mọi file trong `docs/`, kể cả `docs/superpowers/specs|plans`, `progress.md`, `open-decisions.md`...) và trao đổi trong chat: tiếng Việt. Trừ nội dung buộc phải tiếng Anh (xem dòng dưới) hoặc thuật ngữ kỹ thuật không có bản dịch tiếng Việt tương đương.
