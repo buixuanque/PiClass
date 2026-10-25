@@ -38,7 +38,7 @@
 
 | # | Việc cần làm | Mã gốc |
 |---|---|---|
-| C1 | API tổng quan theo cổng và hàng đợi "cần xử lý" (bài chờ chấm, đơn chờ duyệt, buổi chưa điểm danh) | G1 |
+| C1 | API tổng quan theo cổng và hàng đợi "cần xử lý" (bài chờ chấm, đơn chờ duyệt, buổi chưa điểm danh). **Chốt 2026-10-25 (nhóm 5 Admin):** phạm vi Admin ở V1 chỉ còn 2 mục ("buổi hủy cần rà soát điểm danh", "lớp đang chuẩn bị chưa có giáo viên") và cả hai tính được hoàn toàn ở FE từ API đã có (`GET /classes?status=preparing`, `GET /me/lesson-sessions` lọc `review_required`) — **không cần API mới cho AD-01**. "Bài chờ chấm"/"đơn chờ duyệt" để dành bàn ở chủ đề tổng quan Giáo viên | G1 |
 | C2 | Phân trang + lọc ngày/người/lớp cho thông báo, audit, các danh sách lớn; audit trả tên người và tên đối tượng | G5, GM-7 |
 | C3 | Làm giàu danh sách để tránh N+1: lớp (tên môn, giáo viên, sĩ số, buổi kế tiếp — **phần lớp chốt làm luôn 2026-10-25, nhóm 2 Admin**), liên kết phụ huynh–học sinh, khóa học, ghi danh (tên), đơn xin phép (tên, giờ buổi, `submitted_at`, `review_note`) | G9, GM-4, N-C |
 | C4 | Lịch sử điểm: danh sách kết quả đã công bố (tên bài, ngày, %, môn) cho biểu đồ | G8 |
@@ -60,7 +60,7 @@
 1. Khung điều hướng cho tài khoản giữ cả Admin và Teacher: gộp hai nhóm "Giảng dạy / Quản trị" hay công tắc đổi vai trò (Q6).
 2. ~~Học sinh chưa có tài khoản làm bài thế nào (Q4)~~ — đã chốt: `DEC-USR-013` (học sinh đều có tài khoản) + `DEC-USR-016` (Teacher hoặc Admin tạo hồ sơ và mời kích hoạt, không chỉ Admin).
 3. Tab "Lịch sử thay đổi" cho Teacher có làm không (🔵).
-4. Nhận hay không: AD-15 (checklist thiết lập lần đầu), AD-05c (gửi lại lời mời).
+4. ~~Nhận hay không: AD-15 (checklist thiết lập lần đầu)~~ — đã chốt 2026-10-25: bỏ hẳn, Admin đầu tiên tự làm tuần tự qua các màn đã có hoặc seed. Còn mở: AD-05c (gửi lại lời mời).
 5. ~~`login_identifier` có luôn là email không~~ — đã chốt: không bắt buộc, nhưng luôn có lựa chọn dùng email (`DEC-USR-017`). Còn mở: sau khi đặt mật khẩu ở CM-09 có tự đăng nhập không; thời hạn lời mời (60 phút hay 7 ngày).
 
 **Nghiệp vụ**
