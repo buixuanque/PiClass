@@ -9,7 +9,7 @@
 - [x] 0. Liên kết kích hoạt
 - [x] 1. Tạo giáo viên
 - [x] 2. Môn học, tạo lớp, gán giáo viên
-- [x] 3. Tài khoản, Học sinh, Phụ huynh — code xong (bảng lớp học AD-05 đã làm 2026-10-25, chưa PR)
+- [x] 3. Tài khoản, Học sinh, Phụ huynh — xong, đã merge `main` (bảng lớp học AD-05: `piclass-api` PR #44, `piclass-web` PR #8)
 - [ ] 4. Lịch học và buổi học
 - [ ] 5. Tổng quan Admin + thiết lập lần đầu
 - [ ] 6. Khóa học/ghi danh, nhật ký audit, cấp lại lượt làm
@@ -20,7 +20,7 @@
 - [ ] Phụ huynh (chưa bắt đầu port FE, chỉ có mockup)
 
 ## Đang làm tiếp theo
-Nhóm 3 xong (chưa PR). Còn 2 quyết định mở không chặn: #4 (AD-05c "gửi lại lời mời"), Q6 (khung điều hướng Admin+Teacher). Tiếp theo: sang nhóm 4 (Lịch học và buổi học).
+Nhóm 3 xong, đã merge. Còn 2 quyết định mở không chặn: #4 (AD-05c "gửi lại lời mời"), Q6 (khung điều hướng Admin+Teacher). Tiếp theo: sang nhóm 4 (Lịch học và buổi học).
 
 ---
 `[x]` xong · `[~]` gần xong, còn chốt nhỏ · `[ ]` chưa làm
