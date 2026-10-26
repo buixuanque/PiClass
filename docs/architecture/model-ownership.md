@@ -25,7 +25,8 @@ Bảng này gán mỗi Eloquent Model trong `piclass-api/app/Models` (48 file) c
 | `AuditLog` | Audit | Append-only. Mọi module ghi qua AuditLogger; truy vấn theo Admin hoặc Teacher class scope. |
 | `ClassMember` | UserManagement | Chủ ghi: UserManagement. module-boundaries dòng 22 ghi "User Management/Academic use case", nên Academic cũng xuất hiện như nơi ghi qua use case của mình; đề xuất Action ghi (add/update/end) đặt trong module UserManagement, Academic chỉ gọi qua contract. Chỉ đọc: Attendance, Assessment (audience/eligibility), SubmissionGrading, ResultProgress (scope). |
 | `Course` | Academic | Tự học thêm, tách biệt Class (DEC-LRN-010). Chuỗi trạng thái đã thành Enum `CourseStatus` (cast, Task 9f). Chỉ đọc: Assessment (audience Course). |
-| `CourseEnrollment` | Academic | Chủ ghi: Academic — `EnrollInCourse`, `EndCourseEnrollment`. Enum `CourseEnrollmentStatus` (cast, Task 9f). Chỉ đọc: Assessment (eligibility). |
+| `CourseEnrollment` | Academic | Chủ ghi: Academic — `EnrollInCourse`, `EndCourseEnrollment`, `LinkClassToCourse`, `UnlinkClassFromCourse`, `SyncCourseEnrollmentsOnClassMemberLeft`/`...Joined`/`...OnClassArchived`. Enum `CourseEnrollmentStatus` (cast, Task 9f). Chỉ đọc: Assessment (eligibility). |
+| `CourseClassLink` | Academic | Chủ ghi: Academic — `LinkClassToCourse`, `UnlinkClassFromCourse`. Chỉ đọc: không module nào khác. |
 | `Feedback` | SubmissionGrading | Có thể có Attachment qua AttachmentLink. |
 | `FeedbackHistory` | SubmissionGrading | Lịch sử sửa Feedback. |
 | `Grade` | SubmissionGrading | Grade chỉ đổi qua SubmissionGrading. Chỉ đọc: ResultProgress. |
