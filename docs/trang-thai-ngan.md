@@ -14,7 +14,7 @@
 - [x] 5. Tổng quan Admin (AD-01), bỏ AD-15 — xong, đã merge `main` (`piclass-mockup` PR #12, `piclass-web` PR #10)
 - [x] 6. Khóa học/ghi danh (AD-12/12a) — FE đã merge `main` (`piclass-api` PR #46, `piclass-web` PR #11). Cấp lại lượt làm (AD-13) hoãn tới khi có màn chi tiết bài nộp (TC-13, cổng Giáo viên/Học sinh); nhật ký audit (AD-14) không làm UI ở V1. **Mở rộng liên kết Class–Course sống — BE + FE xong, đã merge `main`** (`piclass-api` PR #47; `piclass-web` PR #12). Một quyết định nghiệp vụ còn mở: `ARCH-35` (kết thúc ghi danh cá nhân có thể làm học sinh mất khóa dù vẫn ở lớp đang gắn khóa đó). 6 lỗi minor từ review cuối còn để sau (xem `progress.md`).
 
-- [~] 7. Thêm hồ sơ kèm tài khoản + Admin/Teacher đặt lại mật khẩu (`DEC-USR-021/022`) — spec đã duyệt 2026-10-26 (`superpowers/specs/2026-10-26-create-profile-with-account-design.md`), code BE xong (nhánh `feat/create-profile-with-account`), đã merge `main` (`piclass-api` PR #48); không deploy BE đứng riêng, chờ FE; mockup khối Tài khoản cần chốt trước plan FE.
+- [x] 7. Thêm hồ sơ kèm tài khoản + Admin/Teacher đặt lại mật khẩu + nhắc đổi mật khẩu lần đầu (`DEC-USR-021/022`) — BE `piclass-api` PR #48 và FE `piclass-web` PR #13 đã merge `main`. FE dựng không mockup, các điểm cần user xác nhận ở `ARCH-36`; Teacher chưa có UI (cổng Giáo viên chưa port).
 
 ## Frontend — các cổng khác
 - [ ] Giáo viên (chưa bắt đầu port FE, chỉ có mockup)
@@ -22,7 +22,7 @@
 - [ ] Phụ huynh (chưa bắt đầu port FE, chỉ có mockup)
 
 ## Đang làm tiếp theo
-Lát 7 (thêm hồ sơ kèm tài khoản, đặt lại mật khẩu): spec đã duyệt, code BE xong, BE đã merge; tiếp theo mockup khối Tài khoản rồi plan FE. Tổng hợp cổng Admin đã chốt 2026-10-26 (gần xong). Còn trước khi đóng Admin: chặn thêm vào lớp lưu trữ và học sinh ngừng hoạt động (`DEC-LRN-014`, `DEC-USR-020`), bấm thử Admin trên trình duyệt, chặn ghi danh cá nhân khi còn trong lớp đã gắn khóa (`DEC-LRN-015`). Sau đó chuyển sang cổng Giáo viên (port FE, hiện chỉ có mockup). Quyết định mở không chặn còn lại: #4 (AD-05c "gửi lại lời mời"), Q6 (khung điều hướng Admin+Teacher), `ARCH-35` (kết thúc ghi danh cá nhân khi vẫn đủ điều kiện qua lớp).
+Tổng hợp cổng Admin đã chốt 2026-10-26 (gần xong). Còn trước khi đóng Admin: chặn thêm vào lớp lưu trữ và học sinh ngừng hoạt động (`DEC-LRN-014`, `DEC-USR-020`), bấm thử Admin trên trình duyệt, chặn ghi danh cá nhân khi còn trong lớp đã gắn khóa (`DEC-LRN-015`). Sau đó chuyển sang cổng Giáo viên (port FE, hiện chỉ có mockup). Quyết định mở không chặn còn lại: #4 (AD-05c "gửi lại lời mời"), Q6 (khung điều hướng Admin+Teacher), `ARCH-35` (kết thúc ghi danh cá nhân khi vẫn đủ điều kiện qua lớp).
 
 ---
 `[x]` xong · `[~]` gần xong, còn chốt nhỏ · `[ ]` chưa làm
