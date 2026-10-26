@@ -33,6 +33,7 @@ Mọi lỗi nghiệp vụ của API trả về theo envelope `{ "error": { "code
 | `SUBJECT_INACTIVE` | 422 | Academic | Tạo lớp mới cho Subject `inactive` (`DEC-LRN-013`, `BR-COURSE-006`; issue #36). Message: `Môn học đã ngừng hoạt động, không thể tạo lớp mới.` Lớp đã có của Subject đó vẫn sửa được. |
 | `ALREADY_LINKED` | 409 | Academic | Gắn lớp vào khóa học khi cặp (course, class) đã có liên kết đang hoạt động (`POST /courses/{course}/class-links`). |
 | `CLASS_ARCHIVED` | 422 | Academic | Gắn một lớp đã lưu trữ vào khóa học. |
+| `ENROLLMENT_LINKED_TO_CLASS` | 409 | Academic | Kết thúc ghi danh thủ công (`DELETE /courses/{course}/enrollments/{studentId}`) trên một dòng có `source_class_link_id` khác null — chỉ gỡ được qua rời lớp hoặc gỡ liên kết lớp-khóa. |
 | `TEACHER_NOT_ACTIVE` | 422 | UserManagement | Phân công vào lớp một Teacher có hồ sơ `inactive` (`DEC-USER-009`, `BR-USER-018`; issue #34, đóng `ARCH-23(p)`). Trạng thái đọc dưới khóa dòng `teachers`. Message: `Teacher không còn hoạt động, không thể phân công vào lớp.` |
 | `ALREADY_LINKED` | 409 | UserManagement | Tạo liên kết Parent–Student khi cặp này đã có liên kết đang hoạt động (`POST /parent-student-relationships`). |
 | `ALREADY_ENDED` | 409 | UserManagement | Kết thúc một liên kết Parent–Student đã kết thúc (`DELETE /parent-student-relationships/{id}`). |
