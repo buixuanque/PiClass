@@ -40,7 +40,7 @@
 |---|---|---|
 | C1 | API tổng quan theo cổng và hàng đợi "cần xử lý" (bài chờ chấm, đơn chờ duyệt, buổi chưa điểm danh). **Chốt 2026-10-25 (nhóm 5 Admin):** phạm vi Admin ở V1 chỉ còn 2 mục ("buổi hủy cần rà soát điểm danh", "lớp đang chuẩn bị chưa có giáo viên") và cả hai tính được hoàn toàn ở FE từ API đã có (`GET /classes?status=preparing`, `GET /me/lesson-sessions` lọc `review_required`) — **không cần API mới cho AD-01**. "Bài chờ chấm"/"đơn chờ duyệt" để dành bàn ở chủ đề tổng quan Giáo viên | G1 |
 | C2 | Phân trang + lọc ngày/người/lớp cho thông báo, audit, các danh sách lớn; audit trả tên người và tên đối tượng | G5, GM-7 |
-| C3 | Làm giàu danh sách để tránh N+1: lớp (tên môn, giáo viên, sĩ số, buổi kế tiếp — **phần lớp chốt làm luôn 2026-10-25, nhóm 2 Admin**), liên kết phụ huynh–học sinh, khóa học, ghi danh (tên), đơn xin phép (tên, giờ buổi, `submitted_at`, `review_note`) | G9, GM-4, N-C |
+| C3 | Làm giàu danh sách để tránh N+1: lớp (tên môn, giáo viên, sĩ số, buổi kế tiếp — **phần lớp chốt làm luôn 2026-10-25, nhóm 2 Admin**), liên kết phụ huynh–học sinh, khóa học, ghi danh (tên — **xong 2026-10-25**, `piclass-api` PR #46: `GET /courses/{id}/enrollments` trả kèm `student_name`), đơn xin phép (tên, giờ buổi, `submitted_at`, `review_note`) | G9, GM-4, N-C |
 | C4 | Lịch sử điểm: danh sách kết quả đã công bố (tên bài, ngày, %, môn) cho biểu đồ | G8 |
 | C5 | Danh sách nhận xét đã công bố theo con | G7 |
 | C6 | Thông báo: đếm chưa đọc, đánh dấu tất cả đã đọc; thêm id đích vào `context` (`result_published` thiếu `assessment_id`, `schedule_*` thiếu `class_id`); `body` của thông báo duyệt đơn đang là giá trị trạng thái thô | G10 |
@@ -53,6 +53,7 @@
 | C13 | Nhân bản bài đánh giá | G14 |
 | C14 | Giờ máy chủ cho đồng hồ làm bài (hiện FE lấy từ header `Date`); số giây khóa đăng nhập thành trường riêng thay vì nằm trong message | — |
 | C15 | "Yêu cầu nộp lại" cho Bài tập (hiện reissue chỉ Quiz/Exam và chỉ Admin) | TB-11 |
+| C16 | `CourseEnrollmentListResource` (`GET /courses/{id}/enrollments`) không trả `end_reason` dù cột đã có trên `course_enrollments` (model fillable) — AD-12a không hiện được lý do kết thúc ghi danh trên từng dòng, chỉ hiện ngày kết thúc. Không chặn thao tác (kết thúc ghi danh vẫn lưu lý do bình thường, chỉ không đọc lại được ở danh sách) | AD-12a (phát hiện 2026-10-26 khi build FE) |
 
 ## Quyết định cần bạn chốt (gộp từ báo cáo của năm agent)
 
