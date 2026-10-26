@@ -5,7 +5,7 @@ Ký hiệu: **✓** cho phép nếu scope và lifecycle hợp lệ; **R** chỉ 
 | Resource | Role | View / List | Create | Update | Delete | Publish | Submit | Grade | Manage |
 |---|---|---|---|---|---|---|---|---|---|
 | User, role, PersonProfile | Admin | ✓ | ✓ | ✓ | — | — | — | — | ✓ |
-| User, role, PersonProfile | Teacher | C read | — | own basic contact | — | — | — | — | — |
+| User, role, PersonProfile | Teacher | C read | tạo hồ sơ **Student** kèm tài khoản, không giới hạn lớp (`DEC-USR-016/021`) | own basic contact; đặt lại mật khẩu tài khoản **Student** (không giới hạn lớp, `DEC-USR-022`) | — | — | — | — | — |
 | User/PersonProfile | Student | S | — | contact only | — | — | — | — | — |
 | Parent profile | Parent | own | — | own basic contact | — | — | — | — | — |
 | Student profile | Parent | child | — | — | — | — | — | — | — |

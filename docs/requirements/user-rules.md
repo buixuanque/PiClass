@@ -4,7 +4,7 @@ Các quyết định ở đây đã chốt tại Step 5; chi tiết theo mã t�
 
 ## User, Role và hồ sơ
 
-- **BR-USER-001 — ĐÃ QUYẾT ĐỊNH:** Hồ sơ Student/Parent/Teacher được tạo trước tài khoản; mời kích hoạt khi cần đăng nhập. Tài khoản và hồ sơ nghiệp vụ có vòng đời riêng.
+- **BR-USER-001 — ĐÃ QUYẾT ĐỊNH:** Hồ sơ Student/Parent/Teacher được tạo trước tài khoản; mời kích hoạt khi cần đăng nhập. Tài khoản và hồ sơ nghiệp vụ có vòng đời riêng. *(Sửa bởi `DEC-USR-021`, 2026-10-26: thêm hồ sơ là tạo luôn tài khoản; "mời" chỉ còn cho hồ sơ cũ chưa có tài khoản.)*
 - **BR-USER-002 — ĐÃ QUYẾT ĐỊNH:** User có thể có nhiều Role; Admin và Teacher vẫn là hai vai trò riêng, có thể cùng thuộc một User. User nhiều role chọn ngữ cảnh làm việc sau đăng nhập.
 - **BR-USER-003 — ĐÃ QUYẾT ĐỊNH:** Admin có phạm vi toàn hệ thống; Teacher chỉ thao tác nghiệp vụ ở lớp được phân công, trừ ngoại lệ do Admin cấp rõ.
 - **BR-USER-004 — ĐÃ QUYẾT ĐỊNH:** Thông tin liên hệ dùng chung nằm ở hồ sơ chung; dữ liệu nghiệp vụ nằm ở hồ sơ Student/Parent/Teacher tương ứng. Chỉ thu thập thông tin cần cho hoạt động lớp.

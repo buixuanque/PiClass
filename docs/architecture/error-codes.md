@@ -23,6 +23,7 @@ Mọi lỗi nghiệp vụ của API trả về theo envelope `{ "error": { "code
 | `ROLE_ALREADY_HELD` | 409 | UserManagement | Gán một role mà User đang giữ hiệu lực. |
 | `ALREADY_INVITED` | 409 | UserManagement | Mời một hồ sơ cá nhân đã có tài khoản đăng nhập. |
 | `NOT_INVITED` | 409 | UserManagement | Tạo lại liên kết kích hoạt (`POST /person-profiles/{id}/invitation`) cho hồ sơ chưa có tài khoản. |
+| `NO_ACCOUNT` | 409 | UserManagement | Đặt lại mật khẩu (`POST /person-profiles/{id}/password`) cho hồ sơ chưa có tài khoản đăng nhập. |
 | `ALREADY_ACTIVATED` | 409 | UserManagement | Tạo lại liên kết kích hoạt cho tài khoản đã từng đăng nhập (`users.last_login_at` khác rỗng); người đó dùng "Quên mật khẩu". |
 | `ACCOUNT_DEACTIVATED` | 409 | UserManagement | Tạo lại liên kết kích hoạt cho tài khoản đang bị vô hiệu hóa (`status` khác `active`); cần kích hoạt lại tài khoản. |
 | `NO_PROFILE` | 404 | UserManagement | User tự sửa hồ sơ (`PATCH /me/profile`) nhưng tài khoản chưa liên kết hồ sơ cá nhân. |
@@ -32,9 +33,12 @@ Mọi lỗi nghiệp vụ của API trả về theo envelope `{ "error": { "code
 | `COURSE_ARCHIVED` | 422 | Academic | Ghi danh thêm (theo `student_id` hoặc `class_id`) vào Course `archived` (`DEC-LRN-013`, `BR-COURSE-006`; issue #36). Message: `Course đã lưu trữ, không thể ghi danh thêm.` Sửa tên/mô tả, xem và kết thúc ghi danh vẫn được. |
 | `SUBJECT_INACTIVE` | 422 | Academic | Tạo lớp mới cho Subject `inactive` (`DEC-LRN-013`, `BR-COURSE-006`; issue #36). Message: `Môn học đã ngừng hoạt động, không thể tạo lớp mới.` Lớp đã có của Subject đó vẫn sửa được. |
 | `ALREADY_LINKED` | 409 | Academic | Gắn lớp vào khóa học khi cặp (course, class) đã có liên kết đang hoạt động (`POST /courses/{course}/class-links`). |
-| `CLASS_ARCHIVED` | 422 | Academic | Gắn một lớp đã lưu trữ vào khóa học. |
+| `CLASS_ARCHIVED` | 422 | Academic | Thao tác thêm mới lên lớp đã lưu trữ: gắn khóa học, thêm học viên (`POST /classes/{class}/members`), phân công giáo viên, tạo lịch hoặc buổi học (`DEC-LRN-014`). Message đổi theo thao tác. |
 | `ENROLLMENT_LINKED_TO_CLASS` | 409 | Academic | Kết thúc ghi danh thủ công (`DELETE /courses/{course}/enrollments/{studentId}`) trên một dòng có `source_class_link_id` khác null — chỉ gỡ được qua rời lớp hoặc gỡ liên kết lớp-khóa. |
+| `ENROLLMENT_COVERED_BY_CLASS` | 409 | Academic | Kết thúc ghi danh cá nhân (`DELETE /courses/{course}/enrollments/{studentId}`) khi học sinh còn là thành viên đang hiệu lực của một lớp đã gắn khóa đó — đưa học sinh ra khỏi lớp trước (`DEC-LRN-015`). |
+| `ENROLLMENT_ALREADY_VIA_CLASS` | 409 | Academic | Ghi danh cá nhân (`POST /courses/{course}/enrollments` với `student_id`) cho học sinh đã có ghi danh đang hiệu lực qua lớp đã gắn khóa; không tạo dòng mới (`DEC-LRN-015`). |
 | `TEACHER_NOT_ACTIVE` | 422 | UserManagement | Phân công vào lớp một Teacher có hồ sơ `inactive` (`DEC-USER-009`, `BR-USER-018`; issue #34, đóng `ARCH-23(p)`). Trạng thái đọc dưới khóa dòng `teachers`. Message: `Teacher không còn hoạt động, không thể phân công vào lớp.` |
+| `STUDENT_NOT_ACTIVE` | 422 | UserManagement | Thêm vào lớp một học viên có hồ sơ không còn `active` (`POST /classes/{class}/members`, `DEC-USR-020`). Message: `Học viên đã ngừng hoạt động, không thể thêm vào lớp.` |
 | `ALREADY_LINKED` | 409 | UserManagement | Tạo liên kết Parent–Student khi cặp này đã có liên kết đang hoạt động (`POST /parent-student-relationships`). |
 | `ALREADY_ENDED` | 409 | UserManagement | Kết thúc một liên kết Parent–Student đã kết thúc (`DELETE /parent-student-relationships/{id}`). |
 | `VALIDATION_FAILED` (message `valid_to phải sau valid_from.`) | 422 | UserManagement | Sửa hồi tố thành viên lớp (`PATCH /classes/{class}/members/{studentId}`) với `valid_to` không sau `valid_from`; so với `valid_from` đang lưu nên ném từ Action (`InvalidMembershipPeriod`), không đặt trong `rules()`. Dùng lại mã chung, không có `error.details`. |
