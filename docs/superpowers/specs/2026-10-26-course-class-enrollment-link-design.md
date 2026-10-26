@@ -102,9 +102,11 @@ Rà lại theo `piclass-api/CLAUDE.md`: codebase hiện **chưa có Event/Listen
 
 ## API / FE (Admin, AD-12/AD-12a)
 
-- Course detail: thêm khu vực **"Lớp đã gắn"** — danh sách lớp đang linked với khóa, nút **"Gắn lớp"** (chọn 1 lớp chưa gắn, trong các lớp chưa lưu trữ) và **"Gỡ lớp"** mỗi dòng (dialog xác nhận, không cần lý do — cùng tinh thần dialog Lưu trữ khóa hiện có).
-- Dialog "Ghi danh vào khóa học": **bỏ hẳn tab "Theo lớp"** — dialog chỉ còn tab ghi danh cá nhân theo học sinh. Việc gắn lớp chuyển hẳn sang khu vực "Lớp đã gắn" ở trên, vì giờ đây nó là một hành động khác về bản chất (tạo liên kết sống, không phải ghi danh một lần).
-- Tab "Ghi danh" (danh sách học sinh): mỗi dòng hiện thêm nguồn ghi danh khi đến từ lớp (ví dụ nhãn nhỏ `"Qua lớp {tên lớp}"`), để Admin hiểu vì sao dòng đó **không có** nút "Kết thúc ghi danh" (chỉ dòng ghi danh cá nhân mới có nút này).
+(Bổ sung 2026-10-26 sau khi bàn chi tiết hiển thị FE với user — xem lịch sử brainstorm; đây là bản chốt cuối cho FE.)
+
+- Course detail: thêm khu vực **"Lớp đã gắn"** (tách riêng, khác về bản chất với ghi danh cá nhân) — danh sách lớp đang linked với khóa, nút **"Gắn lớp"** (chọn 1 lớp chưa gắn, trong các lớp chưa lưu trữ) và **"Gỡ lớp"** mỗi dòng (dialog xác nhận, không cần lý do — cùng tinh thần dialog Lưu trữ khóa hiện có; cân nhắc hiện thêm số học sinh sẽ bị ảnh hưởng trong dialog xác nhận, để builder quyết).
+- Dialog "Ghi danh vào khóa học": **bỏ hẳn tab "Theo lớp"** — dialog chỉ còn ghi danh cá nhân theo học sinh. Việc gắn lớp chuyển hẳn sang khu vực "Lớp đã gắn" ở trên. Danh sách học sinh để chọn trong dialog phải **loại trừ** học sinh đã có ghi danh active cho khóa này qua bất kỳ nguồn nào (cá nhân lẫn qua lớp) — vì BE (`EnrollInCourse`) hiện âm thầm bỏ qua học sinh đã enrolled mà không báo lỗi, FE cần tự lọc trước để tránh Admin tưởng nhầm thao tác thành công.
+- Tab "Ghi danh" (danh sách học sinh): **giữ chung một danh sách** (cá nhân + qua lớp, không tách tab/khu vực riêng) — để Admin vẫn thấy tổng thể ai đang học khóa ở một chỗ, không cần sửa BE. Mỗi dòng hiện nhãn nguồn: cá nhân không nhãn (hoặc nhãn "Cá nhân"), qua lớp hiện `"Qua lớp {tên lớp}"` (field `enrolled_via_class_name` BE đã trả) và ẩn nút "Kết thúc ghi danh" (BE chặn 409 `ENROLLMENT_LINKED_TO_CLASS` làm lưới an toàn). Thêm **bộ lọc theo nguồn** ("Tất cả"/"Cá nhân"/"Qua lớp"), lọc phía FE trên dữ liệu đã fetch.
 
 ## Việc để lại cho người triển khai (builder)
 
