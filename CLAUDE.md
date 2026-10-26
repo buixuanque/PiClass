@@ -28,6 +28,8 @@ Cập nhật ngay tài liệu nguồn tương ứng (Decision Log, `open-decisio
 
 Vì user làm việc xen kẽ nhiều máy/nhiều session và có thể đổi máy/chuyển session ngay sau khi một bước hoàn thiện, **chủ động ghi chú vào `docs/progress.md` ngay khi xong từng bước nhỏ trong lát** (không chỉ khi xong cả nhóm) — không chờ user yêu cầu. Dùng trạng thái ngắn, nhất quán cho từng nhóm/lát đang làm, ví dụ: `plan xong, đang chờ code` → `code xong, đang review` → `review xong, đã merge` → `nhóm N đã xong`. Ghi kèm nhóm/step nào, PR số mấy (nếu có), còn thiếu gì. Vẫn theo quy trình git ở mục "Push nhiều repo" (branch riêng + PR, không commit thẳng `main`), trừ khi user bảo cập nhật nhanh/tạm.
 
+**Cùng lúc đó, luôn đồng bộ [docs/trang-thai-ngan.md](docs/trang-thai-ngan.md)** — bản rút gọn chỉ liệt kê trạng thái từng nhóm màn hình (`[x]`/`[~]`/`[ ]`) và mục "Đang làm tiếp theo", không có chi tiết. Mỗi khi `progress.md` đổi trạng thái một nhóm/lát (bắt đầu, xong một vế BE/FE, merge...), cập nhật dòng tương ứng ở `trang-thai-ngan.md` trong cùng commit — đừng chỉ sửa `progress.md` rồi để file này lạc hậu.
+
 ## Ngôn ngữ
 
 - Tài liệu (mọi file trong `docs/`, kể cả `docs/superpowers/specs|plans`, `progress.md`, `open-decisions.md`...) và trao đổi trong chat: tiếng Việt. Trừ nội dung buộc phải tiếng Anh (xem dòng dưới) hoặc thuật ngữ kỹ thuật không có bản dịch tiếng Việt tương đương.
