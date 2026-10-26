@@ -469,25 +469,27 @@ Tách thành khung + 5 tab: **AD-10a Tổng quan · 10b Học sinh · 10c Giáo 
   - **Tạo khóa:** Tên*, Mô tả, Môn (tùy chọn), Chủ sở hữu (Admin chọn giáo viên hoặc để trống = dùng chung; chỉ Admin thấy ô này). Trạng thái ban đầu Đang mở.
   - **Sửa:** tên, mô tả, môn.
   - **Lưu trữ khóa:** M4 (BE không nhận lý do). Giải thích: "Không ghi danh thêm được nữa; xem lịch sử và kết thúc ghi danh vẫn được" (`DEC-LRN-013`). Gửi `PATCH {status:"archived"}`; không có thao tác mở lại qua giao diện.
-- **Trạng thái cần vẽ:** tải; rỗng ("Chưa có khóa học" + nút Tạo khóa); rỗng do lọc; lỗi; khóa đã lưu trữ (banner, nút Ghi danh bị khóa).
+- **Trạng thái cần vẽ:** tải; rỗng ("Chưa có khóa học" + nút Tạo khóa); rỗng do lọc; lỗi; khóa đã lưu trữ (banner).
 - **Quy tắc & lỗi nghiệp vụ:** 422 `name` bắt buộc; `subject_id`, `owner_teacher_id` phải tồn tại. Teacher cũng tạo được khóa (luôn là chủ sở hữu) và ghi danh học sinh bất kỳ (`BR-COURSE-004`); Admin thấy mọi khóa.
 - **API:** `GET /courses` → `{data:[{id,name,description,owner_teacher_id,status}]}`; `GET /courses/{id}` → `{course:{id,name,description,subject_id,owner_teacher_id,status}}`; `POST /courses` body `{name,description?,subject_id?,owner_teacher_id?}` → 201 `{course:{id,name,owner_teacher_id,status}}`; `PATCH /courses/{id}` (`name,description,subject_id,status`) → `{course:{id,name,description,status}}`.
 - **Dữ liệu mẫu gợi ý:** "Luyện thi vào 10 — Toán" · Chủ sở hữu: cô Hạnh · Đang mở · 12 học sinh; "Ngữ pháp Anh cơ bản" · Dùng chung · Đã lưu trữ.
+- **FE (xong 2026-10-26, `piclass-web` nhánh `feat/admin-course-enrollment`, `CourseListScreen`/`CourseDetailScreen` ở `features/academic/ui/admin/`):** dòng danh sách bỏ cột "Học sinh" khỏi mockup và không hiện tên môn ở dòng phụ (chỉ còn mô tả, "Chưa có mô tả" khi trống) — `CourseListResource` thật không trả `subject_id` lẫn số học sinh đang ghi danh, mockup tự tính hai thứ này từ dữ liệu mẫu cục bộ; gọi riêng từng dòng sẽ N+1. Tab "Bài đánh giá" ở chi tiết và `StatTile` tương ứng cố định (dòng trống/"—"), chưa có endpoint cho Admin liệt kê bài theo khóa như đã ghi ở trên.
 
 ### AD-12a — Ghi danh vào khóa học   ✅
 
 - **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại. Khối trong chi tiết khóa + hộp thoại.
 - **Người dùng muốn làm gì:** đưa một học sinh, hoặc cả một lớp, vào khóa để nhận bài của khóa; hoặc cho em rời khóa.
 - **Vào từ / đi tới:** AD-12 (khối Học sinh ghi danh). Tên học sinh → AD-05.
-- **Khối nội dung & dữ liệu hiển thị:** bảng từ `GET /courses/{id}/enrollments` → `{data:[{student_id,status,valid_from,valid_to}]}` (Admin/Teacher thấy cả dòng đã kết thúc): Họ tên (ghép từ `GET /students/{id}`: GM-4), Từ ngày, Đến ngày, chip trạng thái (Đang hiệu lực/Đã kết thúc); bộ lọc "Chỉ đang hiệu lực" (mặc định bật). Hộp thoại ghi danh có hai chế độ (tab): **Theo học sinh** (ô tìm một học sinh) và **Theo cả lớp** (chọn một lớp).
+- **Khối nội dung & dữ liệu hiển thị:** bảng từ `GET /courses/{id}/enrollments` → `{data:[{student_id,student_name,status,valid_from,valid_to}]}` (GM-4 xong 2026-10-25, `piclass-api` PR #46 — `student_name` ghép sẵn, không cần gọi `GET /students/{id}` từng dòng; Admin/Teacher thấy cả dòng đã kết thúc): Họ tên, Từ ngày, Đến ngày, chip trạng thái (Đang hiệu lực/Đã kết thúc); bộ lọc "Chỉ đang hiệu lực" (mặc định bật — FE dựng thành Switch "Hiện cả em đã kết thúc ghi danh", mặc định tắt, cùng hiệu quả). 🟡 C16 (`api-gaps.md`): Resource không trả `end_reason` dù cột đã có trên bảng, nên dòng "đã kết thúc" chỉ hiện ngày, không hiện lý do. Hộp thoại ghi danh có hai chế độ (tab): **Theo học sinh** (ô tìm một học sinh) và **Theo cả lớp** (chọn một lớp).
 - **Chức năng & hành động:**
   - **Ghi danh theo học sinh:** gửi `student_id`; **theo lớp:** gửi `class_id`, BE ghi danh toàn bộ thành viên **đang hiệu lực** của lớp tại thời điểm bấm, bỏ qua em đã ghi danh; học sinh vào lớp sau này **không tự được ghi danh** (cần nhắc rõ: đây là ảnh chụp lúc ghi danh). Chọn đồng thời cả hai bị từ chối.
   - Kết quả hiện "Đã ghi danh 14 học sinh" (từ `created_count`; 0 = "Tất cả đã được ghi danh từ trước", không phải lỗi).
   - **Kết thúc ghi danh:** M4, **lý do bắt buộc** (`end_reason`); em rời khóa nhưng lịch sử giữ.
-- **Trạng thái cần vẽ:** tải; rỗng ("Chưa có học sinh trong khóa" + nút Ghi danh); lỗi; khóa đã lưu trữ (nút Ghi danh bị khóa, vẫn kết thúc được); kết quả `created_count = 0`.
+- **Trạng thái cần vẽ:** tải; rỗng ("Chưa có học sinh trong khóa" + nút Ghi danh); lỗi; khóa đã lưu trữ; kết quả `created_count = 0`.
 - **Quy tắc & lỗi nghiệp vụ:** `COURSE_ARCHIVED` (422) "Course đã lưu trữ, không thể ghi danh thêm." → "Khóa học đã lưu trữ nên không ghi danh thêm được." 422: chọn cả hoặc không chọn `student_id`/`class_id`; `end_reason` bắt buộc. 404 khi kết thúc ghi danh không còn hiệu lực. Mỗi ghi danh có một dòng audit riêng (`course_enrollment.enroll|end`, `correlation_key` = id khóa).
-- **API:** `GET /courses/{id}/enrollments`; `POST /courses/{id}/enrollments` body `{student_id}` hoặc `{class_id}` → 201 `{created_count}`; `DELETE /courses/{id}/enrollments/{studentId}` body `{end_reason}` → 204. 🟡 GM-4 (tên học sinh).
+- **API:** `GET /courses/{id}/enrollments`; `POST /courses/{id}/enrollments` body `{student_id}` hoặc `{class_id}` → 201 `{created_count}`; `DELETE /courses/{id}/enrollments/{studentId}` body `{end_reason}` → 204.
 - **Dữ liệu mẫu gợi ý:** Ghi danh theo lớp "Toán 9A" → "Đã ghi danh 16 học sinh (2 em đã có từ trước)"; kết thúc: "Phụ huynh xin nghỉ khóa luyện thi."
+- **FE (xong 2026-10-26, `piclass-web` nhánh `feat/admin-course-enrollment`):** nút "Ghi danh" ở hero và ở tab ghi danh **không khóa khi đã lưu trữ** — đúng theo mockup (chỉ hiện cảnh báo phía trên nút, không `disabled`), khác với câu "nút Ghi danh bị khóa" ghi ở dòng Trạng thái phía trên (đã bỏ chữ đó); để lỗi `COURSE_ARCHIVED` của BE chặn thật khi bấm, theo quy ước "BE giữ rule nghiệp vụ, FE chỉ hiện lại lỗi" (F7, `piclass-web/CLAUDE.md`). Dòng kết quả `created_count=0` hiện "Tất cả đã được ghi danh từ trước" (không có phần "(N em đã có từ trước)" trong ngoặc như ở ví dụ mẫu phía trên — API thật chỉ trả một số `created_count`, không có số đã-có-từ-trước riêng).
 
 ---
 
