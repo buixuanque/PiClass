@@ -236,6 +236,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 ### AD-05c — Gửi lại lời mời / đặt mật khẩu hộ   🔵🟡 (G11)
 
 > **Cập nhật 2026-10-24:** đổi tên thành **"Tạo lại liên kết"**. Tạo liên kết mới (liên kết cũ hết tác dụng), sao chép gửi qua Zalo, gửi thêm thư nếu có email. "Đặt mật khẩu hộ" dời sang nhóm 3 (mockup-plan, sau khi gộp 2026-10-25).
+> **Chốt 2026-10-26 (`DEC-USR-019`):** làm ở V1, không còn là hướng dẫn tạm. **Đã có sẵn** (đối chiếu code 2026-10-26): BE `POST /person-profiles/{id}/invitation` (`RegenerateInvitation`), FE `RegenerateInvitationDialog`; phần "Chức năng" và "API" bên dưới là bản cũ, chưa cập nhật theo code.
 
 - **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** người được mời báo "link hết hạn" hoặc "không nhận được mail"; Admin cần gửi lại hoặc tự đưa họ một đường vào.
@@ -388,6 +389,7 @@ Tách thành khung + 5 tab: **AD-10a Tổng quan · 10b Học sinh · 10c Giáo 
   - **Sửa** (tên, nhãn, mô tả; không đổi được môn): form M2 nội tuyến; lưu `PATCH /classes/{id}` → `{class:{id,name,label,description,status}}`.
   - **Lưu trữ lớp:** M4, giải thích "Lớp sẽ không còn hoạt động; lịch sử điểm danh, bài làm, kết quả giữ nguyên và vẫn xem được; **không khôi phục được qua giao diện**" (`BR-CLASS-004, 012`). Gửi `PATCH {status:"archived"}`; BE không nhận `preparing`/`active` (422). Không có ô lý do (BE không nhận). Lưu trữ lần hai không đổi `archived_at`.
   - Trước khi lưu trữ, nên nhắc kiểm tra học sinh còn trong lớp và lịch còn hiệu lực (BE không tự kết thúc): cần xác nhận với nghiệp vụ nên có tự động kết thúc hay không.
+  - **Chốt 2026-10-26 (`DEC-LRN-014`):** lớp đã lưu trữ không nhận thêm học sinh, giáo viên, lịch hay buổi học mới (422 `CLASS_ARCHIVED`). **BE xong** (`piclass-api` nhánh `feat/block-archived-class-inactive-student`, chưa PR).
 - **Trạng thái cần vẽ:** xem mẫu; sửa đang lưu; lớp đã lưu trữ (form chỉ đọc).
 - **Quy tắc & lỗi nghiệp vụ:** 422 `name` không được rỗng; 422 `status` chỉ nhận `archived`.
 - **API:** `GET/PATCH /classes/{id}`.
@@ -397,6 +399,7 @@ Tách thành khung + 5 tab: **AD-10a Tổng quan · 10b Học sinh · 10c Giáo 
 - **Khối nội dung & dữ liệu hiển thị:** bảng M1 thu gọn từ `GET /classes/{id}/members` → `{data:[{student_id,full_name,valid_from,valid_to}]}` (chỉ thành viên **đang hiệu lực**). Cột: Họ tên (bấm → AD-05), Ngày vào lớp (`valid_from`), Ngày hiệu lực đến (`valid_to`, trống = không giới hạn), menu "…". Ô tìm tên (FE). Mục thu gọn "Đã rời lớp" 🟡 GM-3.
 - **Chức năng & hành động (chỉ Admin, `BR-CLASS-014`):**
   - **Thêm học sinh:** ô tìm chọn học viên (nguồn: danh sách hồ sơ học viên, G4; loại các em đã trong lớp). Ngày vào lớp = thời điểm bấm (BE không nhận ngày); muốn lùi ngày thì dùng "Sửa thời hạn" sau đó. Có thể thêm nhiều em lần lượt (hộp thoại giữ mở, hiện danh sách vừa thêm).
+  - **Chốt 2026-10-26 (`DEC-USR-020`):** không thêm học sinh có hồ sơ Ngừng hoạt động (422 `STUDENT_NOT_ACTIVE`). **BE xong** (cùng nhánh trên, chặn ở `AddClassMember`).
   - **Kết thúc tư cách thành viên** (rút khỏi lớp/chuyển lớp): M4, **lý do bắt buộc** (`end_reason`); ghi `valid_to` = bây giờ; dữ liệu cũ (điểm danh, bài nộp, kết quả) vẫn thuộc lớp này, **không chuyển sang lớp mới** (`BR-CLASS-004`). Gợi ý "Chuyển lớp": kết thúc ở đây rồi mở hộp thoại thêm ở lớp đích.
   - **Sửa thời hạn thành viên (hồi tố):** M4, `valid_from` và/hoặc `valid_to` (ngày giờ), **lý do bắt buộc** (`reason`). Cảnh báo mạnh: "Sửa ngày vào/ra ảnh hưởng học sinh có được tính vào điểm danh các buổi trước đó hay không. Thay đổi được ghi vào nhật ký kèm lý do" (`BR-CLASS-005`, `BR-USER-017`). Chỉ sửa được thành viên đang hoạt động; hiển thị giá trị cũ → mới trước khi xác nhận. `valid_to` phải sau `valid_from`.
 - **Trạng thái cần vẽ:** tải; rỗng ("Lớp chưa có học sinh. Thêm học sinh" + nút); lỗi; đang lưu từng dòng; dòng có `valid_to` ở tương lai (nhãn "Sẽ rời lớp ngày …").

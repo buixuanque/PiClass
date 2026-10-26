@@ -12,7 +12,9 @@
 - [x] 3. Tài khoản, Học sinh, Phụ huynh — xong, đã merge `main` (bảng lớp học AD-05: `piclass-api` PR #44, `piclass-web` PR #8)
 - [x] 4. Lịch học và buổi học — xong, đã merge `main` (`piclass-api` PR #45, `piclass-web` PR #9)
 - [x] 5. Tổng quan Admin (AD-01), bỏ AD-15 — xong, đã merge `main` (`piclass-mockup` PR #12, `piclass-web` PR #10)
-- [~] 6. Khóa học/ghi danh (AD-12/12a) — FE đã merge `main` (`piclass-api` PR #46, `piclass-web` PR #11). Cấp lại lượt làm (AD-13) hoãn tới khi có màn chi tiết bài nộp (TC-13, cổng Giáo viên/Học sinh); nhật ký audit (AD-14) không làm UI ở V1. **Mở rộng liên kết Class–Course sống — BE + FE xong 2026-10-26, chưa merge/PR** (`piclass-api` PR #47 đã merge `main`; `piclass-web` nhánh `feat/fe-course-class-link`, chưa PR). Một quyết định nghiệp vụ còn mở: `ARCH-35` (kết thúc ghi danh cá nhân có thể làm học sinh mất khóa dù vẫn ở lớp đang gắn khóa đó).
+- [x] 6. Khóa học/ghi danh (AD-12/12a) — FE đã merge `main` (`piclass-api` PR #46, `piclass-web` PR #11). Cấp lại lượt làm (AD-13) hoãn tới khi có màn chi tiết bài nộp (TC-13, cổng Giáo viên/Học sinh); nhật ký audit (AD-14) không làm UI ở V1. **Mở rộng liên kết Class–Course sống — BE + FE xong, đã merge `main`** (`piclass-api` PR #47; `piclass-web` PR #12). Một quyết định nghiệp vụ còn mở: `ARCH-35` (kết thúc ghi danh cá nhân có thể làm học sinh mất khóa dù vẫn ở lớp đang gắn khóa đó). 6 lỗi minor từ review cuối còn để sau (xem `progress.md`).
+
+- [~] 7. Thêm hồ sơ kèm tài khoản + Admin/Teacher đặt lại mật khẩu (`DEC-USR-021/022`) — spec đã duyệt 2026-10-26 (`superpowers/specs/2026-10-26-create-profile-with-account-design.md`), code BE xong (nhánh `feat/create-profile-with-account`), đã merge `main` (`piclass-api` PR #48); không deploy BE đứng riêng, chờ FE; mockup khối Tài khoản cần chốt trước plan FE.
 
 ## Frontend — các cổng khác
 - [ ] Giáo viên (chưa bắt đầu port FE, chỉ có mockup)
@@ -20,7 +22,7 @@
 - [ ] Phụ huynh (chưa bắt đầu port FE, chỉ có mockup)
 
 ## Đang làm tiếp theo
-FE liên kết Class–Course sống đã code xong trên nhánh `feat/fe-course-class-link` (`piclass-web`), test/typecheck/lint/build sạch, đã kiểm chứng API thật qua `curl`. Còn thiếu: review cuối nhánh, rồi hỏi user có muốn push/mở PR không. Sau đó tổng hợp danh sách "giữ/đơn giản/tạm bỏ" của cổng Admin, chuyển sang cổng Giáo viên (port FE, hiện chỉ có mockup). Quyết định mở không chặn còn lại: #4 (AD-05c "gửi lại lời mời"), Q6 (khung điều hướng Admin+Teacher), `ARCH-35` (kết thúc ghi danh cá nhân khi vẫn đủ điều kiện qua lớp).
+Lát 7 (thêm hồ sơ kèm tài khoản, đặt lại mật khẩu): spec đã duyệt, code BE xong, BE đã merge; tiếp theo mockup khối Tài khoản rồi plan FE. Tổng hợp cổng Admin đã chốt 2026-10-26 (gần xong). Còn trước khi đóng Admin: chặn thêm vào lớp lưu trữ và học sinh ngừng hoạt động (`DEC-LRN-014`, `DEC-USR-020`), bấm thử Admin trên trình duyệt, chặn ghi danh cá nhân khi còn trong lớp đã gắn khóa (`DEC-LRN-015`). Sau đó chuyển sang cổng Giáo viên (port FE, hiện chỉ có mockup). Quyết định mở không chặn còn lại: #4 (AD-05c "gửi lại lời mời"), Q6 (khung điều hướng Admin+Teacher), `ARCH-35` (kết thúc ghi danh cá nhân khi vẫn đủ điều kiện qua lớp).
 
 ---
 `[x]` xong · `[~]` gần xong, còn chốt nhỏ · `[ ]` chưa làm
