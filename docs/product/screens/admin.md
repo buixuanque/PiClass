@@ -209,6 +209,8 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 ### AD-05a — Học viên (tạo / sửa)   ✅
 
+> **Cập nhật 2026-10-27 (`DEC-USR-021`, FE `piclass-web`; UI dựng không qua mockup, từ primitive có sẵn):** chế độ **tạo** có thêm Card "Tài khoản đăng nhập": Tên đăng nhập* (`account.login_identifier`, tên tự đặt hoặc email, duy nhất), Mật khẩu* (`account.password`, ≥ 8 ký tự, **hiển thị rõ** để Admin đọc, nút "Tự sinh mật khẩu"). Lưu xong **không chuyển trang ngay**: hộp thoại "Đã tạo tài khoản" hiện tên đăng nhập + mật khẩu + "Sao chép thông tin đăng nhập" (chỉ hiện một lần), "Xong"/X/Esc → trang chi tiết. Chế độ sửa không có khối này. Bỏ gợi ý "Mời tạo tài khoản" và chú thích "Cần email nếu muốn mời". API: `POST /{students|parents|teachers}` body thêm `account:{login_identifier,password}` (bắt buộc); 422 `account.login_identifier` / `account.password`.
+
 - **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại. Mẫu M2.
 - **Người dùng muốn làm gì:** nhập hồ sơ học sinh mới ngay khi phụ huynh đăng ký, hoặc chỉnh thông tin liên hệ.
 - **Vào từ / đi tới:** AD-04 ("Thêm học viên"), AD-05 ("Sửa"). Lưu xong → AD-05 của học viên vừa tạo, kèm gợi ý "Mời tạo tài khoản" và "Thêm vào lớp".
@@ -220,6 +222,8 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 - **Dữ liệu mẫu gợi ý:** Họ tên "Phạm Thanh Tùng"; email phụ huynh "tung.pt2012@gmail.com"; SĐT "0905 112 233"; ghi chú "Chuyển từ trung tâm khác, yếu hình học".
 
 ### AD-05b — Mời tạo tài khoản (hộp thoại dùng chung 3 loại hồ sơ)   ✅ (G11, GM-5)
+
+> **Cập nhật 2026-10-27 (`DEC-USR-021`):** luồng thêm mới không còn dùng "Mời" (thêm hồ sơ là tạo luôn tài khoản). Hộp thoại và `POST /person-profiles/{id}/invite` giữ nguyên cho hồ sơ cũ chưa có tài khoản; nút chỉ hiện khi hồ sơ chưa có tài khoản.
 
 > **Cập nhật 2026-10-24 (`DEC-USR-014`):** hồ sơ không có email vẫn mời được (bỏ chặn "bổ sung email trước"). Sau khi bấm "Tạo tài khoản", hộp thoại hiện **liên kết kích hoạt để sao chép** (gửi qua Zalo), hiệu lực 7 ngày; có email thì hệ thống gửi thêm một thư. Ô "Tên đăng nhập" không cần là email. Cần BE: trả liên kết trong phản hồi của `POST /person-profiles/{id}/invite` (gap A10).
 
@@ -234,6 +238,8 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 - **Dữ liệu mẫu gợi ý:** Tên đăng nhập "tung.pt2012@gmail.com"; lỗi "Tên đăng nhập này đã được dùng".
 
 ### AD-05c — Gửi lại lời mời / đặt mật khẩu hộ   🔵🟡 (G11)
+
+> **Cập nhật 2026-10-27 (`DEC-USR-022`):** khối Tài khoản (AD-05/06a/07a) có thêm nút **"Đặt lại mật khẩu"** (hiện khi tài khoản `active`, không phụ thuộc đã đăng nhập hay chưa), độc lập với "Tạo lại liên kết". Hộp thoại: nhập hoặc tự sinh mật khẩu mới (hiển thị rõ) → `POST /person-profiles/{id}/password` `{password}` (204) → hiện tên đăng nhập + mật khẩu để sao chép. Ghi chú trong hộp thoại: người dùng bị đăng xuất khỏi mọi thiết bị, liên kết kích hoạt chưa dùng hết hiệu lực, lần đăng nhập sau có lời nhắc đổi mật khẩu. Lỗi: 422 dưới ô mật khẩu; 403 / 409 `NO_ACCOUNT` hiện nguyên văn message của BE. Teacher chỉ được đặt lại cho học sinh (cổng Giáo viên chưa port FE nên chưa có UI cho Teacher).
 
 > **Cập nhật 2026-10-24:** đổi tên thành **"Tạo lại liên kết"**. Tạo liên kết mới (liên kết cũ hết tác dụng), sao chép gửi qua Zalo, gửi thêm thư nếu có email. "Đặt mật khẩu hộ" dời sang nhóm 3 (mockup-plan, sau khi gộp 2026-10-25).
 > **Chốt 2026-10-26 (`DEC-USR-019`):** làm ở V1, không còn là hướng dẫn tạm. **Đã có sẵn** (đối chiếu code 2026-10-26): BE `POST /person-profiles/{id}/invitation` (`RegenerateInvitation`), FE `RegenerateInvitationDialog`; phần "Chức năng" và "API" bên dưới là bản cũ, chưa cập nhật theo code.
@@ -277,6 +283,8 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 - **Dữ liệu mẫu gợi ý:** Nguyễn Văn Hùng · Bố của Nguyễn Minh Anh (đang liên kết từ 05/09/2026), Mẹ của Nguyễn Gia Bảo (đã kết thúc 01/10/2026: "Con chuyển trung tâm").
 
 ### AD-06b — Phụ huynh (tạo / sửa)   ✅
+
+> **Cập nhật 2026-10-27 (`DEC-USR-021`, FE `piclass-web`; UI dựng không qua mockup, từ primitive có sẵn):** chế độ **tạo** có thêm Card "Tài khoản đăng nhập": Tên đăng nhập* (`account.login_identifier`, tên tự đặt hoặc email, duy nhất), Mật khẩu* (`account.password`, ≥ 8 ký tự, **hiển thị rõ** để Admin đọc, nút "Tự sinh mật khẩu"). Lưu xong **không chuyển trang ngay**: hộp thoại "Đã tạo tài khoản" hiện tên đăng nhập + mật khẩu + "Sao chép thông tin đăng nhập" (chỉ hiện một lần), "Xong"/X/Esc → trang chi tiết. Chế độ sửa không có khối này. Bỏ gợi ý "Mời tạo tài khoản" và chú thích "Cần email nếu muốn mời". API: `POST /{students|parents|teachers}` body thêm `account:{login_identifier,password}` (bắt buộc); 422 `account.login_identifier` / `account.password`.
 
 - **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại. Mẫu M2.
 - **Người dùng muốn làm gì:** thêm phụ huynh khi đăng ký cho con, sửa liên hệ.
@@ -329,6 +337,8 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 - **Dữ liệu mẫu gợi ý:** Nguyễn Thị Hạnh · Toán THCS · Lớp: Toán 9A, Toán 8B (từ 05/09/2026); lỗi: "Cô Hạnh còn dạy Toán 9A, Toán 8B. Hãy kết thúc phân công trước."
 
 ### AD-07b — Giáo viên (tạo / sửa)   ✅
+
+> **Cập nhật 2026-10-27 (`DEC-USR-021`, FE `piclass-web`; UI dựng không qua mockup, từ primitive có sẵn):** chế độ **tạo** có thêm Card "Tài khoản đăng nhập": Tên đăng nhập* (`account.login_identifier`, tên tự đặt hoặc email, duy nhất), Mật khẩu* (`account.password`, ≥ 8 ký tự, **hiển thị rõ** để Admin đọc, nút "Tự sinh mật khẩu"). Lưu xong **không chuyển trang ngay**: hộp thoại "Đã tạo tài khoản" hiện tên đăng nhập + mật khẩu + "Sao chép thông tin đăng nhập" (chỉ hiện một lần), "Xong"/X/Esc → trang chi tiết. Chế độ sửa không có khối này. Bỏ gợi ý "Mời tạo tài khoản" và chú thích "Cần email nếu muốn mời". API: `POST /{students|parents|teachers}` body thêm `account:{login_identifier,password}` (bắt buộc); 422 `account.login_identifier` / `account.password`.
 
 - **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại. Mẫu M2.
 - **Người dùng muốn làm gì:** thêm giáo viên mới và ghi chuyên môn.

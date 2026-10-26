@@ -84,6 +84,7 @@ Quy ước: ✅ BE đã có · 🟡 thiếu API (mã G) · 🔵 đề xuất ngo
 - **Dữ liệu mẫu gợi ý:** `available_roles: ["admin","teacher"]`; thẻ "Giáo viên — Lịch dạy, điểm danh, chấm bài" (đang chọn).
 
 ### CM-05 — Hồ sơ cá nhân   ✅ (ảnh đại diện 🔵, đề xuất bỏ khỏi V1: N8)
+- **Cập nhật 2026-10-27 (`DEC-USR-021`) — lời nhắc đổi mật khẩu lần đầu:** khi `user.must_change_password` (trong `GET /auth/me` và `POST /auth/login`) là true, sau khi đã chọn vai trò, `PortalGuard` hiện hộp thoại "Nên đổi mật khẩu" (cho mọi vai trò): ô "Mật khẩu hiện tại", "Mật khẩu mới"; nút "Để sau" (hoặc X/Esc) gọi `POST /me/password/dismiss-prompt` (204, không nhắc lại), "Đổi mật khẩu" gọi `PATCH /me/password` (lỗi 422 theo ô). Tắt cờ khi đổi mật khẩu, bỏ qua, hoặc tự đặt mật khẩu qua Quên mật khẩu / liên kết kích hoạt; bật cờ khi mật khẩu do người khác đặt (thêm hồ sơ, Admin/Teacher đặt lại). Màn CM-05 đầy đủ vẫn chưa port FE.
 - **Vai trò · thiết bị ưu tiên:** Teacher, Student, Parent xem/sửa đủ; Admin chỉ có phần tài khoản (xem dưới) · responsive: Student/Parent dùng tốt cả trên điện thoại lẫn web máy tính; Admin/Teacher ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** Cập nhật số điện thoại để trung tâm liên hệ được, đổi mật khẩu, đăng xuất.
 - **Vào từ / đi tới:** Menu người dùng (CM-10) → "Hồ sơ của tôi". "Đăng xuất" → CM-01. "Đổi vai trò" → CM-04.
