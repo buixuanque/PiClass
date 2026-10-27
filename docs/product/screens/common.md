@@ -173,7 +173,7 @@ Quy ước: ✅ BE đã có · 🟡 thiếu API (mã G) · 🔵 đề xuất ngo
 - **API:** `POST /auth/activate`. Liên quan (Admin): `POST /person-profiles/{id}/invite`, `POST /person-profiles/{id}/invitation` (gửi lại). Chi tiết: `superpowers/specs/2026-10-24-account-activation-link-design.md`.
 - **Dữ liệu mẫu gợi ý:** Email `hs.minhanh@gmail.com`; tiêu đề "Chào mừng em Nguyễn Minh Anh (Toán 9A)" nếu BE trả được tên.
 
-### CM-10 — Khung điều hướng (app shell)   ✅ + 🔵 gộp Admin/Teacher (Q6 chưa chốt) (thêm mới)
+### CM-10 — Khung điều hướng (app shell)   ✅ + công tắc đổi vai trò Admin/Teacher (Q6 đã chốt 2026-10-27) (thêm mới)
 - **Vai trò · thiết bị ưu tiên:** Mọi vai trò đã đăng nhập · responsive: Student/Parent dùng tốt cả trên điện thoại lẫn web máy tính; Admin/Teacher ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại (máy tính: thanh bên + thanh trên; điện thoại: thanh dưới (3–5 mục chính) + ngăn kéo).
 - **Người dùng muốn làm gì:** Đi tới đúng chức năng của vai trò mình, biết có thông báo mới, đổi vai trò hoặc đăng xuất ở cùng một chỗ.
 - **Vào từ / đi tới:** Bao quanh mọi màn sau đăng nhập. Logo → trang chủ vai trò đang chọn.
@@ -187,7 +187,7 @@ Quy ước: ✅ BE đã có · 🟡 thiếu API (mã G) · 🔵 đề xuất ngo
   3. **Vùng nội dung** + biểu ngữ trạng thái toàn cục (mất kết nối, phiên sắp hết).
 - **Chức năng & hành động:**
   - Mục menu chỉ hiện theo vai trò đang chọn (việc ẩn hiện chỉ là tiện lợi; quyền thật do BE: 403 `FORBIDDEN` nếu gọi sai vai trò).
-  - Tài khoản giữ cả Admin và Teacher (🔵 Q6, theo khuyến nghị "một khung điều hướng"): khung có hai nhóm "Giảng dạy" (menu Teacher) và "Quản trị" (menu Admin) cùng hiện. BE chỉ nhận một `active_role` mỗi thời điểm và route chia nhóm `role:` nên bấm vào mục thuộc nhóm khác vai trò hiện tại cần gọi `POST /auth/context` ngầm trước (đổi sang `teacher`/`admin` tương ứng) rồi mới tải màn; dữ liệu hiển thị theo vai trò ở thời điểm tải (vd lớp của Teacher khác tất cả lớp của Admin). Lựa chọn thay thế (nếu không chốt Q6): công tắc "Đang dùng: Quản trị / Giảng dạy" ở menu người dùng, đổi là về trang chủ vai trò mới. Cần user chốt trước khi dựng.
+  - Tài khoản giữ cả Admin và Teacher (Q6, chốt 2026-10-27): menu người dùng có công tắc "Đang dùng: Quản trị / Giảng dạy" — KHÔNG gộp một khung hiện cả hai nhóm menu. Đổi công tắc gọi `POST /auth/context` (đổi `active_role` sang `admin`/`teacher` tương ứng) rồi về trang chủ của vai trò mới; chỉ hiện đúng một nhóm menu tại một thời điểm, giống mọi tài khoản một-vai-trò khác.
   - Đổi vai trò: gọi `POST /auth/context`, xóa cache, về trang chủ vai trò mới.
   - Đăng xuất: `POST /auth/logout`, xóa cache.
   - Mọi lời gọi 401 → CM-07 "Hết phiên" rồi CM-01; `ACCOUNT_INACTIVE` → CM-07 biến thể vô hiệu. Làm mới huy hiệu định kỳ (không realtime).
