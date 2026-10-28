@@ -24,6 +24,10 @@ Khi mâu thuẫn, ưu tiên:
 
 Chốt quyết định mới: cập nhật ngay tài liệu nguồn (Decision Log, `open-decisions.md`, `technology-decisions.md`...), không để chỉ trong chat. Phát hiện mâu thuẫn giữa tài liệu: ghi vào `open-decisions.md` của tầng liên quan, không tự chọn một phía rồi im lặng.
 
+## Đọc file lớn theo đoạn
+
+Các file đặc tả rất dài (`product/screens/admin.md` ~100KB, `teacher-bai-danh-gia.md`, `student-parent.md`, `requirements/decision-log.md`, `architecture/open-decisions.md` — dòng bảng dài tới 8KB, `architecture/known-debt.md`): **không `Read` cả file**. `grep -n "AD-10"` / `grep -n "ARCH-37"` / `grep -n "DEC-SCH-005"` lấy số dòng, rồi `Read` với `offset`+`limit` đúng đoạn. Đầu file đặc tả màn có "Mục lục" theo mã màn.
+
 ## Quy ước code
 
 - Backend `piclass-api/`: `piclass-api/CLAUDE.md` (module `app/Modules/<Module>/`, `ArchitectureTest` canh tự động). Bẫy và cách viết test: `docs/architecture/backend-gotchas.md`.
