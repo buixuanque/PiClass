@@ -26,6 +26,7 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 | B-022 | `ARCH-28(n)`: tài khoản Teacher `inactive` (`users.status`) | `architecture/open-decisions.md` | user quyết |
 | B-023 | `ARCH-26` phần còn lại: chuyển trạng thái buổi không bị chặn, PATCH không kiểm `ends_at`/`effective_until`... | `architecture/open-decisions.md` | user quyết |
 | B-024 | `ARCH-12` retention file/audit; backup DB (`ARCH-09`); chọn công cụ CI/CD | `architecture/open-decisions.md` | user quyết |
+| B-026 | Hồ sơ Student/Parent/Teacher chuyển `inactive` không khóa tài khoản (`UpdateStudent`/`UpdatePersonProfile` không đụng `User`): người đã nghỉ vẫn đăng nhập được. Chốt có chủ ý hay cần tự khóa/nhắc Admin | `piclass-api/app/Modules/UserManagement/Actions/UpdateStudent.php`, `DEC-USR-020` | user quyết |
 | B-025 | Issue #60 (phát hiện nặng đối chiếu màn↔API) và các issue #21/#32/#40–#43/#46–#56 | GitHub `piclass-api` | user quyết |
 
 ## C. Nợ nhỏ / lỗi nhỏ (làm khi chạm tới code liên quan)
