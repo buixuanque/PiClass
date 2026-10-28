@@ -195,6 +195,14 @@ Mockup `PiClass Giáo viên.dc.html` đã sửa cho TC-01..TC-05 (nhánh `mockup
 - **TC-05:** giữ mục menu "Điểm danh" riêng (một lần bấm vào điểm danh đầu buổi), vẫn mở được từ Tổng quan, Lịch dạy, Chi tiết lớp. Nhãn ô ghi chú: **"Ghi chú nội bộ (chỉ giáo viên và quản trị viên thấy)"** (`DEC-LRN-017`). Nhãn trạng thái: Dự kiến / Chờ hoàn tất / Hoàn tất / Đã hủy; nút "Hủy buổi học" ẩn với buổi đã qua giờ (`DEC-LRN-016`). Lịch sử sửa điểm danh trong mockup chưa có người sửa và thời điểm (BE chỉ lộ qua audit, vẫn 🟡).
 - **Chưa kiểm bằng trình duyệt:** mockup chỉ kiểm cú pháp script (`node --check`) và chạy lại `make_standalone.py`; user xem bản `standalone/`.
 
+## Lệch có chủ ý khi dựng FE lát 1 (2026-10-29, `piclass-web` nhánh `feat/teacher-lot1-operations`)
+
+- **TC-03:** gộp tab Lịch và Buổi học thành một tab "Lịch học" (`ARCH-37`, như Admin); chưa có tab "Bài của lớp" (thuộc lát Bài đánh giá); bảng học sinh chỉ có hai cột (tên, ngày vào lớp), cột chuyên cần hiện "Chưa có dữ liệu" (G3). Nhóm "Đã rời lớp" và "Giáo viên đã kết thúc" lấy bằng `include_ended=true`.
+- **TC-04:** dùng chung `ScheduleOverviewScreen` với Admin (`ui/shared`), khác ở `basePath` và việc ẩn bộ lọc giáo viên.
+- **TC-05:** danh sách buổi không có bộ đếm "x/y đã điểm danh" (cần N request); chưa có huy hiệu đơn xin phép (lát Đơn xin phép, TC-06); bắt buộc chọn trạng thái cho mọi học sinh trước khi lưu, nhắc bằng thông báo ngay trên màn thay vì toast như mockup; lịch sử sửa lấy từ `GET /audit-logs` lọc `action=attendance_record.update`; chi tiết buổi có nút "Điểm danh" dẫn tới `/teacher/attendance?session=`.
+- **Chữ:** mockup xưng "cô" với học sinh, FE đổi thành "bạn" cho trung tính theo giới (chờ chốt, xem `open-decisions.md`).
+- **Chưa kiểm bằng trình duyệt thật:** chỉ có test, `pnpm build` và gọi API thật bằng `curl` với tài khoản `teacher1@piclass.test`.
+
 ## Khoảng trống mới, thay đổi so với screen-inventory, câu hỏi cần chốt
 
 **Khoảng trống BE mới (ngoài G1…G14):**

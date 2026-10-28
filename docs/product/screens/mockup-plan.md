@@ -110,6 +110,7 @@ Mỗi nhóm có thêm dòng **API ghép** — các mã A/B/C từ `api-gaps.md` 
   - **Quyết định mới 2026-10-26:** `DEC-USR-019` (AD-05c làm ở V1; đã có sẵn trong code), `DEC-USR-020` (học sinh ngừng hoạt động không vào lớp mới), `DEC-LRN-014` (lớp lưu trữ không nhận thêm thành viên, phân công, lịch).
   - **Còn lại trước khi đóng Admin:** (1) AD-05c đã có sẵn cả BE lẫn FE từ nhóm 3 (không cần build, chỉ sửa lại mô tả cũ ở `admin.md`); (2) ~~BE chặn lớp lưu trữ và học sinh ngừng hoạt động~~ — xong (`piclass-api` nhánh `feat/block-archived-class-inactive-student`, chưa PR; mã lỗi đã ghi `error-codes.md`), còn FE hiện lỗi 422 trong hộp thoại thêm học sinh/phân công/tạo lịch/buổi học; (3) chặn kết thúc ghi danh cá nhân khi học sinh còn trong lớp đã gắn khóa, và báo lỗi khi thêm ghi danh cá nhân trùng dòng qua lớp (`DEC-LRN-015`, `ARCH-35` đã chốt); (4) bấm thử toàn bộ Admin trên trình duyệt với tài khoản Admin (hiện chưa làm, chỉ có `curl` và `pnpm build`); (5) cập nhật `admin.md`: các mã GM-1, GM-2, GM-4, GM-6 đã xử lý một phần qua PR #43/#44 nhưng vẫn ghi 🟡.
 - [ ] Sang nhóm dưới: cổng Giáo viên (port FE, hiện chỉ có mockup)
+  - **Cổng Giáo viên, lát 1 Vận hành lớp (TC-02..TC-05): FE xong** (`piclass-web` nhánh `feat/teacher-lot1-operations`, chưa PR): lệch có chủ ý ghi ở `teacher-van-hanh.md`; chưa bấm thử trình duyệt. Còn 3 lát: Đơn xin phép & Tổng quan, Khóa học, Bài đánh giá.
 
 ### Việc cần bàn tiếp sau Admin (từ ghi chú review của user, 2026-10-24)
 
