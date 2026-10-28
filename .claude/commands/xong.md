@@ -11,7 +11,7 @@ Mục tiêu: lần sau mở session (máy nào cũng được) `/tiep` đọc ra
    - "Việc kế tiếp": bỏ việc đã xong, thêm việc mới phát sinh, mục 1 là việc làm ngay.
    - "Chờ user", bảng "Chưa push/chưa merge", bảng "Cổng": khớp git.
    - Cập nhật dòng "Cập nhật lần cuối".
-3. Lát đã xong hẳn: chuyển phần chi tiết (PR số mấy, quyết định, lưu ý) vào cuối `docs/history/progress-log.md` theo khuôn ≤ 6 dòng (lát, PR, quyết định chính, lưu ý), xóa khỏi STATE.md. `git mv` spec/plan của lát đó từ `docs/superpowers/` sang `docs/archive/superpowers/` và sửa link trỏ tới chúng.
+3. Lát đã xong hẳn: xóa khỏi STATE.md (chi tiết đã nằm ở mô tả PR; không ghi vào `archive/progress-log.md`). Nếu có quyết định quan trọng chưa ghi ở nguồn thì ghi vào `decision-log.md`/`decisions/ARCH-xx.md`. `git mv` spec/plan của lát đó từ `docs/superpowers/` sang `docs/archive/superpowers/` và sửa link trỏ tới chúng.
 4. Việc phát sinh mà chưa làm ngay: thêm một dòng vào `docs/BACKLOG.md` (có ID `B-xxx` kế tiếp, cột Cần), không viết văn xuôi.
 5. Quyết định mới chốt: ghi vào `decision-log.md` / `open-decisions.md` như `CLAUDE.md` quy định, không chỉ ở STATE.md.
 6. Commit lên nhánh docs (theo quy trình git ở `CLAUDE.md`: không commit thẳng `main`; nếu đang ở `main` thì tạo nhánh từ `origin/main` mới nhất). KHÔNG push/mở PR trừ khi user yêu cầu rõ.

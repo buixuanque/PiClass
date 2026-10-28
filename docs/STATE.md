@@ -1,6 +1,6 @@
 # STATE — đang ở đâu, làm gì tiếp
 
-File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, mỗi mục một dòng, không văn xuôi. Chi tiết: `history/progress-log.md` (lịch sử), `BACKLOG.md` (việc chưa làm). Đổi máy/session mới: chạy `/tiep`.
+File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, mỗi mục một dòng, không văn xuôi. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
 Cập nhật lần cuối: 2026-10-28 · bởi: tái cấu trúc quản lý tiến độ
 
@@ -40,4 +40,4 @@ Cập nhật lần cuối: 2026-10-28 · bởi: tái cấu trúc quản lý ti�
 BE: [x] xong, đã merge `main`.
 
 ---
-Quy ước bước: `plan xong` → `code BE` → `code FE` → `review` → `chờ merge` → `xong`. Xong lát: chuyển chi tiết sang `history/progress-log.md`, xóa khỏi file này.
+Quy ước bước: `plan xong` → `code BE` → `code FE` → `review` → `chờ merge` → `xong`. Xong lát: xóa khỏi file này (chi tiết đã ở mô tả PR), chuyển spec/plan sang `archive/`.

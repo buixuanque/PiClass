@@ -5,7 +5,7 @@ allowed-tools: Read, Bash(git fetch:*), Bash(git status:*), Bash(git log:*), Bas
 
 Chỉ ĐỌC và BÁO CÁO, không sửa file, không checkout, không push.
 
-1. Đọc `docs/STATE.md`. Chỉ mở `docs/BACKLOG.md` nếu mục "Việc kế tiếp" đã hết; chỉ mở `docs/history/*` nếu cần tra một chi tiết cụ thể.
+1. Đọc `docs/STATE.md`. Chỉ mở `docs/BACKLOG.md` nếu mục "Việc kế tiếp" đã hết; không mở `docs/archive/*` trừ khi cần tra đúng một chi tiết cụ thể.
 2. Với mỗi repo trong `.`, `piclass-api`, `piclass-web`, `piclass-infra`, `piclass-mockup`: chạy `git fetch origin`, rồi lấy nhánh hiện tại, `git status -s`, `git log origin/main..HEAD --oneline`, và `gh pr list --state open` (nếu `gh` dùng được).
 3. Đối chiếu với STATE.md: nhánh/PR/commit nào có thật mà STATE.md không ghi, hoặc STATE.md ghi nhưng git không có.
 4. Trả lời ngắn (≤ 15 dòng), tiếng Việt, đúng khuôn:

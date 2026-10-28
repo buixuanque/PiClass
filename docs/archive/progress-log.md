@@ -2,7 +2,7 @@
 
 Chuyển nguyên văn từ mục "Việc tiếp theo" và "Khi quay lại" của `progress.md` ngày 2026-10-28, khi tách trạng thái hiện tại sang [../STATE.md](../STATE.md) và các việc chưa làm sang [../BACKLOG.md](../BACKLOG.md).
 
-**File này chỉ để tra cứu (PR số mấy, vì sao chốt thế). Không đọc mặc định khi bắt đầu session; không dùng để biết "đang làm gì" — xem `STATE.md`.** Chi tiết từng lát đã xong ghi thêm vào cuối file này khi lát đóng, không ghi vào `progress.md`.
+**Đã đóng băng (2026-10-28), không ghi thêm.** File này chỉ để tra cứu (PR số mấy, vì sao chốt thế). Không đọc mặc định khi bắt đầu session; không dùng để biết "đang làm gì" — xem `STATE.md`.** Chi tiết từng lát đã xong ghi thêm vào cuối file này khi lát đóng, không ghi vào `progress.md`.
 
 ## Việc tiếp theo
 
