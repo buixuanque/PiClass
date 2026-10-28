@@ -26,7 +26,7 @@ Chốt quyết định mới: cập nhật ngay tài liệu nguồn (Decision Lo
 
 ## Đọc file lớn theo đoạn
 
-Các file đặc tả rất dài (`product/screens/admin.md` ~100KB, `teacher-bai-danh-gia.md`, `student-parent.md`, `requirements/decision-log.md`, `architecture/open-decisions.md` — dòng bảng dài tới 8KB, `architecture/known-debt.md`): **không `Read` cả file**. `grep -n "AD-10"` / `grep -n "ARCH-37"` / `grep -n "DEC-SCH-005"` lấy số dòng, rồi `Read` với `offset`+`limit` đúng đoạn. Đầu file đặc tả màn có "Mục lục" theo mã màn.
+Các file đặc tả rất dài (`product/screens/admin.md` ~100KB, `teacher-bai-danh-gia.md`, `student-parent.md`, `requirements/decision-log.md`, `architecture/known-debt.md`): **không `Read` cả file**. `grep -n "AD-10"` / `grep -n "ARCH-37"` / `grep -n "DEC-SCH-005"` lấy số dòng, rồi `Read` với `offset`+`limit` đúng đoạn. Đầu file đặc tả màn có "Mục lục" theo mã màn. Quyết định kiến trúc: `architecture/open-decisions.md` chỉ là mục lục; `ARCH-xx` (từ 13) đọc ở `architecture/decisions/ARCH-xx.md`.
 
 ## Quy ước code
 
