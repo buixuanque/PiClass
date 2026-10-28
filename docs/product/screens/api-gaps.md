@@ -45,10 +45,10 @@
 | C5 | Danh sách nhận xét đã công bố theo con | G7 |
 | C6 | Thông báo: đếm chưa đọc, đánh dấu tất cả đã đọc; thêm id đích vào `context` (`result_published` thiếu `assessment_id`, `schedule_*` thiếu `class_id`); `body` của thông báo duyệt đơn đang là giá trị trạng thái thô | G10 |
 | C7 | Tìm văn bản không dấu (`unaccent`) cho `/users`, `/questions`, `/assessments`; thêm tham số tìm kiếm cho hai danh sách sau. **Chốt 2026-10-25:** viết cơ chế chung một lần ở BE khi làm nhóm 2 Admin (`/classes`), tái dùng cho `/subjects`, `/students`, `/parents`, `/teachers` | TB-1 |
-| C8 | Tên người tạo/chấm/viết nhận xét trong response | TB-2 |
+| C8 | Tên người tạo/chấm/viết nhận xét trong response. **Phần audit xong 2026-10-28:** `GET /audit-logs` trả thêm `actor_name` (TC-05 lịch sử sửa điểm danh); phần bài/chấm/nhận xét còn mở | TB-2 |
 | C9 | Lịch sử phiên bản câu hỏi, "câu này đang dùng ở bài nào", liệt kê tệp đính kèm của câu/bài | TB-3, TB-4 |
 | C10 | ~~Xem thành viên/phân công đã kết thúc của lớp~~ | GM-3 — **đã xong 2026-10-28**, xem `admin.md` bảng GM |
-| C11 | `cancellation_reason`, `lesson_content`, `schedule_id` trong response buổi học | G15b |
+| C11 | `cancellation_reason`, `lesson_content`, `schedule_id` trong response buổi học. **`cancellation_reason` xong 2026-10-28** (chi tiết buổi, công khai cho mọi vai trò); `schedule_id` đã có ở danh sách; `lesson_content` ở danh sách không làm (tránh N+1, chỉ có ở chi tiết) | G15b |
 | C12 | Địa điểm lớp/buổi học. **Chốt 2026-10-25: tạm bỏ ở V1** (nhóm 2 Admin) — Admin ghi phòng vào Nhãn/Mô tả, quyết lại sau khi hỏi giáo viên | G13 |
 | C13 | Nhân bản bài đánh giá | G14 |
 | C14 | Giờ máy chủ cho đồng hồ làm bài (hiện FE lấy từ header `Date`); số giây khóa đăng nhập thành trường riêng thay vì nằm trong message | — |
