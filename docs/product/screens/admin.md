@@ -182,12 +182,12 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 - **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** tìm một học sinh, thấy ai chưa có lớp hoặc chưa có tài khoản, thêm học sinh mới.
 - **Vào từ / đi tới:** menu Quản trị › Học viên. Bấm dòng → AD-05. Nút "Thêm học viên" → AD-05a.
-- **Khối nội dung & dữ liệu hiển thị:** mẫu M1. Bộ lọc dự kiến: tìm theo tên; trạng thái hồ sơ (Đang hoạt động/Ngừng hoạt động); "Tài khoản" (Chưa mời / Đã mời / Đang hoạt động / Đã vô hiệu hóa). Cột dự kiến: Họ tên (`person_profile.full_name`), Email, Số điện thoại, Trạng thái hồ sơ (`status`), Tài khoản, Lớp đang học (số lớp). Đầu danh sách có chip nhắc "Chưa có tài khoản: 23".
+- **Khối nội dung & dữ liệu hiển thị:** mẫu M1. Bộ lọc dự kiến: tìm theo tên; trạng thái hồ sơ (Đang hoạt động/Ngừng hoạt động); "Tài khoản" (**Tất cả / Chưa đăng nhập / Đã đăng nhập / Đã vô hiệu hóa**; sửa 2026-10-28 theo `DEC-USR-021`: thêm hồ sơ tạo luôn tài khoản nên không còn lọc "Chưa mời/Đã mời"; giá trị BE `invited` hiển thị là "Chưa đăng nhập", `active` là "Đã đăng nhập"; tương tự ở AD-06, AD-07). Cột dự kiến: Họ tên (`person_profile.full_name`), Email, Số điện thoại, Trạng thái hồ sơ (`status`), Tài khoản, Lớp đang học (số lớp). Không còn chip "Chưa có tài khoản: N" (`DEC-USR-021`). Badge cột Tài khoản: Chưa đăng nhập / Đã đăng nhập / Đã vô hiệu hóa; "Chưa có tài khoản" chỉ còn với hồ sơ cũ, kèm nút Mời.
 - **Chức năng & hành động:** tìm/lọc; "Thêm học viên"; menu "…" mỗi dòng: Xem, Sửa, Mời tạo tài khoản (chỉ khi chưa có tài khoản).
 - **Trạng thái cần vẽ:** tải; rỗng ("Chưa có học viên. Thêm học viên đầu tiên") có nút; rỗng do lọc; lỗi; không có quyền; dòng "Ngừng hoạt động" mờ.
 - **Quy tắc & lỗi nghiệp vụ:** hồ sơ nghi trùng (cùng tên + SĐT) cần Admin tự xác minh, hệ thống không tự gộp (`BR-USER-005`): vẽ cảnh báo mềm ở AD-05a, không chặn.
 - **API:** 🟡 thiếu: danh sách hồ sơ học viên có tìm kiếm, phân trang, kèm "có tài khoản?" và số lớp (G4, G9). `GET /users?role=student` chỉ liệt kê học viên **đã có tài khoản**, không có id hồ sơ (GM-1), nên không dùng được làm danh sách chính. Ghép tạm rất hạn chế: gom học viên từ `GET /classes/{id}/members` từng lớp (chỉ gồm học viên đang trong lớp, trả `student_id`, `full_name`, `valid_from`, `valid_to`).
-- **Dữ liệu mẫu gợi ý:** Nguyễn Minh Anh · minhanh.parent@gmail.com · 0987 654 321 · Đang hoạt động · Chưa mời · 2 lớp; Lê Gia Hân · — · — · Đang hoạt động · Đang hoạt động · 1 lớp.
+- **Dữ liệu mẫu gợi ý:** Nguyễn Minh Anh · minhanh.parent@gmail.com · 0987 654 321 · Đang hoạt động · Chưa đăng nhập · 2 lớp; Lê Gia Hân · — · — · Đang hoạt động · Đang hoạt động · 1 lớp.
 
 ### AD-05 — Học viên (chi tiết)   ✅ (khối lớp/phụ huynh/tài khoản có 🟡)
 
