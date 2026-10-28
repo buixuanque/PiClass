@@ -32,7 +32,7 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 | ID | Repo | Việc | Nguồn |
 |---|---|---|---|
 | B-040 | web | Detail dialog hiện giờ cũ ~30s sau "sửa từ nay trở đi"; `EditSessionDialogLoader` dead code; thống nhất nhãn "Dự kiến"/"Sắp diễn ra" | `history/progress-log.md` mục 5b |
-| B-041 | api | `PATCH /schedules/{id}` gần như vô tác dụng lên buổi đã sinh (có thể xóa nếu đã giải quyết bởi `update-series`) | known-debt D-32, D-33 |
+| B-041 | api | `PATCH /schedules/{id}` gần như vô tác dụng lên buổi đã sinh (FE không gọi, route giữ ở BE) và buổi `cancelled` không sống lại được | known-debt D-32, D-33 |
 | B-042 | api | `EnrollInCourse` nhánh `class_id` là dead code; race/transaction/khóa của Class–Course link | known-debt D-26..D-29 |
 | B-043 | api | `make lint` (Pint) đỏ ở ~41 file test cũ; PHPStan baseline còn nhiều dòng (số liệu cũ, cần kiểm) | known-debt D-22, D-24 |
 | B-044 | api | 500 do bộ lọc không validate (`?name[]=x`, `?from=abc`, `student_id=abc`...) | known-debt D-08, D-11, D-15, D-17, D-20 |
@@ -41,7 +41,7 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 | B-047 | docs | Catalog hành động audit thiếu `course_class_link.*`, `course_enrollment.relink` | `product/screens/admin.md` |
 | B-048 | mockup | Nút `danger` 3.39:1, Tooltip aria, BottomNav hover, ô ngày locale `vi` | `piclass-mockup/design-system/CHANGES.md` |
 | B-050 | docs | Khuôn ≤ 6 dòng/lát cho `history/progress-log.md` (hiện chép văn xuôi dài) | tối ưu token |
-| B-052 | docs+api | Rà lỗi thời `known-debt.md`: đối chiếu từng dòng với code/git `piclass-api`, xóa dòng đã xong (nghi: D-22 số liệu PHPStan, D-24 Pint, D-32 đã giải quyết bởi `update-series`) | `architecture/known-debt.md` |
+| B-052 | api | Máy có PHP: chạy `vendor/bin/pint --test`, `composer analyse`, `scramble:export` để chốt số liệu D-22, D-23, D-24 và chạy thử các 500 chưa xác nhận (D-08, D-11, D-14, D-17, D-25) | known-debt (đã rà 2026-10-28, chưa chạy được) |
 | B-051 | api | Comment trong `ArchitectureTest.php`/Listener còn trỏ "CLAUDE.md" cho quy ước Notification, nay nằm ở `docs/rules/defaults.md` | sửa khi chạm file |
 | B-049 | all | Dịch comment tiếng Anh còn lại sang tiếng Việt (chỉ file đang sửa) | `CLAUDE.md` |
 
