@@ -32,7 +32,7 @@
 | B5 | Chốt hành vi "phiên bản mới" với học sinh đã được giao; chốt "Mở lại" có kéo dài `closes_at` không; chốt "gia hạn" là kéo dài giờ đóng hay chỉ miễn đánh dấu trễ | TB-7, Q-D | UI không thể vẽ đúng khi chưa biết kết quả |
 | B6 | Chốt schema `type_payload` cho câu nối/sắp xếp/điền khuyết nhiều chỗ, ý nghĩa `grading_mode = mixed` | TB-8, Q-B | Form soạn câu hỏi và màn làm bài phụ thuộc vào đây |
 | B7 | Lớp `archived` có chặn thêm học viên, giáo viên, lịch không; học viên `inactive` vào lớp (docs nói không được, code không chặn); lưu trữ lớp có tự kết thúc thành viên/lịch không | `ARCH-28(n)` | Câu hỏi nghiệp vụ, đang mở |
-| B8 | Bỏ cờ `review_required` sau khi rà soát | G15b | Chưa có endpoint hay hành vi nào bỏ cờ |
+| B8 | Bỏ cờ `review_required` sau khi rà soát | G15b | Hạ ưu tiên 2026-10-28: `DEC-LRN-016` chặn hủy buổi đã qua `ends_at`, cờ chỉ còn với buổi đang diễn ra bị hủy và dữ liệu cũ; chưa làm ở V1 |
 
 ## Mức C — Tiện dụng, làm sau khi lõi chạy
 

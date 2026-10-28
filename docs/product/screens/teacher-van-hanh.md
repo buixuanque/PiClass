@@ -200,6 +200,6 @@
 1. Có làm tab "Lịch sử thay đổi" (🔵) cho Teacher không, và hiển thị người sửa bằng tên (cần BE trả tên, G5)?
 2. `notes` của buổi học có công khai cho học sinh/phụ huynh (G12)? Đặt nhãn UI thế nào?
 3. Quy ước `weekdays`: 1 = Thứ Hai hay Chủ nhật? Lịch `repeat_weekly = false` có sinh buổi không? (cần xác nhận khi dựng)
-4. Sửa điểm danh của buổi `review_required` có tự bỏ cờ không, hay Teacher cần nút "Đã rà soát xong"?
+4. ~~Sửa điểm danh của buổi `review_required` có tự bỏ cờ không?~~ **Hạ ưu tiên (2026-10-28, `DEC-LRN-016`):** không hủy được buổi đã qua `ends_at` nên cờ chỉ còn với buổi đang diễn ra bị hủy và dữ liệu cũ; chưa làm thao tác bỏ cờ ở V1, mở lại nếu thực tế còn gặp.
 5. Hủy lịch lặp có nên đi kèm hủy hàng loạt các buổi đã sinh không (hiện BE không đụng tới buổi đã sinh)?
 6. Chấp nhận đơn xin phép có nên tự gợi ý đổi điểm danh sang "Có phép" (đề xuất UI ở TC-06) hay giữ hai bước tách biệt hoàn toàn?
