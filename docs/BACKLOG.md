@@ -10,7 +10,7 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 | ID | Repo | Việc | Nguồn | Cần |
 |---|---|---|---|---|
 | B-001 | web+api | Cổng Giáo viên: list chức năng → mockup → BE → FE | `process/working-flow.md`, `product/screens/teacher-*.md` | sẵn sàng |
-| B-002 | web | Khung điều hướng Admin+Teacher, công tắc đổi vai trò (Q6, CM-10) | `architecture/open-decisions.md` Q6 | phụ thuộc B-001 |
+| B-002 | web | Shell riêng cho Teacher (không có công tắc đổi vai trò, Q6 đã giải quyết) | `requirements/decision-log.md` DEC-USR-015 | phụ thuộc B-001 |
 | B-003 | web | CM-05 Hồ sơ, CM-06 Thông báo, CM-07 Trang lỗi, `GET /me/profile` (tên hiển thị) | `archive/progress-log.md` (Màn Auth) | phụ thuộc B-002 |
 | B-004 | api | BE cho Teacher: B1 (lộ điểm chưa công bố), B4 (kiểm dữ liệu bài), A1, A3, A4, A12 | `research/2026-10-24-api-v1-toi-thieu.md` | phụ thuộc B-001 |
 | B-005 | web+api | AD-13 cấp lại lượt làm (cần màn chi tiết bài nộp TC-13) | `product/screens/mockup-plan.md` mục 6 | phụ thuộc B-001 |
@@ -31,7 +31,7 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 ## C. Nợ nhỏ / lỗi nhỏ (làm khi chạm tới code liên quan)
 | ID | Repo | Việc | Nguồn |
 |---|---|---|---|
-| B-040 | web | Detail dialog hiện giờ cũ ~30s sau "sửa từ nay trở đi"; `EditSessionDialogLoader` dead code; thống nhất nhãn "Dự kiến"/"Sắp diễn ra" | `archive/progress-log.md` mục 5b |
+| B-040 | web | Detail dialog hiện giờ cũ ~30s sau "sửa từ nay trở đi"; `EditSessionDialogLoader` dead code | `archive/progress-log.md` mục 5b |
 | B-041 | api | `PATCH /schedules/{id}` gần như vô tác dụng lên buổi đã sinh (FE không gọi, route giữ ở BE) và buổi `cancelled` không sống lại được | known-debt D-32, D-33 |
 | B-042 | api | `EnrollInCourse` nhánh `class_id` là dead code; race/transaction/khóa của Class–Course link | known-debt D-26..D-29 |
 | B-043 | api | `make lint` (Pint) đỏ ở ~41 file test cũ; PHPStan baseline còn nhiều dòng (số liệu cũ, cần kiểm) | known-debt D-22, D-24 |

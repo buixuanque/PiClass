@@ -13,7 +13,7 @@ Cập nhật lần cuối: 2026-10-28 · bởi: tái cấu trúc quản lý ti�
 1. [user] Mở session mới, chạy `/tiep` và giao một task có ngày giờ để kiểm AI tự đọc `docs/rules/time.md`; báo lại nếu lệch
 2. [user] Bấm thử cổng Admin trên trình duyệt; lỗi tìm ra thì thêm vào `BACKLOG.md`
 3. Bắt đầu lát **cổng Giáo viên**, bước 1 `working-flow.md`: list chức năng từ API có sẵn + rà mockup (`product/screens/teacher-van-hanh.md`, `teacher-bai-danh-gia.md`, `mockup-plan.md`)
-4. Cùng lát Giáo viên: chốt khung điều hướng Admin+Teacher (Q6, CM-10) vì Teacher chưa có shell
+4. Cùng lát Giáo viên: dựng shell riêng cho Teacher (mỗi tài khoản một vai trò, không có công tắc đổi vai trò, `DEC-USR-015`)
 5. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
 ## Chờ user (Claude không tự làm được)

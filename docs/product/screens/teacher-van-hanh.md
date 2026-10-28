@@ -27,7 +27,7 @@
 - **Lỗi chung của nhóm Lesson:** `FORBIDDEN` (403) "Không có quyền thao tác với lớp này." (tạo lịch: "Không có quyền tạo lịch cho lớp này."; tạo buổi: "Request failed."); lớp ngoài phạm vi (404) "Request failed."; 422 theo trường.
 - **Danh sách chưa phân trang** (trừ `GET /assessments`, có `per_page`, mặc định 20). Tìm/lọc trong danh sách làm ở FE (N9).
 - **Hiển thị tên:** hầu hết resource chỉ trả `id`; tên môn lấy từ `GET /subjects`, tên học sinh từ `GET /classes/{id}/members`. Chỗ nào FE phải ghép thì ghi "(FE ghép)".
-- **Đa vai trò:** tài khoản vừa Admin vừa Teacher thấy nhóm "Giảng dạy" (các màn này). Dữ liệu theo **vai trò đang hoạt động**: khi đang ở vai Admin thì API trả toàn bộ lớp; ở vai Teacher chỉ lớp được phân công. Nên ghi vai đang dùng ở đầu trang (Q6 chưa chốt).
+- **Một tài khoản một vai trò (`DEC-USR-015`, giải quyết Q6):** không có công tắc đổi vai trò. Người vừa quản trị vừa dạy dùng hai tài khoản riêng. Tài khoản Teacher chỉ thấy lớp được phân công; Admin dùng tài khoản Admin. Các màn này không cần nhóm "Giảng dạy" hay nhãn vai đang dùng.
 
 ---
 
@@ -200,6 +200,6 @@
 1. Có làm tab "Lịch sử thay đổi" (🔵) cho Teacher không, và hiển thị người sửa bằng tên (cần BE trả tên, G5)?
 2. `notes` của buổi học có công khai cho học sinh/phụ huynh (G12)? Đặt nhãn UI thế nào?
 3. Quy ước `weekdays`: 1 = Thứ Hai hay Chủ nhật? Lịch `repeat_weekly = false` có sinh buổi không? (cần xác nhận khi dựng)
-4. Sửa điểm danh của buổi `review_required` có tự bỏ cờ không, hay Teacher cần nút "Đã rà soát xong"?
+4. ~~Sửa điểm danh của buổi `review_required` có tự bỏ cờ không?~~ **Hạ ưu tiên (2026-10-28, `DEC-LRN-016`):** không hủy được buổi đã qua `ends_at` nên cờ chỉ còn với buổi đang diễn ra bị hủy và dữ liệu cũ; chưa làm thao tác bỏ cờ ở V1, mở lại nếu thực tế còn gặp.
 5. Hủy lịch lặp có nên đi kèm hủy hàng loạt các buổi đã sinh không (hiện BE không đụng tới buổi đã sinh)?
 6. Chấp nhận đơn xin phép có nên tự gợi ý đổi điểm danh sang "Có phép" (đề xuất UI ở TC-06) hay giữ hai bước tách biệt hoàn toàn?

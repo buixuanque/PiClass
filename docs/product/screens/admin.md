@@ -86,7 +86,7 @@ Dùng cho: kết thúc thành viên/phân công/ghi danh/liên kết, hủy lị
 | Khóa học `active` / `archived` | Đang mở / Đã lưu trữ |
 | Thành viên, phân công, ghi danh `active` / `ended` | Đang hiệu lực / Đã kết thúc |
 | Lịch `active` / `cancelled` / `ended` | Đang áp dụng / Đã hủy / Đã kết thúc |
-| Buổi `scheduled` / `completed` / `cancelled` | Dự kiến / Đã hoàn tất / Đã hủy |
+| Buổi `scheduled` / `completed` / `cancelled` | Dự kiến (chưa qua `ends_at`) / **Chờ hoàn tất** (còn `scheduled` nhưng đã qua `ends_at`, FE tính theo giờ, màu vàng; chốt 2026-10-28) / Đã hoàn tất / Đã hủy. Buổi đã qua `ends_at` không có nút Hủy (`DEC-LRN-016`) |
 | Thứ trong lịch `1…7` | ISO: 1 = Thứ Hai … 7 = Chủ nhật |
 
 ---
