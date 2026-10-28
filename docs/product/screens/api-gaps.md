@@ -8,7 +8,7 @@
 
 | # | Việc cần làm | Mã gốc | Vì sao chặn | Màn hình |
 |---|---|---|---|---|
-| A1 | Trả `id` của bản ghi điểm danh (và `lesson_session_id`) trong `GET` và `PUT /lesson-sessions/{id}/attendance` | G15 | `PATCH /attendance-records/{id}` cần id nhưng không endpoint nào trả; không sửa được điểm danh từng học sinh | TC-05 |
+| A1 | ~~Trả `id` của bản ghi điểm danh (và `lesson_session_id`) trong `GET` và `PUT /lesson-sessions/{id}/attendance`~~ **Xong 2026-10-28** (`DEC-LRN-017`) | G15 | `PATCH /attendance-records/{id}` cần id nhưng không endpoint nào trả; không sửa được điểm danh từng học sinh | TC-05 |
 | A2 | ~~Cho kết thúc vai trò theo mã role, hoặc trả `role_id` ở `GET /users/{id}`~~ | GM-6 | **Đã xong 2026-10-25** (`piclass-api` nhánh `feat/invite-auto-assign-role`): `GET /users/{id}` trả `active_roles: [{role_id, role}]`, `role_id` dùng thẳng cho `DELETE /users/{id}/roles/{roleId}` (có test end-to-end). | AD-03 |
 | A3 | Trả chi tiết bài cho Student/Parent: hướng dẫn, thời lượng, số câu, số lượt tối đa và đã dùng, hạn riêng, nguồn lớp/khóa, tệp đính kèm | N-A, N-D | `GET /me/assessments/{id}` chỉ có tên, loại, giờ, điểm tối đa; không vẽ được màn "chi tiết bài" và "thông tin trước khi làm" | ST-04, ST-05, PR-05 |
 | A4 | Tìm lại lượt đang làm dở (`GET /me/assessments/{id}/attempts` hoặc trả lượt `in_progress` ở chi tiết bài); thêm `attempt.id` vào lịch sử lượt | N-E, N-B | Mất `attempt.id` (đổi máy, xóa dữ liệu trình duyệt) là mất bài và tốn một lượt, trái BR-ASSESS-018 | ST-05, ST-06, ST-07 |
@@ -26,7 +26,7 @@
 | # | Việc cần làm | Mã gốc | Chi tiết |
 |---|---|---|---|
 | B1 | **Ẩn điểm chưa công bố khỏi Student.** `POST /me/attempts/{id}/submit` và `GET /me/attempts/{id}` trả kèm `result` (có `score`) kể cả khi `publication_status` chưa công bố | N-A (student-parent) | Trái `BR-SYS-007`, `BR-ASSESS-028`. Agent đặc tả và tôi cùng đọc code: `SubmitAttemptController` trả `SubmissionResultResource` với nguyên bản ghi `Result`; **chưa chạy thử**, cần viết test xác nhận trước khi sửa |
-| B2 | Quyết định `notes` của buổi học có công khai không; ẩn `review_required` khỏi Student/Parent | G12 | `GET /lesson-sessions/{id}` trả cả hai trường cho mọi vai trò (có test ghim) |
+| B2 | ~~Quyết định `notes` của buổi học có công khai không; ẩn `review_required` khỏi Student/Parent~~ **Xong 2026-10-28:** `DEC-LRN-017`, cả hai trường chỉ Admin/Teacher thấy | G12 | Trước đó `GET /lesson-sessions/{id}` trả cả hai trường cho mọi vai trò |
 | B3 | Cho đặt hẹn giờ công bố điểm (`result_release_at`) và chính sách nộp trễ (`late_policy`) khi tạo/sửa bài; hiện kết quả tự công bố ngay khi chấm xong | TB-6 | Mâu thuẫn `BR-ASSESS-025` ("người tạo chọn lúc công bố") |
 | B4 | Kiểm tra phía BE: thứ tự `opens_at ≤ deadline_at ≤ closes_at`, `passing_score ≤ max_score`, tổng điểm câu khớp `max_score`, bài phải có đối tượng trước khi publish, số lựa chọn/đáp án đúng của câu | TB-10 | Hiện chỉ FE tự chặn; gọi API trực tiếp vẫn lọt |
 | B5 | Chốt hành vi "phiên bản mới" với học sinh đã được giao; chốt "Mở lại" có kéo dài `closes_at` không; chốt "gia hạn" là kéo dài giờ đóng hay chỉ miễn đánh dấu trễ | TB-7, Q-D | UI không thể vẽ đúng khi chưa biết kết quả |

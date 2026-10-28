@@ -88,7 +88,7 @@
 - **Khối nội dung & dữ liệu hiển thị:**
   1. *Thanh điều khiển*: chuyển Tuần/Tháng; mũi tên trước/sau + "Hôm nay"; bộ lọc lớp (nhiều lớp); nút **"Thêm buổi"** và **"Tạo lịch lặp"** (chọn lớp trước nếu đang xem tất cả).
   2. *Lưới lịch tuần/tháng*: mỗi buổi: giờ `starts_at`–`ends_at`, tên lớp (FE ghép), chip trạng thái (`scheduled` dự kiến · `completed` hoàn tất · `cancelled` đã hủy, gạch ngang), cờ `review_required` ("Cần rà soát điểm danh"). Buổi sinh từ lịch lặp và buổi lẻ trông như nhau (API list không nói buổi thuộc lịch nào). 🟡 G2: gọi theo `GET /classes/{id}/lesson-sessions?from&until` từng lớp rồi hợp; buổi chưa có tên lớp nên FE gắn theo lớp đã gọi.
-  3. *Drawer chi tiết buổi* (`GET /lesson-sessions/{id}`): giờ, trạng thái, `lesson_content` (**hiển thị cho học sinh và phụ huynh**, ghi rõ dưới ô nhập), `notes` (ghi chú; G12: chưa chốt có công khai không nên đặt nhãn trung tính, ví dụ "Ghi chú buổi học", và cảnh báo giáo viên cho đến khi chốt), lý do hủy nếu đã hủy (BE lưu nhưng **GET không trả `cancellation_reason`**, xem mục khoảng trống).
+  3. *Drawer chi tiết buổi* (`GET /lesson-sessions/{id}`): giờ, trạng thái, `lesson_content` (**hiển thị cho học sinh và phụ huynh**, ghi rõ dưới ô nhập), `notes` (ghi chú nội bộ, chỉ Admin/Giáo viên thấy, `DEC-LRN-017`), lý do hủy nếu đã hủy (BE lưu nhưng **GET không trả `cancellation_reason`**, xem mục khoảng trống).
   4. *Danh sách lịch lặp của lớp* (panel hoặc tab): các mẫu `schedules` như TC-03, với nút Sửa/Hủy từng mẫu.
 - **Chức năng & hành động:**
   - **Thêm buổi lẻ / buổi bù** (modal): chọn lớp, ngày, giờ bắt đầu, giờ kết thúc (`ends_at` phải sau `starts_at`), nội dung buổi (tùy chọn), ghi chú (tùy chọn). **Không có ô lý do** (BE không nhận). Nhãn "Buổi bù" chỉ là gợi ý ở UI, BE không có cờ riêng. `POST /classes/{id}/lesson-sessions`. Chặn lớp `archived`. Không cảnh báo trùng lịch ở buổi lẻ (BE chỉ kiểm tra khi tạo lịch lặp); nếu muốn FE tự kiểm tra trùng với các buổi đã tải thì ghi rõ là cảnh báo mềm.
@@ -103,13 +103,13 @@
 - **API:** `GET /classes/{id}/lesson-sessions?from&until`, `GET /lesson-sessions/{id}`, `POST /classes/{id}/lesson-sessions`, `PATCH /lesson-sessions/{id}`, `POST …/cancel`, `POST …/complete`, `GET/POST /classes/{id}/schedules`, `PATCH /schedules/{id}`, `POST /schedules/{id}/cancel`. 🟡 G2 (lịch tổng hợp nhiều lớp, buổi kèm tên lớp), G13 (địa điểm). 🟡 G15b (xem mục khoảng trống: GET không trả `cancellation_reason`, `lesson_content`/`notes` không có trong danh sách).
 - **Dữ liệu mẫu gợi ý:** Lịch lặp Toán 9A: Thứ 2-4-6, 17:30, 90 phút, từ 05/10/2026. Buổi bù: Văn 8B, Chủ nhật 01/11, 08:00–09:30, nội dung "Ôn tập chương 2". Cảnh báo: "Trùng với Toán 9B, Thứ 4 17:00–18:30". Lý do hủy: "Giáo viên bị ốm, sẽ dạy bù vào Chủ nhật."
 
-### TC-05 — Buổi học & điểm danh   ✅ (một phần 🟡 G15) 🎨
+### TC-05 — Buổi học & điểm danh   ✅ 🎨
 - **Vai trò · responsive:** Teacher (và Admin) · responsive: dùng tốt trên **máy tính bảng** (thao tác nhanh ở đầu buổi), vẫn dùng được trên máy tính và điện thoại.
 - **Người dùng muốn làm gì:** Đầu buổi, điểm danh cả lớp nhanh; cuối buổi ghi nội dung đã dạy, rồi hoàn tất. Khi nhầm, sửa lại và ghi lý do.
 - **Vào từ / đi tới:** TC-01 (buổi hôm nay, buổi chưa điểm danh), TC-04 (drawer buổi), TC-03 (tab Buổi học). Từ đây: về TC-04/TC-03; "Đơn xin phép của buổi này" → TC-06 (lọc theo buổi).
 - **Khối nội dung & dữ liệu hiển thị:**
   1. *Đầu trang buổi*: tên lớp + môn (FE ghép), `starts_at`–`ends_at`, chip `status`; nếu `cancelled`: banner "Buổi đã hủy" (+ lý do, xem khoảng trống); nếu `review_required = true`: banner "Buổi này đã hủy sau khi có điểm danh. Hãy rà soát lại các bản ghi" (BR-CLASS-010). `GET /lesson-sessions/{id}`.
-  2. *Nội dung & ghi chú*: ô `lesson_content` (**học sinh/phụ huynh sẽ thấy**; nhãn rõ) và `notes` (G12: chưa chốt công khai; đặt nhãn "Ghi chú" và cảnh báo giáo viên đến khi chốt); nút Lưu → `PATCH /lesson-sessions/{id}` (lý do bắt buộc nếu buổi `completed`, như TC-04).
+  2. *Nội dung & ghi chú*: ô `lesson_content` (**học sinh/phụ huynh sẽ thấy**; nhãn rõ) và `notes` (**ghi chú nội bộ**, chỉ Admin/Giáo viên thấy, `DEC-LRN-017`; nhãn "Ghi chú nội bộ (chỉ giáo viên và quản trị viên thấy)"); nút Lưu → `PATCH /lesson-sessions/{id}` (lý do bắt buộc nếu buổi `completed`, như TC-04).
   3. *Bảng điểm danh*: mỗi học sinh một dòng: tên (FE ghép từ `GET /classes/{id}/members`, **chỉ học sinh hiệu lực tại giờ bắt đầu buổi**: `valid_from ≤ starts_at` và `valid_to` rỗng hoặc `> starts_at`), trạng thái hiện tại (`present` Có mặt · `late` Đi muộn · `absent` Vắng · `excused` Có phép; hoặc "Chưa điểm danh" nếu chưa có bản ghi), `note`, huy hiệu "Có đơn xin phép" (nếu `GET /absence-explanations` có đơn cho học sinh+buổi này). Nguồn: `GET /lesson-sessions/{id}/attendance` → `[{student_id, full_name, status, note}]` (chỉ học sinh đã có bản ghi; học sinh chưa có thì FE tự thêm từ roster).
   4. *Bộ đếm*: có mặt/muộn/vắng/có phép/chưa điểm danh (FE tính).
   5. *Lịch sử sửa* (tab hoặc drawer theo từng dòng) 🟡: các lần sửa điểm danh với trước/sau, người sửa, thời điểm, lý do. BE ghi `AttendanceHistory` và audit `attendance_record.update`, nhưng chỉ lộ qua `GET /audit-logs?entity_type=AttendanceRecord` (Teacher thấy log lớp mình; `entity_id` là id bản ghi nên phải biết id → G15; hoặc tải cả rồi lọc `correlation_key` = id lớp ở FE). Cũng dùng `entity_type=LessonSession&entity_id=<id buổi>` cho lịch sử sửa giờ/nội dung/ghi chú buổi. Người sửa chỉ có `actor_user_id` (G5). Đây là 🔵 về mặt màn hình (BR-ATT-003/BR-CLASS-011 chỉ yêu cầu lưu).
@@ -187,7 +187,7 @@
 ## Khoảng trống mới, thay đổi so với screen-inventory, câu hỏi cần chốt
 
 **Khoảng trống BE mới (ngoài G1…G14):**
-- **G15 — Id bản ghi điểm danh:** `GET /lesson-sessions/{id}/attendance` và `PUT` không trả `id` của bản ghi, nhưng `PATCH /attendance-records/{id}` cần id. Chưa có cách sửa từng bản ghi, chưa tra được lịch sử sửa theo bản ghi. Đề xuất thêm `id` (và `lesson_session_id`) vào `AttendanceEntryResource`/`MarkedAttendanceResource`.
+- **G15 — Id bản ghi điểm danh (đã xong 2026-10-28, A1):** `GET /lesson-sessions/{id}/attendance` và `PUT` không trả `id` của bản ghi, nhưng `PATCH /attendance-records/{id}` cần id. Chưa có cách sửa từng bản ghi, chưa tra được lịch sử sửa theo bản ghi. Đề xuất thêm `id` (và `lesson_session_id`) vào `AttendanceEntryResource`/`MarkedAttendanceResource`.
 - **G15b — Thiếu trường trong response buổi học:** `GET /lesson-sessions/{id}` không trả `cancellation_reason` (BE lưu), danh sách buổi không có `lesson_content`/`notes` và không nói buổi có thuộc lịch lặp nào (`schedule_id`) hay là buổi lẻ/bù.
 - **Đơn xin phép nghèo thông tin (TC-06):** summary không có `review_note`, `submitted_at`, tên học sinh/phụ huynh, giờ buổi. Gộp vào G9.
 - **Không có thao tác bỏ cờ `review_required`:** chưa thấy endpoint hay hành vi tự bỏ cờ sau khi rà soát; cần BE chốt.
@@ -198,7 +198,7 @@
 
 **Câu hỏi cần user chốt:**
 1. Có làm tab "Lịch sử thay đổi" (🔵) cho Teacher không, và hiển thị người sửa bằng tên (cần BE trả tên, G5)?
-2. `notes` của buổi học có công khai cho học sinh/phụ huynh (G12)? Đặt nhãn UI thế nào?
+2. ~~`notes` của buổi học có công khai cho học sinh/phụ huynh (G12)?~~ **Đã chốt 2026-10-28 (`DEC-LRN-017`):** nội bộ, chỉ Admin/Giáo viên thấy; `review_required` cũng ẩn khỏi Student/Parent.
 3. Quy ước `weekdays`: 1 = Thứ Hai hay Chủ nhật? Lịch `repeat_weekly = false` có sinh buổi không? (cần xác nhận khi dựng)
 4. ~~Sửa điểm danh của buổi `review_required` có tự bỏ cờ không?~~ **Hạ ưu tiên (2026-10-28, `DEC-LRN-016`):** không hủy được buổi đã qua `ends_at` nên cờ chỉ còn với buổi đang diễn ra bị hủy và dữ liệu cũ; chưa làm thao tác bỏ cờ ở V1, mở lại nếu thực tế còn gặp.
 5. Hủy lịch lặp có nên đi kèm hủy hàng loạt các buổi đã sinh không (hiện BE không đụng tới buổi đã sinh)?
