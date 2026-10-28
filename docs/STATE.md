@@ -2,15 +2,15 @@
 
 File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, mỗi mục một dòng, không văn xuôi. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-10-28 · bởi: bắt đầu lát Giáo viên (bước 1 lát Vận hành lớp)
+Cập nhật lần cuối: 2026-10-28 · bởi: xong bước 2 lát Vận hành lớp (rà mockup)
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự: Vận hành lớp (TC-02..05) → Đơn xin phép & Tổng quan (TC-06, TC-01) → Khóa học (TC-15) → Bài đánh giá (TC-07..14). Đang ở lát 1.
-- **Bước:** lát 1 đã xong bước 1 (chốt `DEC-LRN-016` không hủy buổi đã kết thúc, `DEC-LRN-017` `notes`/`review_required` nội bộ, A1 id điểm danh); kế tiếp bước 2: rà mockup TC-02..TC-05
+- **Bước:** lát 1 đã xong bước 1 (`DEC-LRN-016`, `DEC-LRN-017`, A1) và bước 2 (rà mockup TC-01..TC-05, user đã xem standalone); kế tiếp bước 3: rà API còn thiếu cho TC-02..TC-05
 - **Cổng Admin:** xong toàn bộ, đã merge `main`, user đã bấm thử trình duyệt.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Lát 1 Giáo viên, bước 2: rà mockup TC-02..TC-05 (`piclass-mockup/design-system/PiClass Giáo viên.dc.html`, `product/screens/teacher-van-hanh.md`), sửa mockup nếu cần, user xem bản `standalone/`
+1. Lát 1 Giáo viên, bước 3: rà API còn thiếu cho TC-02..TC-05 (đã biết: C11 `cancellation_reason` ở `GET /lesson-sessions/{id}`; lịch sử sửa điểm danh G5; xem `product/screens/api-gaps.md`), chốt cái nào làm ở V1, rồi plan và code BE
 2. Lát 1: dựng shell riêng cho Teacher (mỗi tài khoản một vai trò, không có công tắc đổi vai trò, `DEC-USR-015`)
 3. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
