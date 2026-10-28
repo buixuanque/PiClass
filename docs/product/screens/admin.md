@@ -97,7 +97,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 | Mã | Khoảng trống | Ảnh hưởng | Cách ghép tạm |
 |---|---|---|---|
-| GM-1 | ~~**Không nối được tài khoản (User) với hồ sơ.**~~ Chiều hồ sơ→tài khoản đã xong (`GET /students\|parents\|teachers/{id}` trả `account`). **Đã xong 2026-10-28** (`piclass-api` nhánh `feat/gm1-reverse-profile-link`): chiều ngược — `GET /users/{id}` trả `user.profile: {type: "teacher"\|"student"\|"parent", id}` (null nếu tài khoản chưa gắn hồ sơ nào) | AD-03 nay mở được hồ sơ tương ứng (AD-05/06a/07a) | — |
+| GM-1 | ~~**Không nối được tài khoản (User) với hồ sơ.**~~ **Đã xong 2026-10-28** cả BE (`piclass-api` nhánh `feat/gm1-reverse-profile-link`) và FE (`piclass-web` nhánh `feat/gm1-reverse-profile-link-fe`): `GET /users/{id}` trả `user.profile: {type, id}\|null`; AD-03 hiện nút mở hồ sơ tương ứng (AD-05/06a/07a) | — | — |
 | GM-2 | **Không có truy vấn ngược "lớp / khóa học của một người".** Chi tiết học viên/giáo viên không trả lớp; `GET /students/{id}/progress` chỉ trả điểm | AD-05, AD-07a không liệt kê được lớp đang học/dạy | Duyệt `GET /classes` rồi `GET /classes/{id}/members` hoặc `/teachers` từng lớp (N+1); khóa học: `GET /courses` + `…/enrollments` từng khóa |
 | GM-3 | **Không xem được lịch sử đã kết thúc.** `GET /classes/{id}/members` và `/teachers` chỉ trả dòng `active` (ClassMember/phân công đã `ended` không đọc ra được); `GET /courses/{id}/enrollments` thì trả cả đã kết thúc | AD-10b/10c không có phần "Đã rời lớp / đã kết thúc phân công" | Dùng nhật ký audit (`class_member.end`, `teacher_class_assignment.end`) để hiện lịch sử tạm |
 | GM-4 | **Danh sách thiếu tên.** `GET /parent-student-relationships` chỉ trả `parent_id`, `student_id`; `GET /courses/{id}/enrollments` chỉ trả `student_id`; `GET /courses` chỉ trả `owner_teacher_id`; `GET /classes` chỉ trả `subject_id` | Mọi bảng liên kết cần tên người/môn | Ghép từ `GET /subjects` (một lần), `GET /students|parents|teachers/{id}` (từng id, cache); tên học sinh của một lớp lấy từ `…/members` |
@@ -151,13 +151,13 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 - **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** xem một người đang giữ vai trò nào, gán thêm/kết thúc vai trò, khóa hoặc mở lại tài khoản.
-- **Vào từ / đi tới:** AD-02 (bấm dòng); sau khi mời tài khoản thành công (AD-05b) dẫn thẳng vào đây để gán vai trò. Đi tới: về AD-02; liên kết sang hồ sơ — `user.profile` (`{type,id}`) cho biết mở AD-05 (type `student`), AD-06a (`parent`) hay AD-07a (`teacher`); `profile = null` thì không hiện liên kết (tài khoản chưa gắn hồ sơ nào trong 3 loại, ví dụ Admin thuần).
+- **Vào từ / đi tới:** AD-02 (bấm dòng); sau khi mời tài khoản thành công (AD-05b) dẫn thẳng vào đây để gán vai trò. Đi tới: về AD-02; nút "Xem hồ sơ..." theo `user.profile.type` → AD-05 (`student`), AD-06a (`parent`), AD-07a (`teacher`); `profile = null` (ví dụ Admin thuần) thì không hiện nút.
 - **Khối nội dung & dữ liệu hiển thị:**
   1. Đầu trang: họ tên (`user.full_name`), tên đăng nhập (`login_identifier`), chip trạng thái (`status`), nút "Vô hiệu hóa" hoặc "Kích hoạt lại" theo trạng thái.
   2. **Vai trò đang giữ** (`user.active_roles[]`): mỗi vai trò một thẻ kèm "Kết thúc vai trò"; nút "Gán vai trò" (dropdown 4 vai trò).
   3. **Lịch sử vai trò** (`user.role_history[]`: `role`, `valid_from`, `valid_to`): bảng thời gian; vai trò đã kết thúc (`valid_to` có giá trị) hiển thị mờ. Không có người gán/kết thúc trong response; xem trong audit (`user_role.assign` / `user_role.end`).
   4. Liên kết "Xem nhật ký thay đổi" → AD-14 lọc `entity_type=User`, `entity_id=<id>`.
-  5. Hồ sơ gắn tài khoản: nút liên kết sang hồ sơ (AD-05/06a/07a) khi `user.profile` khác null, tên lấy luôn từ `user.full_name` (ghép sẵn, không cần gọi riêng).
+  5. Hồ sơ gắn tài khoản: nút "Xem hồ sơ..." sang AD-05/06a/07a khi `user.profile` khác null (tên đã có sẵn ở `user.full_name`, không cần gọi riêng); không có hồ sơ thì hiện "(chưa có hồ sơ)".
 - **Chức năng & hành động:**
   - **Gán vai trò:** chọn vai trò chưa giữ → xác nhận (M4 không bắt lý do) → thêm thẻ. Vai trò đã giữ thì ẩn khỏi dropdown. Nhắc: gán Teacher/Student/Parent chỉ có tác dụng khi người này có hồ sơ tương ứng (cần xác nhận khi dựng: BE không kiểm tra hồ sơ lúc gán).
   - **Kết thúc vai trò:** xác nhận; hiệu lực ngay, người dùng mất quyền ở lần gọi API tiếp theo. Dùng `role_id` trong `user.active_roles[]` cho `DELETE /users/{id}/roles/{roleId}`.
