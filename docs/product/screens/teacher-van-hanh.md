@@ -53,9 +53,9 @@
 - **Người dùng muốn làm gì:** Tìm nhanh lớp mình đang dạy và mở vào lớp đó.
 - **Vào từ / đi tới:** menu "Lớp của tôi". Bấm một lớp → TC-03. **Không có nút "Tạo lớp"** (chỉ Admin được tạo; mockup mẫu cần bỏ nút này, hoặc với tài khoản có thêm vai Admin thì nút nằm ở nhóm "Quản trị", AD-09).
 - **Khối nội dung & dữ liệu hiển thị:**
-  1. *Thanh lọc*: ô tìm theo tên lớp (không phân biệt dấu: BE chưa hỗ trợ nên lọc ở FE, chuẩn hóa bỏ dấu), lọc trạng thái (`preparing` Chưa có giáo viên / `active` Đang học / `archived` Đã lưu trữ), lọc môn (danh sách từ `GET /subjects`).
+  1. *Thanh lọc*: ô tìm theo tên lớp (không phân biệt dấu: BE chưa hỗ trợ nên lọc ở FE, chuẩn hóa bỏ dấu), lọc trạng thái bằng tab **Tất cả / Đang hoạt động / Đã lưu trữ** (không có tab "Chưa có giáo viên": Teacher chỉ thấy lớp mình được phân công nên lớp của họ không ở trạng thái `preparing`), lọc môn (danh sách từ `GET /subjects`). Chốt 2026-10-28 (rà mockup lát 1): giống Admin AD-09, mockup bỏ bộ lọc "Lớp nhóm/Kèm 1-1" và "Nơi dạy" vì BE không có dữ liệu này.
   2. *Danh sách lớp* (thẻ hoặc bảng), mỗi lớp: `name`, `label` (nhãn phân biệt, vd "Thứ 2-4-6"), môn (FE ghép từ `subject_id` + `GET /subjects`), `status`, `description` rút gọn. Sắp theo tên (BE đã sắp). 🟡 G9: sĩ số, giáo viên cùng dạy, buổi kế tiếp, số bài chờ chấm chưa có trong danh sách; ghép tạm cần gọi từng lớp (không khuyến nghị cho danh sách dài).
-- **Chức năng & hành động:** mở lớp; lọc/tìm. Mặc định ẩn lớp `archived` (có công tắc "hiện lớp đã lưu trữ").
+- **Chức năng & hành động:** mở lớp; lọc/tìm. Tab "Tất cả" hiện đúng tất cả, lớp `archived` xếp cuối và mờ; **không còn công tắc "hiện lớp đã lưu trữ"** (sửa 2026-10-28, giống Admin AD-09). Số lớp ở đầu trang là số lớp đang hiển thị. Menu gọi là "Lớp của tôi".
 - **Trạng thái cần vẽ:** tải · rỗng chưa có phân công ("Bạn chưa được phân công lớp nào") · rỗng do bộ lọc ("Không có lớp khớp", nút xóa lọc) · lỗi/thử lại · lớp `preparing` (chưa vận hành, huy hiệu riêng) · lớp `archived` (chỉ xem lịch sử).
 - **Quy tắc & lỗi nghiệp vụ:** chỉ lớp có phân công hiệu lực xuất hiện. Không có lỗi nghiệp vụ riêng.
 - **API:** `GET /classes` → `[{id, subject_id, name, label, description, status}]` (có bao `data`; xác nhận khi dựng); `GET /subjects` (tên môn). 🟡 G9 cho số liệu bổ sung.
@@ -183,6 +183,17 @@
 - **Dữ liệu mẫu gợi ý:** "Luyện đề vào 10 (Của tôi) · Đang mở · 24 học sinh"; "Ôn thi tốt nghiệp THPT (Dùng chung, Admin quản lý)". Lý do kết thúc ghi danh: "Học sinh chuyển sang nhóm khác."
 
 ---
+
+## Kết quả rà mockup lát 1 — Vận hành lớp (2026-10-28)
+
+Mockup `PiClass Giáo viên.dc.html` đã sửa cho TC-01..TC-05 (nhánh `mockup/teacher-lesson-ops-review`, `piclass-mockup`). User chốt: sửa chỗ mâu thuẫn quyết định, TC-04 dùng lại mockup Admin, TC-02 giống Admin, TC-01 giữ phương án A, giữ mục menu "Điểm danh".
+
+- **TC-01:** chỉ còn phương án A (bỏ B, C và thanh chọn phương án). "Cần xử lý" là 3 ô đếm thật: bài chờ chấm, đơn xin phép chờ duyệt, buổi đã qua chưa điểm danh (thay 3 việc giả). Bỏ khối "Chuyên cần trung bình" (G3 chưa có API).
+- **TC-02:** xem mục TC-02 ở trên. Thẻ lớp: tên, nhãn, môn, trạng thái, giáo viên, buổi kế tiếp, sĩ số; bỏ chuyên cần, điểm TB, tiến độ, loại lớp, nơi dạy (không có API hoặc đã tạm bỏ, C12).
+- **TC-03:** bỏ địa điểm giả ở đầu trang; còn hai ô số (Học sinh, Buổi đã học), bỏ ô Chuyên cần và Điểm trung bình; tab "Bài tập" đổi thành **"Bài của lớp"**; cột chuyên cần của từng học sinh hiện "Chưa có dữ liệu" (G3). Tab "Lịch sử thay đổi" vẫn tạm bỏ.
+- **TC-04:** mockup Giáo viên chỉ vẽ lưới tuần. Phần còn lại (Tháng/Ngày, lọc lớp, "Thêm buổi", tạo/sửa/hủy lịch lặp có lý do, chi tiết buổi, chip Dự kiến/Chờ hoàn tất/Hoàn tất/Đã hủy, ẩn nút Hủy khi buổi đã qua `ends_at`) **không vẽ lại**: FE Giáo viên port từ mockup Admin (AD-10d, AD-10e, AD-11) và từ code `features/lesson` của Admin. Các view lịch đang ở `ui/admin/` phải chuyển lên `ui/shared/` của feature `lesson` trước (rule F4).
+- **TC-05:** giữ mục menu "Điểm danh" riêng (một lần bấm vào điểm danh đầu buổi), vẫn mở được từ Tổng quan, Lịch dạy, Chi tiết lớp. Nhãn ô ghi chú: **"Ghi chú nội bộ (chỉ giáo viên và quản trị viên thấy)"** (`DEC-LRN-017`). Nhãn trạng thái: Dự kiến / Chờ hoàn tất / Hoàn tất / Đã hủy; nút "Hủy buổi học" ẩn với buổi đã qua giờ (`DEC-LRN-016`). Lịch sử sửa điểm danh trong mockup chưa có người sửa và thời điểm (BE chỉ lộ qua audit, vẫn 🟡).
+- **Chưa kiểm bằng trình duyệt:** mockup chỉ kiểm cú pháp script (`node --check`) và chạy lại `make_standalone.py`; user xem bản `standalone/`.
 
 ## Khoảng trống mới, thay đổi so với screen-inventory, câu hỏi cần chốt
 
