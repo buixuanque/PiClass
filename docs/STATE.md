@@ -1,6 +1,6 @@
 # STATE — đang ở đâu, làm gì tiếp
 
-File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, mỗi mục một dòng, không văn xuôi. Chi tiết: `history/progress-log.md` (lịch sử), `BACKLOG.md` (việc chưa làm), `progress.md` (bản chụp tĩnh). Đổi máy/session mới: chạy `/tiep`.
+File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, mỗi mục một dòng, không văn xuôi. Chi tiết: `history/progress-log.md` (lịch sử), `BACKLOG.md` (việc chưa làm). Đổi máy/session mới: chạy `/tiep`.
 
 Cập nhật lần cuối: 2026-10-28 · bởi: tái cấu trúc quản lý tiến độ
 

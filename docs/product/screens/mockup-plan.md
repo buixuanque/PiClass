@@ -19,7 +19,7 @@ cd PiClass && git checkout main && git pull          # repo docs (file này)
 cd piclass-mockup && git checkout main && git pull   # repo mockup, là repo riêng
 ```
 
-Repo mockup: `buixuanque/piclass-mockup`. Mở bằng double-click file trong `design-system/standalone/`. Khi làm xong một nhóm: commit repo mockup trước, rồi cập nhật ô bên dưới và `docs/progress.md` ở repo docs. Theo quy ước chung, mỗi repo làm trên branch riêng rồi mở PR khi người dùng yêu cầu.
+Repo mockup: `buixuanque/piclass-mockup`. Mở bằng double-click file trong `design-system/standalone/`. Khi làm xong một nhóm: commit repo mockup trước, rồi cập nhật ô bên dưới và `docs/STATE.md` ở repo docs. Theo quy ước chung, mỗi repo làm trên branch riêng rồi mở PR khi người dùng yêu cầu.
 
 ## Đặt lại kế hoạch (2026-10-24)
 
@@ -48,7 +48,7 @@ Chưa làm từ kế hoạch cũ: đồng bộ trực tiếp kết quả chấm 
 
 Mỗi màn tự đề xuất giữ/đơn giản hóa/tạm bỏ theo tinh thần V1 tối thiểu, ghi kết quả ngay vào đặc tả màn (`admin.md`...) và Decision Log khi là quy tắc mới. Giải thích cả hướng kỹ thuật lẫn nghiệp vụ khi đề xuất (theo `CLAUDE.md`).
 
-Mỗi nhóm có thêm dòng **API ghép** — các mã A/B/C từ `api-gaps.md` thuộc phạm vi Admin của nhóm đó, lấy từ cột "Màn hình" trong file đó. Làm cùng lúc với UI của nhóm (đúng bước 3 `working-flow.md`), không tách thành danh sách BE riêng. Mã nào dùng chung nhiều cổng (Giáo viên/Học sinh/Phụ huynh) thì chỉ phần Admin được ghép ở đây; phần còn lại chờ tới lượt cổng đó, xem `progress.md` mục "Việc tiếp theo".
+Mỗi nhóm có thêm dòng **API ghép** — các mã A/B/C từ `api-gaps.md` thuộc phạm vi Admin của nhóm đó, lấy từ cột "Màn hình" trong file đó. Làm cùng lúc với UI của nhóm (đúng bước 3 `working-flow.md`), không tách thành danh sách BE riêng. Mã nào dùng chung nhiều cổng (Giáo viên/Học sinh/Phụ huynh) thì chỉ phần Admin được ghép ở đây; phần còn lại chờ tới lượt cổng đó, xem `STATE.md` và `BACKLOG.md`.
 
 **Thứ tự: theo luồng ngày đầu của một trung tâm, không theo thứ tự menu.**
 

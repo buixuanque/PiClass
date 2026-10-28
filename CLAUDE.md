@@ -4,13 +4,13 @@ Nạp tự động mọi session ở root workspace. Giữ ngắn: chỉ ghi th�
 
 ## Bắt đầu từ đâu
 
-Đọc [docs/STATE.md](docs/STATE.md) (đang làm gì, kế tiếp là gì) hoặc chạy `/tiep` (đọc STATE + đối chiếu git thật ở mọi repo). Không dựa vào lịch sử chat. Không đọc mặc định: `docs/BACKLOG.md` (việc chưa làm), `docs/history/*` (lịch sử, tra khi cần), `docs/progress.md` (bản chụp tĩnh: Step, stack, cấu trúc repo).
+Đọc [docs/STATE.md](docs/STATE.md) (đang làm gì, kế tiếp là gì) hoặc chạy `/tiep` (đọc STATE + đối chiếu git thật ở mọi repo). Không dựa vào lịch sử chat. Không đọc mặc định: `docs/BACKLOG.md` (việc chưa làm), `docs/history/*` (lịch sử, tra khi cần).
 
 ## Theo dõi tiến độ
 
 - `STATE.md` là nguồn duy nhất cho "đang ở đâu". Giữ ≤ 60 dòng, mỗi mục một dòng, không văn xuôi; khuôn và quy ước bước ở cuối file đó.
 - Cập nhật `STATE.md` ngay khi xong một bước nhỏ (không chờ user nhắc), cùng commit với thay đổi docs liên quan; hoặc chạy `/xong`. Việc phát sinh chưa làm: thêm một dòng vào `BACKLOG.md`. Lát xong: dời chi tiết sang `history/progress-log.md`.
-- Chi tiết mới (PR số mấy, vì sao chốt) ghi vào `history/progress-log.md`, không ghi vào `STATE.md` hay `progress.md`.
+- Chi tiết mới (PR số mấy, vì sao chốt) ghi vào `history/progress-log.md`, không ghi vào `STATE.md`.
 
 ## Thứ tự ưu tiên tài liệu (source of truth)
 
