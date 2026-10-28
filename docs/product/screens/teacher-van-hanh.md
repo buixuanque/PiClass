@@ -27,7 +27,7 @@
 - **Lỗi chung của nhóm Lesson:** `FORBIDDEN` (403) "Không có quyền thao tác với lớp này." (tạo lịch: "Không có quyền tạo lịch cho lớp này."; tạo buổi: "Request failed."); lớp ngoài phạm vi (404) "Request failed."; 422 theo trường.
 - **Danh sách chưa phân trang** (trừ `GET /assessments`, có `per_page`, mặc định 20). Tìm/lọc trong danh sách làm ở FE (N9).
 - **Hiển thị tên:** hầu hết resource chỉ trả `id`; tên môn lấy từ `GET /subjects`, tên học sinh từ `GET /classes/{id}/members`. Chỗ nào FE phải ghép thì ghi "(FE ghép)".
-- **Đa vai trò:** tài khoản vừa Admin vừa Teacher thấy nhóm "Giảng dạy" (các màn này). Dữ liệu theo **vai trò đang hoạt động**: khi đang ở vai Admin thì API trả toàn bộ lớp; ở vai Teacher chỉ lớp được phân công. Nên ghi vai đang dùng ở đầu trang (Q6 chưa chốt).
+- **Một tài khoản một vai trò (`DEC-USR-015`, giải quyết Q6):** không có công tắc đổi vai trò. Người vừa quản trị vừa dạy dùng hai tài khoản riêng. Tài khoản Teacher chỉ thấy lớp được phân công; Admin dùng tài khoản Admin. Các màn này không cần nhóm "Giảng dạy" hay nhãn vai đang dùng.
 
 ---
 
