@@ -380,7 +380,7 @@ Phát hiện khi đối chiếu code; ngoài danh sách G1–G14. Các mục nà
 
 ### AD-10 — Chi tiết lớp (khung nhiều tab)   ✅
 
-Tách thành khung + 5 tab: **AD-10a Tổng quan · 10b Học sinh · 10c Giáo viên · 10d Lịch · 10e Buổi học**. Dùng mẫu M3.
+Tách thành khung + 4 tab: **AD-10a Tổng quan · 10b Học sinh · 10c Giáo viên · 10d Lịch học** (gộp Lịch và Buổi học cũ, `ARCH-37`). Dùng mẫu M3.
 
 - **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** quản lý một lớp từ A đến Z ở một chỗ: thông tin, ai học, ai dạy, khi nào học.
@@ -428,32 +428,30 @@ Tách thành khung + 5 tab: **AD-10a Tổng quan · 10b Học sinh · 10c Giáo 
 - **API:** `GET /classes/{id}/teachers`; `POST /classes/{id}/teachers` body `{teacher_id}` → 201 `{teacher_class_assignment:{id,class_id,teacher_id,valid_from}}`; `DELETE /classes/{id}/teachers/{teacherId}` → 204. Danh sách giáo viên để chọn: G4 (tạm `GET /users?role=teacher`, thiếu `teacher_id`: GM-1). Audit: `teacher_class_assignment.assign|end`.
 - **Dữ liệu mẫu gợi ý:** Nguyễn Thị Hạnh · phụ trách từ 05/09/2026; lỗi "Cô Trần Thu Hà đã nghỉ dạy nên không thể phân công."
 
-#### AD-10d — Tab Lịch   ✅
+#### AD-10d — Tab Lịch học   ✅ (gộp AD-10d Lịch và AD-10e Buổi học cũ, `ARCH-37`, 2026-10-27/28)
 
-- **Khối nội dung & dữ liệu hiển thị:** danh sách mẫu lịch (`GET /classes/{id}/schedules` → `{data:[{id,status,effective_from,effective_until,local_start_time,duration_minutes,repeat_weekly,weekdays}]}`). Mỗi thẻ: "Thứ Ba, Thứ Năm · 17:30–19:00 (90 phút)" (giờ kết thúc = bắt đầu + `duration_minutes`), "Áp dụng từ 05/09/2026 đến 30/06/2027" (hoặc "không giới hạn"), chip trạng thái (Đang áp dụng/Đã hủy/Đã kết thúc). Lịch không lặp (`repeat_weekly=false`): chỉ một buổi vào ngày `effective_from`.
-- **Chức năng & hành động (Admin và Teacher của lớp cùng làm; đặc tả đầy đủ ở file Teacher TC-04):**
-  - **Tạo lịch:** ngày bắt đầu*, **ngày kết thúc\*** (bắt buộc từ `DEC-SCH-004`, 2026-10-27 — không còn lịch "lặp vô thời hạn"), giờ bắt đầu*, thời lượng (phút)*, lặp hằng tuần* (bật/tắt), chọn các thứ (bắt buộc khi lặp). Tạo xong BE **sinh ngay toàn bộ buổi từ ngày bắt đầu đến ngày kết thúc** (không còn cắt ở 4 tuần); hiển thị số buổi tạo và **cảnh báo xung đột** (`warnings[]`: `type = teacher_schedule_conflict`, `conflicting_schedule_id`, `class_id`) dưới dạng hộp vàng "Giáo viên Hạnh trùng lịch với lớp Văn 8B (Thứ Ba 17:30)", **không chặn** (`DEC-SCH-002`).
-  - **Sửa lịch:** giờ bắt đầu, thời lượng, các thứ, ngày kết thúc (vẫn bắt buộc, điền sẵn giá trị hiện có — không cho xóa trắng); **lý do bắt buộc**. Nhắc: "Chỉ ảnh hưởng buổi chưa sinh/ tương lai; buổi đã sinh giữ nguyên" (`BR-CLASS-007`).
-  - **Hủy lịch:** 2 lựa chọn kiểu Google Calendar (`DEC-SCH-005`, 2026-10-27): **"Chỉ buổi này"** (giữ nguyên `POST /lesson-sessions/{id}/cancel`, buổi lẻ không thuộc lịch lặp chỉ có lựa chọn này) hoặc **"Buổi này và các buổi tiếp theo"** (`POST /lesson-sessions/{id}/cancel-series`, hủy cả mẫu lịch + mọi buổi `scheduled` từ ngày buổi được chọn trở đi; buổi đã diễn ra/hoàn tất không bị đụng). Cả hai **lý do bắt buộc**. Hủy nguyên mẫu lịch mà không qua một buổi cụ thể (`POST /schedules/{id}/cancel`, M4) vẫn giữ nguyên, không xóa buổi đã sinh. Thông báo gửi cho người liên quan (`BR-CLASS-009`).
-- **Trạng thái cần vẽ:** tải; rỗng ("Chưa có lịch học" + nút Tạo lịch); lỗi; lịch đã hủy mờ (ẩn nút sửa); đang lưu; kết quả tạo với cảnh báo xung đột.
-- **Quy tắc & lỗi nghiệp vụ:** 422: `effective_from`/`effective_until` bắt buộc; `effective_until` ≥ `effective_from`; `local_start_time` định dạng `HH:mm:ss`; `duration_minutes` ≥ 1; `weekdays` 1–7 bắt buộc khi lặp; `reason`/`cancel_reason` bắt buộc; `SESSION_HAS_NO_SCHEDULE` (422) khi gọi "và các buổi tiếp theo" trên buổi lẻ. 403 `FORBIDDEN` "Không có quyền thao tác với lớp này." (Teacher ngoài lớp; Admin không gặp). Lịch chỉ cảnh báo xung đột giáo viên, **không** kiểm tra xung đột phòng (G13/C12 chưa có địa điểm — **chốt 2026-10-25: tạm bỏ ở V1**, Admin ghi phòng vào Nhãn/Mô tả, quyết lại sau khi hỏi giáo viên).
-- **API:** `GET /classes/{id}/schedules`; `POST /classes/{id}/schedules` → 201 `{schedule:{id,class_id,status,effective_from,local_start_time,duration_minutes},warnings:[…]}`; `PATCH /schedules/{id}` (kèm `reason`) → `{schedule:{id,local_start_time,duration_minutes,weekdays}}`; `POST /schedules/{id}/cancel` body `{cancel_reason}`; `POST /lesson-sessions/{id}/cancel-series` body `{reason}`. Audit: `schedule.update|cancel`.
-- **Dữ liệu mẫu gợi ý:** Thứ Ba, Thứ Năm · 17:30 · 90 phút · từ 05/09/2026; cảnh báo xung đột với Văn 8B; lý do sửa: "Dời sang 18:00 vì học sinh tan trường muộn."
-
-#### AD-10e — Tab Buổi học   ✅ (G12, G13)
-
-- **Khối nội dung & dữ liệu hiển thị:** bộ lọc khoảng ngày (`from`, `until`, mặc định tháng hiện tại). Danh sách từ `GET /classes/{id}/lesson-sessions` → `{data:[{id,starts_at,ends_at,status,review_required}]}`: Ngày, Giờ (17:30–19:00), chip trạng thái (Dự kiến/Đã hoàn tất/Đã hủy), cờ "Cần rà soát điểm danh" (`review_required`, hiện ở buổi đã hủy nhưng đã có điểm danh). Nội dung và ghi chú chỉ có ở chi tiết (`GET /lesson-sessions/{id}` → `lesson_content`, `notes`). Không có tên giáo viên/địa điểm trên buổi (G13).
+- **Khối nội dung & dữ liệu hiển thị:** lịch dạng calendar Ngày/Tuần/Tháng, tái dùng bố cục AD-11 nhưng chỉ trong một lớp. Mỗi buổi là một ô: giờ, chip trạng thái (Dự kiến/Đã hoàn tất/Đã hủy), cờ "Cần rà soát điểm danh" (`review_required`), icon 🔁 nếu buổi thuộc một lịch lặp (`schedule_id` khác null). Không có danh sách mẫu lịch riêng: thông tin mẫu lịch chỉ hiện trong chi tiết buổi (xem dưới). Dữ liệu: `GET /classes/{id}/lesson-sessions?from=&until=&teacher_id=&status=` → `{data:[{id,schedule_id,starts_at,ends_at,status,review_required}]}`.
+- **Bộ lọc & điều hướng:** chuyển Ngày/Tuần/Tháng, nút lướt và "Hôm nay"; Select **Giáo viên** (mặc định "Mọi giáo viên", chỉ liệt kê giáo viên đang phân công — `GET /classes/{id}/teachers` có `valid_to` rỗng; gap các giáo viên đã kết thúc giữ như GM-3); Select **Trạng thái** (Tất cả/Dự kiến/Đã hoàn tất/Đã hủy, mặc định "Tất cả" nên buổi đã hủy có cờ rà soát vẫn hiện). Không có công tắc riêng "Ẩn buổi đã hủy" hay "Chỉ buổi cần rà soát" — chọn trạng thái là đủ.
 - **Chức năng & hành động:**
-  - **Thêm buổi lẻ / buổi bù:** giờ bắt đầu*, giờ kết thúc* (sau giờ bắt đầu), nội dung, ghi chú. Buổi tạo tay không gắn lịch.
-  - **Sửa buổi:** giờ, nội dung, ghi chú. **Lý do bắt buộc khi buổi đã hoàn tất**, tùy chọn ở trạng thái khác (`BR-CLASS-011`): ô lý do chuyển sang "bắt buộc" theo trạng thái buổi.
-  - **Hủy buổi:** M4, **lý do bắt buộc** (`cancellation_reason`). Hủy buổi đã điểm danh không xóa điểm danh mà gắn `review_required`; thông báo cho học sinh/phụ huynh. Buổi đã hủy: nút điểm danh bị khóa (`SESSION_CANCELLED`, không ngoại lệ Admin).
-  - **Hoàn tất buổi:** xác nhận đơn giản.
-  - **Mở buổi** → TC-05 (điểm danh, chi tiết buổi) dùng chung với Teacher; Admin được vào mọi lớp. **Lệch mockup có chủ ý (2026-10-25):** chưa có nút "Điểm danh" ở FE — TC-05/cổng Giáo viên chưa port FE, nút sẽ thêm khi tới lượt làm cổng đó. Dòng buổi học không hiện snippet nội dung (`lesson_content` chỉ có ở `GET /lesson-sessions/{id}`, danh sách không có — tránh gọi chi tiết N+1 cho mỗi dòng).
-- **Trạng thái cần vẽ:** tải; rỗng ("Chưa có buổi nào trong khoảng này" + nút Thêm buổi hoặc Tạo lịch); lỗi; buổi đã hủy (mờ, hiện lý do trong chi tiết); buổi cần rà soát (chấm cảnh báo); đang lưu.
-- **Quy tắc & lỗi nghiệp vụ:** 422 `starts_at`, `ends_at` bắt buộc, `ends_at` sau `starts_at`; 422 `reason` bắt buộc khi sửa buổi `completed`. Giờ không kèm múi giờ được hiểu là giờ Việt Nam. 403 như AD-10d. Lọc `from/until` không validate (giá trị sai gây lỗi 500 phía BE): FE phải chặn định dạng.
-- **API:** `GET /classes/{id}/lesson-sessions?from=&until=`; `GET /lesson-sessions/{id}`; `POST /classes/{id}/lesson-sessions` → 201 `{lesson_session:{id,class_id,starts_at,ends_at,status}}`; `PATCH /lesson-sessions/{id}` (`starts_at,ends_at,lesson_content,notes,reason`) → `{lesson_session:{id,status,notes}}`; `POST …/cancel` body `{cancellation_reason}`; `POST …/complete` → `{lesson_session:{id,status}}`. Audit `lesson_session.update|cancel`. 🟡 G12 (`notes` và `review_required` đang trả cả Student/Parent), G13 (địa điểm).
-- **Dữ liệu mẫu gợi ý:** Thứ Ba 21/10/2026 · 17:30–19:00 · Đã hoàn tất; Thứ Năm 23/10 · Đã hủy ("Cô Hạnh ốm") · Cần rà soát.
+  - **Tạo lịch lặp** (nút trên thanh công cụ): ngày bắt đầu*, ngày kết thúc*, giờ bắt đầu*, thời lượng (phút)*, lặp hằng tuần (bật/tắt), chọn các thứ (bắt buộc khi lặp). Sau khi tạo: số buổi đã sinh và cảnh báo xung đột giáo viên dạng thông tin, không chặn (`DEC-SCH-002`).
+  - **Thêm buổi lẻ / bù** (nút trên thanh công cụ): giờ bắt đầu*, giờ kết thúc*, nội dung, ghi chú. Buổi tạo tay không gắn lịch.
+  - **Bấm một buổi → chi tiết:** ngày giờ, trạng thái, nội dung, ghi chú, cờ rà soát. Nếu buổi thuộc lịch lặp, thêm dòng "Thuộc lịch lặp: Thứ Ba, Thứ Năm · 17:30–19:00 · đến 30/06/2027 (Đang áp dụng/Đã hủy/Đã kết thúc)".
+  - **Sửa buổi:**
+    - Buổi lẻ: mở thẳng form sửa buổi (`PATCH /lesson-sessions/{id}`).
+    - Buổi thuộc lịch lặp: hỏi phạm vi, 2 lựa chọn — **"Chỉ buổi này"** (form sửa buổi như trên) hoặc **"Buổi này và từ nay trở đi"** (sửa mẫu lịch và mọi buổi `scheduled` từ ngày của buổi đang chọn trở đi, `PATCH /lesson-sessions/{id}/update-series`, lý do bắt buộc). Hộp hỏi phạm vi hiện bất kể trạng thái buổi đang chọn; buổi trước ngày đó và buổi đã `completed`/`cancelled` không bị đổi.
+    - Lý do bắt buộc khi sửa buổi đã hoàn tất (`BR-CLASS-011`) giữ nguyên.
+  - **Hủy buổi:** 2 lựa chọn **"Chỉ buổi này"** / **"Buổi này và các buổi tiếp theo"** (`DEC-SCH-005`), lý do bắt buộc. Buổi lẻ chỉ có "Chỉ buổi này".
+  - **Hoàn tất buổi:** xác nhận đơn giản, chỉ với buổi `scheduled`.
+  - Không còn lối sửa hay hủy mẫu lịch không qua một buổi cụ thể — đây là nguồn gốc lỗi "Hủy lịch không xóa buổi" đã phát hiện khi bàn `ARCH-37`. Mọi thay đổi lịch lặp đi qua một buổi để hỏi phạm vi rõ ràng.
+- **Trạng thái cần vẽ:** tải; rỗng ("Chưa có buổi nào trong khoảng này" + nút Tạo lịch lặp / Thêm buổi lẻ); lỗi (có nút Thử lại); buổi đã hủy (mờ, hiện lý do trong chi tiết); buổi cần rà soát (badge); đang lưu.
+- **Quy tắc & lỗi nghiệp vụ:** 422 `effective_from`/`effective_until` bắt buộc, `effective_until` ≥ `effective_from` (`DEC-SCH-004`); 422 `starts_at`, `ends_at` bắt buộc, `ends_at` sau `starts_at`; 422 `reason` bắt buộc khi sửa buổi `completed`; 422 `SESSION_HAS_NO_SCHEDULE` khi gọi "và các buổi tiếp theo" trên buổi lẻ (FE không cho chọn nên chỉ gặp khi dữ liệu lệch); 403 `FORBIDDEN` "Không có quyền thao tác với lớp này." (Teacher ngoài lớp). Không kiểm tra xung đột phòng (G13, tạm bỏ ở V1).
+- **API:** `GET /classes/{id}/lesson-sessions`; `GET /lesson-sessions/{id}`; `POST /classes/{id}/lesson-sessions`; `PATCH /lesson-sessions/{id}`; `POST /lesson-sessions/{id}/complete`; `POST /lesson-sessions/{id}/cancel` (`cancellation_reason`); `POST /lesson-sessions/{id}/cancel-series` (`reason`); `PATCH /lesson-sessions/{id}/update-series` (`reason` + tùy chọn `local_start_time`, `duration_minutes`, `weekdays`, `effective_until`); `GET /classes/{id}/schedules`; `POST /classes/{id}/schedules`. BE còn `PATCH /schedules/{id}` và `POST /schedules/{id}/cancel` nhưng FE không còn gọi (xem `known-debt.md`). Audit: `lesson_session.update|cancel`, `schedule.update`.
+- **Lệch đặc tả có chủ ý (2026-10-27):** gộp hai tab thành một theo mô hình Google Calendar (quyết định trong `superpowers/specs/2026-10-27-merge-schedule-sessions-tab-design.md`); bỏ danh sách mẫu lịch riêng (user chốt: nhìn calendar là thấy hết); chưa vẽ lại mockup cho tab này, FE dựng trực tiếp theo đặc tả.
+- **Dữ liệu mẫu gợi ý:** Thứ Ba, Thứ Năm · 17:30–19:00 · từ 05/09/2026 đến 30/06/2027 (🔁 trên các buổi); Thứ Năm 23/10 · Đã hủy ("Cô Hạnh ốm") · Cần rà soát điểm danh.
 
+#### AD-10e — (đã gộp vào AD-10d, `ARCH-37`)
+
+Nội dung buổi học (xem, thêm, sửa, hủy, hoàn tất) chuyển sang **AD-10d — Tab Lịch học**. Mã AD-10e giữ lại để link cũ không gãy.
 ---
 
 ## Lịch và khóa học
@@ -462,9 +460,9 @@ Tách thành khung + 5 tab: **AD-10a Tổng quan · 10b Học sinh · 10c Giáo 
 
 - **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** nhìn cả trung tâm trong một tuần: lớp nào học khi nào, giáo viên nào bận, chỗ nào trống/trùng.
-- **Vào từ / đi tới:** menu Quản trị › Lịch; AD-01 (buổi hôm nay). Bấm một buổi → AD-10e của lớp (hoặc ngăn chi tiết buổi → TC-05).
+- **Vào từ / đi tới:** menu Quản trị › Lịch; AD-01 (buổi hôm nay). Bấm một buổi → AD-10d của lớp, tab Lịch học (hoặc ngăn chi tiết buổi → TC-05).
 - **Khối nội dung & dữ liệu hiển thị:** chuyển Tuần/Tháng/Ngày; lưới lịch; mỗi buổi là một ô: giờ, tên lớp, giáo viên, trạng thái (Dự kiến/Hoàn tất/Hủy), cờ cần rà soát. Bộ lọc: lớp, giáo viên, môn, ẩn buổi đã hủy. Chú giải màu theo trạng thái (không chọn màu ở đây). Dự kiến đánh dấu các ô trùng giờ cùng giáo viên.
-- **Chức năng & hành động:** điều hướng tuần/tháng, lọc, bấm mở buổi; nút "Thêm buổi" chọn lớp rồi vào AD-10e. Chỉ xem và điều hướng, thao tác ghi làm ở AD-10.
+- **Chức năng & hành động:** điều hướng tuần/tháng, lọc, bấm mở buổi; nút "Thêm buổi" chọn lớp rồi vào AD-10d. Chỉ xem và điều hướng, thao tác ghi làm ở AD-10.
 - **Trạng thái cần vẽ:** tải; tuần rỗng ("Không có buổi học trong tuần này"); lỗi từng lớp (một lớp lỗi vẫn hiện các lớp còn lại); buổi đã hủy; lớp chưa có lịch.
 - **Quy tắc & lỗi nghiệp vụ:** không có lỗi nghiệp vụ riêng. Cảnh báo xung đột chỉ thông tin (`DEC-SCH-002`).
 - **API:** `GET /me/lesson-sessions?from=&until=&class_id=&teacher_id=&subject_id=&hide_cancelled=` → `{data:[{id,starts_at,ends_at,status,review_required,class_id,class_name,subject_name,teacher_names}]}` — một endpoint dùng chung mọi vai trò, phạm vi theo `ClassScope` (Admin thấy toàn hệ thống). Cờ "▲ Giáo viên trùng giờ" tính ở FE (so khung giờ giao nhau + tên giáo viên chung giữa các buổi cùng ngày), không cần BE. **Lệch mockup có chủ ý (2026-10-25):** không tô màu theo lớp (`hue` trong mockup là dữ liệu giả không có field BE tương ứng); giữ nguyên dòng chú thích "Chưa kiểm tra trùng phòng học" vì G13 (địa điểm) chưa làm.
@@ -563,7 +561,7 @@ Tách thành khung + 5 tab: **AD-10a Tổng quan · 10b Học sinh · 10c Giáo 
 
 | Mã mới | Loại | Lý do |
 |---|---|---|
-| AD-10a…AD-10e | Tách AD-10 | Mỗi tab có dữ liệu, hành động và lỗi riêng; AD-10 giữ vai trò khung |
+| AD-10a…AD-10d | Tách AD-10 | Mỗi tab có dữ liệu, hành động và lỗi riêng; AD-10 giữ vai trò khung. Lịch và Buổi học gộp thành một tab (`ARCH-37`) |
 | AD-05a | Tách AD-05 | Form tạo/sửa học viên tách khỏi trang chi tiết |
 | AD-05b | Thêm (✅) | Hộp thoại mời tạo tài khoản, dùng chung cho 3 loại hồ sơ |
 | AD-05c | Thêm (🔵🟡 G11) | Gửi lại lời mời / đặt mật khẩu hộ |
