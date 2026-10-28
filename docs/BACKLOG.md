@@ -40,6 +40,8 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 | B-046 | web | Minor hoãn của PR #13 (test thiếu, focus trap Dialog); 6 lỗi minor lát 6 | mô tả PR #13/#48; `history/progress-log.md` |
 | B-047 | docs | Catalog hành động audit thiếu `course_class_link.*`, `course_enrollment.relink` | `product/screens/admin.md` |
 | B-048 | mockup | Nút `danger` 3.39:1, Tooltip aria, BottomNav hover, ô ngày locale `vi` | `piclass-mockup/design-system/CHANGES.md` |
+| B-050 | docs | Rút gọn `known-debt.md` (15.8KB): mỗi nợ một câu + link; khuôn ≤ 6 dòng/lát cho `history/progress-log.md` | tối ưu token, đề xuất mục 4-5 |
+| B-051 | api | Comment trong `ArchitectureTest.php`/Listener còn trỏ "CLAUDE.md" cho quy ước nay nằm ở `docs/CONVENTIONS.md` | sửa khi chạm file |
 | B-049 | all | Dịch comment tiếng Anh còn lại sang tiếng Việt (chỉ file đang sửa) | `CLAUDE.md` |
 
 ## D. Sau V1 / hỏi giáo viên rồi mới quyết
