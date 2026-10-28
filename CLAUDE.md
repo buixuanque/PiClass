@@ -10,7 +10,7 @@ Khi user **bắt đầu làm việc, hỏi tiến độ hoặc "tiếp theo là 
 
 - `STATE.md` là nguồn duy nhất cho "đang ở đâu". Giữ ≤ 60 dòng, mỗi mục một dòng, không văn xuôi; khuôn và quy ước bước ở cuối file đó.
 - Chỉ cập nhật `STATE.md` khi trạng thái **thật sự đổi** (chuyển bước, xong lát, phát sinh/xong việc kế tiếp), cùng commit với thay đổi docs liên quan, hoặc khi user chạy `/xong`. Không sửa sau mỗi bước nhỏ. Việc phát sinh chưa làm: thêm một dòng vào `BACKLOG.md`. Lát xong: xóa khỏi `STATE.md`, `git mv` spec/plan sang `docs/archive/superpowers/`.
-- **Commit local không sang được máy khác.** Khi cập nhật `STATE.md` mà user có thể đổi máy, hỏi một câu: có push `STATE.md` lên `main` (PR docs ngắn) để máy khác thấy không. User trả lời có mới push.
+- **Commit local không sang được máy khác.** Khi cập nhật `STATE.md` mà user có thể đổi máy, hỏi một câu: có đưa `STATE.md` lên `main` để máy khác thấy không — **vẫn theo luồng nhánh riêng → push nhánh → PR → merge, không bao giờ push thẳng `main`**. User trả lời có mới push.
 - Chi tiết của một lát (PR số mấy, vì sao chốt) nằm ở mô tả PR; quyết định quan trọng ghi vào `decision-log.md`/`decisions/ARCH-xx.md`. Không ghi dài vào `STATE.md`; `archive/progress-log.md` là bản chụp cũ, không ghi thêm.
 
 ## Thứ tự ưu tiên tài liệu (source of truth)
