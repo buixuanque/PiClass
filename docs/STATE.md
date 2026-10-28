@@ -6,7 +6,7 @@ Cập nhật lần cuối: 2026-10-28 · bởi: xong bước 3 lát Vận hành 
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự: Vận hành lớp (TC-02..05) → Đơn xin phép & Tổng quan (TC-06, TC-01) → Khóa học (TC-15) → Bài đánh giá (TC-07..14). Đang ở lát 1.
-- **Bước:** lát 1 đã xong bước 1 (`DEC-LRN-016`, `DEC-LRN-017`, A1) , bước 2 (rà mockup TC-01..TC-05) và bước 3 (API: `cancellation_reason` ở chi tiết buổi, `actor_name` ở audit); kế tiếp bước 4: ghép FE Giáo viên với API thật
+- **Bước:** lát 1 đã xong bước 1 (`DEC-LRN-016`, `DEC-LRN-017`, A1), bước 2 (rà mockup TC-01..TC-05) và bước 3 (API: `cancellation_reason` ở chi tiết buổi, `actor_name` ở audit); kế tiếp bước 4: ghép FE Giáo viên với API thật
 - **Cổng Admin:** xong toàn bộ, đã merge `main`, user đã bấm thử trình duyệt.
 
 ## Việc kế tiếp (làm từ trên xuống)
