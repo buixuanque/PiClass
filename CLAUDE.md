@@ -1,70 +1,66 @@
 # CLAUDE.md
 
-File này được Claude Code tự động nạp vào mọi session mở trong repo này. Giữ ngắn — chỉ ghi những gì không tự suy ra được từ code/docs, không lặp lại nội dung đã có trong `docs/`.
+Nạp tự động mọi session ở root workspace. Giữ ngắn: chỉ ghi thứ không suy ra được từ code/docs; chi tiết nằm ở `docs/`.
 
 ## Bắt đầu từ đâu
 
-Đọc [docs/progress.md](docs/progress.md) trước — trạng thái hiện tại theo từng Step, stack đã chốt, việc đang làm. Đừng chỉ dựa vào lịch sử chat để biết đang ở đâu.
+Đọc [docs/STATE.md](docs/STATE.md) (đang làm gì, kế tiếp là gì) hoặc chạy `/tiep` (đọc STATE + đối chiếu git thật ở mọi repo). Không dựa vào lịch sử chat. Không đọc mặc định: `docs/BACKLOG.md` (việc chưa làm), `docs/history/*` (lịch sử, tra khi cần), `docs/progress.md` (bản chụp tĩnh: Step, stack, cấu trúc repo).
+
+## Theo dõi tiến độ
+
+- `STATE.md` là nguồn duy nhất cho "đang ở đâu". Giữ ≤ 60 dòng, mỗi mục một dòng, không văn xuôi; khuôn và quy ước bước ở cuối file đó.
+- Cập nhật `STATE.md` ngay khi xong một bước nhỏ (không chờ user nhắc), cùng commit với thay đổi docs liên quan; hoặc chạy `/xong`. Việc phát sinh chưa làm: thêm một dòng vào `BACKLOG.md`. Lát xong: dời chi tiết sang `history/progress-log.md`.
+- Chi tiết mới (PR số mấy, vì sao chốt) ghi vào `history/progress-log.md`, không ghi vào `STATE.md` hay `progress.md`.
 
 ## Thứ tự ưu tiên tài liệu (source of truth)
 
-Khi có mâu thuẫn giữa các tài liệu, ưu tiên theo thứ tự:
+Khi mâu thuẫn, ưu tiên:
 
-1. `docs/requirements/*` — business rules đã chốt (Step 5), có Decision Log mã số (`DEC-xxx`).
-2. `docs/access-control/*` — role/permission/data scope đã chốt (Step 7).
-3. `docs/database/*` — schema, quan hệ, lifecycle đã chốt (Step 6).
-4. `docs/product/*`, `docs/flows/*`, `docs/domain/*` — mục tiêu, scope, flow, thuật ngữ (Step 1-4).
-5. `docs/architecture/*` — cách tổ chức kỹ thuật; không được tự đổi business rule ở trên.
+1. `docs/requirements/*` — business rules đã chốt (Step 5), Decision Log `DEC-xxx`.
+2. `docs/access-control/*` — role/permission/data scope (Step 7).
+3. `docs/database/*` — schema, quan hệ, lifecycle (Step 6).
+4. `docs/product/*`, `docs/flows/*`, `docs/domain/*` — mục tiêu, scope, flow, thuật ngữ.
+5. `docs/architecture/*` — tổ chức kỹ thuật; không được tự đổi business rule ở trên.
 
-## Quy ước code backend
+Chốt quyết định mới: cập nhật ngay tài liệu nguồn (Decision Log, `open-decisions.md`, `technology-decisions.md`...), không để chỉ trong chat. Phát hiện mâu thuẫn giữa tài liệu: ghi vào `open-decisions.md` của tầng liên quan, không tự chọn một phía rồi im lặng.
 
-Code backend (`piclass-api/`) viết theo `piclass-api/CLAUDE.md` (module `app/Modules/<Module>/`, `ArchitectureTest` canh tự động). Bẫy thực hành và cách viết test: [docs/architecture/backend-gotchas.md](docs/architecture/backend-gotchas.md). Code frontend (`piclass-web/`) viết theo `piclass-web/CLAUDE.md` (`ARCH-32`). Nợ kỹ thuật đã biết: [docs/architecture/known-debt.md](docs/architecture/known-debt.md) — khi chạm tới code có trong đó thì cân nhắc xử lý và xóa dòng.
+## Quy ước code
 
-**Khi gọi API (làm FE, tích hợp, tra response):** đọc `piclass-api/storage/api-docs/openapi.json` trước, chi tiết xem `piclass-web/CLAUDE.md`. Các việc khác không cần mở OpenAPI. Sửa API ở BE thì export lại trước khi commit (xem `piclass-api/CLAUDE.md`, mục "Tài liệu API").
+- Backend `piclass-api/`: `piclass-api/CLAUDE.md` (module `app/Modules/<Module>/`, `ArchitectureTest` canh tự động). Bẫy và cách viết test: `docs/architecture/backend-gotchas.md`.
+- Frontend `piclass-web/`: `piclass-web/CLAUDE.md` (`ARCH-32`).
+- Nợ kỹ thuật: `docs/architecture/known-debt.md` — chạm tới code có trong đó thì cân nhắc xử lý và xóa dòng.
+- Gọi API (làm FE, tích hợp, tra response): đọc `piclass-api/storage/api-docs/openapi.json` trước (chi tiết ở `piclass-web/CLAUDE.md`). Sửa API ở BE thì export lại trước khi commit (`piclass-api/CLAUDE.md`, mục "Tài liệu API").
+- Stack: Laravel + PostgreSQL + Next.js (tách riêng) + AWS EC2 + Sanctum. Chi tiết: `docs/architecture/technology-decisions.md`.
 
-## Khi chốt quyết định mới
+## Quy trình làm việc theo lát
 
-Cập nhật ngay tài liệu nguồn tương ứng (Decision Log, `open-decisions.md`, `technology-decisions.md`...) trong cùng lúc — không để quyết định chỉ tồn tại trong lịch sử chat. Nếu phát hiện mâu thuẫn giữa tài liệu, ghi vào `open-decisions.md` của tầng liên quan, không tự chọn một phía rồi im lặng.
+Mỗi nhóm màn hình đi hết vòng: bàn nghiệp vụ → mockup → plan+code BE → plan+code FE → chạy thử cả lát → cập nhật tài liệu → ship. BE và FE là hai plan riêng, xen kẽ trong cùng lát. V1 = chức năng cơ bản nhất của một trung tâm; mở rộng sau khi hỏi giáo viên. Chi tiết: [docs/process/working-flow.md](docs/process/working-flow.md).
 
-## Cập nhật `docs/progress.md` khi xong mốc
+`superpowers:brainstorming` cho việc kiến trúc/API: nạp trước `docs/requirements/*`, `docs/access-control/*`, `docs/database/*` làm nguồn; không để nó hỏi lại từ đầu hay viết spec lệch Decision Log.
 
-Vì user làm việc xen kẽ nhiều máy/nhiều session và có thể đổi máy/chuyển session ngay sau khi một bước hoàn thiện, **chủ động ghi chú vào `docs/progress.md` ngay khi xong từng bước nhỏ trong lát** (không chỉ khi xong cả nhóm) — không chờ user yêu cầu. Dùng trạng thái ngắn, nhất quán cho từng nhóm/lát đang làm, ví dụ: `plan xong, đang chờ code` → `code xong, đang review` → `review xong, đã merge` → `nhóm N đã xong`. Ghi kèm nhóm/step nào, PR số mấy (nếu có), còn thiếu gì. Vẫn theo quy trình git ở mục "Push nhiều repo" (branch riêng + PR, không commit thẳng `main`), trừ khi user bảo cập nhật nhanh/tạm.
+## Git (nhiều repo độc lập sống cùng thư mục)
 
-**Cùng lúc đó, luôn đồng bộ [docs/trang-thai-ngan.md](docs/trang-thai-ngan.md)** — bản rút gọn chỉ liệt kê trạng thái từng nhóm màn hình (`[x]`/`[~]`/`[ ]`) và mục "Đang làm tiếp theo", không có chi tiết. Mỗi khi `progress.md` đổi trạng thái một nhóm/lát (bắt đầu, xong một vế BE/FE, merge...), cập nhật dòng tương ứng ở `trang-thai-ngan.md` trong cùng commit — đừng chỉ sửa `progress.md` rồi để file này lạc hậu.
+`piclass-api/`, `piclass-web/` (Next.js), `piclass-infra/`, `piclass-mockup/` là repo riêng; repo gốc này là `piclass-docs`.
+
+- Không commit/push thẳng `main`. `git fetch origin`, branch mới từ `origin/main`, commit, push, `gh pr create`, `gh pr merge` — áp dụng cả thay đổi chỉ gồm `.md`. **Không xóa branch** sau merge (không `--delete-branch`, không tự xóa local/remote).
+- **Không tự push/mở PR/merge.** Commit vào branch local là được; chỉ push/PR/merge khi user yêu cầu rõ.
+- Khi push một repo con, luôn kiểm `git status`/`git log origin/main..HEAD` ở repo docs; có commit chưa push thì báo ngay trong cùng lượt trả lời và hỏi có push cùng không.
 
 ## Ngôn ngữ
 
-- Tài liệu (mọi file trong `docs/`, kể cả `docs/superpowers/specs|plans`, `progress.md`, `open-decisions.md`...) và trao đổi trong chat: tiếng Việt. Trừ nội dung buộc phải tiếng Anh (xem dòng dưới) hoặc thuật ngữ kỹ thuật không có bản dịch tiếng Việt tương đương.
-- **Comment trong code** (docblock, comment dòng, mô tả/ghi chú trong test): tiếng Việt. Comment tiếng Anh cũ nằm trong file đang sửa thì dịch luôn (chỉ trong file đã đụng tới, không dịch hàng loạt).
-- Tên biến/hàm/class, tên test method, `error.code`, commit message: tiếng Anh theo convention chung của Laravel/Next.js.
-- **PR title/description: tiếng Việt** (user chốt 2026-10-21, ghi đè quy ước tiếng Anh trước đó). Commit message vẫn tiếng Anh.
+- Tài liệu (mọi file `docs/`) và chat: tiếng Việt, trừ nội dung buộc tiếng Anh hoặc thuật ngữ kỹ thuật không có bản dịch.
+- Comment trong code và mô tả test: tiếng Việt; comment tiếng Anh cũ trong file đang sửa thì dịch luôn (không dịch hàng loạt).
+- Tên biến/hàm/class, tên test method, `error.code`, commit message: tiếng Anh.
+- PR title/description: tiếng Việt.
 
-## Giải thích khi hỏi thiết kế/clarify
+## Hỏi để chốt thiết kế
 
-Khi hỏi user để chốt rule/thiết kế mà nội dung không chỉ là code thuần (ví dụ: rule hiển thị dữ liệu theo role, business logic ảnh hưởng người dùng cuối, phân quyền), luôn giải thích **cả hai hướng**: hướng kỹ thuật VÀ hướng nghiệp vụ thực tế (ai làm gì, vì sao, ảnh hưởng ra sao tới người dùng cuối) — không chỉ liệt kê field/logic trừu tượng. Không cần áp dụng cho câu hỏi thuần kỹ thuật (chọn thư viện, format file, convention code).
-
-## Stack hiện tại
-
-Laravel + PostgreSQL (self-host) + Next.js (tách riêng) + AWS EC2 (1 instance) + Laravel Sanctum cho auth. Chi tiết/lý do: `docs/architecture/technology-decisions.md`.
+Khi hỏi user chốt rule/thiết kế không thuần code (hiển thị theo role, business logic ảnh hưởng người dùng cuối, phân quyền): giải thích **cả hai hướng** — kỹ thuật VÀ nghiệp vụ thực tế (ai làm gì, vì sao, ảnh hưởng tới người dùng cuối). Không cần cho câu hỏi thuần kỹ thuật.
 
 ## Research reports
 
-Khi dùng agent `researcher` (hoặc bất kỳ task research/so sánh công nghệ tương tự), sau khi nhận report cuối cùng, **luôn lưu lại** vào `docs/research/YYYY-MM-DD-<slug-chủ-đề>.md` — không chỉ để trong chat. Agent `researcher` không tự lưu file (chỉ có quyền đọc), người gọi nó (main session) chịu trách nhiệm lưu.
+Dùng agent `researcher` (hoặc research/so sánh công nghệ tương tự): sau report cuối, **luôn lưu** vào `docs/research/YYYY-MM-DD-<slug>.md`. Agent không tự lưu; main session chịu trách nhiệm.
 
 ## Môi trường Claude Code
 
-Skill (`superpowers`, `ui-ux-pro-max`, `frontend-design`) cài scope local, không commit qua git. Máy mới chạy lại theo [docs/setup/claude-skills-setup.md](docs/setup/claude-skills-setup.md), rồi `/reload-plugins` để nạp vào session đang chạy.
-
-Khi dùng `superpowers:brainstorming` cho việc kiến trúc/API (loại "architectural"), luôn nạp trước `docs/requirements/*`, `docs/access-control/*`, `docs/database/*` làm nguồn — không để nó tự hỏi lại từ đầu hoặc viết spec lệch khỏi Decision Log đã chốt.
-
-## Push nhiều repo (monorepo-workspace, nhiều git repo riêng)
-
-Workspace này gồm nhiều git repo độc lập sống cùng thư mục (`piclass-api/`, `piclass-infra/`, `piclass-web/` = frontend Next.js, `piclass-mockup/`; repo hiện tại chứa docs, tên `piclass-docs`). Mỗi khi push một trong các repo con (`piclass-api`, ...), **luôn kiểm tra `git status`/`git log origin/main..HEAD` ở repo docs (hiện tại) xem có commit local chưa push không** — việc code ở repo con gần như luôn kéo theo cập nhật `docs/progress.md`, spec, plan, hoặc `open-decisions.md` ở đây. Nếu có, **báo cho user luôn trong cùng lượt trả lời** (không chờ hỏi riêng) rằng repo docs cũng có thay đổi chưa push, và hỏi có muốn push cùng không.
-
-**Quy trình git giống nhau cho mọi repo, kể cả repo docs (hiện tại):** không commit/push trực tiếp lên `main`. Tạo branch mới từ `main` đã pull mới nhất (`git checkout main && git pull && git checkout -b <branch>`), commit vào đó, push branch, mở PR (`gh pr create`), rồi merge PR (`gh pr merge`) — áp dụng kể cả cho thay đổi chỉ gồm file `.md` (spec/plan/progress.md/open-decisions.md). **Không xóa branch sau khi merge** (không dùng `--delete-branch`/`-d` trên `gh pr merge`, và không tự xóa branch local/remote sau đó) — giữ lại để tham khảo lịch sử.
-
-**Không tự động push/mở PR/merge.** Commit vào branch local là được, nhưng chỉ push/tạo PR/merge khi user yêu cầu rõ ràng ("push đi", "xong rồi, push nhé"...) — không tự làm ngay sau khi code/docs xong, dù đã có branch sẵn.
-
-## Quy trình làm việc theo lát (từ 2026-10-24)
-
-Làm theo từng nhóm màn hình, mỗi nhóm đi hết vòng: bàn nghiệp vụ → chốt trực quan bằng mockup → plan và code BE → plan và code FE → chạy thử cả lát → cập nhật tài liệu → ship. BE và FE là hai plan riêng (không gộp vào một plan hay task), nhưng xen kẽ trong cùng một lát. Phạm vi V1 là chức năng cơ bản nhất của một trung tâm; mở rộng sau khi hỏi giáo viên. Chi tiết, thứ tự lát và skill dùng ở mỗi bước: [docs/process/working-flow.md](docs/process/working-flow.md). Trạng thái hiện tại: `docs/progress.md`.
+Skill (`superpowers`, `ui-ux-pro-max`, `frontend-design`) và agent cài local, không commit. Máy mới: [docs/setup/claude-skills-setup.md](docs/setup/claude-skills-setup.md), rồi `/reload-plugins`. Riêng `.claude/commands/` (`/tiep`, `/xong`) được track trong repo.

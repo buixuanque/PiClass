@@ -12,8 +12,9 @@ piclass-api/.env.testing
 # piclass-infra: repo git riêng (nested), sống trong cùng workspace window — không track trong repo này
 piclass-infra/
 
-# Claude Code: toàn bộ .claude/ (skills/plugins/agents) là state cài đặt local per-machine, không track trong repo này
-.claude/
+# Claude Code: skills/plugins/agents/settings là state cài đặt local per-machine, không track; riêng .claude/commands/ (/tiep, /xong) được track để theo user qua các máy
+.claude/*
+!.claude/commands/
 
 # piclass-web: repo git riêng (nested), sống trong cùng workspace window — không track trong repo này
 piclass-web/
