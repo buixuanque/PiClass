@@ -47,7 +47,7 @@
 | C7 | Tìm văn bản không dấu (`unaccent`) cho `/users`, `/questions`, `/assessments`; thêm tham số tìm kiếm cho hai danh sách sau. **Chốt 2026-10-25:** viết cơ chế chung một lần ở BE khi làm nhóm 2 Admin (`/classes`), tái dùng cho `/subjects`, `/students`, `/parents`, `/teachers` | TB-1 |
 | C8 | Tên người tạo/chấm/viết nhận xét trong response | TB-2 |
 | C9 | Lịch sử phiên bản câu hỏi, "câu này đang dùng ở bài nào", liệt kê tệp đính kèm của câu/bài | TB-3, TB-4 |
-| C10 | Xem thành viên/phân công đã kết thúc của lớp | GM-3 |
+| C10 | ~~Xem thành viên/phân công đã kết thúc của lớp~~ | GM-3 — **đã xong 2026-10-28**, xem `admin.md` bảng GM |
 | C11 | `cancellation_reason`, `lesson_content`, `schedule_id` trong response buổi học | G15b |
 | C12 | Địa điểm lớp/buổi học. **Chốt 2026-10-25: tạm bỏ ở V1** (nhóm 2 Admin) — Admin ghi phòng vào Nhãn/Mô tả, quyết lại sau khi hỏi giáo viên | G13 |
 | C13 | Nhân bản bài đánh giá | G14 |
