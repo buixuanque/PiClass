@@ -53,13 +53,13 @@
 - **Người dùng muốn làm gì:** Tìm nhanh lớp mình đang dạy và mở vào lớp đó.
 - **Vào từ / đi tới:** menu "Lớp của tôi". Bấm một lớp → TC-03. **Không có nút "Tạo lớp"** (chỉ Admin được tạo; mockup mẫu cần bỏ nút này, hoặc với tài khoản có thêm vai Admin thì nút nằm ở nhóm "Quản trị", AD-09).
 - **Khối nội dung & dữ liệu hiển thị:**
-  1. *Thanh lọc*: ô tìm theo tên lớp (không phân biệt dấu: BE chưa hỗ trợ nên lọc ở FE, chuẩn hóa bỏ dấu), lọc trạng thái (`preparing` Đang chuẩn bị / `active` Đang học / `archived` Đã lưu trữ), lọc môn (danh sách từ `GET /subjects`).
+  1. *Thanh lọc*: ô tìm theo tên lớp (không phân biệt dấu: BE chưa hỗ trợ nên lọc ở FE, chuẩn hóa bỏ dấu), lọc trạng thái (`preparing` Chưa có giáo viên / `active` Đang học / `archived` Đã lưu trữ), lọc môn (danh sách từ `GET /subjects`).
   2. *Danh sách lớp* (thẻ hoặc bảng), mỗi lớp: `name`, `label` (nhãn phân biệt, vd "Thứ 2-4-6"), môn (FE ghép từ `subject_id` + `GET /subjects`), `status`, `description` rút gọn. Sắp theo tên (BE đã sắp). 🟡 G9: sĩ số, giáo viên cùng dạy, buổi kế tiếp, số bài chờ chấm chưa có trong danh sách; ghép tạm cần gọi từng lớp (không khuyến nghị cho danh sách dài).
 - **Chức năng & hành động:** mở lớp; lọc/tìm. Mặc định ẩn lớp `archived` (có công tắc "hiện lớp đã lưu trữ").
 - **Trạng thái cần vẽ:** tải · rỗng chưa có phân công ("Bạn chưa được phân công lớp nào") · rỗng do bộ lọc ("Không có lớp khớp", nút xóa lọc) · lỗi/thử lại · lớp `preparing` (chưa vận hành, huy hiệu riêng) · lớp `archived` (chỉ xem lịch sử).
 - **Quy tắc & lỗi nghiệp vụ:** chỉ lớp có phân công hiệu lực xuất hiện. Không có lỗi nghiệp vụ riêng.
 - **API:** `GET /classes` → `[{id, subject_id, name, label, description, status}]` (có bao `data`; xác nhận khi dựng); `GET /subjects` (tên môn). 🟡 G9 cho số liệu bổ sung.
-- **Dữ liệu mẫu gợi ý:** "Toán 9A · Thứ 2-4-6 · Toán · Đang học"; "Văn 8B · Thứ 3-5 · Ngữ văn · Đang học"; "Anh giao tiếp K12 · Cuối tuần · Tiếng Anh · Đang chuẩn bị".
+- **Dữ liệu mẫu gợi ý:** "Toán 9A · Thứ 2-4-6 · Toán · Đang học"; "Văn 8B · Thứ 3-5 · Ngữ văn · Đang học"; "Anh giao tiếp K12 · Cuối tuần · Tiếng Anh · Chưa có giáo viên".
 
 ### TC-03 — Chi tiết lớp   ✅ (một số khối 🟡)
 - **Vai trò · responsive:** Teacher · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
