@@ -5,30 +5,26 @@ File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤
 Cập nhật lần cuối: 2026-10-28 · bởi: tái cấu trúc quản lý tiến độ
 
 ## Đang làm
-- **Lát:** Tái cấu trúc quản lý tiến độ (STATE/BACKLOG/`/tiep`/`/xong`)
-- **Bước:** code xong cả 3 repo (docs, api, web), đang chờ user duyệt
-- **Repo/nhánh:** `piclass-docs` · `docs/restructure-state-tracking`; `piclass-api` · `docs/slim-claude-md`; `piclass-web` · `docs/slim-claude-md`
+- **Lát:** chưa có lát đang làm (vừa xong tái cấu trúc quản lý tiến độ: STATE/BACKLOG/`/tiep`/`/xong`, rules theo chủ đề; `piclass-api` #59, `piclass-web` #23, docs PR này)
+- **Bước:** xong; việc kế tiếp xem bên dưới
 - **Cổng Admin:** xong toàn bộ, đã merge `main` (kể cả 5d: `piclass-api` #58, `piclass-web` #20, docs #114). Chỉ còn user bấm thử trình duyệt.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Duyệt và merge 3 nhánh tái cấu trúc (docs, api, web) — user yêu cầu push thì mới push; thử `/tiep` ở session mới
+1. [user] Mở session mới, chạy `/tiep` và giao một task có ngày giờ để kiểm AI tự đọc `docs/rules/time.md`; báo lại nếu lệch
 2. [user] Bấm thử cổng Admin trên trình duyệt; lỗi tìm ra thì thêm vào `BACKLOG.md`
 3. Bắt đầu lát **cổng Giáo viên**, bước 1 `working-flow.md`: list chức năng từ API có sẵn + rà mockup (`product/screens/teacher-van-hanh.md`, `teacher-bai-danh-gia.md`, `mockup-plan.md`)
 4. Cùng lát Giáo viên: chốt khung điều hướng Admin+Teacher (Q6, CM-10) vì Teacher chưa có shell
 5. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
 ## Chờ user (Claude không tự làm được)
-- Bấm thử Admin trên trình duyệt (xem mục 2)
+- Thử `/tiep` ở session mới (mục 1) và bấm thử Admin trên trình duyệt (mục 2)
 - Xác nhận `ARCH-36` (a)–(f): UI "thêm hồ sơ kèm tài khoản" dựng không qua mockup
 - Duyệt thứ tự ưu tiên `BACKLOG.md`
 
 ## Chưa push / chưa merge
 | Repo | Nhánh | Trạng thái |
 |---|---|---|
-| piclass-docs | `docs/restructure-state-tracking` | đã commit local, chưa push |
-| piclass-api | `docs/slim-claude-md` | đã commit local, chưa push |
-| piclass-web | `docs/slim-claude-md` | đã commit local, chưa push |
-| piclass-infra, piclass-mockup | — | `main` sạch, không có PR mở (kiểm 2026-10-28) |
+| (không có) | — | mọi repo `main` sạch, không có PR mở (kiểm 2026-10-28) |
 
 ## Cổng
 | Cổng | FE |
