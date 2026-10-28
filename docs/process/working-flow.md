@@ -1,6 +1,6 @@
 # Quy trình làm việc theo lát
 
-Mỗi lát là một nhóm màn hình, đi hết các bước dưới đây rồi mới sang lát kế. Thứ tự lát và hiện trạng: `product/screens/mockup-plan.md`; đang ở đâu: `progress.md`.
+Mỗi lát là một nhóm màn hình, đi hết các bước dưới đây rồi mới sang lát kế. Thứ tự lát và hiện trạng: `product/screens/mockup-plan.md`; đang ở đâu: `STATE.md`.
 
 ## Nguyên tắc
 
@@ -18,9 +18,9 @@ Mỗi lát là một nhóm màn hình, đi hết các bước dưới đây rồ
    - Sửa nhỏ hoặc màn mới theo mẫu có sẵn: tự kiểm.
    - Xong cả một nhóm lớn hoặc có kiểu giao diện mới: review một lần ở cuối.
 3. **Cập nhật API.** Chốt xong UI thì bổ sung/sửa API nếu thiếu. Spec ngắn nếu có hành vi mới, plan, code theo TDD, review một lần ở cuối branch (opus, effort medium). Đổi route/FormRequest/Resource thì chạy lại `scramble:export` trước khi coi bước này xong (xem `piclass-api/CLAUDE.md`). Quy ước: `piclass-api/CLAUDE.md`.
-4. **Ghép FE với API thật.** Trước khi đọc contract API, chạy `docker compose exec api php artisan scramble:export` (repo `piclass-infra/local`) rồi đọc `piclass-api/storage/api-docs/openapi.json` — nhanh hơn đọc tay từng Controller/Resource (xem mục "Tài liệu API (OpenAPI)" ở `piclass-api/CLAUDE.md`). Plan, code bám design system v2 và mockup, gọi API thật, test. Trước khi dựng UI màn mới, mở file tương ứng ở `piclass-mockup/ds-v2-source/ui_kits/<vai-trò>/` làm tham chiếu (đọc tại chỗ, không copy nguyên — xem mục "Design system" ở `piclass-web/CLAUDE.md`). **Plan phải ghi rõ trong từng Task đoạn mockup cần đọc (dòng, biến) — không chỉ dựa vào đặc tả `admin.md`/màn hình khác (mô tả bằng lời, có thể thiếu chi tiết bố cục/tab/nút).** Quy ước: `piclass-web/CLAUDE.md`.
+4. **Ghép FE với API thật.** Trước khi đọc contract API, chạy `docker compose exec api php artisan scramble:export` (repo `piclass-infra/local`) rồi đọc `piclass-api/storage/api-docs/openapi.json` — nhanh hơn đọc tay từng Controller/Resource (xem mục "Tài liệu API (OpenAPI)" ở `piclass-api/CLAUDE.md`). Plan, code bám design system v2 và mockup, gọi API thật, test. Đặc tả màn (`product/screens/*.md`) rất dài: grep mã màn rồi đọc theo `offset`/`limit`, không đọc cả file. Trước khi dựng UI màn mới, mở file tương ứng ở `piclass-mockup/ds-v2-source/ui_kits/<vai-trò>/` làm tham chiếu (đọc tại chỗ, không copy nguyên — xem mục "Design system" ở `piclass-web/CLAUDE.md`). **Plan phải ghi rõ trong từng Task đoạn mockup cần đọc (dòng, biến) — không chỉ dựa vào đặc tả `admin.md`/màn hình khác (mô tả bằng lời, có thể thiếu chi tiết bố cục/tab/nút).** Quy ước: `piclass-web/CLAUDE.md`.
 5. **Chạy test trên màn thật.** Làm đúng kịch bản thật trên màn thật, sửa lỗi phát sinh tại chỗ. **Trước khi báo lát xong, tự so khớp từng màn đã code với đúng đoạn mockup** (không chỉ chạy test/lint/typecheck) — đây là bước hay bị bỏ qua, gây lệch mockup mà không ai phát hiện tới khi user tự kiểm.
-6. **Cập nhật tài liệu.** Đánh dấu lát xong ở `mockup-plan.md` và `progress.md`.
+6. **Cập nhật tài liệu.** Đánh dấu lát xong ở `mockup-plan.md`, cập nhật `STATE.md` (hoặc chạy `/xong`), dời spec/plan của lát sang `archive/superpowers/`.
 
 Bước 3 và 4 có thể chạy song song khi hình dạng API đã rõ; chưa rõ thì làm bước 3 trước. Ship (push/PR/merge) chỉ làm khi user yêu cầu rõ ("push đi") — xem mục Git dưới đây.
 

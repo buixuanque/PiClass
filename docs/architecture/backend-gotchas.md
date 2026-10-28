@@ -1,6 +1,6 @@
 # Quy tắc thực hành và bẫy khi viết backend
 
-Bổ sung cho `piclass-api/CLAUDE.md` (quy ước chính). File này là các quy tắc thực hành áp dụng **từ nay** cho mọi thay đổi backend, rút ra từ những lỗi đã gặp thật khi đưa 12 module về cùng một quy ước (`ARCH-17`). Nợ kỹ thuật đã biết: `known-debt.md`. Quyết định lúc thực thi từng module: `superpowers/plans/` và `superpowers/plans/2026-10-18-be-architecture-refactor-rulings.md`.
+Bổ sung cho `piclass-api/CLAUDE.md` (quy ước chính). File này là các quy tắc thực hành áp dụng **từ nay** cho mọi thay đổi backend, rút ra từ những lỗi đã gặp thật khi đưa 12 module về cùng một quy ước (`ARCH-17`). Nợ kỹ thuật đã biết: `known-debt.md`. Quyết định lúc thực thi từng module: `archive/superpowers/plans/` và `archive/superpowers/plans/2026-10-18-be-architecture-refactor-rulings.md`.
 
 ## Response và HTTP
 
@@ -46,6 +46,6 @@ Bổ sung cho `piclass-api/CLAUDE.md` (quy ước chính). File này là các qu
 
 ## Ghi trạng thái trong tài liệu (tránh lỗi thời)
 
-- Trong `docs/progress.md` và các bảng trạng thái của plan **chỉ ghi trạng thái cuối** ("đã merge `main`" kèm số PR BE/docs), **không ghi trạng thái trung gian** ("chờ review", "chờ merge", "branch local"): lúc merge xong sẽ không ai quay lại sửa và tài liệu lệch thực tế.
+- Trong `docs/STATE.md` và các bảng trạng thái của plan **chỉ ghi trạng thái cuối** ("đã merge `main`" kèm số PR BE/docs), **không ghi trạng thái trung gian** ("chờ review", "chờ merge", "branch local"): lúc merge xong sẽ không ai quay lại sửa và tài liệu lệch thực tế.
 - Việc cuối cùng của mỗi đầu việc, sau khi merge, là một commit tài liệu nhỏ: điền số PR và đổi "việc kế tiếp".
-- Trước khi báo trạng thái cho user hoặc cho phiên khác, đối chiếu bằng `git log --merges` và `gh pr list`, không chỉ đọc `progress.md`.
+- Trước khi báo trạng thái cho user hoặc cho phiên khác, đối chiếu bằng `git log --merges` và `gh pr list`, không chỉ đọc `STATE.md`.

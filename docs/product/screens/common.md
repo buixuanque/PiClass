@@ -170,7 +170,7 @@ Quy ước: ✅ BE đã có · 🟡 thiếu API (mã G) · 🔵 đề xuất ngo
 - **Chức năng & hành động:** `POST /auth/activate` `{login_identifier, token, password}` (broker mật khẩu riêng `invitations`, 7 ngày, dùng một lần) → 200 rỗng, hủy mọi session khác, không tự đăng nhập. Thiếu `token` hoặc `login_identifier` trên URL: hiện ngay trạng thái liên kết không hợp lệ, không hiện form (giống CM-03).
 - **Trạng thái cần vẽ:** form · đang gửi · thành công ("Tài khoản đã sẵn sàng" + nút Đăng nhập) · liên kết hết hạn/đã dùng (BE trả cùng lỗi cho cả hai trường hợp, không phân biệt được — FE gộp một trạng thái, gợi ý cả "Đăng nhập" và "Quên mật khẩu") · lỗi mạng.
 - **Quy tắc & lỗi nghiệp vụ:** 422 `error.details.token` = "Token không hợp lệ hoặc đã hết hạn." (dùng chung cho hết hạn thật sự VÀ cho tài khoản đã từng đăng nhập — tránh ai cầm liên kết cũ chiếm lại tài khoản); 422 `password` ≥ 8. Tài khoản mời có mật khẩu ngẫu nhiên, nên tới khi đặt mật khẩu không thể đăng nhập; thử đăng nhập sẽ nhận "Thông tin đăng nhập không đúng.".
-- **API:** `POST /auth/activate`. Liên quan (Admin): `POST /person-profiles/{id}/invite`, `POST /person-profiles/{id}/invitation` (gửi lại). Chi tiết: `superpowers/specs/2026-10-24-account-activation-link-design.md`.
+- **API:** `POST /auth/activate`. Liên quan (Admin): `POST /person-profiles/{id}/invite`, `POST /person-profiles/{id}/invitation` (gửi lại). Chi tiết: `archive/superpowers/specs/2026-10-24-account-activation-link-design.md`.
 - **Dữ liệu mẫu gợi ý:** Email `hs.minhanh@gmail.com`; tiêu đề "Chào mừng em Nguyễn Minh Anh (Toán 9A)" nếu BE trả được tên.
 
 ### CM-10 — Khung điều hướng (app shell)   ✅ + công tắc đổi vai trò Admin/Teacher (Q6 đã chốt 2026-10-27) (thêm mới)

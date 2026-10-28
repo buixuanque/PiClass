@@ -28,6 +28,7 @@ Tài liệu này phân biệt quyết định đã được chốt ở các Step
 | Backup/restore | **DECIDED (interim) — rủi ro được chấp nhận tạm thời** | Self-host PostgreSQL trên EC2, chưa thiết kế backup/retention đầy đủ (để sau). Khuyến nghị tối thiểu: `pg_dump` cron đẩy lên object storage (MinIO/S3) ngay trong giai đoạn dev, để giảm rủi ro mất dữ liệu học viên trước khi có quy trình backup hoàn chỉnh. |
 | Cache/search | **NOT REQUIRED BY CURRENT V1 DESIGN** | PostgreSQL là nguồn chuẩn; không cần cache/search service riêng trước khi có số đo hoặc yêu cầu. |
 | External email/SMS/payment/AI/video/chat | **OUT OF V1** | Không tích hợp trong topology V1 hiện tại. |
+| Dev local | **DECIDED (2026-10-13)** | Chuẩn hóa dev local trên Docker Compose (`piclass-infra/local`: Postgres, Laravel qua Nginx/PHP-FPM, Next.js, Mailpit, Playwright), thay cho cách host-based (PHP/Composer/PostgreSQL cài trực tiếp trong WSL). `piclass-api/.env*` và `phpunit.xml` trỏ về service `db` của container. Đã verify: `docker compose up` lên đủ service, `GET /api/health` trả `ok`, test suite chạy trong container. Script `.sh` phải LF (có `.gitattributes` chống CRLF từ Windows). |
 
 ## Quy tắc quyết định
 

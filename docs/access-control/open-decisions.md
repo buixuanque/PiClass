@@ -28,7 +28,7 @@ Các mục sau không còn open decisions; người dùng đã chốt phương �
 
 ## Course/CourseEnrollment — chốt khi brainstorm spec Academic (2026-10-14)
 
-Thêm cùng lúc với `DEC-LRN-010` (`requirements/decision-log.md`). Đã review và chốt dứt khoát khi brainstorm spec `docs/superpowers/specs/2026-10-14-academic-lesson-attendance-api-design.md`, đồng bộ vào `resource-permissions.md`/`permission-matrix.md`/`data-scope.md`/`requirements/learning-rules.md` (`BR-COURSE-004`):
+Thêm cùng lúc với `DEC-LRN-010` (`requirements/decision-log.md`). Đã review và chốt dứt khoát khi brainstorm spec `docs/archive/superpowers/specs/2026-10-14-academic-lesson-attendance-api-design.md`, đồng bộ vào `resource-permissions.md`/`permission-matrix.md`/`data-scope.md`/`requirements/learning-rules.md` (`BR-COURSE-004`):
 
 1. Teacher sở hữu Course được enroll/kết thúc CourseEnrollment cho **bất kỳ Student nào trong hệ thống**, không giới hạn Student thuộc Class mình phụ trách — chấp nhận mức rủi ro này vì Course phục vụ cả kịch bản dạy thêm cá nhân ngoài lớp chính thức.
 2. Course do Teacher tạo thuộc sở hữu riêng, không cần Admin duyệt — cùng pattern Question Bank.

@@ -22,9 +22,9 @@ Dù loại nào: **không viết code trước khi người dùng duyệt bướ
 ## 3. Trình tự đầy đủ cho việc "architectural" (vd Step 9 API spec)
 
 1. **Brainstorming** — hỏi từng câu về mục đích/giới hạn, đề xuất 2-3 cách làm, trình bày thiết kế theo từng phần, xin duyệt từng phần.
-2. **Viết spec** → lưu `docs/superpowers/specs/...`, tự rà soát, commit.
+2. **Viết spec** → lưu `docs/archive/superpowers/specs/...`, tự rà soát, commit.
 3. **Người dùng duyệt spec** — cổng chặn thứ nhất.
-4. **Writing-plans** — chỉ sau khi spec duyệt mới viết kế hoạch chi tiết (chia Task nhỏ, có code mẫu/cách test) → `docs/superpowers/plans/...`.
+4. **Writing-plans** — chỉ sau khi spec duyệt mới viết kế hoạch chi tiết (chia Task nhỏ, có code mẫu/cách test) → `docs/archive/superpowers/plans/...`.
 5. **Người dùng duyệt plan + chọn cách thực thi**:
    - **Subagent-driven**: mỗi Task giao 1 "phiên AI con" độc lập làm + 1 phiên khác review riêng trước khi sang Task kế — kỹ nhất, tốn chi phí nhất.
    - **Native**: tự làm hết trong phiên hiện tại, cuối cùng mới review 1 lần — rẻ, nhanh, ít kiểm tra chéo giữa chừng.
