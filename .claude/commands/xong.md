@@ -1,5 +1,5 @@
 ---
-description: Kết thúc bước/session — đồng bộ STATE.md với git thật, dời mục đã xong sang history
+description: Kết thúc bước/session — đồng bộ STATE.md với git thật, xóa mục đã xong, lưu spec/plan vào archive
 allowed-tools: Read, Edit, Write, Bash(git fetch:*), Bash(git status:*), Bash(git log:*), Bash(git branch:*), Bash(git add:*), Bash(git commit:*), Bash(gh pr list:*)
 ---
 

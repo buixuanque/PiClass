@@ -6,7 +6,7 @@ Gồm 34 prompt (29 màn và 5 prompt Ghép) cho cổng quản trị viên. **Mo
 
 ## Cách dùng
 
-1. Phiên Claude Design đã có design system và mockup: dán [00-nen.md](00-nen.md) một lần.
+1. Phiên Claude Design đã có design system và mockup: dán [00-nen.md](../product/screens/prompts/00-nen.md) một lần.
 2. Dán tiếp **Mẫu chung Admin** (khối ngay dưới) một lần, để các màn Admin dùng chung cách trình bày danh sách, chi tiết, form, hộp thoại.
 3. Vẽ từng màn theo thứ tự trong bảng (màn nền và dùng thường xuyên trước, thiết lập một lần sau). Mỗi prompt tự đứng được. Prompt Ghép (`-G`) dán sau khi các phần của chức năng đó đã vẽ xong.
 4. Prompt chỉ nói **cần gì** (thông tin, hành động, liên kết, quy tắc, trường hợp đặc biệt, dữ liệu mẫu). Bố cục bám mẫu mockup đã chốt; chi tiết bên trong vùng nội dung để Claude Design quyết.
