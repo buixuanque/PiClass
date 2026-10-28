@@ -22,10 +22,10 @@ Mỗi lát là một nhóm màn hình, đi hết các bước dưới đây rồ
 5. **Chạy test trên màn thật.** Làm đúng kịch bản thật trên màn thật, sửa lỗi phát sinh tại chỗ. **Trước khi báo lát xong, tự so khớp từng màn đã code với đúng đoạn mockup** (không chỉ chạy test/lint/typecheck) — đây là bước hay bị bỏ qua, gây lệch mockup mà không ai phát hiện tới khi user tự kiểm.
 6. **Cập nhật tài liệu.** Đánh dấu lát xong ở `mockup-plan.md`, cập nhật `STATE.md` (hoặc chạy `/xong`), dời spec/plan của lát sang `archive/superpowers/`.
 
-Bước 3 và 4 có thể chạy song song khi hình dạng API đã rõ; chưa rõ thì làm bước 3 trước. Ship (push/PR/merge) chỉ làm khi user yêu cầu rõ ("push đi") — xem mục Git dưới đây.
+Bước 3 và 4 có thể chạy song song khi hình dạng API đã rõ; chưa rõ thì làm bước 3 trước. Push nhánh feature tự động sau mỗi đơn vị việc hoàn thành; mở PR và merge chỉ khi user yêu cầu rõ ("tạo PR và merge đi") — xem mục Git dưới đây.
 
 ## Git
 
-- Không commit hay push thẳng `main`: branch từ `origin/main` mới nhất (`git fetch origin` trước), PR, merge, không xóa branch.
+- Không commit hay push thẳng `main`: branch từ `origin/main` mới nhất (`git fetch origin` trước), PR, merge, không xóa branch. Nhánh feature tự push sau mỗi đơn vị việc hoàn thành (không force-push, không `--amend` commit đã push); PR và merge chờ user xác nhận. Chi tiết: `CLAUDE.md` gốc mục Git.
 - Nhiều repo: code trước, docs sau cùng; khi push một repo, kiểm tra các repo còn lại có commit chờ không.
 - PR tiêu đề và mô tả tiếng Việt; commit message tiếng Anh.

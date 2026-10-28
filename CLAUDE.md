@@ -10,7 +10,7 @@ Khi user **bắt đầu làm việc, hỏi tiến độ hoặc "tiếp theo là 
 
 - `STATE.md` là nguồn duy nhất cho "đang ở đâu". Giữ ≤ 60 dòng, mỗi mục một dòng, không văn xuôi; khuôn và quy ước bước ở cuối file đó.
 - Chỉ cập nhật `STATE.md` khi trạng thái **thật sự đổi** (chuyển bước, xong lát, phát sinh/xong việc kế tiếp), cùng commit với thay đổi docs liên quan, hoặc khi user chạy `/xong`. Không sửa sau mỗi bước nhỏ. Việc phát sinh chưa làm: thêm một dòng vào `BACKLOG.md`. Lát xong: xóa khỏi `STATE.md`, `git mv` spec/plan sang `docs/archive/superpowers/`.
-- **Commit local không sang được máy khác.** Khi cập nhật `STATE.md` mà user có thể đổi máy, hỏi một câu: có đưa `STATE.md` lên `main` để máy khác thấy không — **vẫn theo luồng nhánh riêng → push nhánh → PR → merge, không bao giờ push thẳng `main`**. User trả lời có mới push.
+- **Nhánh đã push thì máy khác thấy, nhưng `main` thì chưa.** Khi cập nhật `STATE.md` mà user có thể đổi máy, hỏi một câu: có mở PR và merge để `STATE.md` lên `main` không — **vẫn theo luồng nhánh riêng → push nhánh → PR → merge, không bao giờ push thẳng `main`**. User trả lời có mới mở PR.
 - Chi tiết của một lát (PR số mấy, vì sao chốt) nằm ở mô tả PR; quyết định quan trọng ghi vào `decision-log.md`/`decisions/ARCH-xx.md`. Không ghi dài vào `STATE.md`; `archive/progress-log.md` là bản chụp cũ, không ghi thêm.
 
 ## Thứ tự ưu tiên tài liệu (source of truth)
@@ -50,8 +50,9 @@ Mỗi nhóm màn hình đi hết vòng: bàn nghiệp vụ → mockup → plan+c
 `piclass-api/`, `piclass-web/` (Next.js), `piclass-infra/`, `piclass-mockup/` là repo riêng; repo gốc này là `piclass-docs`.
 
 - Không commit/push thẳng `main`. `git fetch origin`, branch mới từ `origin/main`, commit, push, `gh pr create`, `gh pr merge` — áp dụng cả thay đổi chỉ gồm `.md`. **Không xóa branch** sau merge (không `--delete-branch`, không tự xóa local/remote).
-- **Không tự push/mở PR/merge.** Commit vào branch local là được; chỉ push/PR/merge khi user yêu cầu rõ.
-- Khi push một repo con, luôn kiểm `git status`/`git log origin/main..HEAD` ở repo docs; có commit chưa push thì báo ngay trong cùng lượt trả lời và hỏi có push cùng không.
+- **Tự push nhánh feature** (user chốt 2026-10-28): sau mỗi đơn vị việc hoàn thành (test + code + tài liệu của một mục, test xanh) thì push nhánh đang làm lên `origin`; commit làm dở hoặc test đỏ thì chưa push. Chỉ push nhánh feature, **không bao giờ push `main`** (đang ở `main` thì tạo nhánh từ `origin/main` trước khi commit). **Không force-push, không `--amend` commit đã push** (sửa bằng commit mới) trừ khi user bảo. Mỗi lần push báo một dòng: repo, nhánh, số commit.
+- **Mở PR và merge chỉ khi user yêu cầu rõ.**
+- Khi push một repo con, kiểm `git status`/`git log origin/main..HEAD` ở repo docs; có commit chưa push thì báo trong cùng lượt trả lời.
 
 ## Ngôn ngữ
 
