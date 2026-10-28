@@ -17,6 +17,7 @@ Các mục dưới đây là câu hỏi kỹ thuật còn mở; chúng không l�
 | ARCH-26 | Lỗi có sẵn và khoảng cách code–tài liệu phát hiện khi refactor Lesson (Task 9e) | **MỞ một phần** — (a)(b)(g) đã sửa, còn lại mở | [ARCH-26](decisions/ARCH-26.md) |
 | ARCH-28 | Quyết định và nợ phát hiện khi lên plan refactor Academic (Task 9f) | **MỞ một phần** — (n) phần Teacher/`users.status` còn mở | [ARCH-28](decisions/ARCH-28.md) |
 | ARCH-36 | UI lát "thêm hồ sơ kèm tài khoản" dựng không qua mockup (FE `piclass-web`, 2026-10-27) | **CHỜ XÁC NHẬN** | [ARCH-36](decisions/ARCH-36.md) |
+| OD-FE-01 | Xưng hô trong UI Giáo viên: mockup viết "cô", FE đang dùng "bạn" (không giả định giới tính giáo viên); bỏ bộ đếm "x/y" ở danh sách buổi TC-05 (tránh N request) | **CHỜ XÁC NHẬN** (2026-10-29) | [`teacher-van-hanh.md`](../product/screens/teacher-van-hanh.md) mục "Lệch có chủ ý khi dựng FE lát 1" |
 
 ## Tất cả (01–12 đầy đủ; 13 trở đi xem file chi tiết)
 

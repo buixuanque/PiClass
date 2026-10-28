@@ -43,6 +43,7 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 | B-048 | mockup | Nút `danger` 3.39:1, Tooltip aria, BottomNav hover, ô ngày locale `vi` | `piclass-mockup/design-system/CHANGES.md` |
 | B-052 | api | Máy có PHP: chạy `vendor/bin/pint --test`, `composer analyse`, `scramble:export` để chốt số liệu D-22, D-23, D-24 và chạy thử các 500 chưa xác nhận (D-08, D-11, D-14, D-17, D-25) | known-debt (đã rà 2026-10-28, chưa chạy được) |
 | B-051 | api | Comment trong `ArchitectureTest.php`/Listener còn trỏ "CLAUDE.md" cho quy ước Notification, nay nằm ở `docs/rules/defaults.md` | sửa khi chạm file |
+| B-053 | web | Minor hoãn của lát 1 Giáo viên (review cuối): bỏ hết em trong lô lưu im lặng; nút "Bỏ các em này" tự style; 422 theo trường ở dialog sửa/nội dung chỉ hiện toast; ẩn nút thêm lịch khi lớp archived; TC-03 báo lỗi khi members/teachers tải lỗi; thiếu test 409 `SESSION_CANCELLED` | PR piclass-web #27, ledger `.superpowers/sdd` |
 | B-049 | all | Dịch comment tiếng Anh còn lại sang tiếng Việt (chỉ file đang sửa) | `CLAUDE.md` |
 
 ## D. Sau V1 / hỏi giáo viên rồi mới quyết
