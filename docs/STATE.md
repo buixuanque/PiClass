@@ -2,29 +2,26 @@
 
 File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, mỗi mục một dòng, không văn xuôi. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-10-28 · bởi: tái cấu trúc quản lý tiến độ
+Cập nhật lần cuối: 2026-10-28 · bởi: bắt đầu lát Giáo viên (bước 1 lát Vận hành lớp)
 
 ## Đang làm
-- **Lát:** chưa có lát đang làm (vừa xong tái cấu trúc quản lý tiến độ: STATE/BACKLOG/`/tiep`/`/xong`, rules theo chủ đề; `piclass-api` #59, `piclass-web` #23, docs PR này)
-- **Bước:** xong; việc kế tiếp xem bên dưới
-- **Cổng Admin:** xong toàn bộ, đã merge `main` (kể cả 5d: `piclass-api` #58, `piclass-web` #20, docs #114). Chỉ còn user bấm thử trình duyệt.
+- **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự: Vận hành lớp (TC-02..05) → Đơn xin phép & Tổng quan (TC-06, TC-01) → Khóa học (TC-15) → Bài đánh giá (TC-07..14). Đang ở lát 1.
+- **Bước:** lát 1 đã xong bước 1 (chốt `DEC-LRN-016` không hủy buổi đã kết thúc, `DEC-LRN-017` `notes`/`review_required` nội bộ, A1 id điểm danh); kế tiếp bước 2: rà mockup TC-02..TC-05
+- **Cổng Admin:** xong toàn bộ, đã merge `main`, user đã bấm thử trình duyệt.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. [user] Mở session mới, chạy `/tiep` và giao một task có ngày giờ để kiểm AI tự đọc `docs/rules/time.md`; báo lại nếu lệch
-2. [user] Bấm thử cổng Admin trên trình duyệt; lỗi tìm ra thì thêm vào `BACKLOG.md`
-3. Bắt đầu lát **cổng Giáo viên**, bước 1 `working-flow.md`: list chức năng từ API có sẵn + rà mockup (`product/screens/teacher-van-hanh.md`, `teacher-bai-danh-gia.md`, `mockup-plan.md`)
-4. Cùng lát Giáo viên: dựng shell riêng cho Teacher (mỗi tài khoản một vai trò, không có công tắc đổi vai trò, `DEC-USR-015`)
-5. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
+1. Lát 1 Giáo viên, bước 2: rà mockup TC-02..TC-05 (`piclass-mockup/design-system/PiClass Giáo viên.dc.html`, `product/screens/teacher-van-hanh.md`), sửa mockup nếu cần, user xem bản `standalone/`
+2. Lát 1: dựng shell riêng cho Teacher (mỗi tài khoản một vai trò, không có công tắc đổi vai trò, `DEC-USR-015`)
+3. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
 ## Chờ user (Claude không tự làm được)
-- Thử `/tiep` ở session mới (mục 1) và bấm thử Admin trên trình duyệt (mục 2)
 - Xác nhận `ARCH-36` (a)–(f): UI "thêm hồ sơ kèm tài khoản" dựng không qua mockup
 - Duyệt thứ tự ưu tiên `BACKLOG.md`
 
 ## Chưa push / chưa merge
 | Repo | Nhánh | Trạng thái |
 |---|---|---|
-| (không có) | — | mọi repo `main` sạch, không có PR mở (kiểm 2026-10-28) |
+| (không có) | — | mọi repo `main` sạch, không có PR mở (kiểm 2026-10-28, sau #62/#26/#120) |
 
 ## Cổng
 | Cổng | FE |
