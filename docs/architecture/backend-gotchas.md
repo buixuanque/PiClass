@@ -1,6 +1,6 @@
 # Quy tắc thực hành và bẫy khi viết backend
 
-Bổ sung cho `piclass-api/CLAUDE.md` (quy ước chính). File này là các quy tắc thực hành áp dụng **từ nay** cho mọi thay đổi backend, rút ra từ những lỗi đã gặp thật khi đưa 12 module về cùng một quy ước (`ARCH-17`). Nợ kỹ thuật đã biết: `known-debt.md`. Quyết định lúc thực thi từng module: `superpowers/plans/` và `superpowers/plans/2026-10-18-be-architecture-refactor-rulings.md`.
+Bổ sung cho `piclass-api/CLAUDE.md` (quy ước chính). File này là các quy tắc thực hành áp dụng **từ nay** cho mọi thay đổi backend, rút ra từ những lỗi đã gặp thật khi đưa 12 module về cùng một quy ước (`ARCH-17`). Nợ kỹ thuật đã biết: `known-debt.md`. Quyết định lúc thực thi từng module: `archive/superpowers/plans/` và `archive/superpowers/plans/2026-10-18-be-architecture-refactor-rulings.md`.
 
 ## Response và HTTP
 

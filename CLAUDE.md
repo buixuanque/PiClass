@@ -4,7 +4,7 @@ Nạp tự động mọi session ở root workspace. Giữ ngắn: chỉ ghi th�
 
 ## Bắt đầu từ đâu
 
-Đọc [docs/STATE.md](docs/STATE.md) (đang làm gì, kế tiếp là gì) hoặc chạy `/tiep` (đọc STATE + đối chiếu git thật ở mọi repo). Không dựa vào lịch sử chat. Không đọc mặc định: `docs/BACKLOG.md` (việc chưa làm), `docs/history/*` (lịch sử, tra khi cần).
+Đọc [docs/STATE.md](docs/STATE.md) (đang làm gì, kế tiếp là gì) hoặc chạy `/tiep` (đọc STATE + đối chiếu git thật ở mọi repo). Không dựa vào lịch sử chat. Không đọc mặc định: `docs/BACKLOG.md` (việc chưa làm), `docs/history/*` (lịch sử, tra khi cần), **`docs/archive/*`** (spec/plan của lát đã xong, prompt cũ — rất lớn, ~2MB; chỉ mở đúng một file khi được link tới, tuyệt đối không grep/Explore quét cả thư mục).
 
 ## Theo dõi tiến độ
 
@@ -33,6 +33,8 @@ Chốt quyết định mới: cập nhật ngay tài liệu nguồn (Decision Lo
 - Stack: Laravel + PostgreSQL + Next.js (tách riêng) + AWS EC2 + Sanctum. Chi tiết: `docs/architecture/technology-decisions.md`.
 
 ## Quy trình làm việc theo lát
+
+Spec/plan đang làm nằm ở `docs/superpowers/specs|plans/`; lát xong thì `git mv` sang `docs/archive/superpowers/...` (và sửa link nếu có).
 
 Mỗi nhóm màn hình đi hết vòng: bàn nghiệp vụ → mockup → plan+code BE → plan+code FE → chạy thử cả lát → cập nhật tài liệu → ship. BE và FE là hai plan riêng, xen kẽ trong cùng lát. V1 = chức năng cơ bản nhất của một trung tâm; mở rộng sau khi hỏi giáo viên. Chi tiết: [docs/process/working-flow.md](docs/process/working-flow.md).
 
