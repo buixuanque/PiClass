@@ -4,12 +4,13 @@ Nạp tự động mọi session ở root workspace. Giữ ngắn: chỉ ghi th�
 
 ## Bắt đầu từ đâu
 
-Đọc [docs/STATE.md](docs/STATE.md) (đang làm gì, kế tiếp là gì) hoặc chạy `/tiep` (đọc STATE + đối chiếu git thật ở mọi repo). Không dựa vào lịch sử chat. Không đọc mặc định: `docs/BACKLOG.md` (việc chưa làm), **`docs/archive/*`** (spec/plan của lát đã xong, `progress-log.md` lịch sử, prompt cũ — rất lớn, ~2MB; chỉ mở đúng một file khi được link tới, tuyệt đối không grep/Explore quét cả thư mục).
+Khi user **bắt đầu làm việc, hỏi tiến độ hoặc "tiếp theo là gì"**: đọc [docs/STATE.md](docs/STATE.md) hoặc chạy `/tiep` (đọc STATE + đối chiếu git thật ở mọi repo); không dựa vào lịch sử chat. Phiên chỉ trao đổi/hỏi đáp thì **không** đọc STATE và không sửa nó. Không đọc mặc định: `docs/BACKLOG.md` (việc chưa làm), **`docs/archive/*`** (spec/plan của lát đã xong, `progress-log.md` lịch sử, prompt cũ — rất lớn, ~2MB; chỉ mở đúng một file khi được link tới, tuyệt đối không grep/Explore quét cả thư mục).
 
 ## Theo dõi tiến độ
 
 - `STATE.md` là nguồn duy nhất cho "đang ở đâu". Giữ ≤ 60 dòng, mỗi mục một dòng, không văn xuôi; khuôn và quy ước bước ở cuối file đó.
-- Cập nhật `STATE.md` ngay khi xong một bước nhỏ (không chờ user nhắc), cùng commit với thay đổi docs liên quan; hoặc chạy `/xong`. Việc phát sinh chưa làm: thêm một dòng vào `BACKLOG.md`. Lát xong: xóa khỏi `STATE.md`, `git mv` spec/plan sang `docs/archive/superpowers/`.
+- Chỉ cập nhật `STATE.md` khi trạng thái **thật sự đổi** (chuyển bước, xong lát, phát sinh/xong việc kế tiếp), cùng commit với thay đổi docs liên quan, hoặc khi user chạy `/xong`. Không sửa sau mỗi bước nhỏ. Việc phát sinh chưa làm: thêm một dòng vào `BACKLOG.md`. Lát xong: xóa khỏi `STATE.md`, `git mv` spec/plan sang `docs/archive/superpowers/`.
+- **Commit local không sang được máy khác.** Khi cập nhật `STATE.md` mà user có thể đổi máy, hỏi một câu: có push `STATE.md` lên `main` (PR docs ngắn) để máy khác thấy không. User trả lời có mới push.
 - Chi tiết của một lát (PR số mấy, vì sao chốt) nằm ở mô tả PR; quyết định quan trọng ghi vào `decision-log.md`/`decisions/ARCH-xx.md`. Không ghi dài vào `STATE.md`; `archive/progress-log.md` là bản chụp cũ, không ghi thêm.
 
 ## Thứ tự ưu tiên tài liệu (source of truth)
@@ -26,19 +27,19 @@ Chốt quyết định mới: cập nhật ngay tài liệu nguồn (Decision Lo
 
 ## Đọc file lớn theo đoạn
 
-Các file đặc tả rất dài (`product/screens/admin.md` ~100KB, `teacher-bai-danh-gia.md`, `student-parent.md`, `requirements/decision-log.md`, `architecture/known-debt.md`): **không `Read` cả file**. `grep -n "AD-10"` / `grep -n "ARCH-37"` / `grep -n "DEC-SCH-005"` lấy số dòng, rồi `Read` với `offset`+`limit` đúng đoạn. Đầu file đặc tả màn có "Mục lục" theo mã màn. Nợ kỹ thuật `architecture/known-debt.md` nhóm theo module (`grep -n "^## Lesson"`, ID `D-xx`). Quyết định kiến trúc: `architecture/open-decisions.md` chỉ là mục lục; `ARCH-xx` (từ 13) đọc ở `architecture/decisions/ARCH-xx.md`.
+Các file đặc tả rất dài (`product/screens/admin.md` ~100KB, `teacher-bai-danh-gia.md`, `student-parent.md`, `requirements/decision-log.md`, `architecture/known-debt.md`): **không `Read` cả file**. `grep -n "AD-10"` / `grep -n "ARCH-37"` / `grep -n "DEC-SCH-005"` lấy số dòng, rồi `Read` với `offset`+`limit` đúng đoạn. Đầu file đặc tả màn có "Mục lục" theo mã màn. `architecture/known-debt.md` nhóm theo module (`grep -n "^## Lesson"`, ID `D-xx`; chạm tới code có trong đó thì cân nhắc xử lý và xóa dòng). Quyết định kiến trúc: `architecture/open-decisions.md` chỉ là mục lục; `ARCH-xx` (từ 13) đọc ở `architecture/decisions/ARCH-xx.md`.
 
 ## Quy ước code
 
+**Trước khi sửa code trong `piclass-api/` hoặc `piclass-web/`, đọc `CLAUDE.md` của repo đó nếu chưa được nạp** (có bảng "khi nào đọc file `docs/rules/*`"); đừng bỏ qua dù user chỉ nói "sửa màn X" từ root.
+
 - Backend `piclass-api/`: `piclass-api/CLAUDE.md` (module `app/Modules/<Module>/`, `ArchitectureTest` canh tự động). Bẫy và cách viết test: `docs/architecture/backend-gotchas.md`.
-- Frontend `piclass-web/`: `piclass-web/CLAUDE.md` (`ARCH-32`).
-- Nợ kỹ thuật: `docs/architecture/known-debt.md` — chạm tới code có trong đó thì cân nhắc xử lý và xóa dòng.
-- Gọi API (làm FE, tích hợp, tra response): đọc `piclass-api/storage/api-docs/openapi.json` trước (chi tiết ở `piclass-web/CLAUDE.md`). Sửa API ở BE thì export lại trước khi commit (`piclass-api/CLAUDE.md`, mục "Tài liệu API").
+- Frontend `piclass-web/`: `piclass-web/CLAUDE.md` (`ARCH-32`). Gọi API: đọc `piclass-api/storage/api-docs/openapi.json` trước; sửa API ở BE thì export lại trước khi commit.
 - Stack: Laravel + PostgreSQL + Next.js (tách riêng) + AWS EC2 + Sanctum. Chi tiết: `docs/architecture/technology-decisions.md`.
 
 ## Quy trình làm việc theo lát
 
-Spec/plan đang làm nằm ở `docs/superpowers/specs|plans/`; lát xong thì `git mv` sang `docs/archive/superpowers/...` (và sửa link nếu có).
+Spec/plan đang làm nằm ở `docs/superpowers/specs|plans/` (lát xong: xem mục "Theo dõi tiến độ").
 
 Mỗi nhóm màn hình đi hết vòng: bàn nghiệp vụ → mockup → plan+code BE → plan+code FE → chạy thử cả lát → cập nhật tài liệu → ship. BE và FE là hai plan riêng, xen kẽ trong cùng lát. V1 = chức năng cơ bản nhất của một trung tâm; mở rộng sau khi hỏi giáo viên. Chi tiết: [docs/process/working-flow.md](docs/process/working-flow.md).
 

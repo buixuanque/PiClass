@@ -15,4 +15,4 @@ Mục tiêu: lần sau mở session (máy nào cũng được) `/tiep` đọc ra
 4. Việc phát sinh mà chưa làm ngay: thêm một dòng vào `docs/BACKLOG.md` (có ID `B-xxx` kế tiếp, cột Cần), không viết văn xuôi.
 5. Quyết định mới chốt: ghi vào `decision-log.md` / `open-decisions.md` như `CLAUDE.md` quy định, không chỉ ở STATE.md.
 6. Commit lên nhánh docs (theo quy trình git ở `CLAUDE.md`: không commit thẳng `main`; nếu đang ở `main` thì tạo nhánh từ `origin/main` mới nhất). KHÔNG push/mở PR trừ khi user yêu cầu rõ.
-7. Báo lại 3-5 dòng: STATE.md đổi gì, còn repo nào chưa push.
+7. Báo lại 3-5 dòng: STATE.md đổi gì, còn repo nào chưa push. Rồi hỏi **một câu**: có push `STATE.md`/`BACKLOG.md` lên `main` (PR docs ngắn, tiếng Việt) để máy khác thấy ngay không. Chỉ push khi user trả lời có; không tự push.
