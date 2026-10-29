@@ -46,6 +46,8 @@ Mỗi nhóm màn hình đi hết vòng: bàn nghiệp vụ → mockup → plan+c
 
 `superpowers:brainstorming` cho việc kiến trúc/API: nạp trước `docs/requirements/*`, `docs/access-control/*`, `docs/database/*` làm nguồn; không để nó hỏi lại từ đầu hay viết spec lệch Decision Log.
 
+**Co quy trình theo cỡ việc** (user chốt 2026-10-29): việc nhỏ, ít rủi ro (ví dụ thêm một tham số lọc vào một Query) thì làm gọn: test-first, chạy test nhóm liên quan, PHPStan + Pint, rồi PR; không viết plan riêng, không gọi reviewer độc lập, không chạy cả bộ test. Việc lớn hoặc rủi ro cao (nhiều module, đổi schema/phân quyền, màn hình mới) mới đi đủ plan, review độc lập cuối branch, chạy cả bộ test. Quy tắc cứng (nhánh từ `origin/main`, PR, PHPStan không thêm lỗi, cập nhật `STATE.md`/spec khi trạng thái đổi) luôn giữ. Không chạy test song song với subagent trên cùng DB test.
+
 ## Git (nhiều repo độc lập sống cùng thư mục)
 
 `piclass-api/`, `piclass-web/` (Next.js), `piclass-infra/`, `piclass-mockup/` là repo riêng; repo gốc này là `piclass-docs`.
