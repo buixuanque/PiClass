@@ -6,7 +6,7 @@ Cập nhật lần cuối: 2026-10-29 · bởi: xong rà mockup lát 4a (bước
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự: Vận hành lớp (TC-02..05, xong) → Đơn xin phép & Tổng quan (TC-06, TC-01) → Khóa học (TC-15) → Bài đánh giá (TC-07..14, chia 4a: TC-07,08 · 4b: TC-09,10 · 4c: TC-11,12,13 · 4d: TC-14). Lát 3 xong, đang ở lát 4a.
-- **Bước:** lát 3 xong đủ 4 bước, đã merge `main` (`DEC-LRN-019`; `piclass-mockup` #18-20, `piclass-web` #29; không sửa BE); lát 4a (TC-07, TC-08) xong bước 1-2 (`DEC-LRN-020`; mockup nhánh `docs/teacher-lot4a-mockup` của `piclass-mockup`, chờ merge); kế tiếp bước 3: BE
+- **Bước:** lát 3 xong đủ 4 bước, đã merge `main` (`DEC-LRN-019`; `piclass-mockup` #18-20, `piclass-web` #29; không sửa BE); lát 4a (TC-07, TC-08) xong bước 1-2 (`DEC-LRN-020`; mockup đã merge `piclass-mockup` #21); kế tiếp bước 3: BE
 - **Cổng Admin:** xong toàn bộ, đã merge `main`, user đã bấm thử trình duyệt.
 
 ## Việc kế tiếp (làm từ trên xuống)
