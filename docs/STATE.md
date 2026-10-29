@@ -2,15 +2,15 @@
 
 File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, mỗi mục một dòng, không văn xuôi. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-10-29 · bởi: lát 4a đã merge `main`
+Cập nhật lần cuối: 2026-10-29 · bởi: lát 4b xong bước 2 (mockup)
 
 ## Đang làm
-- **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự: Vận hành lớp (TC-02..05, xong) → Đơn xin phép & Tổng quan (TC-06, TC-01) → Khóa học (TC-15) → Bài đánh giá (TC-07..14, chia 4a: TC-07,08 · 4b: TC-09,10 · 4c: TC-11,12,13 · 4d: TC-14). Lát 4a xong, đang chuẩn bị lát 4b.
-- **Bước:** lát 3 xong đủ 4 bước, đã merge `main` (`DEC-LRN-019`; `piclass-mockup` #18-20, `piclass-web` #29; không sửa BE); lát 4a (TC-07, TC-08) xong đủ 4 bước, đã merge `main` (`DEC-LRN-020`, `DEC-LRN-021`; `piclass-mockup` #21, `piclass-api` #65-67, `piclass-web` #30; chưa làm file đính kèm câu hỏi `B-064`; mockup còn lệch giao diện thật ở khối điền khuyết, `B-065`)
+- **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự: Vận hành lớp (TC-02..05, xong) → Đơn xin phép & Tổng quan (TC-06, TC-01) → Khóa học (TC-15) → Bài đánh giá (TC-07..14, chia 4a: TC-07,08 · 4b: TC-09,10 · 4c: TC-11,12,13 · 4d: TC-14). Lát 4a xong, đang ở lát 4b.
+- **Bước:** lát 3 xong đủ 4 bước, đã merge `main` (`DEC-LRN-019`; `piclass-mockup` #18-20, `piclass-web` #29; không sửa BE); lát 4b (TC-09, TC-10) xong bước 1-2 (`DEC-LRN-022`; `piclass-mockup` nhánh `feat/mockup-teacher-lot4b` chờ user xem rồi merge); lát 4a (TC-07, TC-08) xong đủ 4 bước, đã merge `main` (`DEC-LRN-020`, `DEC-LRN-021`; `piclass-mockup` #21, `piclass-api` #65-67, `piclass-web` #30; chưa làm file đính kèm câu hỏi `B-064`; mockup còn lệch giao diện thật ở khối điền khuyết, `B-065`)
 - **Cổng Admin:** xong toàn bộ, đã merge `main`, user đã bấm thử trình duyệt.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Lát 4b Giáo viên (TC-09 danh sách bài, TC-10 soạn và giao bài) bước 1: bàn nghiệp vụ
+1. Lát 4b Giáo viên: user xem `piclass-mockup/design-system/standalone/PiClass Giáo viên.html` (TC-09: ô tìm tên bài, bỏ Nhân bản và cột đã nộp; TC-10 giữ nguyên), rồi merge mockup; sau đó bước 3 BE (`search` cho `GET /assessments`)
 2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
 ## Chờ user (Claude không tự làm được)
