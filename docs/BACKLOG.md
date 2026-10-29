@@ -52,6 +52,7 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 | B-067 | api+web | Hẹn giờ công bố điểm (`result_release_at`) và chính sách nộp trễ (`late_policy`, "không nhận bài trễ"): BE chưa nhận hai trường khi tạo/sửa bài (TB-6, Q-A); thêm vào Request/Action/test/OpenAPI rồi hai ô ở TC-10 bước 1, và nút "công bố sau" ở TC-13 | `product/screens/teacher-bai-danh-gia.md` TB-6, Q-A, `DEC-LRN-022` |
 | B-068 | web | File đính kèm của **bài** (đề PDF/ảnh, bước 2 TC-10): cùng việc với `B-064` (multipart trong `apiClient`, `POST /attachments` rồi `/link` với `assessment_version_id`); làm một lát riêng sau lát 4d, nên chờ cổng Học sinh có chỗ xem file | `product/screens/teacher-bai-danh-gia.md` TC-10 bước 2, TB-4, `DEC-LRN-022` |
 | B-069 | api+web | Nhân bản bài sang lớp/kỳ khác (menu dòng ở TC-09): thêm endpoint nhân bản ở BE (nguyên tử) rồi nút ở FE; không làm ghép nhiều lời gọi ở FE (N4, G14) | `product/screens/teacher-bai-danh-gia.md` TC-09, `DEC-LRN-022` |
+| B-070 | mockup | Cập nhật mockup TC-08 (`PiClass Giáo viên.dc.html`, khối `isQedit`, và bản standalone) theo bố cục đã chốt ở `DEC-LRN-023`; port code đã làm trước mockup (`piclass-web` nhánh `feat/question-editor-v2`) nên mockup đang lệch code | `DEC-LRN-023`, `product/screens/teacher-bai-danh-gia.md` TC-08 |
 
 ## D. Sau V1 / hỏi giáo viên rồi mới quyết
 | ID | Việc | Nguồn |

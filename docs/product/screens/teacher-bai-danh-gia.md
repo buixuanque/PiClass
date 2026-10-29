@@ -37,6 +37,8 @@ Giá trị `question_type` (enum `QuestionType`) và `grading_mode` (enum `Gradi
 
 Ghi chú chung cho chấm tự động: câu bỏ trống luôn được 0 điểm ngay (kể cả tự luận), không rơi vào hàng chờ chấm. Trường `grading_mode` hiện chỉ được lưu và chụp vào bài; bộ chấm chọn cách chấm theo **loại câu**, không theo `grading_mode` (TB-8). Vì vậy FE tự đặt: các loại tự động → `automatic`, `essay` và `file_upload` → `manual`; không cho giáo viên chọn `mixed` cho tới khi nghiệp vụ của `mixed` được chốt (Q-B).
 
+**Giao diện (`DEC-LRN-023`, 2026-10-29):** chọn loại bằng ô chọn kèm mô tả loại và cách chấm; hai cột (trái nội dung, phải "Hướng dẫn và phân loại"); "Xem trước" là hộp thoại hiện câu đúng như học sinh thấy cho cả 9 loại. Các mô tả "thẻ chọn loại" và cột "Cách chấm và phiên bản" bên dưới là bố cục cũ, đã thay.
+
 **Đã chốt cho lát 4a (`DEC-LRN-020`, 2026-10-29):** `file_upload` hiện thẻ nhưng vô hiệu ("đang hoàn thiện"); ô `grading_mode` ẩn, FE tự đặt theo loại câu, không có "hỗn hợp"; BE thêm `search` không dấu cho `GET /questions`; định dạng `type_payload`: `matching` = `{left:[{id,text}], right:[{id,text}], correct:{<leftId>:<rightId>}}`, `ordering` = `{items:[{id,text}], correct:[<itemId>,…]}` (mã `id` do FE sinh, ổn định, BE kiểm khi lưu). Q-B, Q-C và TB-1, TB-8 vì thế đã giải quyết.
 
 ## Ghi chú nền (áp dụng cho TC-07…TC-13)
