@@ -2,15 +2,15 @@
 
 File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, mỗi mục một dòng, không văn xuôi. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-10-29 · bởi: xong lát 3 (Khóa học)
+Cập nhật lần cuối: 2026-10-29 · bởi: xong rà mockup lát 4a (bước 2)
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự: Vận hành lớp (TC-02..05, xong) → Đơn xin phép & Tổng quan (TC-06, TC-01) → Khóa học (TC-15) → Bài đánh giá (TC-07..14, chia 4a: TC-07,08 · 4b: TC-09,10 · 4c: TC-11,12,13 · 4d: TC-14). Lát 3 xong, đang ở lát 4a.
-- **Bước:** lát 3 xong đủ 4 bước, đã merge `main` (`DEC-LRN-019`; `piclass-mockup` #18-20, `piclass-web` #29; không sửa BE); lát 4a (Ngân hàng câu hỏi, Soạn câu hỏi: TC-07, TC-08) bước 1: bàn nghiệp vụ (user chốt chia 4 lát nhỏ 2026-10-29)
+- **Bước:** lát 3 xong đủ 4 bước, đã merge `main` (`DEC-LRN-019`; `piclass-mockup` #18-20, `piclass-web` #29; không sửa BE); lát 4a (TC-07, TC-08) xong bước 1-2 (`DEC-LRN-020`; mockup nhánh `docs/teacher-lot4a-mockup` của `piclass-mockup`, chờ merge); kế tiếp bước 3: BE
 - **Cổng Admin:** xong toàn bộ, đã merge `main`, user đã bấm thử trình duyệt.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Lát 4a Giáo viên (TC-07, TC-08), bước 1: bàn nghiệp vụ với user (đối chiếu `docs/product/screens/teacher-bai-danh-gia.md` mục TC-07, TC-08, Q-B, Q-C, TB-1..4, TB-8) và mockup
+1. Lát 4a Giáo viên, bước 3: BE (`search` không dấu cho `GET /questions`; kiểm `type_payload` matching/ordering khi lưu; test; export OpenAPI), rồi bước 4 FE
 2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
 ## Chờ user (Claude không tự làm được)
