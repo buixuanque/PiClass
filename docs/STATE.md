@@ -2,15 +2,15 @@
 
 File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, mỗi mục một dòng, không văn xuôi. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-10-29 · bởi: xong rà mockup lát 4a (bước 2)
+Cập nhật lần cuối: 2026-10-29 · bởi: xong BE lát 4a (bước 3)
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự: Vận hành lớp (TC-02..05, xong) → Đơn xin phép & Tổng quan (TC-06, TC-01) → Khóa học (TC-15) → Bài đánh giá (TC-07..14, chia 4a: TC-07,08 · 4b: TC-09,10 · 4c: TC-11,12,13 · 4d: TC-14). Lát 3 xong, đang ở lát 4a.
-- **Bước:** lát 3 xong đủ 4 bước, đã merge `main` (`DEC-LRN-019`; `piclass-mockup` #18-20, `piclass-web` #29; không sửa BE); lát 4a (TC-07, TC-08) xong bước 1-2 (`DEC-LRN-020`; mockup đã merge `piclass-mockup` #21); kế tiếp bước 3: BE
+- **Bước:** lát 3 xong đủ 4 bước, đã merge `main` (`DEC-LRN-019`; `piclass-mockup` #18-20, `piclass-web` #29; không sửa BE); lát 4a (TC-07, TC-08) xong bước 1-3 (`DEC-LRN-020`; mockup `piclass-mockup` #21; BE nhánh `feat/teacher-lot4a-api` của `piclass-api`, test xanh, chờ merge); kế tiếp bước 4: FE
 - **Cổng Admin:** xong toàn bộ, đã merge `main`, user đã bấm thử trình duyệt.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Lát 4a Giáo viên, bước 3: BE (`search` không dấu cho `GET /questions`; kiểm `type_payload` matching/ordering khi lưu; test; export OpenAPI), rồi bước 4 FE
+1. Lát 4a Giáo viên, bước 4: FE TC-07 (ngân hàng câu hỏi) và TC-08 (soạn câu hỏi), đọc `openapi.json` trước; sau khi merge `piclass-api` `feat/teacher-lot4a-api`
 2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
 ## Chờ user (Claude không tự làm được)

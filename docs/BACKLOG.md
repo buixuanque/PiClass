@@ -45,6 +45,7 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 | B-051 | api | Comment trong `ArchitectureTest.php`/Listener còn trỏ "CLAUDE.md" cho quy ước Notification, nay nằm ở `docs/rules/defaults.md` | sửa khi chạm file |
 | B-053 | web | Minor hoãn của lát 1 Giáo viên (review cuối): bỏ hết em trong lô lưu im lặng; nút "Bỏ các em này" tự style; 422 theo trường ở dialog sửa/nội dung chỉ hiện toast; ẩn nút thêm lịch khi lớp archived; TC-03 báo lỗi khi members/teachers tải lỗi; thiếu test 409 `SESSION_CANCELLED` | PR piclass-web #27, ledger `.superpowers/sdd` |
 | B-049 | all | Dịch comment tiếng Anh còn lại sang tiếng Việt (chỉ file đang sửa) | `CLAUDE.md` |
+| B-063 | api | `AutoGrader::gradeStructure` so `$answerPayload === $correct` nhạy thứ tự khóa với câu Nối (map): cổng Học sinh nộp đúng nhưng khác thứ tự khóa sẽ bị chấm sai; sửa trước khi làm cổng Học sinh | `app/Modules/SubmissionGrading/Domain/AutoGrader.php`, `DEC-LRN-020` |
 
 ## D. Sau V1 / hỏi giáo viên rồi mới quyết
 | ID | Việc | Nguồn |
