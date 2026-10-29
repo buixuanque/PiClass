@@ -1,12 +1,25 @@
 # STATE — đang ở đâu, làm gì tiếp
 
-File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, mỗi mục một dòng, không văn xuôi. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
+File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-10-29 · bởi: lát 4b đã merge mockup
+Cập nhật lần cuối: 2026-10-29 · bởi: TC-08 đổi giao diện (DEC-LRN-023)
 
 ## Đang làm
-- **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự: Vận hành lớp (TC-02..05, xong) → Đơn xin phép & Tổng quan (TC-06, TC-01) → Khóa học (TC-15) → Bài đánh giá (TC-07..14, chia 4a: TC-07,08 · 4b: TC-09,10 · 4c: TC-11,12,13 · 4d: TC-14). Lát 4a xong, đang ở lát 4b.
-- **Bước:** lát 3 xong đủ 4 bước, đã merge `main` (`DEC-LRN-019`; `piclass-mockup` #18-20, `piclass-web` #29; không sửa BE); lát 4b (TC-09, TC-10) xong bước 1-2 (`DEC-LRN-022`; `piclass-mockup` #22 đã merge `main`); lát 4a (TC-07, TC-08) xong đủ 4 bước, đã merge `main` (`DEC-LRN-020`, `DEC-LRN-021`; `piclass-mockup` #21, `piclass-api` #65-67, `piclass-web` #30; chưa làm file đính kèm câu hỏi `B-064`; mockup còn lệch giao diện thật ở khối điền khuyết, `B-065`)
+- **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
+  - Vận hành lớp (TC-02..05) — xong
+  - Đơn xin phép & Tổng quan (TC-06, TC-01)
+  - Khóa học (TC-15)
+  - Bài đánh giá (TC-07..14), chia nhỏ:
+    - 4a: TC-07, TC-08 — xong
+    - 4b: TC-09, TC-10 — **đang làm**
+    - 4c: TC-11, TC-12, TC-13
+    - 4d: TC-14
+- **Bước:**
+  - Lát 4b (TC-09, TC-10): xong bước 1-2 (`DEC-LRN-022`; `piclass-mockup` #22 đã merge `main`; TC-08 (soạn câu hỏi) đã đơn giản hóa giao diện theo `DEC-LRN-023`, đã merge ở `piclass-web`, `piclass-mockup`, docs)
+  - Lát 4a (TC-07, TC-08): xong đủ 4 bước, đã merge `main` (`DEC-LRN-020`, `DEC-LRN-021`; `piclass-mockup` #21, `piclass-api` #65-67, `piclass-web` #30)
+    - Chưa làm file đính kèm câu hỏi: `B-064`
+    - Mockup còn lệch giao diện thật ở khối điền khuyết: `B-065`
+  - Lát 3: xong đủ 4 bước, đã merge `main` (`DEC-LRN-019`; `piclass-mockup` #18-20, `piclass-web` #29; không sửa BE)
 - **Cổng Admin:** xong toàn bộ, đã merge `main`, user đã bấm thử trình duyệt.
 
 ## Việc kế tiếp (làm từ trên xuống)
