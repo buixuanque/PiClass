@@ -6,11 +6,11 @@ Cập nhật lần cuối: 2026-10-29 · bởi: xong BE lát 4a (bước 3)
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự: Vận hành lớp (TC-02..05, xong) → Đơn xin phép & Tổng quan (TC-06, TC-01) → Khóa học (TC-15) → Bài đánh giá (TC-07..14, chia 4a: TC-07,08 · 4b: TC-09,10 · 4c: TC-11,12,13 · 4d: TC-14). Lát 3 xong, đang ở lát 4a.
-- **Bước:** lát 3 xong đủ 4 bước, đã merge `main` (`DEC-LRN-019`; `piclass-mockup` #18-20, `piclass-web` #29; không sửa BE); lát 4a (TC-07, TC-08) xong bước 1-3 (`DEC-LRN-020`; mockup `piclass-mockup` #21; BE nhánh `feat/teacher-lot4a-api` của `piclass-api`, test xanh, chờ merge); kế tiếp bước 4: FE
+- **Bước:** lát 3 xong đủ 4 bước, đã merge `main` (`DEC-LRN-019`; `piclass-mockup` #18-20, `piclass-web` #29; không sửa BE); lát 4a (TC-07, TC-08) xong bước 1-3 (`DEC-LRN-020`; mockup `piclass-mockup` #21; BE đã merge `piclass-api` #65); kế tiếp bước 4: FE
 - **Cổng Admin:** xong toàn bộ, đã merge `main`, user đã bấm thử trình duyệt.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Lát 4a Giáo viên, bước 4: FE TC-07 (ngân hàng câu hỏi) và TC-08 (soạn câu hỏi), đọc `openapi.json` trước; sau khi merge `piclass-api` `feat/teacher-lot4a-api`
+1. Lát 4a Giáo viên, bước 4: FE TC-07 (ngân hàng câu hỏi) và TC-08 (soạn câu hỏi), đọc `openapi.json` trước; dùng `GET /questions?search=` và `type_payload` matching/ordering theo `DEC-LRN-020`
 2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
 ## Chờ user (Claude không tự làm được)
