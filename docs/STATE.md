@@ -2,7 +2,7 @@
 
 File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-10-29 · bởi: TC-08 đổi giao diện (DEC-LRN-023)
+Cập nhật lần cuối: 2026-10-29 · bởi: lát 4b xong bước 3 (BE)
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -15,7 +15,7 @@ Cập nhật lần cuối: 2026-10-29 · bởi: TC-08 đổi giao diện (DEC-LR
     - 4c: TC-11, TC-12, TC-13
     - 4d: TC-14
 - **Bước:**
-  - Lát 4b (TC-09, TC-10): xong bước 1-2 (`DEC-LRN-022`; `piclass-mockup` #22 đã merge `main`; TC-08 (soạn câu hỏi) đã đơn giản hóa giao diện theo `DEC-LRN-023`, đã merge ở `piclass-web`, `piclass-mockup`, docs)
+  - Lát 4b (TC-09, TC-10): xong bước 1-3 (`DEC-LRN-022`; `piclass-mockup` #22; BE `search` tên bài cho `GET /assessments`, `piclass-api` #68; đã merge `main`; TC-08 (soạn câu hỏi) đã đơn giản hóa giao diện theo `DEC-LRN-023`, đã merge ở `piclass-web`, `piclass-mockup`, docs)
   - Lát 4a (TC-07, TC-08): xong đủ 4 bước, đã merge `main` (`DEC-LRN-020`, `DEC-LRN-021`; `piclass-mockup` #21, `piclass-api` #65-67, `piclass-web` #30)
     - Chưa làm file đính kèm câu hỏi: `B-064`
     - Mockup còn lệch giao diện thật ở khối điền khuyết: `B-065`
@@ -23,7 +23,7 @@ Cập nhật lần cuối: 2026-10-29 · bởi: TC-08 đổi giao diện (DEC-LR
 - **Cổng Admin:** xong toàn bộ, đã merge `main`, user đã bấm thử trình duyệt.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Lát 4b Giáo viên bước 3: BE (`search` theo tên bài cho `GET /assessments`; TC-09 bỏ Nhân bản và cột đã nộp, TC-10 giữ nguyên)
+1. Lát 4b Giáo viên bước 4: FE (TC-09 ô tìm tên bài dùng `search`, bỏ Nhân bản và cột đã nộp; TC-10 soạn và giao bài)
 2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
 ## Chờ user (Claude không tự làm được)
