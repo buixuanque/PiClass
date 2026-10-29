@@ -48,6 +48,7 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 | B-063 | api | `AutoGrader::gradeStructure` so `$answerPayload === $correct` nhạy thứ tự khóa với câu Nối (map): cổng Học sinh nộp đúng nhưng khác thứ tự khóa sẽ bị chấm sai; sửa trước khi làm cổng Học sinh | `app/Modules/SubmissionGrading/Domain/AutoGrader.php`, `DEC-LRN-020` |
 | B-064 | web+api | File đính kèm cho câu hỏi (TC-08): `apiClient` chưa hỗ trợ multipart; cần `POST /attachments` rồi `POST /attachments/{id}/link` với phiên bản vừa lưu và gắn lại mỗi lần sửa; chờ làm cùng lát 4b hoặc khi cần | `product/screens/teacher-bai-danh-gia.md` mục TC-08, TB-4 |
 | B-065 | mockup | Mockup TC-07 còn dòng "Ô tìm đang lọc trên danh sách đã tải (chờ backend)", nay BE đã tìm không dấu; xóa dòng và bộ lọc topic nên là ô tìm (hiện FE dùng Select tối đa 20 topic) | `PiClass Giáo viên.dc.html` khối `isBank` |
+| B-066 | mockup | Mockup TC-08 lệch giao diện thật: khối đáp án Điền khuyết là một danh sách chung (thật: một khối cho mỗi `___`, `DEC-LRN-021`), còn dòng cảnh báo "một chỗ trống"; gợi ý chỗ trống chỉ nên hiện ở Điền khuyết; khối lựa chọn chỉ cho Một/Nhiều đáp án | `PiClass Giáo viên.dc.html` dòng ~637, ~658 |
 
 ## D. Sau V1 / hỏi giáo viên rồi mới quyết
 | ID | Việc | Nguồn |
