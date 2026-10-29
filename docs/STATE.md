@@ -2,15 +2,15 @@
 
 File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, mỗi mục một dòng, không văn xuôi. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-10-29 · bởi: xong code FE lát 3 (bước 4)
+Cập nhật lần cuối: 2026-10-29 · bởi: xong lát 3 (Khóa học)
 
 ## Đang làm
-- **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự: Vận hành lớp (TC-02..05, xong) → Đơn xin phép & Tổng quan (TC-06, TC-01) → Khóa học (TC-15) → Bài đánh giá (TC-07..14). Lát 2 xong, đang ở lát 3.
-- **Bước:** lát 2 xong đủ 4 bước, đã merge `main` (`DEC-LRN-018`; `piclass-api` #64, `piclass-web` #28; bản gốc mockup ở `piclass-mockup/design-system/standalone/original/`); lát 3 (Khóa học, TC-15) xong bước 1-3 (`DEC-LRN-019`: 3 tab Tất cả/Của tôi/Dùng chung, khóa chung chỉ xem không có tab, V1 giữ hướng A, hướng sau V1 ở `B-062`; mockup `piclass-mockup` #18 và nhánh `docs/teacher-lot3-shared-course`; API đủ, không sửa BE); mockup có thêm tab Lớp đã gắn (`DEC-LRN-019` mục 5, đã merge); FE đã code, nhánh `feat/teacher-lot3-fe` của `piclass-web` (test xanh, chờ user bấm thử rồi merge)
+- **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự: Vận hành lớp (TC-02..05, xong) → Đơn xin phép & Tổng quan (TC-06, TC-01) → Khóa học (TC-15) → Bài đánh giá (TC-07..14). Lát 3 xong, đang ở lát 4.
+- **Bước:** lát 2 xong đủ 4 bước, đã merge `main` (`DEC-LRN-018`; `piclass-api` #64, `piclass-web` #28; bản gốc mockup ở `piclass-mockup/design-system/standalone/original/`); lát 3 (Khóa học, TC-15) xong bước 1-3 (`DEC-LRN-019`: 3 tab Tất cả/Của tôi/Dùng chung, khóa chung chỉ xem không có tab, V1 giữ hướng A, hướng sau V1 ở `B-062`; mockup `piclass-mockup` #18 và nhánh `docs/teacher-lot3-shared-course`; API đủ, không sửa BE); mockup có thêm tab Lớp đã gắn (`DEC-LRN-019` mục 5, đã merge); FE đã merge `piclass-web` #29
 - **Cổng Admin:** xong toàn bộ, đã merge `main`, user đã bấm thử trình duyệt.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Lát 3 Giáo viên: user bấm thử `/teacher/courses` (TC-15), xong thì merge `piclass-web` `feat/teacher-lot3-fe`; sau đó lát 4 (Bài đánh giá, TC-07..14) bước 1: bàn nghiệp vụ
+1. Lát 4 Giáo viên (Bài đánh giá, TC-07..14), bước 1: bàn nghiệp vụ với user, đối chiếu `docs/product/screens/teacher-bai-danh-gia.md` và mockup
 2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
 ## Chờ user (Claude không tự làm được)
@@ -27,7 +27,7 @@ Cập nhật lần cuối: 2026-10-29 · bởi: xong code FE lát 3 (bước 4)
 | Cổng | FE |
 |---|---|
 | Admin | [x] xong |
-| Giáo viên | [ ] đang port: lát 1 (TC-02..05) và lát 2 (TC-06, TC-01) xong, đã merge `main`; còn 2 lát |
+| Giáo viên | [ ] đang port: lát 1 (TC-02..05), lát 2 (TC-06, TC-01) và lát 3 (TC-15) xong, đã merge `main`; còn 1 lát (Bài đánh giá) |
 | Học sinh | [ ] chưa port (có mockup) |
 | Phụ huynh | [ ] chưa port (có mockup) |
 BE: [x] xong, đã merge `main`.
