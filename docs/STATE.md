@@ -2,15 +2,15 @@
 
 File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, mỗi mục một dòng, không văn xuôi. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-10-29 · bởi: xong rà mockup lát 2 (bước 2)
+Cập nhật lần cuối: 2026-10-29 · bởi: xong API lát 2 (bước 3)
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự: Vận hành lớp (TC-02..05, xong) → Đơn xin phép & Tổng quan (TC-06, TC-01) → Khóa học (TC-15) → Bài đánh giá (TC-07..14). Đang ở lát 2.
-- **Bước:** lát 2 xong bước 1-2 (`DEC-LRN-018`; mockup TC-06, TC-01 đã rà và merge, bản gốc giữ ở `piclass-mockup/design-system/standalone/original/`); kế tiếp bước 3: API
+- **Bước:** lát 2 xong bước 1-3 (`DEC-LRN-018`; mockup đã rà, bản gốc ở `piclass-mockup/design-system/standalone/original/`; API đã merge `piclass-api` #64); kế tiếp bước 4: FE
 - **Cổng Admin:** xong toàn bộ, đã merge `main`, user đã bấm thử trình duyệt.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Lát 2 Giáo viên, bước 3: API (làm giàu `GET /absence-explanations`, `attendance_count` ở `/me/lesson-sessions`), rồi bước 4 FE
+1. Lát 2 Giáo viên, bước 4: FE TC-06 (đơn xin phép) và TC-01 (tổng quan), đọc `openapi.json` trước
 2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
 ## Chờ user (Claude không tự làm được)
