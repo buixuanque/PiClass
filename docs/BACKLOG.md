@@ -52,6 +52,9 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 | B-067 | api+web | Hẹn giờ công bố điểm (`result_release_at`) và chính sách nộp trễ (`late_policy`, "không nhận bài trễ"): BE chưa nhận hai trường khi tạo/sửa bài (TB-6, Q-A); thêm vào Request/Action/test/OpenAPI rồi hai ô ở TC-10 bước 1, và nút "công bố sau" ở TC-13 | `product/screens/teacher-bai-danh-gia.md` TB-6, Q-A, `DEC-LRN-022` |
 | B-068 | web | File đính kèm của **bài** (đề PDF/ảnh, bước 2 TC-10): cùng việc với `B-064` (multipart trong `apiClient`, `POST /attachments` rồi `/link` với `assessment_version_id`); làm một lát riêng sau lát 4d, nên chờ cổng Học sinh có chỗ xem file | `product/screens/teacher-bai-danh-gia.md` TC-10 bước 2, TB-4, `DEC-LRN-022` |
 | B-069 | api+web | Nhân bản bài sang lớp/kỳ khác (menu dòng ở TC-09): thêm endpoint nhân bản ở BE (nguyên tử) rồi nút ở FE; không làm ghép nhiều lời gọi ở FE (N4, G14) | `product/screens/teacher-bai-danh-gia.md` TC-09, `DEC-LRN-022` |
+| B-070 | web | TC-10 v2 còn thiếu so với Google Form: khung trượt soạn câu ngay trong trang (hiện chuyển sang màn soạn rồi quay lại); lệch nhỏ đã biết của FE cũ (đếm học sinh hai lần, thời lượng làm tròn phút, `returnTo` đã có `?`) nên kiểm lại khi làm lại FE | `docs/superpowers/plans/2026-10-29-teacher-lot4b-fe-tc10-wizard.md` |
+| B-071 | web | Gắn bài tập vào buổi học (`lesson_session`) ở TC-10: spec chưa nói lấy buổi học của lớp nào khi bài giao nhiều lớp | `product/screens/teacher-bai-danh-gia.md` |
+| B-072 | web | Hộp xem đáp án khi thêm câu vào bài (TC-10) | `docs/superpowers/plans/2026-10-29-teacher-lot4b-fe-tc10-wizard.md` |
 
 ## D. Sau V1 / hỏi giáo viên rồi mới quyết
 | ID | Việc | Nguồn |
