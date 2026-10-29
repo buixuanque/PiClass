@@ -54,6 +54,8 @@
 | C14 | Giờ máy chủ cho đồng hồ làm bài (hiện FE lấy từ header `Date`); số giây khóa đăng nhập thành trường riêng thay vì nằm trong message | — |
 | C15 | "Yêu cầu nộp lại" cho Bài tập (hiện reissue chỉ Quiz/Exam và chỉ Admin) | TB-11 |
 | C16 | `CourseEnrollmentListResource` (`GET /courses/{id}/enrollments`) không trả `end_reason` dù cột đã có trên `course_enrollments` (model fillable) — AD-12a không hiện được lý do kết thúc ghi danh trên từng dòng, chỉ hiện ngày kết thúc. Không chặn thao tác (kết thúc ghi danh vẫn lưu lý do bình thường, chỉ không đọc lại được ở danh sách) | AD-12a (phát hiện 2026-10-26 khi build FE) |
+| C17 | `GET /assessments` trả thẳng model `Assessment` kèm `current_version` (không có Resource riêng, OpenAPI chỉ khai `data` là object chung): FE tự khai kiểu theo field dùng | TC-15 tab Bài, TC-11 |
+| C18 | `GET /assessments` của Giáo viên không trả bài Admin gán vào khóa dùng chung (chỉ bài mình tạo, bài của lớp mình dạy, bài của khóa mình sở hữu); chờ quyết quyền xem ở lát Bài đánh giá (`DEC-LRN-019` mục 4) | TC-15, TC-11 |
 
 ## Quyết định cần bạn chốt (gộp từ báo cáo của năm agent)
 
