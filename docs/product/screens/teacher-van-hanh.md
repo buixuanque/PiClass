@@ -171,7 +171,7 @@
   2. *Chi tiết khóa*: `name`, `description`, môn, `status`; **khóa của tôi**: nút Sửa tên/mô tả/môn, "Lưu trữ"; **khóa dùng chung**: chỉ xem (nhãn "Do quản trị viên quản lý"), ẩn mọi nút sửa/ghi danh/kết thúc ghi danh; **không xem được danh sách ghi danh của khóa chung** (BE trả 403 cho Teacher; DEC-LRN-012), hiện thông báo "Chỉ quản trị viên xem được học sinh ghi danh".
   3. *Tab Ghi danh (khóa của tôi)*: `GET /courses/{id}/enrollments` → `student_id`, `status` (`active`/`ended`), `valid_from`, `valid_to`; tên học sinh FE ghép (từ roster các lớp của mình; học sinh ngoài lớp mình dạy chưa có cách tra tên → G4). Mặc định hiện đang ghi danh, công tắc hiện đã kết thúc.
   4. *Tab Bài của khóa*: như trên.
-- **Chức năng & hành động:**
+- **Chức năng & hành động:** (cập nhật 2026-10-29, `DEC-LRN-019`: bỏ "ghi danh theo lớp" kiểu chụp một lần ở dưới, thay bằng tab "Lớp đã gắn" với Gắn lớp/Gỡ lớp như Admin AD-12; nhánh `class_id` của `POST .../enrollments` là code chết; khóa dùng chung không có tab.)
   - **Tạo khóa:** form `name` (bắt buộc), `description`, `subject_id` (tùy chọn). Khóa tạo ra luôn thuộc về mình (Teacher không chọn chủ). `POST /courses`.
   - **Sửa khóa** (của tôi): `PATCH /courses/{id}`; vẫn sửa được khi đã lưu trữ.
   - **Lưu trữ khóa:** xác nhận ("Khóa lưu trữ không nhận ghi danh mới; các ghi danh hiện có vẫn xem được"). `PATCH` với `status: "archived"` (chỉ giá trị này hợp lệ, không có "bỏ lưu trữ").
