@@ -10,7 +10,7 @@ Cập nhật lần cuối: 2026-10-29 · bởi: xong code FE lát 4a (bước 4)
 - **Cổng Admin:** xong toàn bộ, đã merge `main`, user đã bấm thử trình duyệt.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Lát 4a Giáo viên: user bấm thử `/teacher/question-bank` (TC-07, TC-08), rồi merge hai nhánh `piclass-api` trước, `piclass-web` sau; xong thì lát 4b (TC-09, TC-10) bước 1: bàn nghiệp vụ
+1. Lát 4a Giáo viên: user bấm thử `/teacher/question-bank` (TC-07, TC-08), rồi merge hai nhánh `piclass-api` trước, `piclass-web` sau; user xác nhận luật chấm điền khuyết theo từng chỗ (`DEC-LRN-021`); xong thì lát 4b (TC-09, TC-10) bước 1: bàn nghiệp vụ
 2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
 ## Chờ user (Claude không tự làm được)
