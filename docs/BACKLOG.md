@@ -51,3 +51,4 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 |---|---|---|
 | B-060 | Chức năng tạm bỏ (BE giữ nguyên, chưa làm UI) | `research/2026-10-24-api-v1-toi-thieu.md` mục 3 |
 | B-061 | Nhập học sinh hàng loạt; thông báo ngoài ứng dụng; nhiều trung tâm dùng chung một DB | `architecture/open-decisions.md` `ARCH-33` |
+| B-062 | Mở rộng `Course` thành khóa học online: B = mục nội dung nhiều loại (bài giảng chữ, tài liệu, link video ngoài, bài tập, test); C = video tự lưu/tương tác, tiến độ từng bài, mở khóa tuần tự. Làm sau khi đủ khung chức năng 4 vai trò; phải sửa `BR-COURSE-002` và `BR-SYS-002` trước | `requirements/learning-rules.md` BR-COURSE-002 |
