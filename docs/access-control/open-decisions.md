@@ -26,13 +26,13 @@ Các mục sau không còn open decisions; người dùng đã chốt phương �
 4. AuditLog: schema cho phép before/after/reason nullable nói chung; action nhạy cảm bắt buộc trường tương ứng theo business rule trước khi ghi thành công.
 5. Schema-to-permission alignment là tiêu chí kiểm tra cho bước thiết kế tiếp theo, không còn là quyết định permission Step 7.
 
-## Course/CourseEnrollment — chốt khi brainstorm spec Academic (2026-10-14)
+## Course/CourseAudience — chốt 2026-10-14, đổi mô hình 2026-10-30 (`DEC-LRN-026`)
 
 Thêm cùng lúc với `DEC-LRN-010` (`requirements/decision-log.md`). Đã review và chốt dứt khoát khi brainstorm spec `docs/archive/superpowers/specs/2026-10-14-academic-lesson-attendance-api-design.md`, đồng bộ vào `resource-permissions.md`/`permission-matrix.md`/`data-scope.md`/`requirements/learning-rules.md` (`BR-COURSE-004`):
 
-1. Teacher sở hữu Course được enroll/kết thúc CourseEnrollment cho **bất kỳ Student nào trong hệ thống**, không giới hạn Student thuộc Class mình phụ trách — chấp nhận mức rủi ro này vì Course phục vụ cả kịch bản dạy thêm cá nhân ngoài lớp chính thức.
+1. Teacher sở hữu Course được thêm/gỡ đối tượng khóa (Student hoặc Class) cho **bất kỳ Student nào trong hệ thống** (từng là "enroll/kết thúc CourseEnrollment", đã bỏ ở `DEC-LRN-026`), không giới hạn Student thuộc Class mình phụ trách — chấp nhận mức rủi ro này vì Course phục vụ cả kịch bản dạy thêm cá nhân ngoài lớp chính thức.
 2. Course do Teacher tạo thuộc sở hữu riêng, không cần Admin duyệt — cùng pattern Question Bank.
-3. Student/Parent nhận Assessment trùng qua cả Class và Course cho cùng Student: xử lý bởi quy tắc hợp nhất `StudentAssessment` hiện có (unique `assessment_id`+`student_id`, `database/schema.md`) — không cần logic dedup riêng cho Course; xác nhận lại chi tiết endpoint khi spec nhóm module 3 (Question Bank + Assessment).
+3. Bài của khóa tách khỏi bài cá nhân (`DEC-LRN-026`): không còn trường hợp một bài nhận qua cả Class và Course. Học sinh làm cùng nội dung qua lớp và qua khóa có hai bài, hai chuỗi lịch sử. Quy tắc hợp nhất `StudentAssessment` (unique `assessment_id`+`student_id`) chỉ còn dùng giữa Class và Student của bài cá nhân.
 
 ## Database alignment notes
 

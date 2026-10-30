@@ -55,6 +55,8 @@ Ghi chú chung cho chấm tự động: câu bỏ trống luôn được 0 đi�
 ---
 
 ### TC-07 — Ngân hàng câu hỏi   ✅ (tìm theo nội dung 🟡 TB-1)
+
+> ⚠ **Đổi mô hình `DEC-LRN-026` (2026-10-30):** câu hỏi có **hiển thị** `shared` (mặc định, mọi giáo viên dùng được) hoặc `private` (chỉ mình và Admin). Danh sách có bộ lọc "Của tôi / Dùng chung" và cột/nhãn hiển thị; đổi hiển thị ngay trên dòng hoặc ở TC-08 (có thao tác chia sẻ hàng loạt). Câu của người khác chỉ dùng và sao chép, không sửa.
 - **Vai trò · responsive:** Teacher (và Admin) · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** Tìm lại một câu Toán 9 đã soạn từ học kỳ trước để dùng cho bài kiểm tra tuần này, hoặc soạn câu mới khi chưa có.
 - **Vào từ / đi tới:** Menu "Giảng dạy → Ngân hàng câu hỏi"; từ tab Câu hỏi của TC-10 (mở ở dạng bảng chọn câu). Bấm một dòng → TC-08 (xem/sửa); nút "Soạn câu hỏi" → TC-08 chế độ tạo mới.
@@ -66,6 +68,8 @@ Ghi chú chung cho chấm tự động: câu bỏ trống luôn được 0 đi�
 - **Dữ liệu mẫu gợi ý:** "Giải phương trình 2x + 3 = 11" · Một đáp án · Toán · Topic "Phương trình bậc nhất" · Tag "Học kỳ 1", "Cơ bản" · v2 · 1 điểm · Của tôi. "Điền từ còn thiếu: She ___ to school every day." · Điền khuyết · Anh · v1.
 
 ### TC-08 — Soạn câu hỏi   ✅ (nộp file 🟡 G6)
+
+> ⚠ **Đổi mô hình `DEC-LRN-026` (2026-10-30):** thêm ô **Hiển thị** (Chung/Riêng tư, mặc định Chung) trong khung soạn; soạn câu từ TC-10 cũng vào ngân hàng với cùng ô này.
 - **Vai trò · responsive:** Teacher (và Admin) · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** Soạn một câu trắc nghiệm có đáp án đúng, hoặc câu tự luận có hướng dẫn chấm, rồi lưu để dùng lại nhiều bài.
 - **Vào từ / đi tới:** Từ TC-07 ("Soạn câu hỏi", bấm một dòng, "Nhân bản làm câu mới" 🔵). Lưu xong → về TC-07 (hoặc quay lại tab Câu hỏi của TC-10 nếu mở từ đó, câu mới tự được chọn).
@@ -88,6 +92,8 @@ Ghi chú chung cho chấm tự động: câu bỏ trống luôn được 0 đi�
 - **Dữ liệu mẫu gợi ý:** Một đáp án: "Nghiệm của 2x + 3 = 11 là?" · A. 3 · B. 4 (đúng) · C. 5 · D. 7. Điền khuyết: "The capital of Viet Nam is ___." · chấp nhận "Hanoi", "Ha Noi", "Hà Nội". Tự luận: "Phân tích nhân vật Lão Hạc (khoảng 15 dòng)" · Văn 9.
 
 ### TC-09 — Danh sách bài đánh giá   ✅ 🎨 (đối tượng, số đã nộp, chờ chấm 🟡 G9)
+
+> ⚠ **Đổi mô hình `DEC-LRN-026` (2026-10-30):** danh sách chỉ hiện **bài cá nhân** (`course_id` null); bài của khóa nằm ở màn khóa (TC-15) và không hiện ở đây. Bộ lọc đối tượng bỏ "khóa học". Bài không có hiển thị riêng/chung.
 - **Vai trò · responsive:** Teacher (và Admin) · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** Xem mình đã giao những bài nào, bài nào còn nháp, bài nào đang chờ mình chấm, và tạo bài mới.
 - **Vào từ / đi tới:** Menu "Giảng dạy → Bài tập / Kiểm tra". **Một mục menu "Bài đánh giá"**, một màn có bộ lọc loại (`DEC-LRN-022`). Bấm dòng → TC-11. "Tạo bài" → hộp hỏi tên và loại bài → TC-10. Từ tổng quan (G1): bấm "n bài chờ chấm" → màn này đã lọc.
@@ -99,6 +105,8 @@ Ghi chú chung cho chấm tự động: câu bỏ trống luôn được 0 đi�
 - **Dữ liệu mẫu gợi ý:** "Bài tập về nhà: Hệ phương trình" · Bài tập · Đã phát hành · Hạn 24/10 23:59. "Kiểm tra 15 phút – Đại số chương 2" · Kiểm tra · Nháp. "Thi giữa kỳ 1 – Toán 9" · Bài thi · Đã đóng.
 
 ### TC-10 — Soạn & giao bài (một trang)   ✅ 🎨 (nộp file 🟡 G6)
+
+> ⚠ **Đổi mô hình `DEC-LRN-026` (2026-10-30):** bước chọn đối tượng chỉ còn **Lớp** và **Học sinh** (bỏ thẻ Khóa học, `course_id`). Có chế độ mở từ khóa ("Soạn bài mới cho khóa này"): không có bước chọn đối tượng, lưu xong bài tự vào khóa và hiện trong mục khóa. Dòng "Ba thẻ chọn đối tượng... Khóa học (`course_id`)" bên dưới là bản cũ.
 - **Vai trò · responsive:** Teacher (và Admin) · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại; tab Cài đặt và Đối tượng dùng tốt trên máy tính bảng.
 - **Người dùng muốn làm gì:** Chuẩn bị bài kiểm tra 15 phút cho Toán 9A: đặt thời gian, chọn câu từ ngân hàng, giao cho lớp, rồi phát hành.
 - **Vào từ / đi tới:** "Tạo bài" ở TC-09; "Sửa" bài nháp ở TC-11; "Soạn phiên bản mới" ở TC-11. Hoàn tất → TC-11 của bài vừa phát hành.

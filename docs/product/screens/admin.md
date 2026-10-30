@@ -471,6 +471,8 @@ Nội dung buổi học (xem, thêm, sửa, hủy, hoàn tất) chuyển sang **
 
 ### AD-12 — Khóa học (danh sách và chi tiết)   ✅
 
+> ⚠ **Đổi mô hình `DEC-LRN-026` (2026-10-30):** bỏ ghi danh và "Lớp đã gắn"; khóa có **Đối tượng** (thêm/gỡ Lớp hoặc Học sinh, không trạng thái/ngày, gỡ có xác nhận, không bắt lý do) và **Danh sách mục** (bài của khóa, có thứ tự). Phần mô tả bên dưới về ghi danh/liên kết lớp là **bản cũ**, cần làm lại mockup rồi viết lại (`STATE.md`).
+
 - **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại. Một màn gồm danh sách và trang chi tiết (M1, M3).
 - **Người dùng muốn làm gì:** quản lý các khóa (nhóm bài đánh giá và học sinh tham gia, kể cả dạy kèm ngoài lớp chính thức) và biết ai đang học khóa nào.
 - **Vào từ / đi tới:** menu Quản trị › Khóa học. Dòng → chi tiết (cùng màn). "Ghi danh" → AD-12a.
@@ -489,6 +491,8 @@ Nội dung buổi học (xem, thêm, sửa, hủy, hoàn tất) chuyển sang **
 - **FE (xong 2026-10-26, `piclass-web` nhánh `feat/admin-course-enrollment`, `CourseListScreen`/`CourseDetailScreen` ở `features/academic/ui/admin/`):** dòng danh sách bỏ cột "Học sinh" khỏi mockup và không hiện tên môn ở dòng phụ (chỉ còn mô tả, "Chưa có mô tả" khi trống) — `CourseListResource` thật không trả `subject_id` lẫn số học sinh đang ghi danh, mockup tự tính hai thứ này từ dữ liệu mẫu cục bộ; gọi riêng từng dòng sẽ N+1. Tab "Bài đánh giá" ở chi tiết và `StatTile` tương ứng cố định (dòng trống/"—"), chưa có endpoint cho Admin liệt kê bài theo khóa như đã ghi ở trên.
 
 ### AD-12a — Ghi danh vào khóa học   ✅
+
+> ⚠ **Đổi mô hình `DEC-LRN-026` (2026-10-30):** màn này **bị thay** bằng khối "Đối tượng của khóa" trong AD-12; không còn ghi danh, kết thúc ghi danh, lý do kết thúc, nhãn "Qua lớp". Giữ nội dung dưới đây chỉ để tham chiếu.
 
 - **Vai trò · responsive:** Admin · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại. Khối trong chi tiết khóa + hộp thoại.
 - **Người dùng muốn làm gì:** đưa một học sinh, hoặc cả một lớp, vào khóa để nhận bài của khóa; hoặc cho em rời khóa.
@@ -547,7 +551,7 @@ Nội dung buổi học (xem, thêm, sửa, hủy, hoàn tất) chuyển sang **
 | `lesson_session.update` / `lesson_session.cancel` | LessonSession | Sửa / hủy buổi học |
 | `attendance_record.create` / `.update` | AttendanceRecord | Tạo / sửa điểm danh |
 | `absence_explanation.review` | AbsenceExplanation | Duyệt đơn xin phép |
-| `course_enrollment.enroll` / `.end` | CourseEnrollment | Ghi danh / kết thúc ghi danh |
+| `course_audience.add` / `.remove` | CourseAudience | Thêm / gỡ đối tượng khóa (`DEC-LRN-026`, thay `course_enrollment.*`) |
 | `assessment.publish` / `.close` / `.reopen` / `.cancel` | Assessment | Phát hành / đóng / mở lại / hủy bài |
 | `attempt.submit` / `attempt.reissue` | Attempt | Nộp bài / cấp lại lượt làm bài |
 | `result.publish` / `result.withdraw` | Result | Công bố / thu hồi kết quả |
