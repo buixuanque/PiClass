@@ -116,3 +116,13 @@
 ---
 
 **Ngoài plan này (làm sau khi BE xong, vì phụ thuộc hợp đồng API):** mockup AD-12/TC-15/ST-09/TC-07..10; FE Admin, Giáo viên, Học sinh. Hai plan riêng.
+
+---
+
+## Kết quả thực hiện (2026-10-30, nhánh `feat/course-model-rework` của `piclass-api`)
+
+- Task 1–5 xong, cả bộ test xanh (2340), PHPStan sạch, baseline nhỏ đi (727 → 571 dòng). OpenAPI đã xuất (file bị git bỏ qua).
+- Khác plan (đã ghi ở sổ thực hiện): đổi hiển thị câu hỏi qua endpoint riêng `PATCH /questions/{q}/visibility` (sửa câu tạo phiên bản mới); từ chối câu riêng tư qua Policy 403 `FORBIDDEN` (không thêm mã `QUESTION_NOT_VISIBLE`); `CourseItemType` đặt ở `Academic/Enums`; gỡ mục khóa luôn lưu trữ bài (không xóa cứng); quyền bắt đầu làm bài của khóa luôn dựa vào việc còn là học viên.
+- Route mới: `/courses/{course}/audience` (GET/POST/DELETE `{audienceId}`), `/courses/{course}/learners`, `/courses/{course}/items` (GET), `/courses/{course}/items/copy` (POST), `/courses/{course}/items/{itemId}` (PATCH/DELETE), `/questions/{question}/visibility` (PATCH); `POST /assessments` nhận `course_id`.
+- Còn lại của lát: mockup (AD-12, TC-15, ST-09, TC-07/08/09/10) và FE ba cổng, lập plan riêng.
+
