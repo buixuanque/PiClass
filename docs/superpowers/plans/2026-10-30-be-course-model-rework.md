@@ -4,7 +4,7 @@
 
 **Goal:** Thay ghi danh và liên kết Lớp–Khóa bằng `CourseAudience`, thêm `CourseItem`, `Question.visibility`, `Assessment.course_id` trong `piclass-api`.
 
-**Architecture:** Academic sở hữu `Course`/`CourseAudience`; Assessment sở hữu `CourseItem` và bài của khóa (cùng bảng `assessments`, phân biệt bằng `course_id`, dùng chung engine làm bài). `StudentAssessment` vẫn ghi sẵn, một Action `ReconcileStudentAssessments` của Assessment giữ nó khớp với đường nhận bài, được Academic/UserManagement gọi thẳng.
+**Architecture:** Academic sở hữu `Course`/`CourseAudience`; Assessment sở hữu `CourseItem` và bài của khóa (cùng bảng `assessments`, phân biệt bằng `course_id`, dùng chung engine làm bài). Với bài của khóa, `StudentAssessment` chỉ được tạo lười khi học sinh (là học viên của khóa) bắt đầu làm; bài cá nhân giao theo lớp giữ cơ chế ghi sẵn cũ.
 
 **Tech Stack:** Laravel 13, PHP 8.4, PostgreSQL, PHPUnit 12, Scramble (OpenAPI). Quy ước: `piclass-api/CLAUDE.md`.
 
@@ -22,12 +22,12 @@
 
 ## Review Focus
 
-- Học sinh vừa trong danh sách trực tiếp vừa trong lớp thuộc khóa: gỡ một đường vẫn còn quyền, gỡ cả hai thì `StudentAssessment` chưa `completed` bị `withdrawn`, đã `completed` giữ nguyên.
+- Học sinh vừa trong danh sách trực tiếp vừa trong lớp thuộc khóa: gỡ một đường vẫn làm được bài, gỡ cả hai thì không bắt đầu làm bài mới được nhưng dòng và bài làm đã có giữ nguyên.
 - Giáo viên A thêm câu `private` của giáo viên B vào bài bằng `question_version_id` đoán được: bị từ chối.
 - Bài của khóa không bao giờ có `AssessmentAudience`; giao audience cho bài có `course_id` bị từ chối (422).
 - `GET /assessments` mặc định không trả bài của khóa; Giáo viên không phải chủ khóa (kể cả khóa dùng chung) không tạo/sao chép bài vào khóa.
-- Lưu trữ lớp hoặc học sinh rời lớp giữa chừng: quyền qua lớp mất, bài đang làm dở của học sinh không bị xóa dữ liệu.
-- Học sinh vào lớp/khóa sau khi bài của khóa đã publish vẫn nhận bài (`B-021`).
+- Học sinh rời lớp hoặc lớp bị lưu trữ giữa chừng: không còn thấy bài của khóa qua lớp, dữ liệu làm dở không bị xóa.
+- Học sinh vào lớp/khóa sau khi bài của khóa đã publish vẫn thấy và làm được bài, không cần hook.
 
 ---
 
@@ -70,7 +70,7 @@
 **Interfaces:**
 - Produces: `AddCourseAudience::handle(Course $course, array $target /* class_id|student_id */, User $actor): CourseAudience`; `RemoveCourseAudience::handle(Course $course, CourseAudience $audience, User $actor): void`; `CourseLearnersQuery::handle(Course $course): Collection<{student_id, sources: list<{type: 'direct'|'class', class_id?}>}>`; `CourseLearnersQuery::isLearner(string $courseId, string $studentId): bool`.
 - Routes (Admin + Teacher chủ khóa ghi; xem theo `CoursePolicy::view`): `POST /courses/{course}/audience`, `GET /courses/{course}/audience`, `DELETE /courses/{course}/audience/{audience}`, `GET /courses/{course}/learners` (Admin/Teacher quản lý; Student/Parent 403).
-- Quy tắc: khóa `archived` → `COURSE_ARCHIVED` (422); lớp `archived` → `CLASS_ARCHIVED`; trùng → `AUDIENCE_ALREADY_ADDED` (409, thêm vào `error-codes.md`); Teacher thêm Student/Lớp bất kỳ vào khóa của mình (`BR-COURSE-004`), khóa dùng chung chỉ Admin. Student/Parent xem khóa nếu học sinh nằm trong danh sách trực tiếp hoặc là `ClassMember` đang hoạt động của lớp trong danh sách; ngoài ra 404. Hook `Reconcile` gọi ở Task 6; ở task này `AddCourseAudience`/`Remove...` để chỗ gọi nhưng chưa nối.
+- Quy tắc: khóa `archived` → `COURSE_ARCHIVED` (422); lớp `archived` → `CLASS_ARCHIVED`; trùng → `AUDIENCE_ALREADY_ADDED` (409, thêm vào `error-codes.md`); Teacher thêm Student/Lớp bất kỳ vào khóa của mình (`BR-COURSE-004`), khóa dùng chung chỉ Admin. Student/Parent xem khóa nếu học sinh nằm trong danh sách trực tiếp hoặc là `ClassMember` đang hoạt động của lớp trong danh sách; ngoài ra 404. Không có hook đồng bộ phiếu bài (xem Task 5).
 
 - [ ] **Step 1: Test** `tests/Feature/Academic/CourseAudienceTest.php`: add class, add student, duplicate 409, archived course 422, teacher non-owner 403 (message), shared course teacher 403, audit `course_audience.add/remove` có trong cùng giao dịch (audit lỗi thì không có dòng audience), `test_student_sees_course_via_class_membership_and_loses_it_when_member_ended`, `test_learners_merges_direct_and_class_sources_once_per_student`, `test_course_list_for_student_only_contains_audience_courses`.
 - [ ] **Step 2:** FAIL. **Step 3:** implement; xóa code/test ghi danh; `AddClassMember`/`EndClassMember`/`UpdateClass` bỏ gọi `SyncCourseEnrollments*`; `ClassScope::teacherCoversStudent` dùng `CourseLearnersQuery::isLearner`.
@@ -91,17 +91,18 @@
 - [ ] **Step 1: Test** `test_create_assessment_with_course_id_creates_item_at_end`, `test_teacher_cannot_create_assessment_in_course_they_do_not_own` (403), `test_shared_course_only_admin_can_add_assessments`, `test_personal_list_excludes_course_assessments`, `test_audience_on_course_assessment_is_rejected` (code), `test_copy_creates_independent_draft_with_same_questions_and_editing_source_does_not_change_copy`, `test_remove_item_with_attempts_archives_assessment`, `test_item_reorder_keeps_positions_contiguous`, `test_student_items_hide_draft_assessments`.
 - [ ] **Step 2:** FAIL. **Step 3:** implement. **Step 4:** `--filter=Assessment` PASS (sửa các test cũ dùng `course_id` ở audience/reopen). **Step 5:** commit `feat(assessment): course-owned assessments and course items`.
 
-### Task 5: Đồng bộ StudentAssessment (giải quyết B-021)
+### Task 5: Học sinh nhận bài của khóa (tạo `StudentAssessment` khi bắt đầu làm)
 
-**Files:** Create `Actions/ReconcileStudentAssessments.php`, Test `tests/Feature/Assessment/ReconcileStudentAssessmentsTest.php`; Modify `StudentAssessmentSync.php`, `AddAssessmentAudience.php`, `EndAssessmentAudience.php`, `PublishAssessment.php`, `AddCourseAudience.php`, `RemoveCourseAudience.php`, `AddClassMember.php`, `EndClassMember.php`, `UpdateClass.php` (lưu trữ lớp).
+**Files:** Modify `app/Modules/SubmissionGrading/Actions/StartAttempt.php`, `app/Modules/SubmissionGrading/Policies/AttemptPolicy.php`, `app/Modules/Assessment/Queries/StudentAssessmentMetadataQuery.php`, `app/Modules/Assessment/Http/Controllers/ListAssessmentStudentsController.php` (và resource), `app/Modules/Assessment/Actions/StudentAssessmentSync.php`; Test `tests/Feature/Assessment/CourseAssessmentAccessTest.php`.
 
 **Interfaces:**
-- Produces: `ReconcileStudentAssessments::forStudent(string $studentId): void` — với mọi bài `published`/`closed` có đường nhận (audience trực tiếp, lớp đang hoạt động trong audience, hoặc bài của khóa mà học sinh là học viên qua `CourseLearnersQuery::isLearner`) mà chưa có dòng → `ensureForStudent`; dòng chưa `completed` mất mọi đường → `withdrawIfNoLivePath`. `forStudents(array $ids)`, `forClass(string $classId)` (mọi `ClassMember` đang hoạt động), `forCourse(string $courseId)` (mọi học viên của khóa). `StudentAssessmentSync::ensureForStudent(Assessment, string $studentId, ?AssessmentAudience $audience = null)`: audience null thì nguồn là `assessment.course_id`; `hasLivePath` thay nhánh CourseEnrollment bằng `course_id` + `isLearner`.
-- Điểm gọi: `AddClassMember`/`EndClassMember` → `forStudent`; lưu trữ lớp → `forClass` (trước khi lớp mất thành viên thì gọi cho danh sách học sinh đã lấy); `AddCourseAudience` (lớp → `forClass`, học sinh → `forStudent`) và `RemoveCourseAudience` tương tự; `PublishAssessment` của bài có `course_id` → `forCourse`. Bài vẫn `draft` thì không tạo dòng.
-- Ghi chú ranh giới: Academic và UserManagement gọi Action của Assessment (một chiều); cập nhật `docs/architecture/module-boundaries.md` cột phụ thuộc theo `ARCH-38`.
+- Consumes: `CourseLearnersQuery::isLearner(string $courseId, string $studentId): bool` (Task 3).
+- Produces: `StudentAssessmentSync::ensureForCourseLearner(Assessment $assessment, string $studentId): StudentAssessment` — chỉ khi `assessment.course_id` có giá trị, bài đã `published` hoặc `closed`, và học sinh là học viên của khóa; tạo dòng với `source_course_id = assessment.course_id`, `source_audience_id = null`, `assigned_version_id = current_version_id` (không tạo trùng; dòng `withdrawn` không được kích hoạt lại ở đây); ngoài điều kiện thì ném lỗi như "chưa được giao" hiện có. `StudentAssessmentMetadataQuery` trả thêm bài của các khóa học sinh thuộc (và của các con với Parent) kể cả chưa có dòng, với trạng thái hiển thị `not_started`. `ListAssessmentStudents` của bài có `course_id` gộp học viên của khóa chưa có dòng, trạng thái `not_started`.
+- Quy tắc: bài `draft` hoặc `cancelled` không hiện; học sinh không còn là học viên thì không bắt đầu được lượt mới, dòng/Attempt cũ không bị xóa.
 
-- [ ] **Step 1: Test** `test_student_joining_class_after_assessment_published_receives_it`, `test_student_added_to_course_after_publish_receives_course_assessment`, `test_removing_one_of_two_paths_keeps_student_assessment`, `test_removing_last_path_withdraws_unfinished_but_keeps_completed`, `test_draft_course_assessment_creates_no_rows_until_publish`, `test_course_publish_creates_rows_for_all_learners_once`.
-- [ ] **Step 2:** FAIL. **Step 3:** implement. **Step 4:** `--filter=Assessment`, `--filter=Academic`, `--filter=UserManagement` PASS. **Step 5:** commit `feat(assessment): reconcile student assessments on membership changes`.
+- [ ] **Step 1: Test** `test_course_learner_starting_attempt_creates_student_assessment_once`, `test_non_learner_cannot_start_course_assessment` (code như "chưa được giao", đúng status hiện có), `test_my_assessments_lists_course_assessments_before_any_attempt`, `test_student_joining_class_after_course_publish_can_start_attempt` (B-021 cho khóa), `test_teacher_student_list_shows_not_started_learners_of_course`, `test_removed_learner_keeps_existing_attempts_but_cannot_start_new`, `test_draft_course_assessment_is_invisible_to_learner`.
+- [ ] **Step 2:** FAIL. **Step 3:** implement; không thêm hook vào `AddClassMember`/`EndClassMember`/`UpdateClass`/`PublishAssessment` (chỉ gỡ lời gọi Sync ghi danh ở Task 3).
+- [ ] **Step 4:** `--filter=Assessment`, `--filter=SubmissionGrading`, `--filter=ResultProgress` PASS. **Step 5:** commit `feat(assessment): course learners get student assessment on first attempt`.
 
 ### Task 6: Dọn, tài liệu API, chạy cả bộ
 
