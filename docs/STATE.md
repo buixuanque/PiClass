@@ -25,7 +25,7 @@ Cập nhật lần cuối: 2026-10-30 · bởi: user duyệt mockup TC-10 v2 (`D
 - **Cổng Admin:** xong toàn bộ, đã merge `main`, user đã bấm thử trình duyệt.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Lát 4b bước 4: sửa spec TC-10 theo `DEC-LRN-024` → làm lại FE TC-10 theo v2 trên `feat/teacher-lot4b-fe` (giữ hook API, logic kiểm tra phát hành; B-070..072) → review → PR
+1. Lát 4b bước 4: làm lại FE TC-10 theo v2 trên `feat/teacher-lot4b-fe` (giữ hook API, logic kiểm tra phát hành; B-070..072) → review → PR
 2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
 ## Chờ user (Claude không tự làm được)
