@@ -24,7 +24,7 @@ Cập nhật lần cuối: 2026-10-30 · bởi: chốt `DEC-LRN-025`, mở lát 
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Lát 4e (`DEC-LRN-025`): bước 1 chốt quyết định xong → bước 2 mockup TC-08 (`piclass-mockup`) → bước 3 spec TC-08 → bước 4 FE (`piclass-web`, không sửa BE) → review → merge
+1. Lát 4e (`DEC-LRN-025`): bước 1 chốt quyết định xong → bước 2 mockup TC-08: đã dựng bản thử `PiClass Giáo viên v3` (`piclass-mockup` nhánh `feat/mockup-teacher-tc08-v3`, chưa PR), chờ user duyệt rồi gộp vào bản chuẩn → bước 3 spec TC-08 → bước 4 FE (`piclass-web`, không sửa BE) → review → merge
 2. Lát 4c Giáo viên (TC-11, TC-12, TC-13): bàn nghiệp vụ → mockup → plan+code BE/FE; gồm `B-073` (đưa ba cờ hiển thị đáp án/lời giải/điểm từng câu vào hộp công bố điểm)
 3. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
