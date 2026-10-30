@@ -55,6 +55,7 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 | B-070 | web | TC-10 v2 còn thiếu so với Google Form: khung trượt soạn câu ngay trong trang (hiện chuyển sang màn soạn rồi quay lại); lệch nhỏ đã biết của FE cũ (đếm học sinh hai lần, thời lượng làm tròn phút, `returnTo` đã có `?`) nên kiểm lại khi làm lại FE | `docs/superpowers/plans/2026-10-29-teacher-lot4b-fe-tc10-wizard.md` |
 | B-071 | web | Gắn bài tập vào buổi học (`lesson_session`) ở TC-10: spec chưa nói lấy buổi học của lớp nào khi bài giao nhiều lớp | `product/screens/teacher-bai-danh-gia.md` |
 | B-072 | web | Hộp xem đáp án khi thêm câu vào bài (TC-10) | `docs/superpowers/plans/2026-10-29-teacher-lot4b-fe-tc10-wizard.md` |
+| B-073 | be, web | Chuyển ba cờ hiện đáp án đúng, lời giải, điểm từng câu (`show_answers`, `show_explanations`, `show_question_scores`) từ lúc soạn bài sang lúc công bố điểm, đúng `BR-ASSESS-025` (user chốt 2026-10-30; bài thi cần mở đáp án sau khi cả lớp thi xong). Mockup TC-10 v2 đã bỏ ba công tắc khỏi Cài đặt; làm cùng lát 4c (TC-13): thêm vào hộp công bố điểm, sửa BE (cờ theo lần công bố), spec TC-10/TC-13, màn kết quả học sinh/phụ huynh; mục "Học sinh được xem" ở tổng quan bài (TC-11) cũng đổi theo | `requirements/assessment-rules.md` `BR-ASSESS-025` |
 
 ## D. Sau V1 / hỏi giáo viên rồi mới quyết
 | ID | Việc | Nguồn |
