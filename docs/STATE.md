@@ -2,7 +2,7 @@
 
 File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-10-30 · bởi: user duyệt mockup TC-10 v2 (`DEC-LRN-024`)
+Cập nhật lần cuối: 2026-10-30 · bởi: lát 4b FE TC-10 v2 code xong, chờ review và PR
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -15,9 +15,9 @@ Cập nhật lần cuối: 2026-10-30 · bởi: user duyệt mockup TC-10 v2 (`D
     - 4c: TC-11, TC-12, TC-13
     - 4d: TC-14
 - **Bước:**
-  - Lát 4b (TC-09, TC-10): xong bước 1-3, đang ở bước 4 FE (`DEC-LRN-022`; `piclass-mockup` #22; BE `search` tên bài cho `GET /assessments`, `piclass-api` #68; đã merge `main`; TC-08 (soạn câu hỏi) đã đơn giản hóa giao diện theo `DEC-LRN-023`, đã merge ở `piclass-web`, `piclass-mockup`, docs)
-    - TC-09 + TC-10 bản wizard 4 bước đã code, qua review, nhánh `piclass-web` `feat/teacher-lot4b-fe` (chưa PR); user bấm thử thấy rối (stepper đổi số thành ✓, thêm đối tượng trùng, thiếu xem trước)
-    - TC-10 v2 (một trang, tab Câu hỏi/Đối tượng/Cài đặt, danh sách tick, Xem trước luôn hiện, kiểu Google Form): mockup `piclass-mockup` #24, #25 (v2 là mockup chính thức), user đã duyệt (`DEC-LRN-024`); chờ làm lại FE theo v2
+  - Lát 4b (TC-09, TC-10): xong bước 1-4 code, chờ review và PR (`DEC-LRN-022`; `piclass-mockup` #22; BE `search` tên bài cho `GET /assessments`, `piclass-api` #68; đã merge `main`; TC-08 (soạn câu hỏi) đã đơn giản hóa giao diện theo `DEC-LRN-023`, đã merge ở `piclass-web`, `piclass-mockup`, docs)
+    - TC-09 + TC-10 v2 (một trang ba tab) đã code trên `piclass-web` nhánh `feat/teacher-lot4b-fe` (chưa PR; test 613 xanh); BE thêm `source_question_version` vào `GET /assessments/{id}`: `piclass-api` nhánh `feat/lot4b-assessment-detail-source-version` (chưa PR, phải merge trước FE); bản wizard 4 bước cũ đã thay hết
+    - TC-10 v2: mockup `piclass-mockup` #24, #25, user đã duyệt (`DEC-LRN-024`)
   - Lát 4a (TC-07, TC-08): xong đủ 4 bước, đã merge `main` (`DEC-LRN-020`, `DEC-LRN-021`; `piclass-mockup` #21, `piclass-api` #65-67, `piclass-web` #30)
     - Chưa làm file đính kèm câu hỏi: `B-064`
     - Mockup còn lệch giao diện thật ở khối điền khuyết: `B-065`
@@ -25,7 +25,7 @@ Cập nhật lần cuối: 2026-10-30 · bởi: user duyệt mockup TC-10 v2 (`D
 - **Cổng Admin:** xong toàn bộ, đã merge `main`, user đã bấm thử trình duyệt.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Lát 4b bước 4: làm lại FE TC-10 theo v2 trên `feat/teacher-lot4b-fe` (giữ hook API, logic kiểm tra phát hành; B-070..072) → review → PR
+1. Lát 4b: user bấm thử TC-09 + TC-10 trên trình duyệt (Tạo bài → thêm câu → giao lớp → xem trước → phát hành), rồi mở PR `piclass-api` (merge trước) và `piclass-web` `feat/teacher-lot4b-fe`
 2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
 ## Chờ user (Claude không tự làm được)
@@ -36,7 +36,8 @@ Cập nhật lần cuối: 2026-10-30 · bởi: user duyệt mockup TC-10 v2 (`D
 ## Chưa push / chưa merge
 | Repo | Nhánh | Trạng thái |
 |---|---|---|
-| `piclass-web` | `feat/teacher-lot4b-fe` | 9 commit, đã push, chưa PR; TC-10 trong nhánh là wizard cũ, sẽ làm lại theo v2 rồi mới PR (TC-09 dùng được) |
+| `piclass-web` | `feat/teacher-lot4b-fe` | 15 commit, đã push, chưa PR; TC-09 + TC-10 v2 đã xong code, chờ user bấm thử rồi PR (sau PR của `piclass-api`) |
+| `piclass-api` | `feat/lot4b-assessment-detail-source-version` | 1 commit, đã push, chưa PR; thêm `source_question_version` vào `GET /assessments/{id}` |
 
 ## Cổng
 | Cổng | FE |
