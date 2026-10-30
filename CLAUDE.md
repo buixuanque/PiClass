@@ -74,4 +74,6 @@ Dùng agent `researcher` (hoặc research/so sánh công nghệ tương tự): s
 
 ## Môi trường Claude Code
 
+**Subagent review code chỉ chạy model `opus`** (user chốt 2026-10-30): mọi lần giao việc review (review toàn nhánh cuối kế hoạch, `requesting-code-review`, `/code-review`...) phải truyền `model: "opus"` tường minh; không dùng `fable`, kể cả khi skill ghi "model mạnh nhất". Quy tắc này thắng chỉ dẫn của skill.
+
 Skill (`superpowers`, `ui-ux-pro-max`, `frontend-design`) và agent cài local, không commit. Máy mới: [docs/setup/claude-skills-setup.md](docs/setup/claude-skills-setup.md), rồi `/reload-plugins`. Riêng `.claude/commands/` (`/tiep`, `/xong`) được track trong repo.
