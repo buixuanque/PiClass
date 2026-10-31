@@ -228,6 +228,8 @@ Mọi màn hình Student chạy với vai trò đang hoạt động là `student
 - **Dữ liệu mẫu gợi ý:** TB 78,5% · 6 bài đã có điểm · 1 bài chờ · Toán 82% (4 bài) · Văn 72% (2 bài).
 
 ### ST-09 — Khóa học của em   ✅ (bài thuộc khóa 🟡 N-A)
+
+> ⚠ **Đổi mô hình `DEC-LRN-026` (2026-10-30):** khóa hiện theo **đối tượng khóa** (em nằm trong danh sách trực tiếp hoặc lớp của em có trong danh sách), không còn "đã ghi danh" và không còn thời gian ghi danh. Màn hiện các mục (bài) của khóa theo thứ tự. Bản cũ bên dưới cần viết lại sau mockup.
 - **Vai trò · responsive:** Student · responsive: dùng tốt cả trên điện thoại lẫn web máy tính.
 - **Người dùng muốn làm gì:** xem mình đang ghi danh khóa nào và các bài thuộc khóa đó (nội dung khóa chính là các bài đánh giá gán qua khóa, `BR-COURSE-002`).
 - **Vào từ / đi tới:** menu "Khóa học". Bấm khóa → chi tiết khóa; bấm bài → ST-05.

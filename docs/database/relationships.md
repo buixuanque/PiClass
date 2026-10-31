@@ -29,8 +29,15 @@
 
 - `Assessment` 1—N `AssessmentVersion`; mỗi lần phát hành có version snapshot bất biến chứa policy, thông tin bài và các `AssessmentQuestion` snapshot.
 - `Assessment` có type Assignment/Quiz/Exam. Policy khác nhau nằm trong thuộc tính cấu hình; không có ba bảng bài tập/quiz/exam riêng.
-- `AssessmentVersion` N—N `Class` và/hoặc `Student` qua `AssessmentAudience`. Bảng `StudentAssessment` là effective assignment duy nhất cho mỗi cặp Assessment/Student, tổng hợp cách nhận qua lớp và direct assignment. Nhờ đó một Student nhận qua hai đường vẫn chỉ có một lịch sử bài/lượt.
+- `AssessmentVersion` của **bài cá nhân** N—N `Class` và/hoặc `Student` qua `AssessmentAudience`. **Bài của khóa** (`Assessment.course_id`) không có `AssessmentAudience`; đối tượng lấy từ `CourseAudience` của khóa (`DEC-LRN-026`). Bảng `StudentAssessment` là effective assignment duy nhất cho mỗi cặp Assessment/Student, tổng hợp cách nhận qua lớp, direct assignment và khóa. Nhờ đó một Student nhận qua hai đường vẫn chỉ có một lịch sử bài/lượt.
 - Một Assignment liên kết 0..1 `LessonSession`; Quiz/Exam không mặc định có liên kết session.
+
+## Course
+
+- `Course` 1—N `CourseAudience` (mỗi dòng một `Class` hoặc một `Student`); học viên của khóa = Student trực tiếp ∪ `ClassMember` đang hoạt động của các Class trong danh sách, tính khi cần (không có bảng ghi danh).
+- `Course` 1—N `CourseItem` có thứ tự; mục `type = assessment` trỏ tới một `Assessment` có `course_id` của khóa đó (quan hệ 1—1 giữa mục và bài). Bài của khóa là bản riêng, không dùng chung giữa các khóa.
+- `Course` 1—N `Assessment` (bài của khóa). Bài cá nhân (`course_id` null) và bài của khóa dùng chung engine Attempt/Submission/Grade.
+- `Question.visibility` quyết định Teacher nào chọn được câu vào bài; không ảnh hưởng bài đã phát hành (có snapshot).
 
 ## Assessment–Question
 

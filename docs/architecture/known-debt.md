@@ -36,11 +36,6 @@ Code chưa đạt quy ước `piclass-api/CLAUDE.md` hoặc còn lỗi có sẵn
 | ID | Nợ | Ở đâu | Sửa khi |
 | --- | --- | --- | --- |
 | D-14 | `POST /courses` của teacher không có hồ sơ Teacher trả 500 (`CreateCourseRequest::ownerTeacherId` gọi `teacherProfile->id` trên null; suy từ code, chưa chạy thử, chưa có test ghim). Bốn ý còn lại của nợ cũ (#34–#37) đã xong. Chi tiết: [D-14](known-debt-detail.md#d-14) | `Academic/Http/Requests/CreateCourseRequest` | PR đổi hành vi riêng sau Task 9f — xem `ARCH-28` ở `open-decisions.md` |
-| D-26 | `EnrollInCourse`/`EnrollInCourseRequest` còn nhánh ghi danh theo `class_id` — dead code thật (FE không còn truyền, đã thay bằng `LinkClassToCourse`). Khi dọn phải xóa cả 4 test đang ghim nhánh này và `class_id?` ở FE `types.ts`. Chi tiết: [D-26](known-debt-detail.md#d-26) | `piclass-api/app/Modules/Academic/{Actions/EnrollInCourse.php, Http/Requests/EnrollInCourseRequest.php}` | Task dọn riêng ở `piclass-api`: xóa nhánh `class_id` khỏi Action/Request (chỉ còn `student_id`) |
-| D-27 | Race hiếm giữa `Link/UnlinkClassFromCourse` và `AddClassMember`/`EndClassMember`/lưu trữ lớp trên cùng một lớp: không có khóa chung, có thể thiếu/thừa một ghi danh tạm thời (tự sửa ở lần đồng bộ sau). Chi tiết: [D-27](known-debt-detail.md#d-27) | `piclass-api/app/Modules/Academic/Actions/{LinkClassToCourse,UnlinkClassFromCourse}.php`, `UserManagement/Actions/{AddClassMember,EndClassMember}.php` | Xem chi tiết |
-| D-28 | Ba Action `SyncCourseEnrollmentsOnClass*` không tự mở `DB::transaction` (dựa vào nơi gọi); hiện mọi nơi gọi đều có transaction nên chưa phải bug. Chi tiết: [D-28](known-debt-detail.md#d-28) | `piclass-api/app/Modules/Academic/Actions/SyncCourseEnrollmentsOnClass*.php` | Khi một trong 3 Action này được gọi từ nơi chưa chắc có transaction (job, console...) |
-| D-29 | `UnlinkClassFromCourse` không khóa dòng `course_class_links` trước khi cập nhật — hai yêu cầu gỡ đồng thời đều qua được và ghi 2 dòng audit `unlink` (không sai dữ liệu ghi danh vì dòng ghi danh đã khóa riêng, chỉ audit trùng) | `piclass-api/app/Modules/Academic/Actions/UnlinkClassFromCourse.php` | Khi cần audit log sạch tuyệt đối cho thao tác này |
-| D-31 | Xóa cứng `Class`/`Course` sẽ cascade xóa `course_class_links`, đưa `source_class_link_id` về null (ghi danh qua lớp thành "cá nhân"); chưa có luồng xóa cứng nên chưa phải bug. Chi tiết: [D-31](known-debt-detail.md#d-31) | `piclass-api/database/migrations/2026_10_26_000002_add_source_class_link_id_to_course_enrollments_table.php` | Nếu sau này có chức năng xóa cứng Class/Course |
 
 ## Assessment
 
@@ -64,7 +59,6 @@ Code chưa đạt quy ước `piclass-api/CLAUDE.md` hoặc còn lỗi có sẵn
 | --- | --- | --- | --- |
 | D-19 | Nợ của File sau `fix/file-learner-access` (`ARCH-30(h)`): chưa gắn/xem file của `answer_id`/`feedback_id` (Student `file_upload`, feedback có file), chưa dọn blob mồ côi/retention | `File/Policies/AttachmentPolicy`, `File/Http/Requests/LinkAttachmentRequest` | PR-2 retrofit Module 4 (issue riêng); `ARCH-12` |
 | D-20 | Nợ của Notification/Audit (`ARCH-31`): hai danh sách không phân trang, người nhận không xét `valid_to`, `NotificationDispatcher` không transaction, `GET /audit-logs` 500 với `entity_id` không phải uuid hoặc bộ lọc mảng | `Notification/NotificationDispatcher`, `Audit/Queries/AuditLogsQuery`, `Notification/Queries/*` | Khi có task sửa hành vi: phân trang, validate bộ lọc (422), transaction cho dispatcher |
-| D-30 | Catalog hành động audit (`docs/product/screens/admin.md`) chưa liệt kê `course_class_link.link`/`.unlink`, `course_enrollment.relink` (thêm ở tính năng liên kết Class–Course, 2026-10-26) `course_class_link.unlink` còn được ghi từ `SyncCourseEnrollmentsOnClassArchived` (khi lớp bị lưu trữ) nên catalog cần ghi cả trường hợp này. | `docs/product/screens/admin.md` | Khi màn `/audit-logs` được port FE và cần danh mục đầy đủ |
 
 ## Chung: kiến trúc, tooling, vận hành
 

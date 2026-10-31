@@ -2,7 +2,7 @@
 
 File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-10-31 · bởi: duyệt mockup TC-08 (lát 4e), spec TC-08 đồng bộ
+Cập nhật lần cuối: 2026-10-31 · bởi: gộp `DEC-LRN-026` (BE xong) với lát 4e (mockup, spec TC-08 xong)
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -24,9 +24,13 @@ Cập nhật lần cuối: 2026-10-31 · bởi: duyệt mockup TC-08 (lát 4e), 
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Lát 4e (`DEC-LRN-025`): bước 1 quyết định xong, bước 2 mockup xong (đã merge `piclass-mockup` #26), bước 3 spec TC-08 xong → **bước 4 FE** (`piclass-web`, không sửa BE): màn tạo/sửa câu hỏi cùng khung Soạn bài, soạn nhiều câu một lượt, bảng chọn câu của Soạn bài nhận nhiều câu vừa lưu → review (opus) → merge
-2. Lát 4c Giáo viên (TC-11, TC-12, TC-13): bàn nghiệp vụ → mockup → plan+code BE/FE; gồm `B-073` (đưa ba cờ hiển thị đáp án/lời giải/điểm từng câu vào hộp công bố điểm)
-3. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
+1. Lát 4e (`DEC-LRN-025`): bước 1 quyết định xong, bước 2 mockup xong (đã merge `piclass-mockup` #26), bước 3 spec TC-08 xong → **bước 4 FE** (`piclass-web`; thêm ô Hiển thị `Question.visibility` của `DEC-LRN-026` vào tab Cài đặt, BE đã có): màn tạo/sửa câu hỏi cùng khung Soạn bài, soạn nhiều câu một lượt, bảng chọn câu của Soạn bài nhận nhiều câu vừa lưu → review (opus) → merge
+2. **Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`)** — thay ghi danh bằng đối tượng khóa, mục khóa, `Question.visibility`, `Assessment.course_id`:
+   - Docs nguồn và plan BE: đã merge `main` (docs #156)
+   - BE: xong và đã review độc lập trên nhánh `feat/course-model-rework` (`piclass-api`; OpenAPI đã xuất)
+   - Kế tiếp: mockup AD-12, TC-15, ST-09, TC-07/08/09/10 → plan+code FE (Admin, Giáo viên, Học sinh) theo OpenAPI mới
+3. Lát 4c Giáo viên (TC-11, TC-12, TC-13): bàn nghiệp vụ → mockup → plan+code BE/FE; gồm `B-073` (đưa ba cờ hiển thị đáp án/lời giải/điểm từng câu vào hộp công bố điểm)
+4. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
 ## Chờ user (Claude không tự làm được)
 - Xác nhận `ARCH-36` (a)–(f): UI "thêm hồ sơ kèm tài khoản" dựng không qua mockup
@@ -35,7 +39,8 @@ Cập nhật lần cuối: 2026-10-31 · bởi: duyệt mockup TC-08 (lát 4e), 
 ## Chưa push / chưa merge
 | Repo | Nhánh | Trạng thái |
 |---|---|---|
-| (không có) | — | mọi repo `main` sạch (kiểm 2026-10-30, sau `piclass-web` #32 và `piclass-api` #69) |
+| piclass-docs | `docs/dec-lrn-025-question-editor` | đã push, chưa mở PR (spec TC-08, `DEC-LRN-025`, gộp `main`) |
+| piclass-api | `feat/course-model-rework` | đã push, chưa mở PR (7 commit) |
 
 ## Cổng
 | Cổng | FE |

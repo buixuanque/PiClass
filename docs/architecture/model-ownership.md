@@ -13,7 +13,8 @@ Bảng này gán mỗi Eloquent Model trong `piclass-api/app/Models` (48 file) c
 | `AbsenceExplanation` | Attendance | Parent gửi giải trình qua quyền phù hợp; giải trình không tự đổi attendance. |
 | `Answer` | SubmissionGrading | Autosave theo câu. Chỉ đọc: ResultProgress. |
 | `Assessment` | Assessment | Aggregate identity. Chỉ đọc: SubmissionGrading, ResultProgress, Notification, Lesson (liên kết tối đa một session). |
-| `AssessmentAudience` | Assessment | Phạm vi giao (Class/Student/Course); tham chiếu Class, Student, Course qua contract. |
+| `AssessmentAudience` | Assessment | Phạm vi giao của bài cá nhân (Class/Student); tham chiếu Class, Student qua contract. Bài của khóa không có audience (`DEC-LRN-026`). |
+| `CourseItem` | Assessment | Mục của khóa, V1 trỏ tới bài của khóa (`ARCH-38`, đề xuất). Chỉ đọc: Academic (hiển thị khóa). |
 | `AssessmentQuestion` | Assessment | Snapshot đóng băng trong version. Chỉ đọc: SubmissionGrading (AttemptQuestion, Answer, Grade tham chiếu). |
 | `AssessmentVersion` | Assessment | Bản phát hành bất biến. Chỉ đọc: SubmissionGrading, ResultProgress. |
 | `Attachment` | File | Metadata tệp. Chỉ đọc: QuestionBank, Assessment, SubmissionGrading (qua AttachmentLink). |
@@ -24,9 +25,9 @@ Bảng này gán mỗi Eloquent Model trong `piclass-api/app/Models` (48 file) c
 | `AttendanceRecord` | Attendance | Gắn LessonSession và Student. Chỉ đọc: Lesson, Academic. |
 | `AuditLog` | Audit | Append-only. Mọi module ghi qua AuditLogger; truy vấn theo Admin hoặc Teacher class scope. |
 | `ClassMember` | UserManagement | Chủ ghi: UserManagement. module-boundaries dòng 22 ghi "User Management/Academic use case", nên Academic cũng xuất hiện như nơi ghi qua use case của mình; đề xuất Action ghi (add/update/end) đặt trong module UserManagement, Academic chỉ gọi qua contract. Chỉ đọc: Attendance, Assessment (audience/eligibility), SubmissionGrading, ResultProgress (scope). |
-| `Course` | Academic | Tự học thêm, tách biệt Class (DEC-LRN-010). Chuỗi trạng thái đã thành Enum `CourseStatus` (cast, Task 9f). Chỉ đọc: Assessment (audience Course). |
-| `CourseEnrollment` | Academic | Chủ ghi: Academic — `EnrollInCourse`, `EndCourseEnrollment`, `LinkClassToCourse`, `UnlinkClassFromCourse`, `SyncCourseEnrollmentsOnClassMemberLeft`/`...Joined`/`...OnClassArchived`. Enum `CourseEnrollmentStatus` (cast, Task 9f). Chỉ đọc: Assessment (eligibility). |
-| `CourseClassLink` | Academic | Chủ ghi: Academic — `LinkClassToCourse`, `UnlinkClassFromCourse`. Chỉ đọc: không module nào khác. |
+| `Course` | Academic | Tự học thêm, tách biệt Class (DEC-LRN-010). Chuỗi trạng thái đã thành Enum `CourseStatus` (cast, Task 9f). Chỉ đọc: Assessment (bài của khóa qua `Assessment.course_id`). |
+| `CourseAudience` | Academic | Chủ ghi: Academic — thêm/gỡ Lớp hoặc Student của khóa (`DEC-LRN-026`, thay `CourseEnrollment` và `CourseClassLink`). Chỉ đọc: Assessment (eligibility của bài khóa). |
+| ~~`CourseEnrollment`, `CourseClassLink`~~ | — | Bỏ ở `DEC-LRN-026`; code cũ xóa khi làm lại. |
 | `Feedback` | SubmissionGrading | Có thể có Attachment qua AttachmentLink. |
 | `FeedbackHistory` | SubmissionGrading | Lịch sử sửa Feedback. |
 | `Grade` | SubmissionGrading | Grade chỉ đổi qua SubmissionGrading. Chỉ đọc: ResultProgress. |

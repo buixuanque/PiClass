@@ -34,7 +34,10 @@ Các constraint dưới đây là yêu cầu logic cho PostgreSQL mục tiêu; m
 
 - Mọi khoảng hiệu lực dùng `[valid_from, valid_to)` theo instant: `valid_to IS NULL OR valid_to > valid_from`.
 - Schedule: thời lượng dương; lịch lặp tuần phải có ít nhất một weekday; `effective_until` không trước `effective_from`. LessonSession: `ends_at > starts_at`; AssessmentVersion: duration/max_attempts dương nếu có; opens/closes/deadline nhất quán khi được khai báo.
-- `AssessmentAudience`: đúng một trong `class_id`, `student_id` có giá trị.
+- `AssessmentAudience`: đúng một trong `class_id`, `student_id` có giá trị; chỉ tồn tại cho `Assessment.course_id IS NULL` (kiểm ở tầng ứng dụng và có test).
+- `CourseAudience`: đúng một trong `class_id`, `student_id` có giá trị; unique `(course_id, class_id)` và `(course_id, student_id)`.
+- `CourseItem`: unique `(course_id, parent_id, position)`; `assessment_id` bắt buộc khi `type = assessment` và trỏ tới bài có cùng `course_id`; unique `assessment_id` (một bài của khóa chỉ nằm ở một mục).
+- `Question.visibility` NOT NULL; `AssessmentQuestion.source_question_version_id` NOT NULL.
 - `AssessmentQuestion.points >= 0`; `Grade.score >= 0`, `max_score >= 0`, `score <= max_score`.
 - `Result.percentage` trong [0,100] nếu có; `passed` nullable cho đến khi threshold có giá trị.
 - Attendance status thuộc enum bốn trạng thái; LessonSession chỉ ba trạng thái đã chốt; Assessment type chỉ ba loại đã chốt.
@@ -50,7 +53,7 @@ Các constraint dưới đây là yêu cầu logic cho PostgreSQL mục tiêu; m
 - `Class(subject_id, status)`; `ClassMember(class_id, status, valid_from, valid_to)` và `(student_id, status, valid_from, valid_to)`; tương tự TeacherClassAssignment theo class/teacher.
 - `LessonSession(class_id, starts_at, status)`; `Schedule(class_id, status, effective_from)`; `AttendanceRecord(student_id, lesson_session_id)`.
 - `Question(status, subject_id, created_by_user_id)`; `QuestionVersion(question_type, question_id)`; join indexes ngược trên Topic/Tag.
-- `Assessment(status, type, created_by_user_id)`; `AssessmentVersion(assessment_id, published_at)`; `AssessmentAudience(class_id, assessment_version_id)` / `(student_id, assessment_version_id)`.
+- `Assessment(status, type, created_by_user_id)`; `AssessmentVersion(assessment_id, published_at)`; `AssessmentAudience(class_id, assessment_version_id)` / `(student_id, assessment_version_id)`. `Assessment(course_id)` (mọi danh sách bài cá nhân lọc `course_id IS NULL`); `CourseAudience(course_id)` / `(class_id)` / `(student_id)`; `CourseItem(course_id, position)`; `Question(visibility, created_by_user_id)`.
 - `StudentAssessment(student_id, status, assessment_id)`; `Attempt(student_assessment_id, status, started_at)`; `Submission(received_at, status)`; `Result(publication_status, updated_at)`.
 - `Notification(recipient_user_id, read_at, created_at)`; `AuditLog(entity_type, entity_id, occurred_at)` và `(actor_user_id, occurred_at)`.
 - AttachmentLink theo từng FK target và Attachment status/uploader; `Feedback(submission_id, status)`; `NotificationContext` theo các FK target.

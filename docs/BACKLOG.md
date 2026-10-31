@@ -22,7 +22,7 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 | ID | Việc | Nguồn | Cần |
 |---|---|---|---|
 | B-020 | `ARCH-36` (a)–(f): xác nhận UI hồ sơ kèm tài khoản dựng không mockup | `architecture/open-decisions.md` | user quyết |
-| B-021 | `ARCH-14`: đồng bộ `StudentAssessment` khi học viên vào lớp/Course sau khi gắn audience | `architecture/decisions/ARCH-14.md`, known-debt D-16 | user quyết |
+| B-021 | `ARCH-14`: học sinh vào lớp sau khi **bài cá nhân** đã giao theo lớp vẫn chưa nhận bài (không có hook ghi `StudentAssessment`). Bài của khóa đã xử lý lười ở `ARCH-38` (`DEC-LRN-026`) | `architecture/decisions/ARCH-14.md`, known-debt D-16 | user quyết |
 | B-022 | `ARCH-28(n)`: tài khoản Teacher `inactive` (`users.status`) | `architecture/open-decisions.md` | user quyết |
 | B-023 | `ARCH-26` phần còn lại: chuyển trạng thái buổi không bị chặn, PATCH không kiểm `ends_at`/`effective_until`... | `architecture/open-decisions.md` | user quyết |
 | B-024 | `ARCH-12` retention file/audit; backup DB (`ARCH-09`); chọn công cụ CI/CD | `architecture/open-decisions.md` | user quyết |
@@ -34,12 +34,10 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 |---|---|---|---|
 | B-040 | web | Detail dialog hiện giờ cũ ~30s sau "sửa từ nay trở đi"; `EditSessionDialogLoader` dead code | `archive/progress-log.md` mục 5b |
 | B-041 | api | `PATCH /schedules/{id}` gần như vô tác dụng lên buổi đã sinh (FE không gọi, route giữ ở BE) và buổi `cancelled` không sống lại được | known-debt D-32, D-33 |
-| B-042 | api | `EnrollInCourse` nhánh `class_id` là dead code; race/transaction/khóa của Class–Course link | known-debt D-26..D-29 |
 | B-043 | api | `make lint` (Pint) đỏ ở ~41 file test cũ; PHPStan baseline còn nhiều dòng (số liệu cũ, cần kiểm) | known-debt D-22, D-24 |
 | B-044 | api | 500 do bộ lọc không validate (`?name[]=x`, `?from=abc`, `student_id=abc`...) | known-debt D-08, D-11, D-15, D-17, D-20 |
 | B-045 | api | Notification/Audit: không phân trang, không xét `valid_to`, dispatcher không transaction | known-debt D-20 (issue #53–#56) |
 | B-046 | web | Minor hoãn của PR #13 (test thiếu, focus trap Dialog); 6 lỗi minor lát 6 | mô tả PR #13/#48; `archive/progress-log.md` |
-| B-047 | docs | Catalog hành động audit thiếu `course_class_link.*`, `course_enrollment.relink` | `product/screens/admin.md` |
 | B-048 | mockup | Nút `danger` 3.39:1, Tooltip aria, BottomNav hover, ô ngày locale `vi` | `piclass-mockup/design-system/CHANGES.md` |
 | B-052 | api | Máy có PHP: chạy `vendor/bin/pint --test`, `composer analyse`, `scramble:export` để chốt số liệu D-22, D-23, D-24 và chạy thử các 500 chưa xác nhận (D-08, D-11, D-14, D-17, D-25) | known-debt (đã rà 2026-10-28, chưa chạy được) |
 | B-051 | api | Comment trong `ArchitectureTest.php`/Listener còn trỏ "CLAUDE.md" cho quy ước Notification, nay nằm ở `docs/rules/defaults.md` | sửa khi chạm file |
@@ -59,10 +57,12 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 | B-074 | be | `GET /assessments/{id}` trả cả `source_question_version` kèm cờ đáp án đúng (`is_correct`, `type_payload.correct`) cho mọi giáo viên được phép xem bài, kể cả người không tạo; nếu ngân hàng có câu riêng tư thì lộ đáp án câu của người khác. Cân nhắc ẩn đáp án khi người xem không phải người tạo/Admin | `piclass-api` #69, review lát 4b |
 | B-075 | be, web | **Nhập câu hỏi từ file Excel/Word** vào ngân hàng (user chắc chắn sẽ làm, 2026-10-30): chốt mẫu file (cột loại, đề bài, đáp án, môn, chủ đề...), cách báo lỗi từng dòng, xem trước trước khi nhập, cách xử lý 9 loại câu (Nối, Sắp xếp khó biểu diễn trong bảng). Dựa trên màn soạn nhiều câu của `DEC-LRN-025`; cân nhắc API tạo hàng loạt nguyên tử (`POST /questions/bulk`) cho cả màn soạn nhiều câu | `requirements/decision-log.md` `DEC-LRN-025` |
 | B-076 | be | API tạo nhiều câu hỏi một lượt trong một giao dịch (`POST /questions/bulk`): hiện FE gọi `POST /questions` từng thẻ nên lưu dở dang được (`DEC-LRN-025` mục 3); làm cùng `B-075` hoặc khi giáo viên than về lưu dở | `requirements/decision-log.md` `DEC-LRN-025` |
+| B-077 | be, web | Thông báo "có bài mới trong khóa" khi publish bài của khóa (bài của khóa không có sự kiện `AssessmentAssigned` như bài giao theo lớp) | `architecture/decisions/ARCH-38.md` |
+| B-078 | be | Bài của khóa chưa hỗ trợ hạn nộp riêng theo khóa (hạn nằm ở bài); nếu cần thì thêm cột cấu hình vào `CourseItem` (đã bàn ở `DEC-LRN-026`) | `requirements/decision-log.md` DEC-LRN-026 |
 
 ## D. Sau V1 / hỏi giáo viên rồi mới quyết
 | ID | Việc | Nguồn |
 |---|---|---|
 | B-060 | Chức năng tạm bỏ (BE giữ nguyên, chưa làm UI) | `research/2026-10-24-api-v1-toi-thieu.md` mục 3 |
 | B-061 | Nhập học sinh hàng loạt; thông báo ngoài ứng dụng; nhiều trung tâm dùng chung một DB | `architecture/open-decisions.md` `ARCH-33` |
-| B-062 | Mở rộng `Course` thành khóa học online: B = mục nội dung nhiều loại (bài giảng chữ, tài liệu, link video ngoài, bài tập, test); C = video tự lưu/tương tác, tiến độ từng bài, mở khóa tuần tự. Làm sau khi đủ khung chức năng 4 vai trò; phải sửa `BR-COURSE-002` và `BR-SYS-002` trước | `requirements/learning-rules.md` BR-COURSE-002 |
+| B-062 | Mở rộng `Course` thành khóa học online: B = mục nội dung nhiều loại (bài giảng chữ, tài liệu, link video ngoài, bài tập, test); C = video tự lưu/tương tác, tiến độ từng bài, mở khóa tuần tự. Làm sau khi đủ khung chức năng 4 vai trò; cấu trúc `CourseItem` (có `type`, `parent_id`) đã chừa sẵn ở `DEC-LRN-026`, chỉ thêm loại mục và bảng tiến độ; phải sửa `BR-COURSE-002` và `BR-SYS-002` trước | `requirements/learning-rules.md` BR-COURSE-002 |

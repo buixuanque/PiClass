@@ -58,7 +58,9 @@
 |---|---|
 | `Assessment` — Hoạt động đánh giá | Khái niệm chung cho bài tập hoặc bài kiểm tra được giao và chấm. Có thể được phân loại thành Assignment, Quiz hoặc Exam. |
 | `AssessmentType` — Loại hoạt động đánh giá | Phân biệt Assignment (bài tập), Quiz (bài kiểm tra nhanh) và Exam (kỳ kiểm tra chính thức). Việc dùng một Assessment có cấu hình hay nhiều subtype chưa chốt. |
-| `AssessmentAudience` — Đối tượng nhận bài | Lớp hoặc các học viên cụ thể được giao Assessment; dùng để xác định ai đủ điều kiện làm bài. |
+| `AssessmentAudience` — Đối tượng nhận bài | Lớp hoặc các học viên cụ thể được giao một bài cá nhân; dùng để xác định ai đủ điều kiện làm bài. Bài của khóa dùng đối tượng của khóa. |
+| `CourseAudience` — Đối tượng của khóa | Lớp hoặc học viên cụ thể được xem khóa. Thay khái niệm "ghi danh" cũ. |
+| `CourseItem` — Mục của khóa | Một mục trong khóa; V1 là một bài đánh giá của khóa. |
 | `AssessmentRelease` — Lần phát hành | Mốc đưa Assessment tới người học; có thể cần giữ phiên bản nội dung đã công bố để bài làm không đổi ngược. Cách quản lý phiên bản cần quyết định. |
 | `Attempt` — Lượt làm bài | Một lần Student bắt đầu và thực hiện Assessment, có trạng thái, thời điểm và giới hạn thời gian riêng. Một Assessment có thể cho phép nhiều Attempt. |
 | `Submission` — Bài nộp | Nội dung bài làm được hệ thống tiếp nhận khi Student nộp hoặc khi hết giờ. Bản nháp trong lúc làm thuộc vòng đời Attempt; chính sách nộp lại chưa chốt. |

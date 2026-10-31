@@ -10,7 +10,7 @@ Các mục dưới đây là câu hỏi kỹ thuật còn mở; chúng không l�
 |---|---|---|---|
 | ARCH-03 | API contract | [CẦN QUYẾT ĐỊNH — Step 9] REST/OpenAPI hay kiểu khác; error/pagination/upload contract. Next.js↔Laravel ngầm đ | (dòng đầy đủ bên dưới) |
 | ARCH-12 | File operations/retention | [CẦN QUYẾT ĐỊNH trước implementation liên quan] Cleanup schedule orphan, operational/legal retention, quota/ty | (dòng đầy đủ bên dưới) |
-| ARCH-14 | Sync ClassMember/CourseEnrollment mới → StudentAssessment | **MỞ** — cần quyết định | [ARCH-14](decisions/ARCH-14.md) |
+| ARCH-14 | Sync ClassMember mới → StudentAssessment (sau `DEC-LRN-026`: bài của khóa đã xử lý lười ở `ARCH-38`; còn bài cá nhân giao theo lớp) | **MỞ** một phần — bài cá nhân, xem `B-021` | [ARCH-14](decisions/ARCH-14.md) |
 | ARCH-23 | Khoảng cách tài liệu và nợ phát hiện khi refactor UserManagement (Task 9b) | **MỞ** — không chặn tiến độ | [ARCH-23](decisions/ARCH-23.md) |
 | ARCH-24 | Khoảng cách code–tài liệu và nợ phát hiện khi refactor Assessment (Task 9c) | **MỞ** — không chặn tiến độ | [ARCH-24](decisions/ARCH-24.md) |
 | ARCH-25 | Khoảng cách code–tài liệu và nợ phát hiện khi refactor QuestionBank (Task 9d) | **MỞ** — không chặn tiến độ | [ARCH-25](decisions/ARCH-25.md) |
@@ -39,7 +39,7 @@ Các mục dưới đây là câu hỏi kỹ thuật còn mở; chúng không l�
 | ID | Chủ đề | Trạng thái | Chi tiết |
 |---|---|---|---|
 | ARCH-13 | LessonSession generation window | ĐÃ CHỐT (sửa 2026-10-27) | [ARCH-13](decisions/ARCH-13.md) |
-| ARCH-14 | Sync ClassMember/CourseEnrollment mới → StudentAssessment | **MỞ** — cần quyết định | [ARCH-14](decisions/ARCH-14.md) |
+| ARCH-14 | Sync ClassMember mới → StudentAssessment (sau `DEC-LRN-026`: bài của khóa đã xử lý lười ở `ARCH-38`; còn bài cá nhân giao theo lớp) | **MỞ** một phần — bài cá nhân, xem `B-021` | [ARCH-14](decisions/ARCH-14.md) |
 | ARCH-15 | Phạm vi quyền sửa Assessment của Teacher | ĐÃ CHỐT (tạm, V1) | [ARCH-15](decisions/ARCH-15.md) |
 | ARCH-16 | Nguồn design system (MASTER.md) sau khi mất file | ĐÃ CHỐT (2026-10-16) | [ARCH-16](decisions/ARCH-16.md) |
 | ARCH-17 | Quy ước tổ chức code backend | ĐÃ CHỐT, đã áp dụng cả 12 module | [ARCH-17](decisions/ARCH-17.md) |
@@ -60,9 +60,10 @@ Các mục dưới đây là câu hỏi kỹ thuật còn mở; chúng không l�
 | ARCH-32 | Kiến trúc và quy ước code frontend (`piclass-web`) | ĐÃ CHỐT (2026-10-24) | [ARCH-32](decisions/ARCH-32.md) |
 | ARCH-33 | Mô hình nhiều trung tâm (tenancy) | ĐÃ CHỐT (2026-10-24) | [ARCH-33](decisions/ARCH-33.md) |
 | ARCH-34 | Viền ô nhập/dropdown dùng `--border-subtle` hay `--border-control` | ĐÃ CHỐT (2026-10-24) | [ARCH-34](decisions/ARCH-34.md) |
-| ARCH-35 | Kết thúc ghi danh cá nhân có thể làm học sinh mất khóa dù vẫn ở lớp đang gắn khóa đó | ĐÃ CHỐT VÀ SỬA (2026-10-27) | [ARCH-35](decisions/ARCH-35.md) |
+| ARCH-35 | Kết thúc ghi danh cá nhân có thể làm học sinh mất khóa dù vẫn ở lớp đang gắn khóa đó | ĐÃ CHỐT VÀ SỬA (2026-10-27); **hết hiệu lực** cùng bỏ ghi danh (`DEC-LRN-026`) | [ARCH-35](decisions/ARCH-35.md) |
 | ARCH-36 | UI lát "thêm hồ sơ kèm tài khoản" dựng không qua mockup (FE `piclass-web`, 2026-10-27) | **CHỜ XÁC NHẬN** | [ARCH-36](decisions/ARCH-36.md) |
 | ARCH-37 | Gộp tab Lịch (AD-10d) và Buổi học (AD-10e) thành một mặt bày duy nhất | ĐÃ CHỐT VÀ ĐÃ LÀM (2026-10-28) | [ARCH-37](decisions/ARCH-37.md) |
+| ARCH-38 | Ranh giới module cho `CourseAudience`, `CourseItem`, `Assessment.course_id` sau `DEC-LRN-026` | ĐÃ CHỐT VÀ ĐÃ LÀM (2026-10-30) | [ARCH-38](decisions/ARCH-38.md) |
 
 
 ## Đã chốt và không phải open decision của Step 8
