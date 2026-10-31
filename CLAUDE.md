@@ -23,7 +23,7 @@ Nạp tự động mọi session ở root workspace. Giữ ngắn: chỉ ghi th�
 | Tài liệu mâu thuẫn, chốt quyết định, đọc đặc tả lớn, hỏi user chốt thiết kế, research | `docs/process/docs-conventions.md` |
 | Code backend (`piclass-api/`) | `piclass-api/CLAUDE.md`, bẫy và cách viết test: `docs/architecture/backend-gotchas.md` |
 | Code frontend (`piclass-web/`) | `piclass-web/CLAUDE.md`; gọi API: đọc `piclass-api/storage/api-docs/openapi.json` trước |
-| Mockup | `piclass-mockup/README.md`, skill `mockup-review-uiux` và `mockup-review-fix` |
+| Mockup | `piclass-mockup/README.md` |
 | Cài skill và agent trên máy mới | `docs/setup/claude-skills-setup.md`, rồi `/reload-plugins` |
 | Chọn công nghệ, stack | `docs/architecture/technology-decisions.md` (Laravel + PostgreSQL + Next.js tách riêng + AWS EC2 + Sanctum) |
 
