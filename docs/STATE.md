@@ -2,7 +2,7 @@
 
 File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-10-30 · bởi: chốt `DEC-LRN-025`, mở lát 4e (soạn câu hỏi)
+Cập nhật lần cuối: 2026-10-31 · bởi: duyệt mockup TC-08 (lát 4e), spec TC-08 đồng bộ
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -24,7 +24,7 @@ Cập nhật lần cuối: 2026-10-30 · bởi: chốt `DEC-LRN-025`, mở lát 
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Lát 4e (`DEC-LRN-025`): bước 1 chốt quyết định xong → bước 2 mockup TC-08: đã dựng bản thử `PiClass Giáo viên v3` (`piclass-mockup` nhánh `feat/mockup-teacher-tc08-v3`, chưa PR), chờ user duyệt rồi gộp vào bản chuẩn → bước 3 spec TC-08 → bước 4 FE (`piclass-web`, không sửa BE) → review → merge
+1. Lát 4e (`DEC-LRN-025`): bước 1 quyết định xong, bước 2 mockup xong (đã merge `piclass-mockup` #26), bước 3 spec TC-08 xong → **bước 4 FE** (`piclass-web`, không sửa BE): màn tạo/sửa câu hỏi cùng khung Soạn bài, soạn nhiều câu một lượt, bảng chọn câu của Soạn bài nhận nhiều câu vừa lưu → review (opus) → merge
 2. Lát 4c Giáo viên (TC-11, TC-12, TC-13): bàn nghiệp vụ → mockup → plan+code BE/FE; gồm `B-073` (đưa ba cờ hiển thị đáp án/lời giải/điểm từng câu vào hộp công bố điểm)
 3. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
