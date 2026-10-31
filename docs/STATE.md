@@ -2,7 +2,7 @@
 
 File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-10-31 · bởi: merge tách tab Lớp/Học viên và thêm nhiều học viên một lần (api #73, web #42 #43, docs #169 #170)
+Cập nhật lần cuối: 2026-10-31 · bởi: chọn nhiều bài khi "Lấy từ bài của tôi" (API + FE), bỏ gạch chân tên bài học, chưa mở PR
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -31,7 +31,9 @@ Cập nhật lần cuối: 2026-10-31 · bởi: merge tách tab Lớp/Học viê
 ## Chưa push / chưa merge
 | Repo | Nhánh | Trạng thái |
 |---|---|---|
-| — | — | không có nhánh chờ |
+| `piclass-api` | `feat/course-items-copy-batch` | `POST /courses/{id}/items/copy/batch`; chưa mở PR (merge trước web) |
+| `piclass-web` | `feat/course-lessons-multipick` | Lấy từ bài của tôi chọn nhiều, bỏ gạch chân; chưa mở PR |
+| `piclass-docs` | `docs/course-lessons-multipick` | TC-15 theo hai việc trên; chưa mở PR |
 
 ## Cổng
 | Cổng | FE |
