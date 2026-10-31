@@ -2,7 +2,7 @@
 
 File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-10-31 · bởi: lát 4e xong và đã merge
+Cập nhật lần cuối: 2026-10-31 · bởi: FE Admin làm lại khóa học xong, đã review, mở PR
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -16,11 +16,11 @@ Cập nhật lần cuối: 2026-10-31 · bởi: lát 4e xong và đã merge
     - 4c: TC-11, TC-12, TC-13
     - 4d: TC-14
 - **Bước** (quy ước cuối file):
-  - Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`): quyết định xong → BE xong, đã review, đã merge (`piclass-api` #70, docs #156) → mockup chưa làm → FE chưa làm
+  - Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`): quyết định xong → BE xong, đã review, đã merge (`piclass-api` #70, docs #156) → không làm mockup (user chốt 2026-10-31), FE làm từng cổng: Admin code xong, đã review độc lập, đã mở PR chờ merge (`piclass-web` `feat/admin-course-rework`, plan `docs/superpowers/plans/2026-10-31-fe-admin-course-rework.md`) → Giáo viên, Học sinh chưa làm
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Làm lại mô hình Khóa học: mockup AD-12, TC-15, ST-09, TC-07/08/09/10 → plan+code FE (Admin, Giáo viên, Học sinh) theo OpenAPI mới
+1. Làm lại mô hình Khóa học, FE từng cổng theo OpenAPI mới, không mockup: Admin (AD-12) đã mở PR chờ merge → Giáo viên (TC-15, TC-07/09/10) → Học sinh (ST-09)
 2. Lát 4c Giáo viên (TC-11, TC-12, TC-13): bàn nghiệp vụ → mockup → plan+code BE/FE; gồm `B-073` (đưa ba cờ hiển thị đáp án/lời giải/điểm từng câu vào hộp công bố điểm)
 3. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
@@ -31,7 +31,8 @@ Cập nhật lần cuối: 2026-10-31 · bởi: lát 4e xong và đã merge
 ## Chưa push / chưa merge
 | Repo | Nhánh | Trạng thái |
 |---|---|---|
-| (không có) | — | mọi repo `main` sạch (kiểm 2026-10-31, sau `piclass-web` PR lát 4e) |
+| `piclass-web` | `feat/admin-course-rework` | code Admin xong, đã review; PR chờ merge |
+| `piclass-docs` | `docs/plan-admin-course-fe` | plan + viết lại AD-12; PR chờ merge |
 
 ## Cổng
 | Cổng | FE |
