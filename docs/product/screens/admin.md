@@ -478,9 +478,9 @@ Nội dung buổi học (xem, thêm, sửa, hủy, hoàn tất) chuyển sang **
 - **Vào từ / đi tới:** menu Quản trị › Khóa học. Dòng → chi tiết (cùng màn).
 - **Khối nội dung & dữ liệu hiển thị:**
   - *Danh sách* (`GET /courses`): Tên, Mô tả, Chủ sở hữu (`owner_teacher_name`, hoặc "Dùng chung" khi `owner_teacher_id` null), Trạng thái (Đang mở/Đã lưu trữ). Bộ lọc: trạng thái, chủ sở hữu. Không hiện môn và số học sinh (API danh sách không trả).
-  - *Chi tiết* (`GET /courses/{id}`): hero (tên, trạng thái, môn, chủ sở hữu), hai ô số **Học viên** và **Bài trong khóa** (tải lỗi thì hiện "—", không hiện 0), ba tab (gọi "Bài học" thay cho "mục", user chốt 2026-10-31):
-    - **Tổng quan:** form sửa tên, mô tả, môn; dưới đó khối **Đối tượng của khóa**.
-    - **Học viên · N** (`GET /courses/{id}/learners`): mỗi học sinh một dòng, kèm chip nguồn "Trực tiếp" và/hoặc "Lớp {tên}" (học sinh vừa trực tiếp vừa qua lớp vẫn một dòng, hai chip). Chỉ đọc; học viên là kết quả tính khi cần từ đối tượng.
+  - *Chi tiết* (`GET /courses/{id}`): hero (tên, trạng thái, môn, chủ sở hữu), hai ô số **Học viên** và **Bài trong khóa** (tải lỗi thì hiện "—", không hiện 0), ba tab (gọi "Bài học" thay cho "mục", user chốt 2026-10-31; gộp Đối tượng và Học viên thành một tab, user chốt 2026-10-31 vì học viên chỉ là kết quả tính từ đối tượng):
+    - **Tổng quan:** form sửa tên, mô tả, môn.
+    - **Đối tượng & học viên · N:** phía trên khối **Đối tượng của khóa** (xem dưới); phía dưới tiêu đề "Học viên của khóa" (`GET /courses/{id}/learners`): mỗi học sinh một dòng, kèm chip nguồn "Trực tiếp" và/hoặc "Lớp {tên}" (học sinh vừa trực tiếp vừa qua lớp vẫn một dòng, hai chip). Danh sách học viên chỉ đọc; là kết quả tính khi cần từ đối tượng. N là số học viên.
     - **Bài học · M** (`GET /courses/{id}/items`): bài của khóa theo thứ tự (số thứ tự, tên, loại bài, trạng thái bài). Admin đổi tên, đổi thứ tự (Lên/Xuống), gỡ (BE lưu trữ bài của mục, không xóa; bài làm đã có giữ nguyên). Không có thêm hay soạn bài mới ở cổng Admin (cần màn Soạn bài TC-10, thuộc cổng Giáo viên).
   - *Đối tượng của khóa* (`GET /courses/{id}/audience`): mỗi dòng là một Lớp hoặc một Học sinh (nhãn "Lớp"/"Học sinh", ngày thêm nếu có), không trạng thái, không ngày hiệu lực. Nút **Thêm đối tượng** mở hộp thoại hai tab Lớp (chọn lớp chưa lưu trữ và chưa có) và Học sinh (tìm theo tên, loại em đã có trực tiếp). Mỗi dòng có **Gỡ**, hộp thoại xác nhận, không bắt lý do.
 - **Chức năng & hành động:**
@@ -496,7 +496,7 @@ Nội dung buổi học (xem, thêm, sửa, hủy, hoàn tất) chuyển sang **
 
 ### AD-12a — Ghi danh vào khóa học   (đã thay)
 
-Đã thay bởi khối **Đối tượng của khóa** và tab **Học viên** trong AD-12 (`DEC-LRN-026`): không còn ghi danh, kết thúc ghi danh, lý do kết thúc, nhãn "Qua lớp", liên kết Lớp–Khóa.
+Đã thay bởi khối **Đối tượng của khóa** và tab **Đối tượng & học viên** trong AD-12 (`DEC-LRN-026`): không còn ghi danh, kết thúc ghi danh, lý do kết thúc, nhãn "Qua lớp", liên kết Lớp–Khóa.
 
 ---
 
