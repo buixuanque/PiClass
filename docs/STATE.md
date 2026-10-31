@@ -2,7 +2,7 @@
 
 File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-10-31 · bởi: merge tách tab Lớp/Học viên và thêm nhiều học viên một lần (api #73, web #42 #43, docs #169 #170)
+Cập nhật lần cuối: 2026-10-31 · bởi: merge chọn nhiều bài khi Lấy từ bài của tôi (api #74, web #44)
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
