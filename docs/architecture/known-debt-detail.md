@@ -20,40 +20,6 @@ Nguyên văn các dòng dài của [`known-debt.md`](known-debt.md) (chuyển 20
 
 **Sửa khi:** PR đổi hành vi riêng sau Task 9f — xem `ARCH-28` ở `open-decisions.md`
 
-### D-26
-
-**Cập nhật 2026-10-28 (rà lỗi thời):** vẫn còn nguyên ở BE; FE chỉ còn khai báo `class_id?` ở `types.ts`. Test ghim nhánh này: `AcademicEnrollmentAuditTest`, `AcademicBoundaryCasesTest`, `AcademicClosedGuardsTest`.
-
-**Nợ:** `EnrollInCourse`/`EnrollInCourseRequest` vẫn còn nhánh ghi danh theo `class_id` (một lần, không phải liên kết sống) — đã bị thay thế về nghiệp vụ bởi `LinkClassToCourse`. `piclass-web` không còn gọi nhánh này (dialog Ghi danh bỏ hẳn tab "Theo lớp", 2026-10-26) nên giờ là dead code thật sự, chưa xóa khỏi BE
-
-**Ở đâu:** `piclass-api/app/Modules/Academic/{Actions/EnrollInCourse.php, Http/Requests/EnrollInCourseRequest.php}`
-
-**Sửa khi:** Task dọn riêng ở `piclass-api`: xóa nhánh `class_id` khỏi Action/Request (chỉ còn `student_id`)
-
-### D-27
-
-**Nợ:** Race hiếm giữa `LinkClassToCourse`/`UnlinkClassFromCourse` và `AddClassMember`/`EndClassMember`/lưu trữ lớp chạy đồng thời trên cùng một lớp: không có khóa chung nào serialize các thao tác này (chỉ từng Action tự khóa dòng ghi danh/`classes` riêng của nó), nên hai thao tác hiếm khi trùng thời điểm có thể để một học sinh thiếu/thừa một ghi danh tạm thời (tự sửa được ở lần đồng bộ kế tiếp vì Unlink/Archive đã chọn theo `source_class_link_id` — phát hiện ở review cuối 2026-10-26)
-
-**Ở đâu:** `piclass-api/app/Modules/Academic/Actions/{LinkClassToCourse,UnlinkClassFromCourse}.php`, `UserManagement/Actions/{AddClassMember,EndClassMember}.php`
-
-**Sửa khi:** Nếu xảy ra thật: khóa dòng `classes` (`for no key update`, giống `AddClassMember` đã làm cho `AlreadyAMember`) ở cả 4 Action trước khi đọc/ghi liên kết hoặc thành viên
-
-### D-28
-
-**Nợ:** `SyncCourseEnrollmentsOnClassMemberLeft`/`...Joined`/`...OnClassArchived` không tự mở `DB::transaction` (dựa vào nơi gọi đã mở) dù ghi ≥2 bảng và có audit bắt buộc — lệch "Action con tự mở transaction khi bản thân cần" của `piclass-api/CLAUDE.md`; hiện mọi nơi gọi đều có transaction nên chưa phải bug
-
-**Ở đâu:** `piclass-api/app/Modules/Academic/Actions/SyncCourseEnrollmentsOnClass*.php`
-
-**Sửa khi:** Khi một trong 3 Action này được gọi từ nơi chưa chắc có transaction (job, console...)
-
-### D-31
-
-**Nợ:** Xóa cứng (hard delete) một `Class` hoặc `Course` sẽ cascade xóa `course_class_links` liên quan, khiến `course_enrollments.source_class_link_id` về null qua `nullOnDelete` — một ghi danh vốn đến từ liên kết lớp sẽ âm thầm trở thành "cá nhân" (có thể bị kết thúc thủ công sau đó). Hiện chưa có luồng xóa cứng Class/Course nào trong API nên chưa phải bug thật
-
-**Ở đâu:** `piclass-api/database/migrations/2026_10_26_000002_add_source_class_link_id_to_course_enrollments_table.php`
-
-**Sửa khi:** Nếu sau này có chức năng xóa cứng Class/Course
-
 ### D-32
 
 **Cập nhật 2026-10-28 (rà lỗi thời):** nhánh `update-series` đã merge (PR #53), FE không còn gọi `PATCH /schedules/{id}`; user chốt giữ route (2026-10-28). Phần "đang giải quyết" và "xóa dòng này khi nhánh merge" dưới đây đã lỗi thời.

@@ -6,7 +6,7 @@ Các quy tắc đã được chốt theo vận hành V1. Xem [Decision Log](deci
 
 - **BR-ASSESS-001 — ĐÃ QUYẾT ĐỊNH:** Dùng Assessment chung, phân biệt Assignment (bài tập), Quiz (kiểm tra nhanh), Exam (kỳ thi) bằng loại và policy.
 - **BR-ASSESS-002 — ĐÃ QUYẾT ĐỊNH:** Assignment có deadline và lưu nháp; Quiz hỗ trợ thời gian/số lượt; Exam có khung giờ chung và quy tắc sự cố/cấp lại chặt hơn.
-- **BR-ASSESS-003 — ĐÃ QUYẾT ĐỊNH:** Assessment giao cho Class hoặc Student. Nếu cùng Student nhận qua hai đường, chỉ có một bài cần làm.
+- **BR-ASSESS-003 — ĐÃ QUYẾT ĐỊNH (sửa 2026-10-30, `DEC-LRN-026`):** Bài cá nhân giao cho Class hoặc Student (một bài giao nhiều lớp vẫn là một bản ghi, nhiều dòng audience). Bài của khóa không giao qua Class/Student riêng mà theo đối tượng khóa (`BR-ASSESS-029`). Nếu cùng Student nhận qua hai đường trong cùng một bài, chỉ có một bài cần làm.
 - **BR-ASSESS-004 — ĐÃ QUYẾT ĐỊNH:** Một Assignment liên kết tối đa một LessonSession, có thể để trống.
 - **BR-ASSESS-005 — ĐÃ QUYẾT ĐỊNH:** Bản phát hành giữ nguyên nội dung, đáp án và cấu hình chấm. Sửa sau phát hành tạo phiên bản mới; bài làm tham chiếu phiên bản đã nhận.
 - **BR-ASSESS-006 — ĐÃ QUYẾT ĐỊNH:** Đóng bài ngăn lượt mới; lượt đang làm theo điều kiện đã cấp. Reopen chỉ cấp cho người/nhóm cần làm tiếp. Hủy/thu hồi giữ bài nộp và lịch sử, kèm lý do.
@@ -14,7 +14,7 @@ Các quy tắc đã được chốt theo vận hành V1. Xem [Decision Log](deci
 ## Question Bank và Question Engine
 
 - **BR-ASSESS-007 — ĐÃ QUYẾT ĐỊNH:** V1 gồm Single Choice, Multiple Choice, True/False, Fill in the Blank, Short Answer, Essay, Matching, Ordering và File Upload.
-- **BR-ASSESS-008 — ĐÃ QUYẾT ĐỊNH:** Question Bank dùng chung; Teacher quản lý câu mình tạo, Admin quản lý toàn kho. Quyền sử dụng câu không mặc nhiên cho phép sửa câu của người khác.
+- **BR-ASSESS-008 — ĐÃ QUYẾT ĐỊNH (sửa 2026-10-30, `DEC-LRN-026`):** Question Bank là nơi duy nhất chứa câu hỏi; mọi câu trong bài đều có câu nguồn trong ngân hàng. Mỗi câu có `visibility`: `shared` (mặc định, mọi Teacher dùng được) hoặc `private` (chỉ người tạo và Admin). Teacher quản lý câu mình tạo, Admin quản lý toàn kho. Quyền dùng câu không cho phép sửa câu của người khác; muốn đổi thì sao chép thành biến thể. Đổi `shared` ↔ `private` được bất kỳ lúc nào và không ảnh hưởng bài đã dùng câu đó (bài giữ bản chụp).
 - **BR-ASSESS-009 — ĐÃ QUYẾT ĐỊNH:** Topic không phân cấp; Question được gắn nhiều Topic/Tag.
 - **BR-ASSESS-010 — ĐÃ QUYẾT ĐỊNH:** Câu đã dùng trong bản phát hành giữ nguyên nội dung/đáp án lịch sử. Chỉnh sửa tạo phiên bản mới; câu đang được tham chiếu chỉ được lưu trữ, không xóa.
 - **BR-ASSESS-011 — ĐÃ QUYẾT ĐỊNH:** Tự chấm chỉ áp dụng khi đáp án và quy tắc xác định. Câu cần phán đoán do Teacher chấm. Câu bỏ trống được 0; chuẩn hóa/biến thể đáp án chỉ khi được cấu hình rõ.
@@ -41,3 +41,4 @@ Các quy tắc đã được chốt theo vận hành V1. Xem [Decision Log](deci
 - **BR-ASSESS-026 — ĐÃ QUYẾT ĐỊNH:** Progress cơ bản dựa trên Result đã chấm/công bố. Bài chưa chấm không tính trung bình; Assessment hủy không tính điểm nhưng vẫn hiện trong lịch sử.
 - **BR-ASSESS-027 — ĐÃ QUYẾT ĐỊNH:** Không có chức năng xuất báo cáo riêng trong V1.
 - **BR-ASSESS-028 — ĐÃ QUYẾT ĐỊNH:** Student/Parent chỉ xem Result sau công bố và khi còn quyền với Student/Assessment.
+- **BR-ASSESS-029 — ĐÃ QUYẾT ĐỊNH (2026-10-30, `DEC-LRN-026`):** Bài đánh giá có hai loại, cùng bảng và cùng engine làm bài/chấm điểm, phân biệt bằng `course_id`: **bài cá nhân** (`course_id` null, Teacher sở hữu, giao cho Class/Student, hiện ở danh sách bài của Teacher) và **bài của khóa** (`course_id` có giá trị, khóa sở hữu, không có audience riêng, chỉ hiện trong khóa). Bài đánh giá không có `visibility`. Dùng lại bài cá nhân trong khóa là sao chép, hai bản độc lập; sửa bản gốc không đổi bản trong khóa. Mọi truy vấn danh sách bài cá nhân phải lọc `course_id IS NULL`.

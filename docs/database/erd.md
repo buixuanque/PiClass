@@ -34,6 +34,12 @@ erDiagram
   QUESTION_VERSION ||--o{ QUESTION_TOPIC : tagged
   TOPIC ||--o{ QUESTION_TOPIC : classifies
   QUESTION_VERSION ||--o{ QUESTION_TAG : tagged
+  COURSE ||--o{ COURSE_AUDIENCE : audience
+  LEARNING_CLASS o|--o{ COURSE_AUDIENCE : member_class
+  STUDENT o|--o{ COURSE_AUDIENCE : member_student
+  COURSE ||--o{ COURSE_ITEM : items
+  COURSE o|--o{ ASSESSMENT : owns_course_assessment
+  COURSE_ITEM o|--o| ASSESSMENT : points_to
   TAG ||--o{ QUESTION_TAG : classifies
   ASSESSMENT ||--o{ ASSESSMENT_VERSION : versions
   ASSESSMENT_VERSION ||--o{ ASSESSMENT_AUDIENCE : targets

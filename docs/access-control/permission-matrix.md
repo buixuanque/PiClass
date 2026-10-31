@@ -15,10 +15,10 @@ Ký hiệu: **✓** cho phép nếu scope và lifecycle hợp lệ; **R** chỉ 
 | Class / ClassMember | Teacher | assigned C / roster | — | — | — | — | — | — | assigned C learning operations |
 | Class / ClassMember | Student | own membership | — | — | — | — | — | — | — |
 | Class / ClassMember | Parent | child membership; no peer roster | — | — | — | — | — | — | — |
-| Course / CourseEnrollment | Admin | ✓ | ✓ | ✓ | — | — | — | — | ✓ |
-| Course / CourseEnrollment | Teacher | owned Course + Course dùng chung (chỉ xem, `DEC-LRN-012`) / any enrolled student | ✓ own Course, any student | ✓ own Course, any student | — | — | — | — | owned Course scope |
-| Course / CourseEnrollment | Student | own enrollment | — | — | — | — | — | — | — |
-| Course / CourseEnrollment | Parent | child enrollment; no peer roster | — | — | — | — | — | — | — |
+| Course / CourseAudience / CourseItem | Admin | ✓ | ✓ | ✓ | — | — | — | — | ✓ |
+| Course / CourseAudience / CourseItem | Teacher | owned Course + Course dùng chung (chỉ xem, `DEC-LRN-012`) / any student/class (đối tượng khóa) | ✓ own Course, any student | ✓ own Course, any student | — | — | — | — | owned Course scope |
+| Course / CourseAudience / CourseItem | Student | own course | — | — | — | — | — | — | — |
+| Course / CourseAudience / CourseItem | Parent | child course; no peer roster | — | — | — | — | — | — | — |
 | Schedule / LessonSession | Admin | ✓ | ✓ | ✓ | — | — | — | — | ✓ |
 | Schedule / LessonSession | Teacher | assigned C | ✓ C | ✓ C | — | — | — | — | ✓ C |
 | Schedule / LessonSession | Student | own Class | — | — | — | — | — | — | — |
@@ -33,7 +33,7 @@ Ký hiệu: **✓** cho phép nếu scope và lifecycle hợp lệ; **R** chỉ 
 | AbsenceExplanation | Student | — | — | — | — | — | — | — | — |
 | AbsenceExplanation | Parent | child | submit | — | — | — | — | — | — |
 | Question Bank / Question | Admin | ✓ | ✓ | all | archive only | — | — | — | all |
-| Question Bank / Question | Teacher | shared bank/use; own | ✓ | own question/version | archive own; never physically delete referenced version | — | — | — | own questions |
+| Question Bank / Question | Teacher | câu `shared` của mọi người + câu `private` của mình (dùng, không sửa câu người khác) | ✓ | own question/version | archive own; never physically delete referenced version | — | — | — | own questions |
 | Question Bank / Question | Student / Parent | — except published assessment content | — | — | — | — | — | — | — |
 | Assessment / Version | Admin | ✓ | ✓ | draft; published creates version | — | ✓ | — | — | ✓; close/reopen/cancel |
 | Assessment / Version | Teacher | assigned C | ✓ C | draft; published creates version | — | ✓ C | — | — | close/reopen/cancel C |

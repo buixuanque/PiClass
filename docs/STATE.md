@@ -2,7 +2,7 @@
 
 File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-10-30 · bởi: lát 4b xong, đã merge `main`
+Cập nhật lần cuối: 2026-10-31 · bởi: BE `DEC-LRN-026` xong, đã review
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -23,8 +23,12 @@ Cập nhật lần cuối: 2026-10-30 · bởi: lát 4b xong, đã merge `main`
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Lát 4c Giáo viên (TC-11, TC-12, TC-13): bàn nghiệp vụ → mockup → plan+code BE/FE; gồm `B-073` (đưa ba cờ hiển thị đáp án/lời giải/điểm từng câu vào hộp công bố điểm)
-2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
+1. **Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`)** — thay ghi danh bằng đối tượng khóa, mục khóa, `Question.visibility`, `Assessment.course_id`:
+   - Docs nguồn và plan BE: đã sửa trên nhánh `docs/dec-lrn-026-course-model`
+   - BE: xong và đã review độc lập trên nhánh `feat/course-model-rework` (`piclass-api`; OpenAPI đã xuất)
+   - Kế tiếp: mockup AD-12, TC-15, ST-09, TC-07/08/09/10 → plan+code FE (Admin, Giáo viên, Học sinh) theo OpenAPI mới
+2. Lát 4c Giáo viên (TC-11, TC-12, TC-13): bàn nghiệp vụ → mockup → plan+code BE/FE; gồm `B-073` (đưa ba cờ hiển thị đáp án/lời giải/điểm từng câu vào hộp công bố điểm)
+3. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
 ## Chờ user (Claude không tự làm được)
 - Xác nhận `ARCH-36` (a)–(f): UI "thêm hồ sơ kèm tài khoản" dựng không qua mockup
@@ -33,7 +37,8 @@ Cập nhật lần cuối: 2026-10-30 · bởi: lát 4b xong, đã merge `main`
 ## Chưa push / chưa merge
 | Repo | Nhánh | Trạng thái |
 |---|---|---|
-| (không có) | — | mọi repo `main` sạch (kiểm 2026-10-30, sau `piclass-web` #32 và `piclass-api` #69) |
+| piclass-docs | `docs/dec-lrn-026-course-model` | đã push, chưa mở PR |
+| piclass-api | `feat/course-model-rework` | đã push, chưa mở PR (7 commit) |
 
 ## Cổng
 | Cổng | FE |

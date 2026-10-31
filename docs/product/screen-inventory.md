@@ -57,7 +57,7 @@ Mã màn hình: `CM` chung · `AD` Admin · `TC` Teacher · `ST` Student · `PR`
 | AD-09 | Lớp học (danh sách) | Lọc trạng thái (`preparing`/`active`/`archived`) và môn; tạo lớp | `GET/POST /classes` | ✅ |
 | AD-10 | Chi tiết lớp (tab) | **Tổng quan** (sửa, lưu trữ) · **Học sinh** (thêm, kết thúc, sửa thành viên) · **Giáo viên** (phân công, kết thúc) · **Lịch** · **Buổi học** | `GET/PATCH /classes/{id}`, `…/members`, `…/teachers`, `…/schedules`, `…/lesson-sessions` | ✅ |
 | AD-11 | Lịch & buổi học | Lịch tuần/tháng toàn hệ thống, lọc theo lớp / giáo viên | chỉ có theo từng lớp: `GET /classes/{id}/lesson-sessions` | 🟡 cần API lịch tổng hợp |
-| AD-12 | Khóa học & ghi danh | Danh sách, tạo, sửa; ghi danh / kết thúc ghi danh theo học viên hoặc theo lớp | `GET/POST /courses`, `PATCH /courses/{id}`, `…/enrollments` | ✅ |
+| AD-12 | Khóa học, đối tượng & mục khóa | Danh sách, tạo, sửa; thêm/gỡ đối tượng (Lớp hoặc Học sinh); xem mục (bài) của khóa — `DEC-LRN-026` (bản ghi danh cũ đã bỏ) | `GET/POST /courses`, `PATCH /courses/{id}`, `…/audience` (tên sẽ chốt ở plan BE) | 🔁 làm lại |
 | AD-13 | Cấp lại lượt làm bài | Từ chi tiết bài nộp: chọn lượt, nhập lý do, cấp lại | `POST /attempts/{id}/reissue` | ✅ |
 | AD-14 | Nhật ký audit | Bảng lọc `entity_type` / `entity_id` / `action`; xem chi tiết trước/sau (JSON), lý do, người thực hiện | `GET /audit-logs` | ✅ (chưa phân trang) |
 | — | Dùng chung với Teacher | Buổi học & điểm danh (TC-05), đơn xin phép (TC-06), ngân hàng câu hỏi (TC-07/08), bài đánh giá (TC-09…13) | — | ✅ |
@@ -75,12 +75,12 @@ Mã màn hình: `CM` chung · `AD` Admin · `TC` Teacher · `ST` Student · `PR`
 | TC-07 | Ngân hàng câu hỏi | Danh sách; lọc môn, loại, topic, tag, "của tôi", trạng thái | `GET /questions`, `GET /topics`, `GET /tags` | ✅ |
 | TC-08 | Soạn câu hỏi | 9 loại câu (một đáp án, nhiều đáp án, đúng/sai, điền khuyết, trả lời ngắn, tự luận, nối, sắp xếp, nộp file); nội dung, đáp án, cách chấm, topic / tag; mỗi lần sửa tạo phiên bản mới; lưu trữ | `POST/GET/PATCH/DELETE /questions`, `PATCH …/topics`, `PATCH …/tags` | ✅ |
 | TC-09 | Danh sách bài 🎨 | Bài tập / trắc nghiệm / thi; lọc loại, lớp, trạng thái (nháp, đã phát hành, đã đóng, đã hủy) | `GET /assessments` | ✅ |
-| TC-10 | Soạn & giao bài (nhiều bước) 🎨 | (1) Thông tin: loại, tên, hướng dẫn, giờ mở / hạn / đóng, thời lượng, số lượt, cách tính điểm (cao nhất / mới nhất), trộn câu và đáp án, hiện đáp án / giải thích / điểm từng câu, điểm đạt · (2) Câu hỏi: thêm từ ngân hàng, chỉnh điểm, xóa, sắp xếp · (3) Đối tượng: lớp, học sinh, khóa học · (4) Xem trước & phát hành · tạo phiên bản mới, đóng, mở lại, hủy | `POST /assessments`, `PATCH`, `…/questions` (POST/PATCH/DELETE), `…/audience`, `…/publish`, `…/versions`, `…/close`, `…/reopen`, `…/cancel` | ✅. "Nộp ảnh hoặc file" 🟡 (issue #50) |
+| TC-10 | Soạn & giao bài (nhiều bước) 🎨 | (1) Thông tin: loại, tên, hướng dẫn, giờ mở / hạn / đóng, thời lượng, số lượt, cách tính điểm (cao nhất / mới nhất), trộn câu và đáp án, hiện đáp án / giải thích / điểm từng câu, điểm đạt · (2) Câu hỏi: thêm từ ngân hàng, chỉnh điểm, xóa, sắp xếp · (3) Đối tượng: lớp, học sinh (bỏ khóa học, `DEC-LRN-026`) · (4) Xem trước & phát hành · tạo phiên bản mới, đóng, mở lại, hủy | `POST /assessments`, `PATCH`, `…/questions` (POST/PATCH/DELETE), `…/audience`, `…/publish`, `…/versions`, `…/close`, `…/reopen`, `…/cancel` | ✅. "Nộp ảnh hoặc file" 🟡 (issue #50) |
 | TC-11 | Chi tiết bài | Tổng quan, đối tượng, danh sách học sinh theo bài (đã làm / chưa nộp), gia hạn hoặc ngoại lệ riêng cho từng học sinh | `GET /assessments/{id}`, `…/students`, `PATCH …/students/{studentId}` | ✅ |
 | TC-12 | Bài nộp của một bài | Danh sách bài nộp, lọc trạng thái chấm | `GET /assessments/{id}/submissions` | ✅ |
 | TC-13 | Chấm bài | Xem bài làm từng câu, chấm điểm từng câu / tổng, viết nhận xét (nháp → công bố → rút lại), lưu và chuyển bài kế tiếp, công bố hoặc rút kết quả (từng bài hoặc hàng loạt) | `GET /submissions/{id}`, `PUT …/questions/{q}/grade`, `PUT …/grade`, `POST …/feedback`, `PUT/PATCH /feedback/{id}`, `POST /results/{id}/publish`, `…/withdraw`, `POST /assessments/{id}/results/publish` | ✅. File bài làm của học sinh 🟡 (issue #50) |
 | TC-14 | Tiến độ học sinh 🎨 | Điểm các bài gần đây, điểm trung bình, bài đã nộp; điểm danh 10 buổi gần nhất, chuyên cần | `GET /students/{id}/progress` | ✅ trung bình, số bài, theo môn · 🟡 "bài gần đây" và biểu đồ (C4) · 🟡 điểm danh theo học sinh (A9) |
-| TC-15 | Khóa học của tôi | Danh sách, ghi danh, kết thúc ghi danh | `GET/POST /courses`, `…/enrollments` | ✅ |
+| TC-15 | Khóa học của tôi | Danh sách, đối tượng (Lớp/Học sinh), mục khóa; soạn bài mới cho khóa hoặc lấy từ bài của tôi — `DEC-LRN-026` | `GET/POST /courses`, `…/audience`, `…/items` (tên sẽ chốt ở plan BE) | 🔁 làm lại |
 
 ## ST — Cổng Học sinh
 
@@ -94,7 +94,7 @@ Mã màn hình: `CM` chung · `AD` Admin · `TC` Teacher · `ST` Student · `PR`
 | ST-06 | Làm bài 🎨 | Hiện câu hỏi theo loại; **tự lưu từng câu**; đồng hồ đếm ngược; bảng điều hướng câu và đánh dấu; nộp bài có xác nhận; hết giờ tự nộp | `GET /me/attempts/{id}`, `PUT /me/attempts/{id}/answers/{q}`, `POST /me/attempts/{id}/submit` | ✅. Câu nộp file 🟡 (issue #50) |
 | ST-07 | Kết quả 🎨 | Danh sách; chi tiết: điểm, từng câu đúng / sai, đáp án và giải thích (nếu giáo viên cho xem), nhận xét đã công bố | `GET /me/assessments/{id}/result` | 🟡 A5: chỉ có điểm tổng và nhận xét, chưa có đúng/sai từng câu |
 | ST-08 | Tiến độ học tập | Biểu đồ điểm theo thời gian, điểm trung bình | `GET /me/progress` | ✅ trung bình và theo môn · 🟡 biểu đồ theo thời gian (C4) |
-| ST-09 | Khóa học của em | Danh sách khóa học đã ghi danh | `GET /courses` | ✅ |
+| ST-09 | Khóa học của em | Danh sách khóa em thuộc đối tượng (trực tiếp hoặc qua lớp) và mục của khóa — `DEC-LRN-026` | `GET /courses` | 🔁 làm lại |
 
 ## PR — Cổng Phụ huynh
 
