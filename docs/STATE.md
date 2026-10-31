@@ -16,11 +16,11 @@ Cập nhật lần cuối: 2026-10-31 · bởi: lát 4e xong và đã merge
     - 4c: TC-11, TC-12, TC-13
     - 4d: TC-14
 - **Bước** (quy ước cuối file):
-  - Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`): quyết định xong → BE xong, đã review, đã merge (`piclass-api` #70, docs #156) → không làm mockup (user chốt 2026-10-31), FE làm từng cổng: Admin plan xong (`docs/superpowers/plans/2026-10-31-fe-admin-course-rework.md`), chưa code → Giáo viên, Học sinh chưa làm
+  - Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`): quyết định xong → BE xong, đã review, đã merge (`piclass-api` #70, docs #156) → không làm mockup (user chốt 2026-10-31), FE làm từng cổng: Admin code xong, chờ review cuối nhánh và PR (`piclass-web` `feat/admin-course-rework`, plan `docs/superpowers/plans/2026-10-31-fe-admin-course-rework.md`) → Giáo viên, Học sinh chưa làm
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Làm lại mô hình Khóa học, FE từng cổng theo OpenAPI mới, không mockup: Admin (AD-12) code theo plan → Giáo viên (TC-15, TC-07/09/10) → Học sinh (ST-09)
+1. Làm lại mô hình Khóa học, FE từng cổng theo OpenAPI mới, không mockup: Admin (AD-12) xong code, chờ review/PR → Giáo viên (TC-15, TC-07/09/10) → Học sinh (ST-09)
 2. Lát 4c Giáo viên (TC-11, TC-12, TC-13): bàn nghiệp vụ → mockup → plan+code BE/FE; gồm `B-073` (đưa ba cờ hiển thị đáp án/lời giải/điểm từng câu vào hộp công bố điểm)
 3. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
@@ -31,7 +31,8 @@ Cập nhật lần cuối: 2026-10-31 · bởi: lát 4e xong và đã merge
 ## Chưa push / chưa merge
 | Repo | Nhánh | Trạng thái |
 |---|---|---|
-| (không có) | — | mọi repo `main` sạch (kiểm 2026-10-31, sau `piclass-web` PR lát 4e) |
+| `piclass-web` | `feat/admin-course-rework` | code Admin xong, test xanh; chờ review cuối nhánh, chưa mở PR |
+| `piclass-docs` | `docs/plan-admin-course-fe` | plan + viết lại AD-12; chưa mở PR |
 
 ## Cổng
 | Cổng | FE |
