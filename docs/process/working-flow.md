@@ -13,6 +13,7 @@ Mỗi lát là một nhóm màn hình, đi hết các bước dưới đây rồ
 
 ## Các bước mỗi lát
 
+0. **Quét chạm nhau (trước khi mở lát).** Chạy `gh pr list` và `git log origin/main..origin/<nhánh>` ở các repo; đọc `git diff --stat` của mọi nhánh docs đang mở. Nhánh nào đã sửa quyết định, spec hoặc mockup của màn mình sắp làm thì gộp hoặc merge nó vào `main` trước, rồi mới thiết kế. Không dựng mockup hay spec lên một quyết định sắp bị đổi.
 1. **List chức năng.** Liệt kê chức năng dựa trên API đã có, cộng các chức năng bổ sung cần thêm, rồi tự đề xuất giữ/đơn giản hóa/tạm bỏ theo tinh thần V1 tối thiểu. Giải thích cả nghiệp vụ lẫn kỹ thuật khi đề xuất. Ghi quyết định vào tài liệu.
 2. **Kiểm tra màn hình.** Sau khi chốt mục 1, rà lại mockup xem cần bổ sung/sửa gì. Sửa mockup, chạy `python3 tools/make_standalone.py` (repo `piclass-mockup`), user xem bản `standalone/`.
    - Sửa nhỏ hoặc màn mới theo mẫu có sẵn: tự kiểm.
@@ -22,10 +23,18 @@ Mỗi lát là một nhóm màn hình, đi hết các bước dưới đây rồ
 5. **Chạy test trên màn thật.** Làm đúng kịch bản thật trên màn thật, sửa lỗi phát sinh tại chỗ. **Trước khi báo lát xong, tự so khớp từng màn đã code với đúng đoạn mockup** (không chỉ chạy test/lint/typecheck) — đây là bước hay bị bỏ qua, gây lệch mockup mà không ai phát hiện tới khi user tự kiểm.
 6. **Cập nhật tài liệu.** Đánh dấu lát xong ở `mockup-plan.md`, cập nhật `STATE.md` (hoặc chạy `/xong`), dời spec/plan của lát sang `archive/superpowers/`.
 
-Bước 3 và 4 có thể chạy song song khi hình dạng API đã rõ; chưa rõ thì làm bước 3 trước. Push nhánh feature tự động sau mỗi đơn vị việc hoàn thành; mở PR và merge chỉ khi user yêu cầu rõ ("tạo PR và merge đi") — xem mục Git dưới đây.
+Bước 3 và 4 có thể chạy song song khi hình dạng API đã rõ; chưa rõ thì làm bước 3 trước. Push nhánh feature tự động sau mỗi đơn vị việc hoàn thành; mở PR và merge chỉ khi user yêu cầu rõ ("tạo PR và merge đi") — xem mục Git dưới đây và `docs/process/git-rules.md`.
+
+## Co quy trình theo cỡ việc (user chốt 2026-10-29)
+
+Việc nhỏ, ít rủi ro (ví dụ thêm một tham số lọc vào một Query): làm gọn, test-first, chạy test nhóm liên quan, PHPStan và Pint, rồi PR; không viết plan riêng, không gọi reviewer độc lập, không chạy cả bộ test. Việc lớn hoặc rủi ro cao (nhiều module, đổi schema hay phân quyền, màn hình mới): đi đủ plan, review độc lập cuối branch, chạy cả bộ test. Quy tắc cứng (nhánh từ `origin/main`, PR, PHPStan không thêm lỗi, cập nhật `STATE.md` và spec khi trạng thái đổi) luôn giữ. Không chạy test song song với subagent trên cùng DB test.
+
+`superpowers:brainstorming` cho việc kiến trúc hoặc API: nạp trước `docs/requirements/*`, `docs/access-control/*`, `docs/database/*` làm nguồn; không để nó hỏi lại từ đầu hay viết spec lệch Decision Log.
+
+**Review code bằng subagent chỉ chạy model `opus`** (user chốt 2026-10-30): truyền `model: "opus"` tường minh; không dùng `fable`, kể cả khi skill ghi "model mạnh nhất". Quy tắc này thắng chỉ dẫn của skill.
 
 ## Git
 
-- Không commit hay push thẳng `main`: branch từ `origin/main` mới nhất (`git fetch origin` trước), PR, merge, không xóa branch. Nhánh feature tự push sau mỗi đơn vị việc hoàn thành (không force-push, không `--amend` commit đã push); PR và merge chờ user xác nhận. Chi tiết: `CLAUDE.md` gốc mục Git.
+- Không commit hay push thẳng `main`: branch từ `origin/main` mới nhất (`git fetch origin` trước), PR, merge, không xóa branch. Nhánh feature tự push sau mỗi đơn vị việc hoàn thành (không force-push, không `--amend` commit đã push); PR và merge chờ user xác nhận. Chi tiết: `docs/process/git-rules.md`.
 - Nhiều repo: code trước, docs sau cùng; khi push một repo, kiểm tra các repo còn lại có commit chờ không.
 - PR tiêu đề và mô tả tiếng Việt; commit message tiếng Anh.
