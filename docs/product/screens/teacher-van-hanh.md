@@ -164,7 +164,7 @@
 
 ### TC-15 — Khóa học của tôi   ✅ (số liệu bổ sung 🟡)
 
-> ⚠ **Đổi mô hình `DEC-LRN-026` (2026-10-30):** cùng AD-12: tab Ghi danh và "Lớp đã gắn" thành khối **Đối tượng** (Lớp hoặc Học sinh, thêm/gỡ); tab Bài thành **Mục của khóa** có nút "Soạn bài mới cho khóa" và "Lấy từ bài của tôi" (sao chép). Giáo viên được thêm bất kỳ Student/Lớp nào vào khóa của mình (`BR-COURSE-004`). Bản cũ bên dưới cần viết lại sau mockup.
+> ⚠ **Đổi mô hình `DEC-LRN-026` (2026-10-30):** cùng AD-12: tab Ghi danh và "Lớp đã gắn" thành khối **Đối tượng** (Lớp hoặc Học sinh, thêm/gỡ); tab Bài thành **Bài học** (tên hiển thị của mục khóa, user chốt 2026-10-31) có nút "Soạn bài mới cho khóa" và "Lấy từ bài của tôi" (sao chép). Giáo viên được thêm bất kỳ Student/Lớp nào vào khóa của mình (`BR-COURSE-004`). Bản cũ bên dưới cần viết lại sau mockup.
 - **Vai trò · responsive:** Teacher · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** Quản lý nhóm bài tự học riêng của mình (ví dụ "Luyện đề vào 10"): ai được học, ai đã kết thúc; đồng thời xem các khóa dùng chung của trung tâm.
 - **Vào từ / đi tới:** menu "Khóa học". Mở một khóa → trang chi tiết (cùng màn, tab Ghi danh · Bài). "Giao bài cho khóa" dẫn tới TC-10 (đối tượng là khóa). Nội dung khóa **chính là các bài đánh giá gán qua khóa** (BR-COURSE-002): tab Bài dùng `GET /assessments?course_id=<id>` → TC-11.
