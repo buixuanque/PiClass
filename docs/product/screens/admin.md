@@ -478,9 +478,10 @@ Nội dung buổi học (xem, thêm, sửa, hủy, hoàn tất) chuyển sang **
 - **Vào từ / đi tới:** menu Quản trị › Khóa học. Dòng → chi tiết (cùng màn).
 - **Khối nội dung & dữ liệu hiển thị:**
   - *Danh sách* (`GET /courses`): Tên, Mô tả, Chủ sở hữu (`owner_teacher_name`, hoặc "Dùng chung" khi `owner_teacher_id` null), Trạng thái (Đang mở/Đã lưu trữ). Bộ lọc: trạng thái, chủ sở hữu. Không hiện môn và số học sinh (API danh sách không trả).
-  - *Chi tiết* (`GET /courses/{id}`): hero (tên, trạng thái, môn, chủ sở hữu), hai ô số **Học viên** và **Bài trong khóa** (tải lỗi thì hiện "—", không hiện 0), ba tab (gọi "Bài học" thay cho "mục", user chốt 2026-10-31; gộp đối tượng và học viên vào một tab, user chốt 2026-10-31):
+  - *Chi tiết* (`GET /courses/{id}`): hero (tên, trạng thái, môn, chủ sở hữu), hai ô số **Học viên** và **Bài trong khóa** (tải lỗi thì hiện "—", không hiện 0), bốn tab Tổng quan / Lớp / Học viên / Bài học (gọi "Bài học" thay cho "mục", user chốt 2026-10-31; lớp và học viên là hai tab riêng, user chốt 2026-10-31):
     - **Tổng quan:** form sửa tên, mô tả, môn.
-    - **Lớp & học viên · N** (N = số học viên; user chốt 2026-10-31): hai khối. **Lớp của khóa** (các dòng đối tượng loại Lớp: tên lớp, ngày thêm, **Gỡ**; nút **Thêm lớp**). **Học viên của khóa** (`GET /courses/{id}/learners`): mỗi học sinh một dòng, chip nguồn "Trực tiếp" và/hoặc "Lớp {tên}" (vừa lẻ vừa qua lớp vẫn một dòng, hai chip); bộ lọc **Tất cả / Theo lớp / Học viên lẻ** ("Theo lớp" hiện thêm ô chọn một lớp của khóa; "Học viên lẻ" gồm cả em vừa lẻ vừa thuộc lớp); nút **Thêm học viên** (học sinh lẻ); em có nguồn "Trực tiếp" có nút **Gỡ** ngay trên dòng (gỡ phần lẻ, em vẫn là học viên nếu còn qua lớp), em chỉ vào qua lớp thì muốn bỏ phải gỡ lớp.
+    - **Lớp:** khối **Lớp của khóa** (các dòng đối tượng loại Lớp: tên lớp, ngày thêm, **Gỡ**; nút **Thêm lớp**).
+    - **Học viên · N** (N = số học viên; `GET /courses/{id}/learners`): mỗi học sinh một dòng, chip nguồn "Trực tiếp" và/hoặc "Lớp {tên}" (vừa lẻ vừa qua lớp vẫn một dòng, hai chip); bộ lọc **Tất cả / Theo lớp / Học viên lẻ** ("Theo lớp" hiện thêm ô chọn một lớp của khóa; "Học viên lẻ" gồm cả em vừa lẻ vừa thuộc lớp); nút **Thêm học viên** (học sinh lẻ); em có nguồn "Trực tiếp" có nút **Gỡ** ngay trên dòng (gỡ phần lẻ, em vẫn là học viên nếu còn qua lớp), em chỉ vào qua lớp thì muốn bỏ phải gỡ lớp.
     - **Bài học · M** (`GET /courses/{id}/items`): bài của khóa theo thứ tự (số thứ tự, tên, loại bài, trạng thái bài). Admin đổi tên, đổi thứ tự (Lên/Xuống), gỡ (BE lưu trữ bài của mục, không xóa; bài làm đã có giữ nguyên). Không có thêm hay soạn bài mới ở cổng Admin (cần màn Soạn bài TC-10, thuộc cổng Giáo viên).
   - *Đối tượng của khóa* (`GET /courses/{id}/audience`): mỗi dòng là một Lớp hoặc một Học sinh, không trạng thái, không ngày hiệu lực; giao diện tách hai khối: **Lớp của khóa** (hộp thoại "Thêm lớp vào khóa": chọn lớp chưa lưu trữ và chưa có) và **Học viên của khóa** (hộp thoại "Thêm học viên vào khóa": tìm theo tên, loại em đã có trực tiếp). Gỡ có hộp thoại xác nhận, không bắt lý do.
 - **Chức năng & hành động:**
@@ -496,7 +497,7 @@ Nội dung buổi học (xem, thêm, sửa, hủy, hoàn tất) chuyển sang **
 
 ### AD-12a — Ghi danh vào khóa học   (đã thay)
 
-Đã thay bởi khối **Đối tượng của khóa** và tab **Lớp & học viên** trong AD-12 (`DEC-LRN-026`): không còn ghi danh, kết thúc ghi danh, lý do kết thúc, nhãn "Qua lớp", liên kết Lớp–Khóa.
+Đã thay bởi khối **Đối tượng của khóa** và hai tab **Lớp** và **Học viên** trong AD-12 (`DEC-LRN-026`): không còn ghi danh, kết thúc ghi danh, lý do kết thúc, nhãn "Qua lớp", liên kết Lớp–Khóa.
 
 ---
 
