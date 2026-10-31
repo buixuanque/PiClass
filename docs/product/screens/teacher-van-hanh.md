@@ -162,27 +162,27 @@
 - **API:** `GET /students/{id}/progress?class_id&course_id&subject_id&from&to` → `{average_percentage, graded_count, pending_count, by_subject:[{subject_id, subject_name, average_percentage, graded_count}]}` (không bao `data`). 🟡 G3, G8.
 - **Dữ liệu mẫu gợi ý:** Nguyễn Minh Khôi · Toán 9A: TB 82,5% · 6 bài đã chấm · 1 bài chờ chấm; theo môn: Toán 85%, Khác 70%.
 
-### TC-15 — Khóa học của tôi   ✅ (số liệu bổ sung 🟡)
+### TC-15 — Khóa học của tôi   ✅
 
-> ⚠ **Đổi mô hình `DEC-LRN-026` (2026-10-30):** cùng AD-12: tab Ghi danh và "Lớp đã gắn" thành khối **Đối tượng** (Lớp hoặc Học sinh, thêm/gỡ); tab Bài thành **Bài học** (tên hiển thị của mục khóa, user chốt 2026-10-31) có nút "Soạn bài mới cho khóa" và "Lấy từ bài của tôi" (sao chép). Giáo viên được thêm bất kỳ Student/Lớp nào vào khóa của mình (`BR-COURSE-004`). Bản cũ bên dưới cần viết lại sau mockup.
+> Mô hình theo `DEC-LRN-026` (2026-10-30); FE làm lại 2026-10-31, không qua mockup (dựng theo design system, cùng khung AD-12 của Admin).
 - **Vai trò · responsive:** Teacher · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
-- **Người dùng muốn làm gì:** Quản lý nhóm bài tự học riêng của mình (ví dụ "Luyện đề vào 10"): ai được học, ai đã kết thúc; đồng thời xem các khóa dùng chung của trung tâm.
-- **Vào từ / đi tới:** menu "Khóa học". Mở một khóa → trang chi tiết (cùng màn, tab Ghi danh · Bài). "Giao bài cho khóa" dẫn tới TC-10 (đối tượng là khóa). Nội dung khóa **chính là các bài đánh giá gán qua khóa** (BR-COURSE-002): tab Bài dùng `GET /assessments?course_id=<id>` → TC-11.
+- **Người dùng muốn làm gì:** quản lý khóa tự học riêng của mình (ví dụ "Luyện đề vào 10"): ai được học, bài học gồm những gì; đồng thời xem các khóa dùng chung của trung tâm.
+- **Vào từ / đi tới:** menu "Khóa học". Dòng → chi tiết khóa (cùng màn). Mở một bài học chưa phát hành → trình soạn bài ngay trong luồng khóa (`/teacher/courses/{id}/items/{assessmentId}/edit`, TC-10 chế độ bài của khóa: không tab Đối tượng, phát hành xong về lại khóa).
 - **Khối nội dung & dữ liệu hiển thị:**
-  1. *Danh sách khóa* (`GET /courses`, sắp theo tên): `name`, `description`, `status` (`active`/`archived`), và **nhãn nguồn**: *"Của tôi"* nếu `owner_teacher_id` = hồ sơ Teacher của mình (id lấy ở `GET /me/profile`/`GET /auth/me`), *"Dùng chung"* nếu `owner_teacher_id` = null. Hai nhóm tách tab hoặc cột. Môn: `subject_id` có trong chi tiết (`GET /courses/{id}`), danh sách không trả `subject_id`.
-  2. *Chi tiết khóa*: `name`, `description`, môn, `status`; **khóa của tôi**: nút Sửa tên/mô tả/môn, "Lưu trữ"; **khóa dùng chung**: chỉ xem (nhãn "Do quản trị viên quản lý"), ẩn mọi nút sửa/ghi danh/kết thúc ghi danh; **không xem được danh sách ghi danh của khóa chung** (BE trả 403 cho Teacher; DEC-LRN-012), hiện thông báo "Chỉ quản trị viên xem được học sinh ghi danh".
-  3. *Tab Ghi danh (khóa của tôi)*: `GET /courses/{id}/enrollments` → `student_id`, `status` (`active`/`ended`), `valid_from`, `valid_to`; tên học sinh FE ghép (từ roster các lớp của mình; học sinh ngoài lớp mình dạy chưa có cách tra tên → G4). Mặc định hiện đang ghi danh, công tắc hiện đã kết thúc.
-  4. *Tab Bài của khóa*: như trên.
-- **Chức năng & hành động:** (cập nhật 2026-10-29, `DEC-LRN-019`: bỏ "ghi danh theo lớp" kiểu chụp một lần ở dưới, thay bằng tab "Lớp đã gắn" với Gắn lớp/Gỡ lớp như Admin AD-12; nhánh `class_id` của `POST .../enrollments` là code chết; khóa dùng chung không có tab.)
-  - **Tạo khóa:** form `name` (bắt buộc), `description`, `subject_id` (tùy chọn). Khóa tạo ra luôn thuộc về mình (Teacher không chọn chủ). `POST /courses`.
+  1. *Danh sách khóa* (`GET /courses`): tên, mô tả, trạng thái, **nhãn nguồn** "Của tôi" (`owner_teacher_id` = hồ sơ Teacher của mình) hoặc "Dùng chung" (null); ba tab Tất cả / Của tôi / Dùng chung.
+  2. *Chi tiết khóa* (`GET /courses/{id}`): nút quay lại "Khóa học" + tên khóa + huy hiệu trạng thái, môn. **Khóa của tôi**: nút Sửa, Lưu trữ; hai tab **Đối tượng & học viên · N** và **Bài học · M**. **Khóa dùng chung**: chỉ xem thông tin và danh sách bài học (chỉ đọc), **không có tab** vì BE trả 403 cho `/audience`, `/learners` và mọi thao tác ghi (`DEC-LRN-012`).
+  3. *Tab Đối tượng & học viên*: như AD-12 (xem `admin.md`): trên là khối đối tượng (lớp hoặc học sinh, **Thêm đối tượng**, **Gỡ**), dưới là danh sách học viên tính ra với chip nguồn. Khác Admin ở bộ chọn học sinh: `GET /students` trả 403 cho Giáo viên nên hộp thoại "Thêm đối tượng" chọn học sinh **theo lớp mình dạy** (`GET /classes/{id}/members`); học sinh ngoài lớp mình dạy chưa chọn được (🟡 G4).
+  4. *Tab Bài học*: danh sách bài của khóa theo thứ tự (số thứ tự, tên, loại, trạng thái). Nút **Soạn bài mới cho khóa** (hộp thoại tạo bài → trình soạn trong khóa) và **Lấy từ bài của tôi** (chỉ bài cá nhân do mình tạo; **sao chép** thành bài của khóa, hai bản độc lập). Mỗi bài: đổi tên, Lên/Xuống, gỡ khỏi khóa; bài nháp bấm tên để mở trình soạn.
+- **Chức năng & hành động:**
+  - **Tạo khóa:** form `name` (bắt buộc), `description`, `subject_id` (tùy chọn). Khóa luôn thuộc về mình. `POST /courses`.
   - **Sửa khóa** (của tôi): `PATCH /courses/{id}`; vẫn sửa được khi đã lưu trữ.
-  - **Lưu trữ khóa:** xác nhận ("Khóa lưu trữ không nhận ghi danh mới; các ghi danh hiện có vẫn xem được"). `PATCH` với `status: "archived"` (chỉ giá trị này hợp lệ, không có "bỏ lưu trữ").
-  - **Ghi danh theo học sinh** (chọn một học sinh từ lớp mình dạy; xem ghi chú dưới) hoặc **theo lớp** (chọn lớp: ghi danh toàn bộ học sinh đang học của lớp tại thời điểm đó). Gửi **một trong hai** `student_id` hoặc `class_id` (không gửi cả hai). Kết quả `created_count` = số ghi danh mới thật sự tạo (học sinh đã ghi danh bị bỏ qua, có thể 0): hiển thị "Đã ghi danh 24 học sinh (4 em đã có từ trước)" nếu tính được. Lưu ý: ghi danh theo lớp là **ảnh chụp tại thời điểm bấm**, học sinh vào lớp sau không tự được ghi danh. `POST /courses/{id}/enrollments`. Teacher được ghi danh học sinh/lớp bất kỳ, không bị giới hạn bởi lớp mình dạy (BR-COURSE-004); danh sách chọn học sinh ngoài lớp mình 🟡 G4.
-  - **Kết thúc ghi danh** một học sinh: **ô lý do bắt buộc** (`end_reason`), xác nhận; `DELETE /courses/{id}/enrollments/{studentId}` (body JSON `end_reason`; cần xác nhận khi dựng vì DELETE kèm body).
-- **Trạng thái cần vvẽ:** tải · rỗng chưa có khóa ("Bạn chưa có khóa nào. Tạo khóa đầu tiên", cùng danh sách khóa chung nếu có) · khóa chưa có ghi danh · khóa chưa có bài · khóa `archived` (huy hiệu, nút ghi danh bị khóa, hiện lý do) · khóa dùng chung (chỉ xem) · lỗi · không có quyền (403 khi xem ghi danh khóa chung; 404 khi khóa không còn trong phạm vi).
-- **Quy tắc & lỗi nghiệp vụ:** `COURSE_ARCHIVED` (422): "Course đã lưu trữ, không thể ghi danh thêm." → hiển thị rõ, vô hiệu nút Ghi danh (sửa tên/mô tả, xem và kết thúc ghi danh vẫn được). 422 `student_id`/`class_id` ("chọn một trong hai"); 422 `end_reason` thiếu; 404 "Request failed." khi kết thúc ghi danh của học sinh không còn ghi danh hiệu lực (hai người cùng thao tác); 403 "Request failed." khi sửa/ghi danh khóa chung hoặc khóa của người khác.
-- **API:** `GET/POST /courses`, `GET/PATCH /courses/{id}`, `GET/POST /courses/{id}/enrollments`, `DELETE /courses/{id}/enrollments/{studentId}`, `GET /assessments?course_id=`. 🟡 G9 (số học sinh/số bài mỗi khóa trong danh sách), G4 (chọn học sinh ngoài lớp mình).
-- **Dữ liệu mẫu gợi ý:** "Luyện đề vào 10 (Của tôi) · Đang mở · 24 học sinh"; "Ôn thi tốt nghiệp THPT (Dùng chung, Admin quản lý)". Lý do kết thúc ghi danh: "Học sinh chuyển sang nhóm khác."
+  - **Lưu trữ khóa:** xác nhận, `PATCH {status:"archived"}` (không có mở lại). Khóa lưu trữ không nhận thêm đối tượng hay bài học, vẫn xem được.
+  - **Thêm / gỡ đối tượng:** `POST /courses/{id}/audience` (`{class_id}` hoặc `{student_id}`), `DELETE /courses/{id}/audience/{audienceId}`; gỡ có xác nhận, không bắt lý do. Giáo viên thêm được bất kỳ lớp hoặc học sinh nào vào khóa của mình (`BR-COURSE-004`).
+  - **Bài học:** soạn mới = `POST /assessments` với `course_id`; lấy từ bài của tôi = `POST /courses/{id}/items/copy`; đổi tên / thứ tự `PATCH /courses/{id}/items/{itemId}`; gỡ `DELETE`.
+- **Trạng thái cần vẽ:** tải · chưa có khóa ("Bạn chưa có khóa nào. Tạo khóa đầu tiên", cùng khóa dùng chung nếu có) · khóa chưa có đối tượng / học viên / bài học (mỗi khối có dòng rỗng riêng) · khóa `archived` (huy hiệu, ẩn nút thêm) · khóa dùng chung (chỉ xem) · lỗi · không có quyền (404 khi khóa không còn trong phạm vi).
+- **Quy tắc & lỗi nghiệp vụ:** `COURSE_ARCHIVED` (422) thêm đối tượng / bài vào khóa đã lưu trữ; `CLASS_ARCHIVED` (422) thêm lớp đã lưu trữ; `AUDIENCE_ALREADY_ADDED` (409) đối tượng đã có (FE hiện nguyên văn message, không đóng hộp thoại); 403 khi ghi vào khóa dùng chung hoặc khóa của người khác.
+- **API:** `GET/POST /courses`, `GET/PATCH /courses/{id}`; `GET/POST /courses/{id}/audience`, `DELETE /courses/{id}/audience/{audienceId}`; `GET /courses/{id}/learners`; `GET /courses/{id}/items`, `POST /courses/{id}/items/copy`, `PATCH/DELETE /courses/{id}/items/{itemId}`.
+- **Dữ liệu mẫu gợi ý:** "Luyện đề vào 10 (Của tôi) · Đang mở · 24 học viên"; "Ôn thi tốt nghiệp THPT (Dùng chung, Admin quản lý)".
 
 ---
 
@@ -214,7 +214,7 @@ Mockup `PiClass Giáo viên.dc.html` đã sửa cho TC-01..TC-05 (nhánh `mockup
 - **Không có thao tác bỏ cờ `review_required`:** chưa thấy endpoint hay hành vi tự bỏ cờ sau khi rà soát; cần BE chốt.
 
 **Thay đổi so với `screen-inventory.md`:**
-- TC-01 giữ 🟡 (G1). TC-02: bỏ nút "Tạo lớp" cho Teacher. TC-03: thêm tab "Lịch sử thay đổi" 🔵 và tách các tab; "tiến độ từng học sinh" phải gọi N lần (G9). TC-05: đánh dấu 🟡 vì G15 (thao tác sửa từng bản ghi chưa dựng được). TC-06: 🟡 một phần (hiển thị). TC-14: điểm trung bình/số bài/theo môn ✅, biểu đồ & bài gần đây G8, điểm danh G3. TC-15: tách "Của tôi" và "Dùng chung" (chỉ xem), thêm hành vi `COURSE_ARCHIVED`.
+- TC-01 giữ 🟡 (G1). TC-02: bỏ nút "Tạo lớp" cho Teacher. TC-03: thêm tab "Lịch sử thay đổi" 🔵 và tách các tab; "tiến độ từng học sinh" phải gọi N lần (G9). TC-05: đánh dấu 🟡 vì G15 (thao tác sửa từng bản ghi chưa dựng được). TC-06: 🟡 một phần (hiển thị). TC-14: điểm trung bình/số bài/theo môn ✅, biểu đồ & bài gần đây G8, điểm danh G3. TC-15: viết lại theo `DEC-LRN-026` (2026-10-31).
 - `BR-ATT-004` nói "trừ khi Admin ghi nhận ngoại lệ", nhưng code `SESSION_CANCELLED` không có ngoại lệ Admin; theo code. `Teacher không xem được danh sách ghi danh của Course dùng chung` (DEC-LRN-012) nên màn hình ẩn khối này.
 
 **Câu hỏi cần user chốt:**
