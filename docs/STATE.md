@@ -2,7 +2,7 @@
 
 File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-10-31 · bởi: FE Admin làm lại khóa học xong, đã review, mở PR
+Cập nhật lần cuối: 2026-10-31 · bởi: FE Admin khóa học đã merge, plan cổng Giáo viên xong
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -20,7 +20,7 @@ Cập nhật lần cuối: 2026-10-31 · bởi: FE Admin làm lại khóa học 
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Làm lại mô hình Khóa học, FE từng cổng theo OpenAPI mới, không mockup: Admin (AD-12) đã mở PR chờ merge → Giáo viên (TC-15, TC-07/09/10) → Học sinh (ST-09)
+1. Làm lại mô hình Khóa học, FE từng cổng theo OpenAPI mới, không mockup: Giáo viên (TC-15, rồi dọn TC-10/09/07/08) code theo plan 2 lát → Học sinh (ST-09)
 2. Lát 4c Giáo viên (TC-11, TC-12, TC-13): bàn nghiệp vụ → mockup → plan+code BE/FE; gồm `B-073` (đưa ba cờ hiển thị đáp án/lời giải/điểm từng câu vào hộp công bố điểm)
 3. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
@@ -31,8 +31,7 @@ Cập nhật lần cuối: 2026-10-31 · bởi: FE Admin làm lại khóa học 
 ## Chưa push / chưa merge
 | Repo | Nhánh | Trạng thái |
 |---|---|---|
-| `piclass-web` | `feat/admin-course-rework` | code Admin xong, đã review; PR chờ merge |
-| `piclass-docs` | `docs/plan-admin-course-fe` | plan + viết lại AD-12; PR chờ merge |
+| `piclass-docs` | `docs/plan-teacher-course-fe` | plan cổng Giáo viên; chưa mở PR |
 
 ## Cổng
 | Cổng | FE |
