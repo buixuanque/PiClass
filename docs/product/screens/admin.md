@@ -478,16 +478,16 @@ Nội dung buổi học (xem, thêm, sửa, hủy, hoàn tất) chuyển sang **
 - **Vào từ / đi tới:** menu Quản trị › Khóa học. Dòng → chi tiết (cùng màn).
 - **Khối nội dung & dữ liệu hiển thị:**
   - *Danh sách* (`GET /courses`): Tên, Mô tả, Chủ sở hữu (`owner_teacher_name`, hoặc "Dùng chung" khi `owner_teacher_id` null), Trạng thái (Đang mở/Đã lưu trữ). Bộ lọc: trạng thái, chủ sở hữu. Không hiện môn và số học sinh (API danh sách không trả).
-  - *Chi tiết* (`GET /courses/{id}`): hero (tên, trạng thái, môn, chủ sở hữu), hai ô số **Học viên** và **Bài trong khóa** (tải lỗi thì hiện "—", không hiện 0), ba tab (gọi "Bài học" thay cho "mục", user chốt 2026-10-31; gộp Đối tượng và Học viên thành một tab, user chốt 2026-10-31 vì học viên chỉ là kết quả tính từ đối tượng):
+  - *Chi tiết* (`GET /courses/{id}`): hero (tên, trạng thái, môn, chủ sở hữu), hai ô số **Học viên** và **Bài trong khóa** (tải lỗi thì hiện "—", không hiện 0), ba tab (gọi "Bài học" thay cho "mục", user chốt 2026-10-31; gộp đối tượng và học viên vào một tab, user chốt 2026-10-31):
     - **Tổng quan:** form sửa tên, mô tả, môn.
-    - **Đối tượng & học viên · N:** phía trên khối **Đối tượng của khóa** (xem dưới); phía dưới tiêu đề "Học viên của khóa" (`GET /courses/{id}/learners`): mỗi học sinh một dòng, kèm chip nguồn "Trực tiếp" và/hoặc "Lớp {tên}" (học sinh vừa trực tiếp vừa qua lớp vẫn một dòng, hai chip). Danh sách học viên chỉ đọc; là kết quả tính khi cần từ đối tượng. N là số học viên.
+    - **Lớp & học viên · N** (N = số học viên; user chốt 2026-10-31): hai khối. **Lớp của khóa** (các dòng đối tượng loại Lớp: tên lớp, ngày thêm, **Gỡ**; nút **Thêm lớp**). **Học viên của khóa** (`GET /courses/{id}/learners`): mỗi học sinh một dòng, chip nguồn "Trực tiếp" và/hoặc "Lớp {tên}" (vừa lẻ vừa qua lớp vẫn một dòng, hai chip); bộ lọc **Tất cả / Theo lớp / Học viên lẻ** ("Theo lớp" hiện thêm ô chọn một lớp của khóa; "Học viên lẻ" gồm cả em vừa lẻ vừa thuộc lớp); nút **Thêm học viên** (học sinh lẻ); em có nguồn "Trực tiếp" có nút **Gỡ** ngay trên dòng (gỡ phần lẻ, em vẫn là học viên nếu còn qua lớp), em chỉ vào qua lớp thì muốn bỏ phải gỡ lớp.
     - **Bài học · M** (`GET /courses/{id}/items`): bài của khóa theo thứ tự (số thứ tự, tên, loại bài, trạng thái bài). Admin đổi tên, đổi thứ tự (Lên/Xuống), gỡ (BE lưu trữ bài của mục, không xóa; bài làm đã có giữ nguyên). Không có thêm hay soạn bài mới ở cổng Admin (cần màn Soạn bài TC-10, thuộc cổng Giáo viên).
-  - *Đối tượng của khóa* (`GET /courses/{id}/audience`): mỗi dòng là một Lớp hoặc một Học sinh (nhãn "Lớp"/"Học sinh", ngày thêm nếu có), không trạng thái, không ngày hiệu lực. Nút **Thêm đối tượng** mở hộp thoại hai tab Lớp (chọn lớp chưa lưu trữ và chưa có) và Học sinh (tìm theo tên, loại em đã có trực tiếp). Mỗi dòng có **Gỡ**, hộp thoại xác nhận, không bắt lý do.
+  - *Đối tượng của khóa* (`GET /courses/{id}/audience`): mỗi dòng là một Lớp hoặc một Học sinh, không trạng thái, không ngày hiệu lực; giao diện tách hai khối: **Lớp của khóa** (hộp thoại "Thêm lớp vào khóa": chọn lớp chưa lưu trữ và chưa có) và **Học viên của khóa** (hộp thoại "Thêm học viên vào khóa": tìm theo tên, loại em đã có trực tiếp). Gỡ có hộp thoại xác nhận, không bắt lý do.
 - **Chức năng & hành động:**
   - **Tạo khóa:** Tên*, Mô tả, Môn (tùy chọn), Chủ sở hữu (Admin chọn giáo viên hoặc để trống = dùng chung). Trạng thái ban đầu Đang mở.
   - **Sửa:** tên, mô tả, môn.
   - **Lưu trữ khóa:** M4 (BE không nhận lý do). Giải thích: "Không thêm đối tượng hay mục mới được nữa, vẫn xem được" (`DEC-LRN-013`). Gửi `PATCH {status:"archived"}`; không có thao tác mở lại qua giao diện.
-  - Khóa đã lưu trữ: ẩn "Thêm đối tượng" và "Lưu trữ khóa", ẩn các nút ghi của tab Bài học; "Gỡ" đối tượng vẫn còn (BE không chặn).
+  - Khóa đã lưu trữ: ẩn "Thêm lớp", "Thêm học viên" và "Lưu trữ khóa", ẩn các nút ghi của tab Bài học; "Gỡ" đối tượng vẫn còn (BE không chặn).
 - **Trạng thái cần vẽ:** tải; rỗng ("Chưa có khóa học" + nút Tạo khóa); rỗng do lọc; lỗi; khóa đã lưu trữ (banner); mỗi khối có rỗng riêng ("Khóa này chưa có đối tượng nào.", "Chưa có học viên nào. Thêm lớp hoặc học sinh vào đối tượng của khóa.", "Khóa này chưa có bài học nào.") và lỗi tải riêng.
 - **Quy tắc & lỗi nghiệp vụ:** 422 `name` bắt buộc; `subject_id`, `owner_teacher_id` phải tồn tại. `COURSE_ARCHIVED` (422) thêm đối tượng/mục vào khóa đã lưu trữ; `CLASS_ARCHIVED` (422) thêm lớp đã lưu trữ; `AUDIENCE_ALREADY_ADDED` (409) đối tượng đã có: FE hiện nguyên văn message trong hộp thoại và không đóng. Admin quản lý mọi khóa kể cả khóa dùng chung (`CoursePolicy::manage`).
 - **API:** `GET/POST /courses`, `GET/PATCH /courses/{id}`; `GET/POST /courses/{id}/audience` (body `{class_id}` hoặc `{student_id}`), `DELETE /courses/{id}/audience/{audienceId}`; `GET /courses/{id}/learners` (`[{student_id, student_name, sources:[{type: direct|class, class_id, class_name}]}]`); `GET /courses/{id}/items`, `PATCH /courses/{id}/items/{itemId}` (`title`, `position` 1..n), `DELETE /courses/{id}/items/{itemId}`.
@@ -496,7 +496,7 @@ Nội dung buổi học (xem, thêm, sửa, hủy, hoàn tất) chuyển sang **
 
 ### AD-12a — Ghi danh vào khóa học   (đã thay)
 
-Đã thay bởi khối **Đối tượng của khóa** và tab **Đối tượng & học viên** trong AD-12 (`DEC-LRN-026`): không còn ghi danh, kết thúc ghi danh, lý do kết thúc, nhãn "Qua lớp", liên kết Lớp–Khóa.
+Đã thay bởi khối **Đối tượng của khóa** và tab **Lớp & học viên** trong AD-12 (`DEC-LRN-026`): không còn ghi danh, kết thúc ghi danh, lý do kết thúc, nhãn "Qua lớp", liên kết Lớp–Khóa.
 
 ---
 

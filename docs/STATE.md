@@ -2,7 +2,7 @@
 
 File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-10-31 · bởi: lát 2 cổng Giáo viên đã merge (web #40)
+Cập nhật lần cuối: 2026-10-31 · bởi: tab Lớp & học viên tách khối Lớp / Học viên đã merge (web #41)
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -31,7 +31,7 @@ Cập nhật lần cuối: 2026-10-31 · bởi: lát 2 cổng Giáo viên đã m
 ## Chưa push / chưa merge
 | Repo | Nhánh | Trạng thái |
 |---|---|---|
-| `piclass-docs` | `docs/teacher-course-lat2` | TC-15 viết lại, tab gộp, B-081; chưa mở PR |
+| — | — | không có nhánh chờ |
 
 ## Cổng
 | Cổng | FE |
