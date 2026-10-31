@@ -2,7 +2,7 @@
 
 File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-10-31 · bởi: dọn mục Bước (bỏ lát đã xong, ghi bước lát 4e)
+Cập nhật lần cuối: 2026-10-31 · bởi: plan FE lát 4e xong
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -16,14 +16,14 @@ Cập nhật lần cuối: 2026-10-31 · bởi: dọn mục Bước (bỏ lát �
     - 4c: TC-11, TC-12, TC-13
     - 4d: TC-14
 - **Bước** (quy ước cuối file):
-  - Lát 4e (TC-08, `DEC-LRN-025`): quyết định xong → mockup xong (`piclass-mockup` #26, #27) → spec xong → **code FE (đang làm)** → review → merge
+  - Lát 4e (TC-08, `DEC-LRN-025`): quyết định xong → mockup xong (`piclass-mockup` #26, #27) → spec xong → plan FE xong (`docs/superpowers/plans/2026-10-31-fe-question-editor-v3.md`) → **code FE (chờ user duyệt plan, rồi làm)** → review → merge
     - Không sửa BE; ô Hiển thị dùng `Question.visibility` của `DEC-LRN-026` (BE đã có)
     - Gồm: màn tạo/sửa cùng khung Soạn bài, soạn nhiều câu một lượt, bảng chọn câu của Soạn bài nhận nhiều câu vừa lưu
   - Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`): quyết định xong → BE xong, đã review, đã merge (`piclass-api` #70, docs #156) → mockup chưa làm → FE chưa làm
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Lát 4e: code FE (`piclass-web`), xem mục Bước
+1. Lát 4e: duyệt plan FE rồi code FE (`piclass-web`, nhánh `feat/question-editor-v3`), xem mục Bước
 2. Làm lại mô hình Khóa học: mockup AD-12, TC-15, ST-09, TC-07/08/09/10 → plan+code FE (Admin, Giáo viên, Học sinh) theo OpenAPI mới
 3. Lát 4c Giáo viên (TC-11, TC-12, TC-13): bàn nghiệp vụ → mockup → plan+code BE/FE; gồm `B-073` (đưa ba cờ hiển thị đáp án/lời giải/điểm từng câu vào hộp công bố điểm)
 4. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
