@@ -2,7 +2,7 @@
 
 File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-10-31 · bởi: FE Admin khóa học đã merge, plan cổng Giáo viên xong
+Cập nhật lần cuối: 2026-10-31 · bởi: thêm API hàng loạt cho ô soạn câu trong tab Câu hỏi của bài (TC-10), chưa mở PR
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -31,7 +31,10 @@ Cập nhật lần cuối: 2026-10-31 · bởi: FE Admin khóa học đã merge,
 ## Chưa push / chưa merge
 | Repo | Nhánh | Trạng thái |
 |---|---|---|
-| `piclass-docs` | `docs/plan-teacher-course-fe` | plan cổng Giáo viên; chưa mở PR |
+| `piclass-api` | `feat/questions-batch` | `POST /questions/batch`, `POST /assessments/{id}/questions/batch`; chưa mở PR |
+| `piclass-web` | `feat/course-lesson-wording` → `feat/assessment-questions-inline` | đổi chữ "bài học", popup chọn câu, ô soạn inline, lưu hàng loạt; chưa mở PR (merge theo thứ tự, API trước) |
+| `piclass-docs` | `docs/course-lesson-wording` → `docs/tc10-question-inline` | spec TC-10 và `B-076`; chưa mở PR |
+| `piclass-docs` | `docs/plan-teacher-course-fe` | plan cổng Giáo viên; chưa mở PR (xem lại: có thể đã merge) |
 
 ## Cổng
 | Cổng | FE |
