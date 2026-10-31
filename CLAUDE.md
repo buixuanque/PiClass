@@ -7,7 +7,7 @@ Nạp tự động mọi session ở root workspace. Giữ ngắn: chỉ ghi th�
 1. **Không commit hay push thẳng `main`.** Nhánh từ `origin/main`, push nhánh, PR, merge. Không xóa branch, không force-push, không `--amend` commit đã push.
 2. **Mở PR và merge chỉ khi user nói rõ.** "Okie" với một đề xuất chưa phải lệnh merge. **Mỗi PR một lệnh `gh pr merge` riêng.**
 3. **Review code bằng subagent chỉ dùng `model: "opus"`**, truyền tường minh; không dùng `fable`, kể cả khi skill ghi "model mạnh nhất".
-4. **Vừa merge hoặc đổi trạng thái thì sửa `STATE.md` ngay trong cùng lượt**, rồi hỏi user một câu có đưa lên `main` không. Chi tiết: `docs/process/progress-tracking.md`.
+4. **Xong bất kỳ bước nào của lát (quyết định, mockup, spec, plan, code, review, merge) thì sửa `STATE.md` trước khi báo cáo cho user**, trong cùng lượt; rồi hỏi một câu có đưa lên `main` không. Skill (viết plan, thực thi plan...) không nhắc việc này nên phải tự nhớ. Chi tiết: `docs/process/progress-tracking.md`.
 5. **Quyết định mới chốt thì ghi ngay vào tài liệu nguồn** (`decision-log.md`, `open-decisions.md`...), không để chỉ trong chat.
 6. **Không đọc `docs/archive/*`** (~2MB) trừ khi được link tới đúng một file; không đọc cả file đặc tả lớn (dùng `grep -n` rồi `Read` theo `offset`/`limit`).
 7. Trước khi sửa code `piclass-api/` hoặc `piclass-web/`, đọc `CLAUDE.md` của repo đó.

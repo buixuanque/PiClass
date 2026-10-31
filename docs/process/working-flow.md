@@ -23,6 +23,8 @@ Mỗi lát là một nhóm màn hình, đi hết các bước dưới đây rồ
 5. **Chạy test trên màn thật.** Làm đúng kịch bản thật trên màn thật, sửa lỗi phát sinh tại chỗ. **Trước khi báo lát xong, tự so khớp từng màn đã code với đúng đoạn mockup** (không chỉ chạy test/lint/typecheck) — đây là bước hay bị bỏ qua, gây lệch mockup mà không ai phát hiện tới khi user tự kiểm.
 6. **Cập nhật tài liệu.** Đánh dấu lát xong ở `mockup-plan.md`, cập nhật `STATE.md` (hoặc chạy `/xong`), dời spec/plan của lát sang `archive/superpowers/`.
 
+**Cuối mỗi bước trên (kể cả khi skill đã báo xong, ví dụ viết plan):** sửa `STATE.md` trước khi báo cáo cho user.
+
 Bước 3 và 4 có thể chạy song song khi hình dạng API đã rõ; chưa rõ thì làm bước 3 trước. Push nhánh feature tự động sau mỗi đơn vị việc hoàn thành; mở PR và merge chỉ khi user yêu cầu rõ ("tạo PR và merge đi") — xem mục Git dưới đây và `docs/process/git-rules.md`.
 
 ## Co quy trình theo cỡ việc (user chốt 2026-10-29)

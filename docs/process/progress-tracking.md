@@ -5,7 +5,7 @@
 ## Nguyên tắc
 
 - `STATE.md` là nguồn duy nhất cho "đang ở đâu". Giữ ≤ 60 dòng, không văn xuôi, mục nhiều ý thì tách gạch con. Chi tiết của một lát (PR số mấy, vì sao chốt) nằm ở mô tả PR; quyết định quan trọng ghi vào `decision-log.md` hoặc `architecture/decisions/ARCH-xx.md`. `archive/progress-log.md` là bản chụp cũ, không ghi thêm.
-- Chỉ cập nhật khi trạng thái **thật sự đổi**: chuyển bước, xong lát, phát sinh hoặc xong việc kế tiếp, **vừa merge một PR**, hoặc khi user chạy `/xong`. Không sửa sau mỗi bước nhỏ. Khi trạng thái đã đổi thì cập nhật ngay, không hỏi user.
+- Chỉ cập nhật khi trạng thái **thật sự đổi**: **xong một bước của lát (kể cả viết xong plan)**, xong lát, phát sinh hoặc xong việc kế tiếp, **vừa merge một PR**, hoặc khi user chạy `/xong`. Không sửa sau mỗi bước nhỏ. Khi trạng thái đã đổi thì cập nhật ngay, không hỏi user.
 - Việc phát sinh chưa làm: thêm một dòng vào `BACKLOG.md`. Lát xong: xóa khỏi `STATE.md`, `git mv` spec/plan sang `docs/archive/superpowers/`.
 
 ## Khuôn mục "Bước"
