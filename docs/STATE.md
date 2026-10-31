@@ -2,7 +2,7 @@
 
 File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-10-31 · bởi: merge `DEC-LRN-026` (docs, BE) và lát 4e (mockup, spec TC-08)
+Cập nhật lần cuối: 2026-10-31 · bởi: dọn mục Bước (bỏ lát đã xong, ghi bước lát 4e)
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -15,20 +15,16 @@ Cập nhật lần cuối: 2026-10-31 · bởi: merge `DEC-LRN-026` (docs, BE) v
     - 4e (chen trước 4c): làm lại TC-08 theo `DEC-LRN-025` (cùng khung Soạn bài, soạn nhiều câu một lượt) — **đang làm**
     - 4c: TC-11, TC-12, TC-13
     - 4d: TC-14
-- **Bước:**
-  - Lát 4b (TC-09, TC-10): xong đủ 4 bước, đã merge `main` (`DEC-LRN-022`, `DEC-LRN-023`, `DEC-LRN-024`; `piclass-mockup` #22, #24, #25; `piclass-api` #68, #69; `piclass-web` #31, #32 và sửa Minor sau review)
-  - Lát 4a (TC-07, TC-08): xong đủ 4 bước, đã merge `main` (`DEC-LRN-020`, `DEC-LRN-021`; `piclass-mockup` #21, `piclass-api` #65-67, `piclass-web` #30)
-    - Chưa làm file đính kèm câu hỏi: `B-064`
-    - Mockup còn lệch giao diện thật ở khối điền khuyết: `B-065`
-  - Lát 3: xong đủ 4 bước, đã merge `main` (`DEC-LRN-019`; `piclass-mockup` #18-20, `piclass-web` #29; không sửa BE)
+- **Bước** (quy ước cuối file):
+  - Lát 4e (TC-08, `DEC-LRN-025`): quyết định xong → mockup xong (`piclass-mockup` #26, #27) → spec xong → **code FE (đang làm)** → review → merge
+    - Không sửa BE; ô Hiển thị dùng `Question.visibility` của `DEC-LRN-026` (BE đã có)
+    - Gồm: màn tạo/sửa cùng khung Soạn bài, soạn nhiều câu một lượt, bảng chọn câu của Soạn bài nhận nhiều câu vừa lưu
+  - Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`): quyết định xong → BE xong, đã review, đã merge (`piclass-api` #70, docs #156) → mockup chưa làm → FE chưa làm
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Lát 4e (`DEC-LRN-025`): bước 1 quyết định xong, bước 2 mockup xong (đã merge `piclass-mockup` #26), bước 3 spec TC-08 xong → **bước 4 FE** (`piclass-web`; thêm ô Hiển thị `Question.visibility` của `DEC-LRN-026` vào tab Cài đặt, BE đã có): màn tạo/sửa câu hỏi cùng khung Soạn bài, soạn nhiều câu một lượt, bảng chọn câu của Soạn bài nhận nhiều câu vừa lưu → review (opus) → merge
-2. **Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`)** — thay ghi danh bằng đối tượng khóa, mục khóa, `Question.visibility`, `Assessment.course_id`:
-   - Docs nguồn và plan BE: đã merge `main` (docs #156)
-   - BE: xong, đã review, đã merge `main` (`piclass-api` #70; OpenAPI đã xuất)
-   - Kế tiếp: mockup AD-12, TC-15, ST-09, TC-07/08/09/10 → plan+code FE (Admin, Giáo viên, Học sinh) theo OpenAPI mới
+1. Lát 4e: code FE (`piclass-web`), xem mục Bước
+2. Làm lại mô hình Khóa học: mockup AD-12, TC-15, ST-09, TC-07/08/09/10 → plan+code FE (Admin, Giáo viên, Học sinh) theo OpenAPI mới
 3. Lát 4c Giáo viên (TC-11, TC-12, TC-13): bàn nghiệp vụ → mockup → plan+code BE/FE; gồm `B-073` (đưa ba cờ hiển thị đáp án/lời giải/điểm từng câu vào hộp công bố điểm)
 4. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
@@ -39,7 +35,7 @@ Cập nhật lần cuối: 2026-10-31 · bởi: merge `DEC-LRN-026` (docs, BE) v
 ## Chưa push / chưa merge
 | Repo | Nhánh | Trạng thái |
 |---|---|---|
-| (không có) | — | mọi repo `main` sạch (kiểm 2026-10-31, sau `piclass-api` #70, `piclass-mockup` #26 #27, docs #156 và PR này) |
+| (không có) | — | mọi repo `main` sạch (kiểm 2026-10-31) |
 
 ## Cổng
 | Cổng | FE |

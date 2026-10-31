@@ -7,7 +7,7 @@ Mục tiêu: lần sau mở session (máy nào cũng được) `/tiep` đọc ra
 
 1. Chạy các lệnh git như bước 2 của `/tiep` ở cả 5 repo để biết trạng thái thật (nhánh, commit chưa push, PR mở/đã merge).
 2. Sửa `docs/STATE.md` theo đúng khuôn hiện có (không thêm mục lạ, giữ ≤ 60 dòng, không văn xuôi):
-   - "Đang làm": lát, bước (`plan xong` → `code BE` → `code FE` → `review` → `chờ merge` → `xong`), repo/nhánh.
+   - "Đang làm": mục "Bước" chỉ ghi lát đang làm, mỗi lát một dòng theo khuôn ở `docs/process/progress-tracking.md` (quyết định → mockup → spec → code BE → code FE → review → merge, đánh dấu bước hiện tại); lát xong thì xóa.
    - "Việc kế tiếp": bỏ việc đã xong, thêm việc mới phát sinh, mục 1 là việc làm ngay.
    - "Chờ user", bảng "Chưa push/chưa merge", bảng "Cổng": khớp git.
    - Cập nhật dòng "Cập nhật lần cuối".
