@@ -52,6 +52,7 @@ Bảng này gán mỗi Eloquent Model trong `piclass-api/app/Models` (48 file) c
 | `SchoolClass` | Academic | Bảng/entity Class (tên PHP Class là từ khóa nên đặt SchoolClass). Enum `ClassStatus` (cast, Task 9f). Chủ ghi `status`: Academic — `CreateClass`, `UpdateClass`, `ActivateClass`, `RevertClassToPreparing` (UserManagement gọi hai Action cuối qua DI khi phân công/kết thúc phân công Teacher, `ARCH-23(n)`). Chỉ đọc: hầu hết module khác. |
 | `Student` | UserManagement | Hồ sơ vai trò học viên. Chỉ đọc: Academic, Attendance, Assessment, SubmissionGrading, ResultProgress. |
 | `StudentAssessment` | Assessment | Đối tượng nhận hiệu lực, khử trùng đường giao. Chỉ đọc: SubmissionGrading. |
+| `StudentNote` | ResultProgress | Nhận xét một chiều của giáo viên về học sinh (`DEC-LRN-031`); đã gửi không sửa/xóa. Chỉ đọc: phụ huynh, học sinh qua endpoint của ResultProgress. |
 | `Subject` | Academic | Enum `SubjectStatus` (cast, Task 9f). Chỉ đọc: QuestionBank (Topic thuộc Subject). |
 | `Submission` | SubmissionGrading | Mỗi Attempt tối đa một Submission cuối. Chỉ đọc: ResultProgress. |
 | `Tag` | QuestionBank | Nối với QuestionVersion qua QuestionTag. |

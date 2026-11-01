@@ -16,14 +16,14 @@ Cập nhật lần cuối: 2026-11-02 · bởi: chốt phạm vi lát 4d (TC-14)
     - 4c: TC-11, TC-12, TC-13 — xong, đã merge; nghiệp vụ `DEC-LRN-027`; dữ liệu mẫu: `docs/setup/dev-demo-data.md`
     - Chấm bài kiểu mới (`DEC-LRN-029`): chấm cả bài một lần lưu, tab Trao đổi — xong, đã merge, chưa chạy review độc lập; đã chỉnh UX lần 2 và 3 (`DEC-LRN-029` mục 7, `DEC-LRN-030`: nhận xét như lời phê chỉ lưu khi Lưu nháp hoặc Công bố, bỏ tab Trao đổi, Chấm lại), xong, đã merge; user đang tự test; mockup chưa cập nhật
     - Dữ liệu mẫu khóa học (`TeacherCourseDemoSeeder`, `docs/setup/dev-demo-data.md`) và tab Học tập của lớp dạng danh sách lọc Tất cả / Khóa học / Bài kiểm tra — xong, đã merge
-    - 4d: TC-14 — **đang làm**, quyết định (`DEC-LRN-031`) và plan BE xong (`docs/superpowers/plans/2026-11-02-be-teacher-progress-4d.md`): mockup đã có; thêm BE nhận xét học sinh một chiều (đã gửi không sửa/xóa, chưa thông báo), điểm danh theo học sinh (G3), lịch sử điểm (G8); tiếp theo user duyệt plan BE rồi code BE, plan FE
+    - 4d: TC-14 — **đang làm**, quyết định (`DEC-LRN-031`), plan và code BE xong, đã review (`docs/superpowers/plans/2026-11-02-be-teacher-progress-4d.md`): mockup đã có; thêm BE nhận xét học sinh một chiều (đã gửi không sửa/xóa, chưa thông báo), điểm danh theo học sinh (G3), lịch sử điểm (G8); tiếp theo plan FE rồi code FE
     - Cải tiến sau 4c (`DEC-LRN-028`): gọn màn chấm TC-13, bỏ %, "Hủy công bố", nút "Bài nộp và chấm" ở mục bài của khóa, tab Học tập ở chi tiết lớp — xong, đã merge; user đang tự test; mockup chưa cập nhật
 - **Bước** (quy ước cuối file):
   - Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`): quyết định xong → BE xong, đã review, đã merge  → không làm mockup (user chốt 2026-10-31), FE làm từng cổng: Admin xong, đã merge , Giáo viên xong, đã merge → Học sinh chưa làm (hoãn đến sau khi xong cổng Giáo viên)
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Lát 4d Giáo viên (TC-14): duyệt plan BE, code BE, viết plan FE, xong thì cổng Giáo viên đóng
+1. Lát 4d Giáo viên (TC-14): viết plan FE, code FE, xong thì cổng Giáo viên đóng
 2. Làm lại mô hình Khóa học, FE cổng Học sinh (ST-09) theo OpenAPI mới, không mockup
 3. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 

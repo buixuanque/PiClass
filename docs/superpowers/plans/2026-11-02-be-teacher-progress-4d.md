@@ -20,7 +20,7 @@
 - Phạm vi xem học sinh của Teacher dùng `StudentPolicy` (`viewProgress`/`view`, cùng `ClassScope::teacherCoversStudent`); ngoài phạm vi trả 404 `NOT_FOUND` "Request failed.".
 - Nhận xét đã gửi **không sửa, không xóa** (`DEC-LRN-031` mục 3): không có route PUT/PATCH/DELETE. Chưa có thông báo (mục 4): không dispatch Event.
 - Chưa làm: endpoint điểm danh và lịch sử điểm cho Phụ huynh/Học sinh (làm ở lát cổng của họ); biểu đồ; nhận xét hàng loạt (`B-083`).
-- Sau khi đổi route/Resource: `docker compose exec api php artisan scramble:export` (repo `piclass-infra/local`), commit `storage/api-docs/openapi.json`.
+- Sau khi đổi route/Resource: `docker compose exec api php artisan scramble:export` (repo `piclass-infra/local`), `storage/api-docs/openapi.json` bị gitignore nên chỉ export, không commit.
 - Không chạy test song song cùng DB test. Lệnh: `php artisan test`, `vendor/bin/pint`, `composer analyse` (PHPStan không thêm lỗi, không thêm vào baseline).
 
 ## Quyết định của plan (cần user xem)
@@ -97,7 +97,7 @@ Expected: PASS (đây là lưới an toàn cho bước refactor).
 
 **Interfaces:**
 - Produces: `StudentAttendanceQuery::handle(string $studentId, ?string $classId, int $limit): array{records: Collection, counts: array<string,int>, rate: ?int}` (`records` là các `AttendanceRecord` đã eager load `lessonSession.schoolClass`, sắp `occurrence_date` giảm dần, bỏ buổi `LessonSessionStatus::Cancelled`).
-- Produces: `GET /api/v1/students/{student}/attendance?class_id&limit` (limit mặc định 10, tối đa 30), route nhóm `role:admin,teacher`, authorize `Gate::inspect('view', $this->route('student'))`. Response phẳng như `ProgressResource`: `{"attendance_rate":int|null,"present_count","late_count","absent_count","excused_count","records":[{"lesson_session_id","class_id","class_name","occurrence_date","status"}]}`. `attendance_rate` theo mục "Quyết định của plan".
+- Produces: `GET /api/v1/students/{student}/attendance?class_id&limit` (limit mặc định 10, tối đa 30), route nhóm `role:admin,teacher`, authorize `Gate::inspect('view', $this->route('student'))`. Response phẳng như `ProgressResource`: `{"attendance_rate":int|null,"present_count","late_count","absent_count","excused_count","records":[{"lesson_session_id","class_id","class_name","starts_at","status"}]}`. `attendance_rate` theo mục "Quyết định của plan".
 
 - [ ] **Step 1: Viết test (FAIL trước)**: `test_returns_last_ten_records_newest_first_with_counts_and_rate` (tạo 12 buổi, assert 10 dòng, thứ tự, đếm, rate), `test_cancelled_sessions_are_excluded`, `test_no_records_gives_zero_counts_empty_records_and_null_rate`, `test_class_filter_limits_records_to_that_class`, `test_teacher_not_covering_student_gets_404_not_found`, `test_parent_role_is_forbidden`.
 - [ ] **Step 2: Chạy, thấy FAIL.**
@@ -170,3 +170,11 @@ Expected: PASS (đây là lưới an toàn cho bước refactor).
 
 - Spec coverage: G8 → Task 1–2; G3 → Task 3; nhận xét một chiều, không sửa/xóa, chưa thông báo → Task 4–6; phụ huynh/học sinh đọc nhận xét → Task 6; `Nhắn phụ huynh` và "Cần chú ý" không thuộc BE.
 - Nhất quán tên: `StudentRepresentativeResultsQuery` (Task 1) được Task 2 dùng; `StudentNoteResource` (Task 5) được Task 6 dùng.
+
+## Ghi chú sau khi làm (2026-11-02)
+
+- Điểm danh trả `starts_at` thay vì `occurrence_date` (cột này nullable với buổi lẻ).
+- `CreateStudentNote::handle(..., bool $restrictToTaughtClasses)`: Controller truyền `! $activeRole->isAdmin()`; Admin gắn được mọi lớp em đang học, kể cả khi đồng thời có hồ sơ Teacher (review cuối nhánh).
+- Giáo viên đã qua `StudentPolicy` thì xem điểm danh của em ở mọi lớp (cùng phạm vi `/progress` và nhận xét), `class_id` chỉ là bộ lọc.
+- Lọc `from`/`to` của lịch sử điểm và tiến độ so ngày theo UTC (lỗi có sẵn từ `StudentProgressQuery`, chưa sửa).
+- PHPStan: giữ 34 dòng bằng `main`; chuyển 4 entry baseline của `StudentProgressQuery` sang `StudentRepresentativeResultsQuery`, gỡ 2 entry `AttendanceRecord::$lessonSession`.
