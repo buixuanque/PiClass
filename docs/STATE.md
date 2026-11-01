@@ -2,7 +2,7 @@
 
 File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-11-01 · bởi: code cải tiến sau 4c (màn chấm, khóa, tab Học tập) xong, chưa merge
+Cập nhật lần cuối: 2026-11-01 · bởi: cải tiến sau 4c (màn chấm, khóa, tab Học tập) đã merge
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -15,7 +15,7 @@ Cập nhật lần cuối: 2026-11-01 · bởi: code cải tiến sau 4c (màn c
     - 4e: TC-08 soạn câu hỏi cùng khung Soạn bài, soạn nhiều câu — xong
     - 4c: TC-11, TC-12, TC-13 — xong, đã merge (`piclass-api` #75, #76, #77, `piclass-web` #46, `piclass-mockup` #28); nghiệp vụ `DEC-LRN-027`; dữ liệu mẫu: `docs/setup/dev-demo-data.md`
     - 4d: TC-14
-    - Cải tiến sau 4c (`DEC-LRN-028`): gọn màn chấm TC-13, bỏ %, "Rút" thành "Hủy công bố", nút "Bài nộp và chấm" ở mục bài của khóa, tab Học tập ở chi tiết lớp — code BE (`piclass-api` `feat/course-list-class-filter`) và FE (`piclass-web` `feat/teacher-grading-ui-simplify`) xong, đã push, chờ review rồi merge; mockup chưa cập nhật
+    - Cải tiến sau 4c (`DEC-LRN-028`): gọn màn chấm TC-13, bỏ %, "Hủy công bố", nút "Bài nộp và chấm" ở mục bài của khóa, tab Học tập ở chi tiết lớp — xong, đã merge (`piclass-api` #78, `piclass-web` #47, docs #180); user đang tự test; mockup chưa cập nhật
 - **Bước** (quy ước cuối file):
   - Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`): quyết định xong → BE xong, đã review, đã merge (`piclass-api` #70, docs #156) → không làm mockup (user chốt 2026-10-31), FE làm từng cổng: Admin xong, đã merge (`piclass-web` #36), Giáo viên xong, đã merge → Học sinh chưa làm (hoãn đến sau khi xong cổng Giáo viên)
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
@@ -37,9 +37,8 @@ Cập nhật lần cuối: 2026-11-01 · bởi: code cải tiến sau 4c (màn c
 ## Chưa push / chưa merge
 | Repo | Nhánh | Trạng thái |
 |---|---|---|
-| piclass-api | `feat/course-list-class-filter` | đã push, chưa PR |
-| piclass-web | `feat/teacher-grading-ui-simplify` | đã push, chưa PR |
-| piclass | `docs/grading-ui-class-learning` | DEC-LRN-028, spec, STATE |
+| — | — | không có nhánh chờ |
+
 
 ## Cổng
 | Cổng | FE |
