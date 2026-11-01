@@ -239,6 +239,14 @@ Các mô tả "ghép tạm" ở TC-11…13 phía trên đã thay bằng API th�
 - **File bài làm và nhận xét (G6).** Học sinh upload (`POST /attachments`) rồi gắn vào câu trả lời của câu `file_upload` (`POST /attachments/{id}/link` với `answer_id`, `visibility` là `private` hoặc `parent_if_published`); giáo viên tác giả gắn vào nhận xét (`feedback_id`, quyền xem theo nhận xét). Giới hạn đọc từ env: `ATTACHMENTS_ANSWER_MAX_FILES` (1), `ATTACHMENTS_ANSWER_MAX_SIZE_KB` (5120), ảnh/PDF/Word; vượt thì `ATTACHMENT_LIMIT_EXCEEDED` / `ATTACHMENT_NOT_ALLOWED`. `DELETE /attachments/{id}` gỡ được file của bài làm đang làm dở hoặc nhận xét nháp. Đĩa lưu chọn bằng `ATTACHMENT_DISK` (`local` ở dev, `s3` ở production). Học sinh chủ bài, giáo viên tạo bài hoặc phụ trách học sinh và Admin xem được; phụ huynh chỉ xem file bài làm `parent_if_published` sau khi kết quả công bố.
 - Đã giải quyết: TB-5, TB-9, TB-2 (tên người viết nhận xét), G6, `B-073`. Chưa làm: hủy hẹn giờ riêng, `late_policy` (`B-067`), tên người chấm, lịch sử sửa điểm (G5).
 
+## Cập nhật FE lát 4c (2026-11-01)
+
+TC-11, TC-12, TC-13 đã port trong `piclass-web` (nhánh `feat/teacher-grading-4c-fe`), theo mockup `piclass-mockup` #28:
+- TC-11 `/teacher/assessments/[assessmentId]` (tab Tổng quan, Câu hỏi, Đối tượng, Học sinh, Bài nộp; nút Sửa / Soạn phiên bản mới / Đóng / Mở lại / Hủy); TC-12 là tab Bài nộp; TC-13 `/teacher/assessments/[assessmentId]/submissions/[submissionId]`.
+- Hộp công bố điểm (từng bài và hàng loạt) có ba công tắc đáp án / lời giải / điểm từng câu. Lựa chọn "Hẹn giờ công bố" **hiện nhưng chưa dùng được** (scheduler chưa chạy): chọn vào chỉ báo "Tính năng hẹn giờ đang phát triển", FE không gửi `publish_at` (`DEC-LRN-027` mục 8).
+- Quyền ghi do BE quyết; FE chỉ ẩn nút ghi ở bài không phải của mình (cùng cách TC-09) và với bài nộp bị vô hiệu.
+- Dữ liệu mẫu để xem: `docs/setup/dev-demo-data.md`.
+
 ## Khoảng trống BE mới và điểm cần chốt
 
 Khoảng trống mới (ngoài G1…G14) phát hiện khi đối chiếu code thật:
