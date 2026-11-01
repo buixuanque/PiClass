@@ -2,7 +2,7 @@
 
 File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-10-31 · bởi: chốt hoàn thiện cổng Giáo viên trước, mở lát 4c (bàn nghiệp vụ)
+Cập nhật lần cuối: 2026-11-01 · bởi: code BE lát 4c Giáo viên xong (10 task, nhánh `feat/teacher-grading-4c`)
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -13,14 +13,14 @@ Cập nhật lần cuối: 2026-10-31 · bởi: chốt hoàn thiện cổng Giá
     - 4a: TC-07, TC-08 — xong
     - 4b: TC-09, TC-10 — xong
     - 4e: TC-08 soạn câu hỏi cùng khung Soạn bài, soạn nhiều câu — xong
-    - 4c: TC-11, TC-12, TC-13 — nghiệp vụ đã chốt (`DEC-LRN-027`), mockup đã sửa, đã merge (`piclass-mockup` #28); plan BE xong, chờ user duyệt (`docs/superpowers/plans/2026-11-01-be-teacher-grading-4c.md`); bước kế: code BE
+    - 4c: TC-11, TC-12, TC-13 — nghiệp vụ đã chốt (`DEC-LRN-027`), mockup đã sửa, đã merge (`piclass-mockup` #28); plan BE xong (`docs/superpowers/plans/2026-11-01-be-teacher-grading-4c.md`), code BE xong (`piclass-api` `feat/teacher-grading-4c`, 10 task, đã push), chờ review độc lập rồi merge; bước kế: plan + code FE
     - 4d: TC-14
 - **Bước** (quy ước cuối file):
   - Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`): quyết định xong → BE xong, đã review, đã merge (`piclass-api` #70, docs #156) → không làm mockup (user chốt 2026-10-31), FE làm từng cổng: Admin xong, đã merge (`piclass-web` #36), Giáo viên xong, đã merge → Học sinh chưa làm (hoãn đến sau khi xong cổng Giáo viên)
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Lát 4c Giáo viên (TC-11, TC-12, TC-13): nghiệp vụ đã chốt, mockup đã sửa, đã merge, plan BE xong (chờ duyệt) → code BE → plan+code FE; gồm `B-073` (đưa ba cờ hiển thị đáp án/lời giải/điểm từng câu vào hộp công bố điểm). User chốt 2026-10-31: hoàn thiện cổng Giáo viên trước
+1. Lát 4c Giáo viên (TC-11, TC-12, TC-13): nghiệp vụ đã chốt, mockup đã sửa, đã merge, code BE xong (chờ review độc lập và merge) → plan+code FE; gồm `B-073` (đưa ba cờ hiển thị đáp án/lời giải/điểm từng câu vào hộp công bố điểm). User chốt 2026-10-31: hoàn thiện cổng Giáo viên trước
 2. Lát 4d Giáo viên (TC-14), xong thì cổng Giáo viên đóng
 3. Làm lại mô hình Khóa học, FE cổng Học sinh (ST-09) theo OpenAPI mới, không mockup
 4. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
@@ -32,7 +32,7 @@ Cập nhật lần cuối: 2026-10-31 · bởi: chốt hoàn thiện cổng Giá
 ## Chưa push / chưa merge
 | Repo | Nhánh | Trạng thái |
 |---|---|---|
-| — | — | không có nhánh chờ |
+| `piclass-api` | `feat/teacher-grading-4c` | đã push, chưa mở PR; PHPStan còn 30 lỗi mới cùng loại D-22 chờ user quyết |
 
 ## Cổng
 | Cổng | FE |
