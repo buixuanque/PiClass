@@ -4,7 +4,7 @@
 
 ## Nguyên tắc
 
-- `STATE.md` là nguồn duy nhất cho "đang ở đâu". Giữ ≤ 60 dòng, không văn xuôi, mục nhiều ý thì tách gạch con. Chi tiết của một lát (PR số mấy, vì sao chốt) nằm ở mô tả PR; quyết định quan trọng ghi vào `decision-log.md` hoặc `architecture/decisions/ARCH-xx.md`. `archive/progress-log.md` là bản chụp cũ, không ghi thêm.
+- `STATE.md` là nguồn duy nhất cho "đang ở đâu". Giữ ≤ 60 dòng, không văn xuôi, mục nhiều ý thì tách gạch con. **Không ghi số PR, tên nhánh hay "chưa push/chưa merge"** (git và `gh pr list` đã cho biết, `/tiep` đối chiếu; ghi vào thì cũ ngay). Chi tiết của một lát (PR số mấy, vì sao chốt) nằm ở mô tả PR; quyết định quan trọng ghi vào `decision-log.md` hoặc `architecture/decisions/ARCH-xx.md`. `archive/progress-log.md` là bản chụp cũ, không ghi thêm.
 - Chỉ cập nhật khi trạng thái **thật sự đổi**: **xong một bước của lát (kể cả viết xong plan)**, xong lát, phát sinh hoặc xong việc kế tiếp, **vừa merge một PR**, hoặc khi user chạy `/xong`. Không sửa sau mỗi bước nhỏ. Khi trạng thái đã đổi thì cập nhật ngay, không hỏi user.
 - Việc phát sinh chưa làm: thêm một dòng vào `BACKLOG.md`. Lát xong: xóa khỏi `STATE.md`, `git mv` spec/plan sang `docs/archive/superpowers/`.
 
@@ -18,13 +18,14 @@ Mục "Bước" chỉ ghi **lát đang làm**, mỗi lát một dòng, theo th�
 - `STATE.md` **không** ghi việc bấm thử thủ công trên trình duyệt là việc chờ, cả "Việc kế tiếp" lẫn "Chờ user".
 - Việc của user (`[user]`) không tự suy ra là đã xong.
 
-## Sau mỗi lần merge PR (bắt buộc, làm ngay trong cùng lượt)
+## Sửa STATE.md ngay trong nhánh của lát, trước khi mở PR (user chốt 2026-11-01)
 
-1. Sửa `STATE.md`: bảng "Chưa push / chưa merge", mục "Bước", "Việc kế tiếp" khớp với thực tế vừa merge.
-2. Rà nhanh: `BACKLOG.md` có việc mới không, `decision-log` có quyết định mới không, đã export OpenAPI chưa (nếu đổi API).
-3. Hỏi user **một câu**: có mở PR và merge để `STATE.md` lên `main` không (luồng nhánh riêng → push → PR → merge, không push thẳng `main`). Có mới mở PR.
+Sửa sau khi merge thì cần thêm một nhánh và một PR, nên `STATE.md` trên `main` luôn chậm một nhịp. Vì vậy:
 
-Nhánh đã push thì máy khác thấy, nhưng `main` thì chưa. Khi user có thể đổi máy, câu hỏi ở mục 3 không được bỏ.
+1. Khi code (hoặc bước đang làm) xong, **sửa `STATE.md` trong chính nhánh đó** rồi mới báo cáo và mở PR. Ghi theo trạng thái sẽ có sau khi merge ("xong"), không ghi "chờ merge". Lát có nhiều repo: nhánh docs của lát chứa phần `STATE.md`.
+2. PR bị từ chối hoặc đổi hướng thì sửa lại `STATE.md` trong chính nhánh đó.
+3. Vừa merge xong thì không cần sửa `STATE.md` nữa. Chỉ rà nhanh: `BACKLOG.md` có việc mới không, `decision-log` có quyết định mới không, đã export OpenAPI chưa (nếu đổi API), và còn lệch gì so với git không (nếu có mới sửa, đi nhánh docs riêng).
+4. Hỏi user **một câu** có đưa nhánh docs chứa `STATE.md` lên `main` không (nhánh riêng → push → PR → merge, không push thẳng `main`).
 
 ## Hai nhánh docs chạy song song
 

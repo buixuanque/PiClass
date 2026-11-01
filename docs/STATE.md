@@ -1,8 +1,8 @@
 # STATE — đang ở đâu, làm gì tiếp
 
-File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
+Không ghi số PR hay nhánh chưa push/chưa merge (đọc từ git bằng `/tiep`). File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-11-01 · bởi: code cải tiến sau 4c (màn chấm, khóa, tab Học tập) xong, chưa merge
+Cập nhật lần cuối: 2026-11-01 · bởi: cải tiến sau 4c (màn chấm, khóa, tab Học tập) đã merge
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -13,11 +13,11 @@ Cập nhật lần cuối: 2026-11-01 · bởi: code cải tiến sau 4c (màn c
     - 4a: TC-07, TC-08 — xong
     - 4b: TC-09, TC-10 — xong
     - 4e: TC-08 soạn câu hỏi cùng khung Soạn bài, soạn nhiều câu — xong
-    - 4c: TC-11, TC-12, TC-13 — xong, đã merge (`piclass-api` #75, #76, #77, `piclass-web` #46, `piclass-mockup` #28); nghiệp vụ `DEC-LRN-027`; dữ liệu mẫu: `docs/setup/dev-demo-data.md`
+    - 4c: TC-11, TC-12, TC-13 — xong, đã merge; nghiệp vụ `DEC-LRN-027`; dữ liệu mẫu: `docs/setup/dev-demo-data.md`
     - 4d: TC-14
-    - Cải tiến sau 4c (`DEC-LRN-028`): gọn màn chấm TC-13, bỏ %, "Rút" thành "Hủy công bố", nút "Bài nộp và chấm" ở mục bài của khóa, tab Học tập ở chi tiết lớp — code BE (`piclass-api` `feat/course-list-class-filter`) và FE (`piclass-web` `feat/teacher-grading-ui-simplify`) xong, đã push, chờ review rồi merge; mockup chưa cập nhật
+    - Cải tiến sau 4c (`DEC-LRN-028`): gọn màn chấm TC-13, bỏ %, "Hủy công bố", nút "Bài nộp và chấm" ở mục bài của khóa, tab Học tập ở chi tiết lớp — xong, đã merge; user đang tự test; mockup chưa cập nhật
 - **Bước** (quy ước cuối file):
-  - Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`): quyết định xong → BE xong, đã review, đã merge (`piclass-api` #70, docs #156) → không làm mockup (user chốt 2026-10-31), FE làm từng cổng: Admin xong, đã merge (`piclass-web` #36), Giáo viên xong, đã merge → Học sinh chưa làm (hoãn đến sau khi xong cổng Giáo viên)
+  - Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`): quyết định xong → BE xong, đã review, đã merge  → không làm mockup (user chốt 2026-10-31), FE làm từng cổng: Admin xong, đã merge , Giáo viên xong, đã merge → Học sinh chưa làm (hoãn đến sau khi xong cổng Giáo viên)
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 
 ## Việc kế tiếp (làm từ trên xuống)
@@ -29,17 +29,10 @@ Cập nhật lần cuối: 2026-11-01 · bởi: code cải tiến sau 4c (màn c
 - Quyết định về PHPStan: 30 lỗi mới cùng loại D-22 ở `piclass-api` (cho cập nhật baseline hay làm riêng việc gõ kiểu relation)
 - Scheduler: user chốt 2026-11-01 chưa cần chạy `schedule:run`; hẹn giờ công bố điểm (BE đã có) chưa hoạt động. FE lát 4c vẫn hiện tùy chọn "Hẹn giờ công bố" nhưng chỉ báo "đang phát triển", không gửi `publish_at`
 - BE có thêm cờ `can_manage` cho màn chi tiết bài (TC-11) không
-- Nút "Lưu và chấm bài kế" (TC-13) có tự lưu ô điểm đang gõ không
-- 12 minor FE chưa sửa (liệt kê ở mô tả `piclass-web` #46) và 12 minor BE chưa sửa (mô tả `piclass-api` #75, #76)
+- Nút "Bài kế tiếp" (TC-13) hiện chỉ điều hướng; có cần tự lưu ô điểm đang gõ trước khi chuyển không
+- 12 minor FE chưa sửa (liệt kê ở mô tả PR `piclass-web` lát 4c) và 12 minor BE chưa sửa (mô tả các PR `piclass-api` lát 4c)
 - Xác nhận `ARCH-36` (a)–(f): UI "thêm hồ sơ kèm tài khoản" dựng không qua mockup
 - Duyệt thứ tự ưu tiên `BACKLOG.md`
-
-## Chưa push / chưa merge
-| Repo | Nhánh | Trạng thái |
-|---|---|---|
-| piclass-api | `feat/course-list-class-filter` | đã push, chưa PR |
-| piclass-web | `feat/teacher-grading-ui-simplify` | đã push, chưa PR |
-| piclass | `docs/grading-ui-class-learning` | DEC-LRN-028, spec, STATE |
 
 ## Cổng
 | Cổng | FE |

@@ -9,7 +9,7 @@ Mục tiêu: lần sau mở session (máy nào cũng được) `/tiep` đọc ra
 2. Sửa `docs/STATE.md` theo đúng khuôn hiện có (không thêm mục lạ, giữ ≤ 60 dòng, không văn xuôi):
    - "Đang làm": mục "Bước" chỉ ghi lát đang làm, mỗi lát một dòng theo khuôn ở `docs/process/progress-tracking.md` (quyết định → mockup → spec → code BE → code FE → review → merge, đánh dấu bước hiện tại); lát xong thì xóa.
    - "Việc kế tiếp": bỏ việc đã xong, thêm việc mới phát sinh, mục 1 là việc làm ngay.
-   - "Chờ user", bảng "Chưa push/chưa merge", bảng "Cổng": khớp git.
+   - "Chờ user", bảng "Cổng": khớp git. Không ghi số PR, tên nhánh hay danh sách nhánh chưa push/chưa merge (nằm ở git, `/tiep` đọc).
    - Cập nhật dòng "Cập nhật lần cuối".
 3. Lát đã xong hẳn: xóa khỏi STATE.md (chi tiết đã nằm ở mô tả PR; không ghi vào `archive/progress-log.md`). Nếu có quyết định quan trọng chưa ghi ở nguồn thì ghi vào `decision-log.md`/`decisions/ARCH-xx.md`. `git mv` spec/plan của lát đó từ `docs/superpowers/` sang `docs/archive/superpowers/` và sửa link trỏ tới chúng.
 4. Việc phát sinh mà chưa làm ngay: thêm một dòng vào `docs/BACKLOG.md` (có ID `B-xxx` kế tiếp, cột Cần), không viết văn xuôi.
