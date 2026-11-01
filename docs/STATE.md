@@ -14,7 +14,7 @@ Cập nhật lần cuối: 2026-11-01 · bởi: cải tiến sau 4c (màn chấm
     - 4b: TC-09, TC-10 — xong
     - 4e: TC-08 soạn câu hỏi cùng khung Soạn bài, soạn nhiều câu — xong
     - 4c: TC-11, TC-12, TC-13 — xong, đã merge; nghiệp vụ `DEC-LRN-027`; dữ liệu mẫu: `docs/setup/dev-demo-data.md`
-    - Chấm bài kiểu mới (`DEC-LRN-029`): chấm cả bài một lần lưu, tab Trao đổi — code BE (`PUT /submissions/{id}/grades`) và FE xong, chờ review độc lập rồi merge; mockup chưa cập nhật
+    - Chấm bài kiểu mới (`DEC-LRN-029`): chấm cả bài một lần lưu, tab Trao đổi — xong, đã merge, chưa chạy review độc lập; user đang tự test; mockup chưa cập nhật
     - 4d: TC-14
     - Cải tiến sau 4c (`DEC-LRN-028`): gọn màn chấm TC-13, bỏ %, "Hủy công bố", nút "Bài nộp và chấm" ở mục bài của khóa, tab Học tập ở chi tiết lớp — xong, đã merge; user đang tự test; mockup chưa cập nhật
 - **Bước** (quy ước cuối file):
