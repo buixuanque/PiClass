@@ -26,7 +26,8 @@ Cập nhật lần cuối: 2026-11-01 · bởi: code BE lát 4c Giáo viên xong
 4. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
 ## Chờ user (Claude không tự làm được)
-- Quyết định về PHPStan: 30 lỗi mới cùng loại D-22 ở `piclass-api` (cho cập nhật baseline hay làm riêng việc gõ kiểu relation); hạ tầng cần cron `schedule:run` mỗi phút (`piclass-infra`)
+- Quyết định về PHPStan: 30 lỗi mới cùng loại D-22 ở `piclass-api` (cho cập nhật baseline hay làm riêng việc gõ kiểu relation)
+- Scheduler: user chốt 2026-11-01 chưa cần chạy `schedule:run`, nên hẹn giờ công bố điểm (BE đã có) chưa hoạt động; FE lát 4c phải ẩn hoặc vô hiệu tùy chọn "Hẹn giờ công bố" cho tới khi có scheduler
 - Xác nhận `ARCH-36` (a)–(f): UI "thêm hồ sơ kèm tài khoản" dựng không qua mockup
 - Duyệt thứ tự ưu tiên `BACKLOG.md`
 
