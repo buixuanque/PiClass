@@ -13,7 +13,7 @@ Cập nhật lần cuối: 2026-11-01 · bởi: code BE lát 4c Giáo viên xong
     - 4a: TC-07, TC-08 — xong
     - 4b: TC-09, TC-10 — xong
     - 4e: TC-08 soạn câu hỏi cùng khung Soạn bài, soạn nhiều câu — xong
-    - 4c: TC-11, TC-12, TC-13 — nghiệp vụ đã chốt (`DEC-LRN-027`), mockup đã sửa, đã merge (`piclass-mockup` #28); plan BE xong (`docs/superpowers/plans/2026-11-01-be-teacher-grading-4c.md`), code BE xong (`piclass-api` `feat/teacher-grading-4c`, 10 task, đã push), đã review độc lập (opus), sửa 5 phát hiện, đã merge (`piclass-api` #75); bước kế: plan + code FE
+    - 4c: TC-11, TC-12, TC-13 — nghiệp vụ đã chốt (`DEC-LRN-027`), mockup đã sửa, đã merge (`piclass-mockup` #28); plan BE xong (`docs/superpowers/plans/2026-11-01-be-teacher-grading-4c.md`), code BE xong (`piclass-api` `feat/teacher-grading-4c`, 10 task, đã push), đã review độc lập (opus), sửa 5 phát hiện, đã merge (`piclass-api` #75); plan FE xong, chờ user duyệt (`docs/superpowers/plans/2026-11-01-fe-teacher-grading-4c.md`, 13 task gồm seeder dữ liệu mẫu); bước kế: code FE
     - 4d: TC-14
 - **Bước** (quy ước cuối file):
   - Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`): quyết định xong → BE xong, đã review, đã merge (`piclass-api` #70, docs #156) → không làm mockup (user chốt 2026-10-31), FE làm từng cổng: Admin xong, đã merge (`piclass-web` #36), Giáo viên xong, đã merge → Học sinh chưa làm (hoãn đến sau khi xong cổng Giáo viên)
