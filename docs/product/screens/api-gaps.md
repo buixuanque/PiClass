@@ -78,3 +78,9 @@
 13. ~~Việc gán vai trò sau khi mời: BE tự gán hay Admin gán tay~~ — đã chốt: BE tự gán (`DEC-USR-018`).
 
 **Vẽ mockup khi chưa chốt:** các mục 1, 3, 4, 10 chỉ ảnh hưởng một vài màn, vẽ phương án đề xuất và đánh dấu "chờ chốt". Mục 2 ảnh hưởng lớn nhất, nên chốt trước khi vẽ ST-05/ST-06.
+
+## Phát hiện khi làm FE lát 4c Giáo viên (2026-11-01)
+
+- **Cờ quyền ghi của bài.** `GET /assessments/{id}` chưa trả "người đang đăng nhập có sửa được bài này không". FE đang suy từ `created_by_user_id` cho bài cá nhân (cùng TC-09) và coi mọi bài của khóa là sửa được, để BE chặn bằng 403. Đề xuất: BE trả `can_manage` (hoặc tương đương) trong chi tiết bài.
+- **Liên kết sang lượt thay thế.** Bài nộp bị vô hiệu chỉ có `attempt.replacement_attempt_id` (mã lượt làm), không có mã bài nộp, nên TC-13 chưa dựng được liên kết sang bài thay thế. Đề xuất: BE trả `replacement_submission_id` (null khi lượt thay thế chưa nộp).
+- **Lưu và chấm bài kế** không lưu ô điểm đang gõ dở (giống mockup `nextGrade`); cần chốt có tự lưu không (ghi `open-decisions.md` nếu đổi).
