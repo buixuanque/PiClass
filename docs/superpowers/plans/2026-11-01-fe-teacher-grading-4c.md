@@ -16,7 +16,7 @@
 - Quy tắc F1–F8 của `piclass-web/CLAUDE.md`: route mỏng, chỉ `lib/api-client.ts` gọi `fetch`, `api/` không biết UI, `ui/teacher` không import `ui/admin`, feature khác chỉ qua `index.ts`, FE không tự quyết quyền (ẩn/hiện theo dữ liệu BE), thời gian qua `lib/time.ts`, mỗi file một component chính, cảnh báo ESLint khi quá 200 dòng.
 - Port UI **đúng từng giá trị** từ mockup (đọc `docs/rules/design-system.md` trước); nghi ngờ chỗ nào ghi vào `docs/architecture/open-decisions.md`, không tự làm tròn.
 - Comment code và mô tả test tiếng Việt; tên hàm, component, file, test method, commit tiếng Anh; chữ giao diện tiếng Việt, xưng "cô" như các màn Giáo viên hiện có.
-- **Không có tùy chọn "Hẹn giờ công bố"** trong hộp công bố: scheduler chưa chạy (user chốt 2026-11-01), nên hộp chỉ có "Công bố ngay" và ba công tắc đáp án / lời giải / điểm từng câu. BE `publish_at` vẫn còn; thêm lại khi có scheduler.
+- **"Hẹn giờ công bố" hiện nhưng chưa dùng được** (user chốt 2026-11-01): scheduler chưa chạy, nên hộp công bố vẫn có lựa chọn "Hẹn giờ công bố" như mockup; chọn vào thì không mở ô ngày giờ, chỉ hiện thông báo "Tính năng hẹn giờ đang phát triển" và giữ nguyên "Công bố ngay". FE không bao giờ gửi `publish_at`. Khi có scheduler thì bật ô ngày giờ và gửi `publish_at`.
 - Tham số boolean của query đã gửi `1`/`0` (api-client, `piclass-web` #45); body JSON gửi boolean thật.
 - Giới hạn file bài làm và nhận xét (1 file, 5 MB, ảnh/PDF/Word) do BE canh (`ATTACHMENT_LIMIT_EXCEEDED`, `ATTACHMENT_NOT_ALLOWED`); FE chỉ gợi ý trong chú thích và hiện nguyên văn lỗi BE, rẽ nhánh theo `error.code`.
 - Phát hiện BE thiếu hoặc bất tiện: ghi vào `docs/product/screens/api-gaps.md`, không vá bằng FE phức tạp.
@@ -25,7 +25,7 @@
 ## Review Focus
 
 - Giáo viên không phải người tạo bài và không phụ trách: BE trả 404 thì mọi màn hiện "không tìm thấy", không hiện nút ghi; bài của người khác chỉ xem (BE trả quyền qua dữ liệu, FE không so sánh `created_by_user_id` với người dùng).
-- Hộp công bố: không bao giờ gửi `publish_at`; ba cờ gửi đúng giá trị công tắc; công bố hàng loạt hiện đúng "đã công bố / bỏ qua" từ `published`/`skipped`; kết quả đã công bố sẵn không lỗi (BE idempotent).
+- Hộp công bố: không bao giờ gửi `publish_at`, chọn "Hẹn giờ công bố" chỉ hiện thông báo đang phát triển và không đổi cách công bố; ba cờ gửi đúng giá trị công tắc; công bố hàng loạt hiện đúng "đã công bố / bỏ qua" từ `published`/`skipped`; kết quả đã công bố sẵn không lỗi (BE idempotent).
 - Sửa điểm khi kết quả đã `published`: bắt buộc ô lý do, gửi `reason`, hiện cảnh báo; chưa công bố thì ẩn ô lý do.
 - Điểm tổng thay điểm từng câu: hiện cảnh báo "Điểm tổng đang thay cho điểm từng câu"; điểm ngoài khoảng 0…tối đa hiện lỗi BE theo trường `score`, không gọi trùng.
 - Bài nộp `invalidated`: trang chỉ đọc, ẩn mọi nút chấm/công bố, có liên kết sang lượt thay thế.
@@ -127,9 +127,9 @@
 - Test: `publish.test.tsx`, `publish-results-dialog.test.tsx`
 
 **Interfaces:**
-- Produces: `PublishFlags` = `{ show_answers: boolean; show_explanations: boolean; show_question_scores: boolean }`; `BulkPublishOutcome` = `{ published: string[]; scheduled: string[]; skipped: { id: string; reason: string }[] }`; hook `usePublishResult()` (nhận `{ resultId, flags }`, `POST /results/{id}/publish`), `useWithdrawResult()` (`POST /results/{id}/withdraw`), `useBulkPublishResults(assessmentId)` (nhận `flags`, `POST /assessments/{id}/results/publish`); mỗi mutation làm mới các key bài nộp và chi tiết bài nộp (key do `grading` quản lý: nhận `onSuccess` từ nơi gọi hoặc dùng `queryClient.invalidateQueries` theo tiền tố đã thống nhất `["grading"]`). Component `PublishResultsDialog({ open, onClose, title, description, defaultFlags, onConfirm })` với ba công tắc (đáp án đúng, lời giải, điểm từng câu) khởi tạo từ `defaultFlags`, chú thích "Chọn theo từng lần công bố. Bài thi nên mở đáp án sau khi cả lớp thi xong."; **không có** ô hẹn giờ.
+- Produces: `PublishFlags` = `{ show_answers: boolean; show_explanations: boolean; show_question_scores: boolean }`; `BulkPublishOutcome` = `{ published: string[]; scheduled: string[]; skipped: { id: string; reason: string }[] }`; hook `usePublishResult()` (nhận `{ resultId, flags }`, `POST /results/{id}/publish`), `useWithdrawResult()` (`POST /results/{id}/withdraw`), `useBulkPublishResults(assessmentId)` (nhận `flags`, `POST /assessments/{id}/results/publish`); mỗi mutation làm mới các key bài nộp và chi tiết bài nộp (key do `grading` quản lý: nhận `onSuccess` từ nơi gọi hoặc dùng `queryClient.invalidateQueries` theo tiền tố đã thống nhất `["grading"]`). Component `PublishResultsDialog({ open, onClose, title, description, defaultFlags, onConfirm })` với ba công tắc (đáp án đúng, lời giải, điểm từng câu) khởi tạo từ `defaultFlags`, chú thích "Chọn theo từng lần công bố. Bài thi nên mở đáp án sau khi cả lớp thi xong."; có `Select` "Khi nào công bố" gồm "Công bố ngay" và "Hẹn giờ công bố"; chọn "Hẹn giờ công bố" thì không đổi giá trị, hiện dòng "Tính năng hẹn giờ đang phát triển" (và `onConfirm` luôn công bố ngay), không có ô ngày giờ.
 
-- [ ] **Step 1: Viết test**: hook gửi đúng body ba cờ và **không** có `publish_at`; hộp thoại khởi tạo công tắc từ `defaultFlags`, bấm xác nhận gọi `onConfirm(flags)` với giá trị đã đổi; không render ô ngày giờ.
+- [ ] **Step 1: Viết test**: hook gửi đúng body ba cờ và **không** có `publish_at`; hộp thoại khởi tạo công tắc từ `defaultFlags`, bấm xác nhận gọi `onConfirm(flags)` với giá trị đã đổi; chọn "Hẹn giờ công bố" hiện "Tính năng hẹn giờ đang phát triển", không render ô ngày giờ, và xác nhận vẫn công bố ngay không có `publish_at`.
 - [ ] **Step 2: Chạy, mong đợi FAIL.**
 - [ ] **Step 3: Cài đặt theo Interfaces và mockup (hộp thoại `dPub`, `dPubAll`, khối công tắc).**
 - [ ] **Step 4: Chạy, mong đợi PASS.**
