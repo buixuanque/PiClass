@@ -15,6 +15,7 @@ Cập nhật lần cuối: 2026-11-01 · bởi: cải tiến sau 4c (màn chấm
     - 4e: TC-08 soạn câu hỏi cùng khung Soạn bài, soạn nhiều câu — xong
     - 4c: TC-11, TC-12, TC-13 — xong, đã merge; nghiệp vụ `DEC-LRN-027`; dữ liệu mẫu: `docs/setup/dev-demo-data.md`
     - Chấm bài kiểu mới (`DEC-LRN-029`): chấm cả bài một lần lưu, tab Trao đổi — xong, đã merge, chưa chạy review độc lập; đã chỉnh UX lần 2 và 3 (`DEC-LRN-029` mục 7, `DEC-LRN-030`: nhận xét như lời phê chỉ lưu khi Lưu nháp hoặc Công bố, bỏ tab Trao đổi, Chấm lại), xong; lần 3 chờ merge cùng PR; user đang tự test; mockup chưa cập nhật
+    - Dữ liệu mẫu khóa học (`TeacherCourseDemoSeeder`, `docs/setup/dev-demo-data.md`) và tab Học tập của lớp dạng danh sách lọc Tất cả / Khóa học / Bài kiểm tra — xong, chờ merge `piclass-api` `feat/demo-course-seed` và `piclass-web` `feat/class-learning-filter` cùng PR docs
     - 4d: TC-14
     - Cải tiến sau 4c (`DEC-LRN-028`): gọn màn chấm TC-13, bỏ %, "Hủy công bố", nút "Bài nộp và chấm" ở mục bài của khóa, tab Học tập ở chi tiết lớp — xong, đã merge; user đang tự test; mockup chưa cập nhật
 - **Bước** (quy ước cuối file):
