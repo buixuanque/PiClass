@@ -14,6 +14,7 @@ Cập nhật lần cuối: 2026-11-01 · bởi: cải tiến sau 4c (màn chấm
     - 4b: TC-09, TC-10 — xong
     - 4e: TC-08 soạn câu hỏi cùng khung Soạn bài, soạn nhiều câu — xong
     - 4c: TC-11, TC-12, TC-13 — xong, đã merge; nghiệp vụ `DEC-LRN-027`; dữ liệu mẫu: `docs/setup/dev-demo-data.md`
+    - Chấm bài kiểu mới (`DEC-LRN-029`): chấm cả bài một lần lưu, tab Trao đổi — code BE (`PUT /submissions/{id}/grades`) và FE xong, chờ review độc lập rồi merge; mockup chưa cập nhật
     - 4d: TC-14
     - Cải tiến sau 4c (`DEC-LRN-028`): gọn màn chấm TC-13, bỏ %, "Hủy công bố", nút "Bài nộp và chấm" ở mục bài của khóa, tab Học tập ở chi tiết lớp — xong, đã merge; user đang tự test; mockup chưa cập nhật
 - **Bước** (quy ước cuối file):
@@ -29,7 +30,6 @@ Cập nhật lần cuối: 2026-11-01 · bởi: cải tiến sau 4c (màn chấm
 - Quyết định về PHPStan: 30 lỗi mới cùng loại D-22 ở `piclass-api` (cho cập nhật baseline hay làm riêng việc gõ kiểu relation)
 - Scheduler: user chốt 2026-11-01 chưa cần chạy `schedule:run`; hẹn giờ công bố điểm (BE đã có) chưa hoạt động. FE lát 4c vẫn hiện tùy chọn "Hẹn giờ công bố" nhưng chỉ báo "đang phát triển", không gửi `publish_at`
 - BE có thêm cờ `can_manage` cho màn chi tiết bài (TC-11) không
-- Nút "Bài kế tiếp" (TC-13) hiện chỉ điều hướng; có cần tự lưu ô điểm đang gõ trước khi chuyển không
 - 12 minor FE chưa sửa (liệt kê ở mô tả PR `piclass-web` lát 4c) và 12 minor BE chưa sửa (mô tả các PR `piclass-api` lát 4c)
 - Xác nhận `ARCH-36` (a)–(f): UI "thêm hồ sơ kèm tài khoản" dựng không qua mockup
 - Duyệt thứ tự ưu tiên `BACKLOG.md`
