@@ -14,9 +14,9 @@ Quy ước: ✅ BE đã có · 🟡 thiếu API · 🔵 đề xuất ngoài ph�
 | [TC-08](#tc-08--soạn-câu-hỏi) | Soạn câu hỏi (9 loại) | ✅ (nộp file 🟡 G6) |
 | [TC-09](#tc-09--danh-sách-bài-đánh-giá) | Danh sách bài đánh giá 🎨 | ✅ (cột đối tượng/đã nộp 🟡 G9) |
 | [TC-10](#tc-10--soạn--giao-bài-một-trang) | Soạn & giao bài (một trang, ba tab) 🎨 | ✅ (nộp file 🟡 G6; hẹn giờ công bố 🟡 TB-6) |
-| [TC-11](#tc-11--chi-tiết-bài) | Chi tiết bài | ✅ (tên/tiến độ học sinh 🟡 TB-9) |
-| [TC-12](#tc-12--bài-nộp-của-một-bài) | Bài nộp của một bài | ✅ (tên học sinh 🟡 TB-5) |
-| [TC-13](#tc-13--chấm-bài) | Chấm bài | ✅ (file bài làm 🟡 G6, nội dung đề 🟡 TB-5) |
+| [TC-11](#tc-11--chi-tiết-bài) | Chi tiết bài | ✅ |
+| [TC-12](#tc-12--bài-nộp-của-một-bài) | Bài nộp của một bài | ✅ |
+| [TC-13](#tc-13--chấm-bài) | Chấm bài | ✅ |
 | [Khoảng trống và câu hỏi cần chốt](#khoảng-trống-be-mới-và-điểm-cần-chốt) | TB-1…TB-11, Q-A…Q-E | — |
 
 ## Bảng 9 loại câu hỏi
@@ -177,7 +177,7 @@ Chú ý khi dựng (cần xác nhận, Q-D): (a) "Mở lại" đặt cả bài v
 - **API:** `POST /assessments`, `PATCH /assessments/{id}`, `GET /assessments/{id}`, `POST/PATCH/DELETE /assessments/{id}/questions[/{aqId}]`, `POST/GET /assessments/{id}/audience`, `DELETE /assessments/{id}/audience/{audienceId}`, `POST …/publish`, `…/versions`, `…/close`, `…/reopen`, `…/cancel`, `GET /questions`, `GET /classes`, `GET /courses`, `GET /classes/{id}/members`, `GET /classes/{id}/lesson-sessions`, `POST /attachments`, `POST /attachments/{id}/link`.
 - **Dữ liệu mẫu gợi ý:** Quiz "Kiểm tra 15 phút – Đại số chương 2" · mở 24/10 17:30, đóng 24/10 19:00, 15 phút, 1 lượt, trộn câu, điểm đạt 5/10 · 10 câu · giao cho Toán 9A (25 học sinh). Bài tập "BTVN Hệ phương trình" · hạn 25/10 23:59 · 3 lượt, tính lần cuối.
 
-### TC-11 — Chi tiết bài   ✅ (tên/tiến độ học sinh 🟡 TB-9)
+### TC-11 — Chi tiết bài   ✅
 - **Vai trò · responsive:** Teacher (và Admin) · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** Xem bài đã giao tới đâu: ai chưa nộp, ai cần gia hạn, rồi đóng bài hoặc chuyển sang chấm.
 - **Vào từ / đi tới:** Từ TC-09 (bấm dòng), thông báo, tổng quan. Đi tới: TC-10 (sửa nháp / phiên bản mới), TC-12 (xem bài nộp), TC-13 (chấm), CM-08 (xem file đề).
@@ -192,7 +192,7 @@ Chú ý khi dựng (cần xác nhận, Q-D): (a) "Mở lại" đặt cả bài v
 - **API:** `GET /assessments/{id}`, `GET /assessments/{id}/audience`, `GET /assessments/{id}/students`, `PATCH /assessments/{id}/students/{studentId}`, `POST …/close|reopen|cancel|versions|publish`, `POST/DELETE …/audience`, `GET /classes/{id}/members`, `GET /attachments/{id}`.
 - **Dữ liệu mẫu gợi ý:** "Kiểm tra 15 phút – Đại số chương 2" · Đã phát hành · Toán 9A · 25 học sinh · Nguyễn Minh Khôi: hạn riêng 26/10 20:00, 2 lượt; Trần Thu Hà: đã rút (chuyển lớp).
 
-### TC-12 — Bài nộp của một bài   ✅ (tên học sinh 🟡 TB-5)
+### TC-12 — Bài nộp của một bài   ✅
 - **Vai trò · responsive:** Teacher (và Admin) · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** Xem ai đã nộp, ai còn chưa chấm xong, rồi chấm lần lượt hoặc công bố cả loạt.
 - **Vào từ / đi tới:** Tab "Bài nộp" trong TC-11 (hoặc màn riêng); từ thông báo "học sinh đã nộp". Bấm dòng → TC-13.
@@ -203,7 +203,7 @@ Chú ý khi dựng (cần xác nhận, Q-D): (a) "Mở lại" đặt cả bài v
 - **API:** `GET /assessments/{id}/submissions` (`?grading_status`), `POST /assessments/{id}/results/publish`, `POST /results/{id}/publish`, `POST /results/{id}/withdraw`, `GET /assessments/{id}/students`.
 - **Dữ liệu mẫu gợi ý:** Nguyễn Minh Khôi · nộp 24/10 18:12 · Chờ chấm · —. Lê Gia Hân · nộp 24/10 18:40 · Đã chấm · 8,5/10 (85%) · Đạt · Chưa công bố. Phạm Quốc Bảo · nộp trễ 25/10 00:20 · Đã chấm · 6/10 · Đã công bố.
 
-### TC-13 — Chấm bài   ✅ (file bài làm 🟡 G6; nội dung đề 🟡 TB-5)
+### TC-13 — Chấm bài   ✅
 - **Vai trò · responsive:** Teacher (và Admin) · ưu tiên web máy tính, dùng tốt trên máy tính bảng.
 - **Người dùng muốn làm gì:** Đọc bài của một học sinh, cho điểm từng câu tự luận, viết nhận xét, rồi công bố điểm và chuyển sang bài kế tiếp.
 - **Vào từ / đi tới:** Từ TC-12 (bấm dòng; "Chấm bài kế tiếp" đi theo thứ tự trong danh sách đã lọc). Cấp lại lượt (Admin) → hộp thoại của AD-13.
@@ -228,6 +228,16 @@ Chú ý khi dựng (cần xác nhận, Q-D): (a) "Mở lại" đặt cả bài v
 - **Dữ liệu mẫu gợi ý:** Lê Gia Hân · Lượt 1 · nộp 24/10 18:40 · Câu 7 (Tự luận, 2 điểm): "Phân tích bước giải hệ phương trình bằng phương pháp thế" · trả lời của học sinh 4 dòng · ô điểm 1,5/2 · nhận xét nháp "Lập luận đúng, thiếu bước thử lại nghiệm" · quyền xem "Học sinh và phụ huynh". Điểm tổng 8,5/10 · Đạt · Chưa công bố.
 
 ---
+
+## Cập nhật BE lát 4c (2026-11-01, `DEC-LRN-027`)
+
+Các mô tả "ghép tạm" ở TC-11…13 phía trên đã thay bằng API thật; đọc `piclass-api/storage/api-docs/openapi.json` để lấy contract chính xác:
+
+- **Giữ điểm mặc định.** Chấm xong không còn tự công bố; chỉ công bố khi giáo viên bấm, công bố hàng loạt, hoặc đến giờ hẹn (scheduler mỗi phút). `POST /results/{id}/publish` và `POST /assessments/{id}/results/publish` nhận body tùy chọn `publish_at` (phải ở tương lai; có thì hẹn giờ, kết quả vẫn `unpublished` và có `scheduled_publish_at`) và ba cờ `show_answers`, `show_explanations`, `show_question_scores` chọn theo từng lần công bố (`B-073`). Công bố hàng loạt trả thêm `scheduled`. Màn kết quả của học sinh/phụ huynh đọc cờ từ lần công bố, rơi về cờ của phiên bản bài khi chưa chọn.
+- **Danh sách bài nộp** (`GET /assessments/{id}/submissions`): mỗi dòng có thêm `student {id, full_name}`, `student_assessment_id`, `attempt_number`. **Chi tiết bài nộp** (`GET /submissions/{id}`): thêm `submission.student`, `submission.version {id, version_number, title, max_score, questions[]}` là đề đúng phiên bản học sinh đã làm, `feedback[].author {id, name}`, và `files[]` ở mỗi câu trả lời và mỗi nhận xét.
+- **Học sinh của bài** (`GET /assessments/{id}/students`): mỗi dòng có thêm `student {id, full_name}`, `attempts_used`, `progress` (`not_started` | `in_progress` | `submitted`), `latest_submission_id`.
+- **File bài làm và nhận xét (G6).** Học sinh upload (`POST /attachments`) rồi gắn vào câu trả lời của câu `file_upload` (`POST /attachments/{id}/link` với `answer_id`, `visibility` là `private` hoặc `parent_if_published`); giáo viên tác giả gắn vào nhận xét (`feedback_id`, quyền xem theo nhận xét). Giới hạn đọc từ env: `ATTACHMENTS_ANSWER_MAX_FILES` (1), `ATTACHMENTS_ANSWER_MAX_SIZE_KB` (5120), ảnh/PDF/Word; vượt thì `ATTACHMENT_LIMIT_EXCEEDED` / `ATTACHMENT_NOT_ALLOWED`. `DELETE /attachments/{id}` gỡ được file của bài làm đang làm dở hoặc nhận xét nháp. Đĩa lưu chọn bằng `ATTACHMENT_DISK` (`local` ở dev, `s3` ở production). Học sinh chủ bài, giáo viên tạo bài hoặc phụ trách học sinh và Admin xem được; phụ huynh chỉ xem file bài làm `parent_if_published` sau khi kết quả công bố.
+- Đã giải quyết: TB-5, TB-9, TB-2 (tên người viết nhận xét), G6, `B-073`. Chưa làm: hủy hẹn giờ riêng, `late_policy` (`B-067`), tên người chấm, lịch sử sửa điểm (G5).
 
 ## Khoảng trống BE mới và điểm cần chốt
 
