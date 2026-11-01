@@ -34,7 +34,7 @@ Cập nhật lần cuối: 2026-11-01 · bởi: code FE lát 4c Giáo viên xong
 ## Chưa push / chưa merge
 | Repo | Nhánh | Trạng thái |
 |---|---|---|
-| docs | `docs/plan-fe-teacher-grading-4c` | đã push, chưa mở PR (plan FE, DEC-LRN-027 mục 8, hướng dẫn seed) |
+| — | — | không có nhánh chờ |
 
 ## Cổng
 | Cổng | FE |
