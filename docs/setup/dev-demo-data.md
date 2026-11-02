@@ -25,3 +25,15 @@ docker compose exec api php artisan db:seed --class=TeacherCourseDemoSeeder
 - Bấm "Bài nộp và chấm" ở bài đã phát hành trong khóa để vào màn bài nộp và chấm. Khóa `[Demo khóa] Luyện đề nâng cao` chưa có đối tượng và bài, để xem trạng thái trống.
 - Màn "Lớp của tôi", lớp 9A, tab Học tập hiện khóa và bài kiểm tra của lớp trong một danh sách có bộ lọc.
 - Chạy lại khi đã có dữ liệu mẫu thì bỏ qua. Muốn tạo lại: `make fresh` rồi chạy lại lệnh trên.
+
+## Cổng Phụ huynh
+
+```
+docker compose exec api php artisan db:seed --class=ParentDemoSeeder
+```
+
+- Đăng nhập `parent1@piclass.test`, mật khẩu `Piclass@123`. Gán hai con `student1`, `student2` (Học sinh Một, Học sinh Hai) vào lớp `[Demo 4c] Toán 9A`.
+- Năm buổi đã học (điểm danh đủ có mặt, muộn, vắng, có phép), ba buổi sắp tới, một buổi bị hủy. Con thứ hai có một đơn xin phép bị từ chối (có lý do) và một đơn đã chấp nhận; còn buổi vắng chưa có đơn để thử gửi đơn.
+- Mỗi con có một nhận xét của giáo viên. Bài và điểm lấy từ dữ liệu `TeacherGradingDemoSeeder` (`student1` đã công bố, `student2` chưa công bố).
+- Chạy lại khi đã có dữ liệu thì bỏ qua.
+
