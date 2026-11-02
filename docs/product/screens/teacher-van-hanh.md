@@ -203,7 +203,7 @@ Mockup `PiClass Giáo viên.dc.html` đã sửa cho TC-01..TC-05 (nhánh `mockup
 
 - **TC-03:** gộp tab Lịch và Buổi học thành một tab "Lịch học" (`ARCH-37`, như Admin); chưa có tab "Bài của lớp" (thuộc lát Bài đánh giá); bảng học sinh chỉ có hai cột (tên, ngày vào lớp), cột chuyên cần hiện "Chưa có dữ liệu" (G3). Nhóm "Đã rời lớp" và "Giáo viên đã kết thúc" lấy bằng `include_ended=true`.
 - **TC-04:** dùng chung `ScheduleOverviewScreen` với Admin (`ui/shared`), khác ở `basePath` và việc ẩn bộ lọc giáo viên.
-- **TC-05:** danh sách buổi không có bộ đếm "x/y đã điểm danh" (cần N request); chưa có huy hiệu đơn xin phép (lát Đơn xin phép, TC-06); bắt buộc chọn trạng thái cho mọi học sinh trước khi lưu, nhắc bằng thông báo ngay trên màn thay vì toast như mockup; lịch sử sửa lấy từ `GET /audit-logs` lọc `action=attendance_record.update`; chi tiết buổi có nút "Điểm danh" dẫn tới `/teacher/attendance?session=`.
+- **TC-05:** danh sách buổi lấy mọi buổi tới hết hôm nay, buổi mới ở trên, có ô lọc theo lớp (`DEC-LRN-035`; mockup còn cột buổi 14 ngày, chưa cập nhật); danh sách buổi không có bộ đếm "x/y đã điểm danh" (cần N request); chưa có huy hiệu đơn xin phép (lát Đơn xin phép, TC-06); bắt buộc chọn trạng thái cho mọi học sinh trước khi lưu, nhắc bằng thông báo ngay trên màn thay vì toast như mockup; lịch sử sửa lấy từ `GET /audit-logs` lọc `action=attendance_record.update`; chi tiết buổi có nút "Điểm danh" dẫn tới `/teacher/attendance?session=`.
 - **Chữ:** mockup xưng "cô" với học sinh, FE đổi thành "bạn" cho trung tính theo giới (chờ chốt, xem `open-decisions.md`).
 - **Chưa kiểm bằng trình duyệt thật:** chỉ có test, `pnpm build` và gọi API thật bằng `curl` với tài khoản `teacher1@piclass.test`.
 
