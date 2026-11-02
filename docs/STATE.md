@@ -2,7 +2,7 @@
 
 Không ghi số PR hay nhánh chưa push/chưa merge (đọc từ git bằng `/tiep`). File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-11-02 · bởi: danh sách buổi điểm danh (DEC-LRN-035)
+Cập nhật lần cuối: 2026-11-02 · bởi: gắn khóa học vào lớp (DEC-LRN-036)
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -19,7 +19,8 @@ Cập nhật lần cuối: 2026-11-02 · bởi: danh sách buổi điểm danh (
     - 4d: TC-14 — xong, đã merge; màn `/teacher/progress`, nhận xét học sinh một chiều (`DEC-LRN-031`), tiến độ có lọc ngày và môn, điểm danh, biểu đồ điểm; chưa so khớp mockup bằng mắt
     - Màn điểm danh TC-05 chỉ để điểm danh (`DEC-LRN-032`, `DEC-LRN-033`): bỏ khối nội dung/ghi chú và Hủy buổi (còn ở TC-04), giữ nút Hoàn tất buổi bằng tay — xong, đã merge; mockup đã cập nhật; xem lại quy tắc hoàn tất sau khi vận hành thực tế
     - Ghi chú điểm danh (`DEC-LRN-034`): ô ghi chú tùy chọn lúc điểm danh, hộp thoại Sửa chỉ còn ghi chú, lý do sửa mặc định ở FE — xong, đã merge; mockup đã cập nhật
-    - Danh sách buổi ở màn điểm danh (`DEC-LRN-035`): mọi buổi tới hết hôm nay, buổi mới ở trên, lọc theo lớp — xong (FE), chờ merge; mockup chưa cập nhật
+    - Danh sách buổi ở màn điểm danh (`DEC-LRN-035`): mọi buổi tới hết hôm nay, buổi mới ở trên, lọc theo lớp — xong (FE), đã merge; mockup chưa cập nhật
+    - Gắn khóa học vào lớp từ tab Học tập (`DEC-LRN-036`): quyết định xong → code BE xong → code FE xong → review độc lập xong, đã sửa → chờ merge; mockup chưa cập nhật
     - Cải tiến sau 4c (`DEC-LRN-028`): gọn màn chấm TC-13, bỏ %, "Hủy công bố", nút "Bài nộp và chấm" ở mục bài của khóa, tab Học tập ở chi tiết lớp — xong, đã merge; user đang tự test; mockup chưa cập nhật
 - **Bước** (quy ước cuối file):
   - Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`): quyết định xong → BE xong, đã review, đã merge  → không làm mockup (user chốt 2026-10-31), FE làm từng cổng: Admin xong, đã merge , Giáo viên xong, đã merge → Học sinh chưa làm (hoãn đến sau khi xong cổng Giáo viên)
