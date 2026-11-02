@@ -1,6 +1,6 @@
 # Tổng hợp triển khai cổng Học sinh
 
-> Ghi tiếp theo từng cụm FE. Nguồn quyết định: `DEC-LRN-037` (BE + nguyên tắc UX), `DEC-LRN-038` (cụm A), `DEC-LRN-039` (cụm B). Đặc tả gốc: `student-parent.md`. Mockup: `piclass-mockup/ds-v2-source/ui_kits/student/`.
+> Ghi tiếp theo từng cụm FE. Nguồn quyết định: `DEC-LRN-037` (BE + nguyên tắc UX), `DEC-LRN-038` (cụm A), `DEC-LRN-039` (cụm B), `DEC-LRN-040` (cụm C). Đặc tả gốc: `student-parent.md`. Mockup: `piclass-mockup/ds-v2-source/ui_kits/student/`.
 
 ## BE (đã merge)
 - `B-063` chấm câu Nối không phụ thuộc thứ tự khóa; `B1` ẩn điểm chưa công bố khỏi học sinh.
@@ -58,3 +58,38 @@
 - Câu hỏi chưa có lời giải: `show_explanations` chưa có tác dụng (`B-087`).
 - Thoát giữa chừng không có hộp xác nhận (đồng hồ vẫn chạy, bài đã tự lưu).
 
+## Cụm C (ST-08, ST-09)
+| Màn | Route | Ghi chú |
+|---|---|---|
+| ST-08 Kết quả học tập | `/student/progress` | ba ô số liệu, "Theo môn", "Nhận xét của giáo viên" |
+| ST-09 Khóa học | `/student/courses`, `/student/courses/[courseId]` | danh sách khóa kèm "đã nộp/tổng"; chi tiết liệt kê bài của khóa, bấm bài sang ST-05 |
+
+### Đã bỏ / gộp (lý do)
+- Bỏ "Chuyên cần": chưa có `/me/attendance` (A9); điểm danh của em vẫn xem được trong hộp chi tiết buổi ở Lịch học.
+- Bỏ cột điểm thành phần, lọc học kỳ, biểu đồ theo thời gian (G8): API không có dữ liệu; "Theo môn" đã đủ cho học sinh.
+- Không đưa bộ lọc từ/đến/môn của `/me/progress` lên UI: học sinh chỉ cần bức tranh chung.
+- ST-09 không thêm API: học sinh được `GET /courses` (thấy khóa có em trong đối tượng) và bài của khóa suy từ `course_id` đã có.
+
+### Lệch mockup
+- ST-09 mockup không có: dựng bằng cùng kiểu dòng với "Bài của em".
+- ST-08: thẻ "Bảng điểm" của mockup (điểm thành phần từng môn) thay bằng thẻ "Theo môn" (thanh trung bình từng môn, dùng chung với TC-14).
+
+### Chưa làm / ghi nhận
+- Chưa xem giao diện bằng trình duyệt thật (kiểm bằng test + MSW).
+- Khóa chưa có bài nào thì chi tiết chỉ báo "Khóa này chưa có bài nào"; nội dung khóa dạng bài giảng/tài liệu thuộc `B-062`.
+- Review độc lập (opus) cuối cổng chưa chạy.
+
+---
+# Tổng hợp cuối cổng Học sinh
+
+**Quyết định chính** (`DEC-LRN-037..040`): chỉ lộ đáp án, giải thích và điểm sau khi giáo viên công bố; ẩn câu nộp tệp ở V1; đồng hồ theo header `Date`; bấm "Làm bài" lần nữa trả lại lượt đang dở; mỗi màn một việc chính, không nhồi chức năng.
+
+**Đã triển khai:** BE (chấm câu Nối, ẩn điểm chưa công bố, chi tiết bài, lượt đang dở, xem lại bài theo câu) và FE đủ ST-01..ST-09 (9 mục gộp thành 8 route: Trang chủ, Lịch học, Bài của em, Chi tiết bài, Làm bài, Kết quả, Khóa học, Kết quả học tập).
+
+**Đã bỏ hoặc gộp** (chi tiết ở từng cụm phía trên): gộp ST-03/04, ST-06b vào ST-06, ST-07b vào ST-07; bỏ biểu đồ theo thời gian, chuyên cần, điểm thành phần, chuỗi ngày/điểm thưởng/tìm kiếm.
+
+**Việc user cần xem/quyết:**
+1. Mở thử giao diện thật (`student1@piclass.test`, `student2@piclass.test`; bài "Bài 2" của student2 đã nộp và công bố).
+2. Chấp nhận các chỗ lệch mockup nêu trên (ST-02, ST-05, ST-07, ST-09 mockup không có).
+3. `B-086` (test seeder chập chờn), `B-087` (lời giải câu hỏi), `/me/attendance` (A9) nếu muốn chuyên cần ở cổng này.
+4. Chạy review độc lập (opus) cuối cổng.

@@ -2,7 +2,7 @@
 
 Không ghi số PR hay nhánh chưa push/chưa merge (đọc từ git bằng `/tiep`). File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-11-02 · bởi: cổng Học sinh cụm B (DEC-LRN-039)
+Cập nhật lần cuối: 2026-11-02 · bởi: cổng Học sinh cụm C (DEC-LRN-040)
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -23,17 +23,17 @@ Cập nhật lần cuối: 2026-11-02 · bởi: cổng Học sinh cụm B (DEC-L
     - Gắn khóa học vào lớp từ tab Học tập (`DEC-LRN-036`): quyết định xong → code BE xong → code FE xong → review độc lập xong, đã sửa → chờ merge; mockup chưa cập nhật
     - Cải tiến sau 4c (`DEC-LRN-028`): gọn màn chấm TC-13, bỏ %, "Hủy công bố", nút "Bài nộp và chấm" ở mục bài của khóa, tab Học tập ở chi tiết lớp — xong, đã merge; user đang tự test; mockup chưa cập nhật
 - **Bước** (quy ước cuối file):
-  - Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`): quyết định xong → BE xong, đã review, đã merge  → không làm mockup (user chốt 2026-10-31), FE làm từng cổng: Admin xong, đã merge , Giáo viên xong, đã merge → Học sinh chưa làm (hoãn đến sau khi xong cổng Giáo viên)
+  - Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`): quyết định xong → BE xong, đã review, đã merge  → không làm mockup (user chốt 2026-10-31), FE làm từng cổng: Admin xong, đã merge , Giáo viên xong, đã merge → Học sinh xong, đã merge
 - **Lát:** cổng Học sinh (ST-01..09), user vắng, Claude chạy tự động đến hết FE; user cho phép tự PR và merge từng cụm:
   - Quyết định (`DEC-LRN-037`) — xong
   - BE (B-063, B1, N-E, N-A, N-B) — xong, đã merge
-  - FE ST-01..09 (làm theo cụm, mỗi cụm một PR rồi merge, user cho phép 2026-11-02) → review opus → tổng hợp `docs/product/screens/student-portal-summary.md`:
-    - Cụm A (ST-01..05) và B (ST-06, 06b, 07, 07b) — xong, đã merge; cụm C (ST-08, ST-09) chưa làm
+  - FE ST-01..09 (3 cụm A, B, C) — xong, đã merge; chưa xem bằng trình duyệt thật; tổng hợp: `docs/product/screens/student-portal-summary.md`
+  - Còn: review độc lập (opus) cuối cổng
   - Xong cổng Học sinh mà user chưa thao tác gì thì làm tiếp cổng Phụ huynh cùng cách (user dặn 2026-11-02)
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Làm lại mô hình Khóa học, FE cổng Học sinh (ST-09) theo OpenAPI mới, không mockup
+1. Review độc lập cổng Học sinh (opus), rồi cổng Phụ huynh (PR-01..08) nếu user chưa thao tác
 2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
 ## Chờ user (Claude không tự làm được)
@@ -50,7 +50,7 @@ Cập nhật lần cuối: 2026-11-02 · bởi: cổng Học sinh cụm B (DEC-L
 |---|---|
 | Admin | [x] xong |
 | Giáo viên | [x] xong, đã merge `main` |
-| Học sinh | [ ] chưa port (có mockup) |
+| Học sinh | [x] xong, đã merge `main` (chưa review độc lập) |
 | Phụ huynh | [ ] chưa port (có mockup) |
 BE: [x] xong, đã merge `main`.
 
