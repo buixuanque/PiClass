@@ -2,7 +2,7 @@
 
 Không ghi số PR hay nhánh chưa push/chưa merge (đọc từ git bằng `/tiep`). File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-11-02 · bởi: gắn khóa học vào lớp (DEC-LRN-036)
+Cập nhật lần cuối: 2026-11-02 · bởi: quyết định cổng Học sinh (DEC-LRN-037)
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -24,6 +24,9 @@ Cập nhật lần cuối: 2026-11-02 · bởi: gắn khóa học vào lớp (DE
     - Cải tiến sau 4c (`DEC-LRN-028`): gọn màn chấm TC-13, bỏ %, "Hủy công bố", nút "Bài nộp và chấm" ở mục bài của khóa, tab Học tập ở chi tiết lớp — xong, đã merge; user đang tự test; mockup chưa cập nhật
 - **Bước** (quy ước cuối file):
   - Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`): quyết định xong → BE xong, đã review, đã merge  → không làm mockup (user chốt 2026-10-31), FE làm từng cổng: Admin xong, đã merge , Giáo viên xong, đã merge → Học sinh chưa làm (hoãn đến sau khi xong cổng Giáo viên)
+- **Lát:** cổng Học sinh (ST-01..09), user vắng, Claude chạy tự động đến hết FE, chỉ push nhánh, không PR/merge:
+  - Quyết định (`DEC-LRN-037`) — xong
+  - BE (B-063, B1, N-E, N-A, N-B) → FE ST-01..09 → review opus → tổng hợp `docs/product/screens/student-portal-summary.md`
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 
 ## Việc kế tiếp (làm từ trên xuống)
