@@ -27,6 +27,7 @@ Cập nhật lần cuối: 2026-11-02 · bởi: quyết định cổng Học sin
 - **Lát:** cổng Học sinh (ST-01..09), user vắng, Claude chạy tự động đến hết FE, chỉ push nhánh, không PR/merge:
   - Quyết định (`DEC-LRN-037`) — xong
   - BE (B-063, B1, N-E, N-A, N-B) — xong, đã merge
+  - FE cụm A (nền tảng, ST-01..05) — xong (`DEC-LRN-038`); còn cụm B (ST-06..09)
   - FE ST-01..09 (làm theo cụm, mỗi cụm một PR rồi merge, user cho phép 2026-11-02) → review opus → tổng hợp `docs/product/screens/student-portal-summary.md`
   - Xong cổng Học sinh mà user chưa thao tác gì thì làm tiếp cổng Phụ huynh cùng cách (user dặn 2026-11-02)
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
