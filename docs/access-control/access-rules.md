@@ -16,7 +16,7 @@ Yêu cầu được phép khi User active + action permission hợp lệ + resou
 - Admin tạo/xác nhận relationship; xác nhận lưu actor/time. Một Parent có thể liên kết nhiều Student; Student không bắt buộc có Parent.
 - Parent scope yêu cầu relationship active và context visibility cho Parent. Unlink thu hồi xem ngay cả lịch sử qua Parent portal; mọi Notification/File link cũng kiểm tra lại quyền.
 - Parent được gửi AbsenceExplanation của child cho LessonSession phù hợp. Teacher/Admin review; không tự đổi Attendance.
-- Parent không làm bài, trả lời, submit, sửa Attendance/Grade/profile Student, hoặc truy cập bài làm/tệp private.
+- Parent không làm bài, trả lời, submit, sửa Attendance/Grade/profile Student, hoặc truy cập tệp bài làm private. Parent xem nội dung chữ của bài làm của con (câu trả lời, đáp án đúng và điểm từng câu theo cờ hiển thị) chỉ sau khi kết quả đã công bố (`DEC-LRN-047`).
 
 ## 4. Class membership / lịch sử
 

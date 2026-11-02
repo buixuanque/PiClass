@@ -42,7 +42,7 @@ Ký hiệu: **✓** cho phép nếu scope và lifecycle hợp lệ; **R** chỉ 
 | Attempt / Answer / Submission | Admin | ✓ | exception workflow only | operational only; no rewrite of submission | — | — | — | — | Exam reattempt if confirmed incident |
 | Attempt / Answer / Submission | Teacher | assigned C | — | may request Assignment resubmission; cannot edit answers/submission | — | — | — | — | assigned C |
 | Attempt / Answer / Submission | Student | own | eligible Attempt | own draft Answer | — | — | own eligible Attempt | — | — |
-| Attempt / Answer / Submission | Parent | — unless explicitly published context | — | — | — | — | — | — | — |
+| Attempt / Answer / Submission | Parent | child answers per question only after the Result is published, following the published display flags (`show_answers`, `show_question_scores`); answer files stay private (`DEC-LRN-047`) | — | — | — | — | — | — | — |
 | Grade / Result / Feedback | Admin | ✓ | grade/result per workflow | grade published: reason + history | — | publish/withdraw per policy | — | ✓ | ✓ |
 | Grade / Result / Feedback | Teacher | assigned C | Grade/Feedback C | published grade: reason + history | — | publish configured result/feedback | — | ✓ C | ✓ C |
 | Grade / Result / Feedback | Student | own published items | — | — | — | — | — | — | — |
