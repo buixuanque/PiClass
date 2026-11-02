@@ -142,3 +142,14 @@ User ủy quyền "triển khai toàn bộ"; bốn câu mở chưa được tr�
 - **Lệch mockup:** mockup chưa có hai màn này; dựng bằng `ListRow`/`Card`/`Tabs`. Tab bar dưới ở 390px có 5 mục, nhãn "Lớp & khóa học" dài hơn các nhãn khác.
 - **Chưa xem bằng mắt:** các màn trên chỉ được kiểm bằng test và ảnh chụp Chromium ở 1440 và 390px; chưa có người dùng thật xem.
 - **Chưa làm:** tệp bài làm cho phụ huynh; hiện tên bạn cùng lớp (không làm); thông báo (`B-090`).
+
+## Review độc lập đợt hai và sửa (opus, 2026-11-03)
+Phạm vi: lịch calendar, điểm danh, ô chọn con (`DEC-LRN-046`), xem bài làm của con, "Lớp & khóa học" (`DEC-LRN-047`). **Không thấy rò quyền hay dữ liệu**: IDOR theo `student_id` và id lớp/khóa/bài, liên kết đã kết thúc, `student_count` không kèm tên bạn cùng lớp, `questions` chỉ có khi đã công bố và không lộ đáp án khi cờ tắt (kể cả thứ tự Sắp xếp và Nối), tệp bài làm không lộ, `/me/attendance` gắn với hồ sơ của chính học sinh, tham số `from`/`until` sai không gây 500.
+- **Màn kết quả báo nhầm "Chờ công bố"** (vừa): đổi con ở thanh trên hoặc mở link khi đang chọn con khác khiến bài không thuộc con bị coi là chưa công bố. Sửa: bài không có trong danh sách bài của con thì hiện "Con không có bài này" kèm nút về danh sách; đổi con ở màn chi tiết thì quay về `/parent/results`; chỉ báo "Chờ công bố" khi bài thuộc con và chưa công bố.
+- **Trang trắng khi chưa có con** ở màn kết quả một bài và "Lớp & khóa học": thêm `ChildSwitcher` (đang tải, lỗi kèm thử lại, chưa liên kết).
+- **`GET /courses?student_id=`** bị bỏ qua lặng lẽ với vai trò khác Parent: nay trả 422 (`prohibited`).
+- **Hai điều kiện "liên kết còn hiệu lực"** lệch nhau trong `ListCoursesQuery`: thêm scope `ParentStudentRelationship::effective()` (status `active` và chưa quá `valid_to`), `ClassScope::parentCoversStudent` và `ParentProfile::activeChildrenIds` dùng chung.
+- **Controller điểm danh lặp logic** `limit`/`from`/`until`: gom vào trait `HasAttendanceRange` của hai FormRequest.
+- Bổ sung test: `/courses?student_id=` với liên kết đã kết thúc và liên kết quá `valid_to`, `student_id` sai định dạng, khoảng ngày chỉ có `until` và dạng chỉ ngày (giờ Việt Nam), `/me/attendance` của tài khoản Student không có hồ sơ, kết quả phụ huynh với chính sách `highest` và câu Nối khi `show_answers` tắt, ba trạng thái chưa có con ở hai màn mới và việc đổi con. Test "con đã lưu không còn liên kết thì quay về con đầu" đã có sẵn.
+- **Không sửa có chủ ý:** `MyChildrenQuery`, `MyChildQuery`, `AssessmentFileAccessQuery`, `NotificationRecipientsQuery` vẫn chỉ lọc `status`, vì một test cũ ghim việc danh sách con giữ liên kết `active` đã quá `valid_to` (còn ở `B-091`).
+
