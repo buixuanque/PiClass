@@ -24,10 +24,9 @@ Cập nhật lần cuối: 2026-11-02 · bởi: cổng Học sinh cụm B (DEC-L
     - Cải tiến sau 4c (`DEC-LRN-028`): gọn màn chấm TC-13, bỏ %, "Hủy công bố", nút "Bài nộp và chấm" ở mục bài của khóa, tab Học tập ở chi tiết lớp — xong, đã merge; user đang tự test; mockup chưa cập nhật
 - **Bước** (quy ước cuối file):
   - Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`): quyết định xong → BE xong, đã review, đã merge  → không làm mockup (user chốt 2026-10-31), FE làm từng cổng: Admin xong, đã merge , Giáo viên xong, đã merge → Học sinh chưa làm (hoãn đến sau khi xong cổng Giáo viên)
-- **Lát:** cổng Học sinh (ST-01..09), user vắng, Claude chạy tự động đến hết FE, chỉ push nhánh, không PR/merge:
+- **Lát:** cổng Học sinh (ST-01..09), user vắng, Claude chạy tự động đến hết FE; user cho phép tự PR và merge từng cụm:
   - Quyết định (`DEC-LRN-037`) — xong
   - BE (B-063, B1, N-E, N-A, N-B) — xong, đã merge
-  - FE cụm A (nền tảng, ST-01..05) — xong (`DEC-LRN-038`); còn cụm B (ST-06..09)
   - FE ST-01..09 (làm theo cụm, mỗi cụm một PR rồi merge, user cho phép 2026-11-02) → review opus → tổng hợp `docs/product/screens/student-portal-summary.md`:
     - Cụm A (ST-01..05) và B (ST-06, 06b, 07, 07b) — xong, đã merge; cụm C (ST-08, ST-09) chưa làm
   - Xong cổng Học sinh mà user chưa thao tác gì thì làm tiếp cổng Phụ huynh cùng cách (user dặn 2026-11-02)
