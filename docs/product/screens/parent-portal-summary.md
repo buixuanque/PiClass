@@ -78,6 +78,14 @@ Không thấy rò quyền hay dữ liệu (IDOR theo `student_id`, liên kết h
 - **Màn trống trơn** khi danh sách con lỗi hoặc chưa liên kết: `ChildSwitcher` hiện loading, lỗi kèm thử lại, hoặc lời báo chưa liên kết; dùng chung cho cả bốn màn.
 - Query key kết quả của con chuyển vào `resultsKeys`. Bổ sung test thiếu ở BE (liên kết đã kết thúc trả 404, vai trò khác bị chặn, `student_id` bị bỏ qua với Student) và FE (con đã lưu không còn liên kết quay về con đầu).
 
+## Mật độ và bảng cho màn rộng (user duyệt phương án A và B, 2026-11-02)
+
+Mockup `ui_kits/parent` chỉ vẽ khổ điện thoại 390px. Trên web (từ 1024px), **chỉ ở màn rộng**, điện thoại và tablet giữ nguyên:
+- **Lệch mockup có chủ ý:** thẻ gọn hơn (`Card compact`, nhãn `Badge size="auto"`); hai ô số liệu ở Tổng quan trải hết chiều ngang, xếp ngang (biểu tượng, số, nhãn); "Theo môn" và "Bài của con" ở Kết quả xếp một cột để bảng có đủ chỗ.
+- **Danh sách thành bảng:** "Các buổi gần đây" ở Điểm danh (Ngày + giờ, Lớp, Trạng thái, Đơn xin phép; nút gửi đơn nằm ở cột cuối) và "Bài của con" ở Kết quả (Môn/Lớp, Bài, Hạn, Trạng thái, nút Xem kết quả). Dưới 1024px vẫn là hàng như trước.
+- Màn Điểm danh chỉ chia hai cột (tóm tắt | danh sách) từ 1280px; từ 1024 đến 1279px là một cột để bảng không bị hẹp.
+- Không đổi bảng màu, phông, dữ liệu hay API.
+
 ## Tồn đọng và việc cần user xem
 - Chưa xem giao diện trên trình duyệt thật: mới kiểm bằng test (MSW) và test BE. Hai con mẫu của `parent4@piclass.test` chưa xếp lớp nên mọi khối rỗng; cần xếp lớp và tạo vài buổi vắng để thử gửi đơn thật.
 - Chưa có chuông thông báo (CM-06) ở cổng này; tên giáo viên trong nhận xét lấy từ API khi có (`B-090`).

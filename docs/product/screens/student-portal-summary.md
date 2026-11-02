@@ -79,6 +79,14 @@
 - Khóa chưa có bài nào thì chi tiết chỉ báo "Khóa này chưa có bài nào"; nội dung khóa dạng bài giảng/tài liệu thuộc `B-062`.
 - Review độc lập (opus) cuối cổng: đã chạy, xem mục "Review độc lập và sửa" bên dưới.
 
+## Mật độ và bảng cho màn rộng (user duyệt phương án A và B, 2026-11-02)
+
+Mockup `ui_kits/student` chỉ vẽ khổ điện thoại 390px; trên web (từ 1024px) bản port trước đó trông như tablet. Điều chỉnh, **chỉ ở màn rộng**, điện thoại và tablet giữ nguyên:
+- **Lệch mockup có chủ ý:** thẻ (`Card compact`) bo góc và đệm nhỏ hơn; nhãn trạng thái cỡ nhỏ (`Badge size="auto"`); tiêu đề trang 24px thay vì 28px; banner chào ở Trang chủ gọn hơn (một dòng lời chào, nút cỡ vừa); danh sách bài sắp đến hạn là hàng phẳng ngăn bằng đường mảnh thay vì thẻ rời.
+- **Danh sách thành bảng (`components/ui/data-table`):** "Bài của em" (cột Bài, Môn/Lớp, Loại, Hạn, Trạng thái; cả hàng bấm được) và "Khóa học" (Khóa học, Giáo viên, Bài đã nộp). Dưới 1024px vẫn là thẻ như mockup. Chọn biểu diễn bằng `useIsDesktop` (một biểu diễn mỗi lần, không dựng hai bản).
+- **Hạn trong bảng** ghi gọn ("Hạn tối nay"), giờ đầy đủ nằm ở `title`.
+- Không đổi bảng màu, phông, dữ liệu hay API.
+
 ## Review độc lập và sửa (`DEC-LRN-041`)
 
 Review bằng subagent opus (effort medium) trên `piclass-api` #83..#85 và `piclass-web` #59..#61. Sửa ở `piclass-api` #86 và `piclass-web` #62.
