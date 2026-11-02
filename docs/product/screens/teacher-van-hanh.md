@@ -162,6 +162,7 @@
 - **Trạng thái cần vẽ:** tải · rỗng chưa có bài nào được công bố (`average_percentage = null`: "Chưa có điểm. Có N bài đang chờ chấm") · lỗi · không có quyền/em không thuộc phạm vi (404) · điểm danh chưa có dữ liệu (G3).
 - **Quy tắc & lỗi nghiệp vụ:** chỉ tính kết quả đã **công bố**; bài bị hủy, bài bị vô hiệu không tính; nhiều lượt làm của cùng một bài chỉ tính một lần theo cách tính điểm của bài (cao nhất/mới nhất). 404 "Request failed." nếu Teacher không phụ trách em đó (không phải lớp nào của Teacher chứa em).
 - **API:** `GET /students/{id}/progress?class_id&course_id&subject_id&from&to` → `{average_percentage, graded_count, pending_count, by_subject:[{subject_id, subject_name, average_percentage, graded_count}]}` (không bao `data`). 🟡 G3, G8.
+- **Ghi chú dựng FE (2026-11-02):** màn là mục menu `/teacher/progress` (mockup `isProgress`), bấm tên học sinh ở chi tiết lớp mở màn. Điểm hiển thị theo %, mockup dùng thang 10. Biểu đồ cột lấy 8 bài gần nhất từ `GET /students/{id}/results`, nhãn cột kèm %; cột đặt trong vùng riêng để chiều cao tỉ lệ đúng (mockup tính % trên cả cột nên cột từ 75% trở lên cao bằng nhau). Điểm danh lọc theo lớp đang chọn. Không làm: mục "Cần chú ý", huy hiệu Ổn định, chip "Bài tập đã nộp", "· att%" trong danh sách; "Nhắn phụ huynh" chỉ báo đang phát triển.
 - **Dữ liệu mẫu gợi ý:** Nguyễn Minh Khôi · Toán 9A: TB 82,5% · 6 bài đã chấm · 1 bài chờ chấm; theo môn: Toán 85%, Khác 70%.
 
 ### TC-15 — Khóa học của tôi   ✅

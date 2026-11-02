@@ -2,7 +2,7 @@
 
 Không ghi số PR hay nhánh chưa push/chưa merge (đọc từ git bằng `/tiep`). File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-11-02 · bởi: plan FE lát 4d (TC-14)
+Cập nhật lần cuối: 2026-11-02 · bởi: FE lát 4d (TC-14) xong, cổng Giáo viên đóng
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -16,18 +16,18 @@ Cập nhật lần cuối: 2026-11-02 · bởi: plan FE lát 4d (TC-14)
     - 4c: TC-11, TC-12, TC-13 — xong, đã merge; nghiệp vụ `DEC-LRN-027`; dữ liệu mẫu: `docs/setup/dev-demo-data.md`
     - Chấm bài kiểu mới (`DEC-LRN-029`): chấm cả bài một lần lưu, tab Trao đổi — xong, đã merge, chưa chạy review độc lập; đã chỉnh UX lần 2 và 3 (`DEC-LRN-029` mục 7, `DEC-LRN-030`: nhận xét như lời phê chỉ lưu khi Lưu nháp hoặc Công bố, bỏ tab Trao đổi, Chấm lại), xong, đã merge; user đang tự test; mockup chưa cập nhật
     - Dữ liệu mẫu khóa học (`TeacherCourseDemoSeeder`, `docs/setup/dev-demo-data.md`) và tab Học tập của lớp dạng danh sách lọc Tất cả / Khóa học / Bài kiểm tra — xong, đã merge
-    - 4d: TC-14 — **đang làm**, quyết định (`DEC-LRN-031`), plan và code BE xong và đã merge, plan FE xong (`docs/superpowers/plans/2026-11-02-fe-teacher-progress-4d.md`): mockup đã có; thêm BE nhận xét học sinh một chiều (đã gửi không sửa/xóa, chưa thông báo), điểm danh theo học sinh (G3), lịch sử điểm (G8); tiếp theo code FE
+    - 4d: TC-14 — xong, đã merge; màn `/teacher/progress`, nhận xét học sinh một chiều (`DEC-LRN-031`), tiến độ có lọc ngày và môn, điểm danh, biểu đồ điểm; chưa so khớp mockup bằng mắt
     - Cải tiến sau 4c (`DEC-LRN-028`): gọn màn chấm TC-13, bỏ %, "Hủy công bố", nút "Bài nộp và chấm" ở mục bài của khóa, tab Học tập ở chi tiết lớp — xong, đã merge; user đang tự test; mockup chưa cập nhật
 - **Bước** (quy ước cuối file):
   - Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`): quyết định xong → BE xong, đã review, đã merge  → không làm mockup (user chốt 2026-10-31), FE làm từng cổng: Admin xong, đã merge , Giáo viên xong, đã merge → Học sinh chưa làm (hoãn đến sau khi xong cổng Giáo viên)
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Lát 4d Giáo viên (TC-14): code FE theo plan, xong thì cổng Giáo viên đóng
-2. Làm lại mô hình Khóa học, FE cổng Học sinh (ST-09) theo OpenAPI mới, không mockup
-3. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
+1. Làm lại mô hình Khóa học, FE cổng Học sinh (ST-09) theo OpenAPI mới, không mockup
+2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
 ## Chờ user (Claude không tự làm được)
+- Bộ lọc môn ở màn Tiến độ (TC-14) gần như thừa vì đã lọc theo lớp (môn suy ra từ lớp): giữ như mockup hay bỏ
 - Quyết định về PHPStan: 30 lỗi mới cùng loại D-22 ở `piclass-api` (cho cập nhật baseline hay làm riêng việc gõ kiểu relation)
 - Scheduler: user chốt 2026-11-01 chưa cần chạy `schedule:run`; hẹn giờ công bố điểm (BE đã có) chưa hoạt động. FE lát 4c vẫn hiện tùy chọn "Hẹn giờ công bố" nhưng chỉ báo "đang phát triển", không gửi `publish_at`
 - BE có thêm cờ `can_manage` cho màn chi tiết bài (TC-11) không
@@ -39,7 +39,7 @@ Cập nhật lần cuối: 2026-11-02 · bởi: plan FE lát 4d (TC-14)
 | Cổng | FE |
 |---|---|
 | Admin | [x] xong |
-| Giáo viên | [ ] đang port: lát 1 (TC-02..05), lát 2 (TC-06, TC-01) và lát 3 (TC-15) xong, đã merge `main`; Bài đánh giá còn 4d (TC-14); 4a, 4b, 4c, 4e xong |
+| Giáo viên | [x] xong, đã merge `main` |
 | Học sinh | [ ] chưa port (có mockup) |
 | Phụ huynh | [ ] chưa port (có mockup) |
 BE: [x] xong, đã merge `main`.
