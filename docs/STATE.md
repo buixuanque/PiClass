@@ -2,7 +2,7 @@
 
 Không ghi số PR hay nhánh chưa push/chưa merge (đọc từ git bằng `/tiep`). File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-11-02 · bởi: cổng Phụ huynh cụm P1 (DEC-LRN-042)
+Cập nhật lần cuối: 2026-11-02 · bởi: cổng Phụ huynh cụm P2 (DEC-LRN-043)
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -25,14 +25,11 @@ Cập nhật lần cuối: 2026-11-02 · bởi: cổng Phụ huynh cụm P1 (DEC
 - **Bước** (quy ước cuối file):
   - Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`): quyết định xong → BE xong, đã review, đã merge  → không làm mockup (user chốt 2026-10-31), FE làm từng cổng: Admin xong, đã merge , Giáo viên xong, đã merge → Học sinh xong, đã merge
 - **Lát:** cổng Học sinh (ST-01..09) — xong toàn bộ, đã merge: quyết định `DEC-LRN-037..040`, BE, FE 3 cụm, review opus và sửa (`DEC-LRN-041`); chưa xem bằng trình duyệt thật; minor còn lại `B-088`, `B-089`; tổng hợp: `docs/product/screens/student-portal-summary.md`
-- **Lát:** cổng Phụ huynh (PR-01..08), cùng cách làm cổng Học sinh:
-  - Quyết định (`DEC-LRN-042`) — xong
-  - Cụm P1: BE (lớp của con, lịch theo con, điểm danh của con) + FE PR-01, PR-02 — xong, đã merge; chưa xem bằng trình duyệt thật; tổng hợp: `docs/product/screens/parent-portal-summary.md`
-  - Cụm P2 (PR-03 Lịch, PR-04 Điểm danh, PR-05..07 Kết quả, PR-08 Đơn xin phép) → review opus → tổng hợp cuối
+- **Lát:** cổng Phụ huynh (PR-01..08) — FE xong, đã merge: quyết định `DEC-LRN-042..043`, BE, FE 2 cụm; chưa review độc lập, chưa xem bằng trình duyệt thật; tổng hợp: `docs/product/screens/parent-portal-summary.md`
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Cổng Phụ huynh cụm P2 (PR-03..08), sau đó review độc lập (opus)
+1. Review độc lập (opus) cổng Phụ huynh, sửa lỗi
 2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
 ## Chờ user (Claude không tự làm được)
@@ -50,7 +47,7 @@ Cập nhật lần cuối: 2026-11-02 · bởi: cổng Phụ huynh cụm P1 (DEC
 | Admin | [x] xong |
 | Giáo viên | [x] xong, đã merge `main` |
 | Học sinh | [x] xong, đã merge `main` (đã review độc lập và sửa) |
-| Phụ huynh | [ ] đang làm: PR-01, PR-02 xong, còn PR-03..08 |
+| Phụ huynh | [x] xong, đã merge `main` (chờ review độc lập) |
 BE: [x] xong, đã merge `main`.
 
 ---

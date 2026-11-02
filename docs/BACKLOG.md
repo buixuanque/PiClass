@@ -69,6 +69,7 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 | B-087 | api | Lời giải/giải thích cho câu hỏi: câu chưa có trường riêng nên `show_explanations` chưa có tác dụng ở màn xem lại bài của học sinh | `DEC-LRN-037` |
 | B-088 | api | `StudentAssessmentResultQuery::review()` vừa dựng mảng response vừa áp luật hiển thị theo cờ `show_*` trong Query; quy ước BE ghi Query không dựng JSON, nên chuyển phần lọc theo cờ sang Resource | review độc lập cổng Học sinh, `DEC-LRN-041` |
 | B-089 | web | Thiếu test riêng cho `use-countdown.ts` và luồng hết giờ đầy đủ (đồng hồ về 0, lưu nốt, tải lại lượt) | review độc lập cổng Học sinh, `DEC-LRN-041` |
+| B-090 | web | Cổng Phụ huynh: chưa có thông báo (chuông CM-06) và tên giáo viên trong nhận xét lấy từ hồ sơ khi API có; chưa xem bằng trình duyệt thật; hai con mẫu (`parent4@piclass.test`) chưa xếp lớp nên mọi khối rỗng khi mở thật | `docs/product/screens/parent-portal-summary.md` |
 
 ## D. Sau V1 / hỏi giáo viên rồi mới quyết
 | ID | Việc | Nguồn |
