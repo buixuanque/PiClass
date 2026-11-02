@@ -68,8 +68,18 @@ Menu cổng chốt 4 mục: Tổng quan, Lịch học, Điểm danh, Kết quả
 - BE: 2520 test pass (chỉ `TeacherGradingDemoSeederTest` chập chờn, `B-086`), PHPStan 33 lỗi bằng `main`.
 - FE: 1014 test pass, lint và typecheck sạch; test mới ở `parent-portal-p2.test.tsx` và `parent-results-screen.test.tsx`.
 
+## Review độc lập và sửa (opus, `DEC-LRN-044`)
+Không thấy rò quyền hay dữ liệu (IDOR theo `student_id`, liên kết hết hiệu lực, `notes`/`review_required`, kết quả chưa công bố, `questions` đều đã chặn). Các lỗi tìm ra đã sửa ở `piclass-api` #89, `piclass-web` #65:
+- **Gửi đơn đồng thời** (vừa): bố và mẹ gửi cùng lúc có thể sinh hai đơn. Sửa bằng transaction khóa dòng buổi học và chỉ mục duy nhất một phần; vi phạm trả `EXPLANATION_ALREADY_EXISTS`.
+- **Duyệt lại đơn cũ** phá luật một đơn còn hiệu lực: giờ trả 409; danh sách đơn có thứ tự ổn định (mới nhất trước).
+- **Bài con làm dở bị hiện là "Đã nộp"** và biến khỏi thẻ Bài tập: BE thêm `has_in_progress_attempt`, FE dùng cờ này.
+- **Hộp thoại gửi đơn** mang lý do và lỗi cũ sang buổi hoặc con khác: dựng lại theo `studentId:sessionId`; ô lý do giới hạn 2000 ký tự (cả BE lẫn FE).
+- **Lỗi 409** không làm mới danh sách đơn: giờ làm mới và hiện trạng thái đơn. **Nút "Xin nghỉ buổi này"** chỉ hiện khi danh sách đơn đã tải xong.
+- **Màn trống trơn** khi danh sách con lỗi hoặc chưa liên kết: `ChildSwitcher` hiện loading, lỗi kèm thử lại, hoặc lời báo chưa liên kết; dùng chung cho cả bốn màn.
+- Query key kết quả của con chuyển vào `resultsKeys`. Bổ sung test thiếu ở BE (liên kết đã kết thúc trả 404, vai trò khác bị chặn, `student_id` bị bỏ qua với Student) và FE (con đã lưu không còn liên kết quay về con đầu).
+
 ## Tồn đọng và việc cần user xem
 - Chưa xem giao diện trên trình duyệt thật: mới kiểm bằng test (MSW) và test BE. Hai con mẫu của `parent4@piclass.test` chưa xếp lớp nên mọi khối rỗng; cần xếp lớp và tạo vài buổi vắng để thử gửi đơn thật.
 - Chưa có chuông thông báo (CM-06) ở cổng này; tên giáo viên trong nhận xét lấy từ API khi có (`B-090`).
 - Điểm danh chỉ 10 buổi gần nhất; muốn xem theo tháng cần API mới (tuỳ nhu cầu thực tế).
-- Chưa chạy review độc lập (opus) cho cổng Phụ huynh.
+- Review độc lập đã chạy và sửa (mục trên). Chưa xử lý, đã ghi `BACKLOG.md`: thống nhất hai hàm lọc liên kết phụ huynh (`parentCoversStudent` và `activeChildrenIds`, `B-091`).
