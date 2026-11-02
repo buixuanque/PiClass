@@ -2,7 +2,7 @@
 
 Không ghi số PR hay nhánh chưa push/chưa merge (đọc từ git bằng `/tiep`). File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-11-02 · bởi: quyết định cổng Học sinh (DEC-LRN-037)
+Cập nhật lần cuối: 2026-11-02 · bởi: cổng Học sinh cụm B (DEC-LRN-039)
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -28,7 +28,8 @@ Cập nhật lần cuối: 2026-11-02 · bởi: quyết định cổng Học sin
   - Quyết định (`DEC-LRN-037`) — xong
   - BE (B-063, B1, N-E, N-A, N-B) — xong, đã merge
   - FE cụm A (nền tảng, ST-01..05) — xong (`DEC-LRN-038`); còn cụm B (ST-06..09)
-  - FE ST-01..09 (làm theo cụm, mỗi cụm một PR rồi merge, user cho phép 2026-11-02) → review opus → tổng hợp `docs/product/screens/student-portal-summary.md`
+  - FE ST-01..09 (làm theo cụm, mỗi cụm một PR rồi merge, user cho phép 2026-11-02) → review opus → tổng hợp `docs/product/screens/student-portal-summary.md`:
+    - Cụm A (ST-01..05) và B (ST-06, 06b, 07, 07b) — xong, đã merge; cụm C (ST-08, ST-09) chưa làm
   - Xong cổng Học sinh mà user chưa thao tác gì thì làm tiếp cổng Phụ huynh cùng cách (user dặn 2026-11-02)
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 
