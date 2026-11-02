@@ -26,7 +26,9 @@ Cập nhật lần cuối: 2026-11-02 · bởi: quyết định cổng Học sin
   - Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`): quyết định xong → BE xong, đã review, đã merge  → không làm mockup (user chốt 2026-10-31), FE làm từng cổng: Admin xong, đã merge , Giáo viên xong, đã merge → Học sinh chưa làm (hoãn đến sau khi xong cổng Giáo viên)
 - **Lát:** cổng Học sinh (ST-01..09), user vắng, Claude chạy tự động đến hết FE, chỉ push nhánh, không PR/merge:
   - Quyết định (`DEC-LRN-037`) — xong
-  - BE (B-063, B1, N-E, N-A, N-B) → FE ST-01..09 → review opus → tổng hợp `docs/product/screens/student-portal-summary.md`
+  - BE (B-063, B1, N-E, N-A, N-B) — xong, đã merge
+  - FE ST-01..09 (làm theo cụm, mỗi cụm một PR rồi merge, user cho phép 2026-11-02) → review opus → tổng hợp `docs/product/screens/student-portal-summary.md`
+  - Xong cổng Học sinh mà user chưa thao tác gì thì làm tiếp cổng Phụ huynh cùng cách (user dặn 2026-11-02)
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 
 ## Việc kế tiếp (làm từ trên xuống)

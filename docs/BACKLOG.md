@@ -65,6 +65,8 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 | B-083 | be+web | Nhận xét học sinh hàng loạt bằng upload Excel (giáo viên nhận xét định kỳ cho cả lớp); nền là nhận xét một chiều của lát 4d | `DEC-LRN-031` |
 | B-084 | web | Minor của màn Tiến độ TC-14 chưa sửa: (1) 404 chỉ hiện ở khối tổng quan, các khối khác chỉ báo "Không tải được"; (2) đổi em khi đang gửi nhận xét thì mất toast kết quả (callback của `mutate` không chạy sau unmount); (3) dòng phụ dưới tên là tên lớp, mockup còn "Phụ huynh: {tên}" (chưa có dữ liệu) và dòng phụ tiêu đề; (4) "7 ngày" gửi `from` = hôm nay trừ 7 nên gồm 8 ngày lịch | `DEC-LRN-031` |
 | B-085 | api | Lọc `from`/`to` của `/students/{id}/progress` và `/results` so ngày theo UTC (`whereDate(received_at)`), lệch tối đa 7 giờ so với giờ Việt Nam | review BE lát 4d |
+| B-086 | api | `TeacherGradingDemoSeederTest::test_feedback_exists_in_every_status_and_an_answer_file_is_viewable` chập chờn (cùng mã, lúc xanh lúc đỏ; `firstWhere('status','awaiting_grading')` trả null, nghi dữ liệu mẫu có yếu tố ngẫu nhiên) | gặp khi làm BE cổng Học sinh |
+| B-087 | api | Lời giải/giải thích cho câu hỏi: câu chưa có trường riêng nên `show_explanations` chưa có tác dụng ở màn xem lại bài của học sinh | `DEC-LRN-037` |
 
 ## D. Sau V1 / hỏi giáo viên rồi mới quyết
 | ID | Việc | Nguồn |
