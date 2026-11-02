@@ -2,35 +2,20 @@
 
 Không ghi số PR hay nhánh chưa push/chưa merge (đọc từ git bằng `/tiep`). File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-11-03 · bởi: lịch calendar, điểm danh, ô chọn con, nhận xét (DEC-LRN-046)
+Cập nhật lần cuối: 2026-11-03 · bởi: bài làm của con và Lớp & khóa học của phụ huynh (DEC-LRN-047)
 
 ## Đang làm
-- **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
-  - Vận hành lớp (TC-02..05) — xong
-  - Đơn xin phép & Tổng quan (TC-06, TC-01)
-  - Khóa học (TC-15)
-  - Bài đánh giá (TC-07..14), chia nhỏ:
-    - 4a: TC-07, TC-08 — xong
-    - 4b: TC-09, TC-10 — xong
-    - 4e: TC-08 soạn câu hỏi cùng khung Soạn bài, soạn nhiều câu — xong
-    - 4c: TC-11, TC-12, TC-13 — xong, đã merge; nghiệp vụ `DEC-LRN-027`; dữ liệu mẫu: `docs/setup/dev-demo-data.md`
-    - Chấm bài kiểu mới (`DEC-LRN-029`): chấm cả bài một lần lưu, tab Trao đổi — xong, đã merge, chưa chạy review độc lập; đã chỉnh UX lần 2 và 3 (`DEC-LRN-029` mục 7, `DEC-LRN-030`: nhận xét như lời phê chỉ lưu khi Lưu nháp hoặc Công bố, bỏ tab Trao đổi, Chấm lại), xong, đã merge; user đang tự test; mockup chưa cập nhật
-    - Dữ liệu mẫu khóa học (`TeacherCourseDemoSeeder`, `docs/setup/dev-demo-data.md`) và tab Học tập của lớp dạng danh sách lọc Tất cả / Khóa học / Bài kiểm tra — xong, đã merge
-    - 4d: TC-14 — xong, đã merge; màn `/teacher/progress`, nhận xét học sinh một chiều (`DEC-LRN-031`), tiến độ có lọc ngày và môn, điểm danh, biểu đồ điểm; chưa so khớp mockup bằng mắt
-    - Màn điểm danh TC-05 chỉ để điểm danh (`DEC-LRN-032`, `DEC-LRN-033`): bỏ khối nội dung/ghi chú và Hủy buổi (còn ở TC-04), giữ nút Hoàn tất buổi bằng tay — xong, đã merge; mockup đã cập nhật; xem lại quy tắc hoàn tất sau khi vận hành thực tế
-    - Ghi chú điểm danh (`DEC-LRN-034`): ô ghi chú tùy chọn lúc điểm danh, hộp thoại Sửa chỉ còn ghi chú, lý do sửa mặc định ở FE — xong, đã merge; mockup đã cập nhật
-    - Danh sách buổi ở màn điểm danh (`DEC-LRN-035`): mọi buổi tới hết hôm nay, buổi mới ở trên, lọc theo lớp — xong (FE), đã merge; mockup chưa cập nhật
-    - Gắn khóa học vào lớp từ tab Học tập (`DEC-LRN-036`): quyết định xong → code BE xong → code FE xong → review độc lập xong, đã sửa → chờ merge; mockup chưa cập nhật
-    - Cải tiến sau 4c (`DEC-LRN-028`): gọn màn chấm TC-13, bỏ %, "Hủy công bố", nút "Bài nộp và chấm" ở mục bài của khóa, tab Học tập ở chi tiết lớp — xong, đã merge; user đang tự test; mockup chưa cập nhật
-- **Bước** (quy ước cuối file):
-  - Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`): quyết định xong → BE xong, đã review, đã merge  → không làm mockup (user chốt 2026-10-31), FE làm từng cổng: Admin xong, đã merge , Giáo viên xong, đã merge → Học sinh xong, đã merge
-- **Lát:** cổng Học sinh (ST-01..09) — xong toàn bộ, đã merge: quyết định `DEC-LRN-037..040`, BE, FE 3 cụm, review opus và sửa (`DEC-LRN-041`); chưa xem bằng trình duyệt thật; minor còn lại `B-088`, `B-089`; tổng hợp: `docs/product/screens/student-portal-summary.md`
-- **Lát:** cổng Phụ huynh (PR-01..08) — xong toàn bộ, đã merge: quyết định `DEC-LRN-042..044`, BE, FE 2 cụm, review opus và sửa; chưa xem bằng trình duyệt thật; minor còn lại `B-090`, `B-091`; tổng hợp: `docs/product/screens/parent-portal-summary.md`
+- **Cổng Giáo viên:** xong toàn bộ, đã merge `main` (vận hành lớp, đơn xin phép và tổng quan, khóa học, bài đánh giá TC-07..14, gắn khóa vào lớp `DEC-LRN-036`)
+  - Còn: mockup chưa cập nhật cho `DEC-LRN-028`, `035`, `036`; user đang tự test; chấm bài kiểu mới (`DEC-LRN-029`) chưa chạy review độc lập
+- **Cổng Học sinh (ST-01..09):** xong toàn bộ, đã merge: quyết định `DEC-LRN-037..041`, BE, FE, review opus và sửa; chưa xem bằng trình duyệt thật; minor còn lại `B-088`, `B-089`; tổng hợp: `docs/product/screens/student-portal-summary.md`
+- **Cổng Phụ huynh:** xong toàn bộ, đã merge: quyết định `DEC-LRN-042..047` (lịch calendar, điểm danh, ô chọn con ở thanh trên, nhận xét, bài làm của con, mục "Lớp & khóa học"); review opus đã chạy cho P1, P2 và đã sửa
+  - Chưa review độc lập: phần `DEC-LRN-046` và `DEC-LRN-047` (xem bài làm của con, Lớp & khóa học); chưa xem bằng trình duyệt thật; minor còn lại `B-090..B-095`; tổng hợp: `docs/product/screens/parent-portal-summary.md`
+  - `DEC-LRN-047` dùng mặc định đề xuất cho bốn câu user chưa trả lời (hiện sĩ số không hiện tên, menu thứ 5, mọi lời phê theo visibility, không xem tệp bài làm): user đổi được
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 
 ## Việc kế tiếp (làm từ trên xuống)
 1. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
-2. Cổng Phụ huynh: "Lớp & khóa học" của con và xem bài làm của con (chờ user chốt, xem tư vấn ở `parent-portal-summary.md`)
+2. Chạy review độc lập (opus, medium) cho phần mới của cổng Phụ huynh (`DEC-LRN-046`, `DEC-LRN-047`), rồi sửa lỗi
 3. Thông báo trong ứng dụng (chuông CM-06, `B-090`, `DEC-LRN-045`): user muốn rà soát riêng, làm sau khi hoàn thiện chức năng các cổng
 
 ## Chờ user (Claude không tự làm được)
@@ -48,7 +33,7 @@ Cập nhật lần cuối: 2026-11-03 · bởi: lịch calendar, điểm danh, �
 | Admin | [x] xong |
 | Giáo viên | [x] xong, đã merge `main` |
 | Học sinh | [x] xong, đã merge `main` (đã review độc lập và sửa) |
-| Phụ huynh | [x] xong, đã review và sửa, đã merge `main` |
+| Phụ huynh | [x] xong, đã merge `main` (phần mới `DEC-LRN-046/047` chưa review độc lập) |
 BE: [x] xong, đã merge `main`.
 
 ---

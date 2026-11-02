@@ -35,5 +35,7 @@ docker compose exec api php artisan db:seed --class=ParentDemoSeeder
 - Đăng nhập `parent1@piclass.test`, mật khẩu `Piclass@123`. Gán hai con `student1`, `student2` (Học sinh Một, Học sinh Hai) vào lớp `[Demo 4c] Toán 9A`.
 - Năm buổi đã học (điểm danh đủ có mặt, muộn, vắng, có phép), ba buổi sắp tới, một buổi bị hủy. Con thứ hai có một đơn xin phép bị từ chối (có lý do) và một đơn đã chấp nhận; còn buổi vắng chưa có đơn để thử gửi đơn.
 - Mỗi con có một nhận xét của giáo viên. Bài và điểm lấy từ dữ liệu `TeacherGradingDemoSeeder` (`student1` đã công bố, `student2` chưa công bố).
+- Thêm bài "[Demo phụ huynh] Kiểm tra Đại số: hệ phương trình" đã công bố cho cả hai con (ba câu: trắc nghiệm, đúng/sai, tự luận; có điểm từng câu, lời phê theo câu, hiện đáp án đúng) để thử màn `/parent/results/[bài]`. Seeder cũng gọi `TeacherCourseDemoSeeder` nên lớp 9A có khóa `[Demo khóa] Ôn thi vào lớp 10` cho mục "Lớp & khóa học".
+- Hai đơn xin phép của Học sinh Hai (một chờ duyệt, một đã chấp nhận) gắn vào hai buổi vắng gần nhất chưa có đơn; các buổi vắng còn lại để thử gửi đơn.
 - Chạy lại khi đã có dữ liệu thì bỏ qua.
 
