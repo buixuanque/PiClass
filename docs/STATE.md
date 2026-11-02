@@ -2,7 +2,7 @@
 
 Không ghi số PR hay nhánh chưa push/chưa merge (đọc từ git bằng `/tiep`). File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-11-02 · bởi: cổng Phụ huynh cụm P2 (DEC-LRN-043)
+Cập nhật lần cuối: 2026-11-02 · bởi: review và sửa cổng Phụ huynh (DEC-LRN-044)
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -25,12 +25,11 @@ Cập nhật lần cuối: 2026-11-02 · bởi: cổng Phụ huynh cụm P2 (DEC
 - **Bước** (quy ước cuối file):
   - Làm lại mô hình Khóa học (`DEC-LRN-026`, `ARCH-38`): quyết định xong → BE xong, đã review, đã merge  → không làm mockup (user chốt 2026-10-31), FE làm từng cổng: Admin xong, đã merge , Giáo viên xong, đã merge → Học sinh xong, đã merge
 - **Lát:** cổng Học sinh (ST-01..09) — xong toàn bộ, đã merge: quyết định `DEC-LRN-037..040`, BE, FE 3 cụm, review opus và sửa (`DEC-LRN-041`); chưa xem bằng trình duyệt thật; minor còn lại `B-088`, `B-089`; tổng hợp: `docs/product/screens/student-portal-summary.md`
-- **Lát:** cổng Phụ huynh (PR-01..08) — FE xong, đã merge: quyết định `DEC-LRN-042..043`, BE, FE 2 cụm; chưa review độc lập, chưa xem bằng trình duyệt thật; tổng hợp: `docs/product/screens/parent-portal-summary.md`
+- **Lát:** cổng Phụ huynh (PR-01..08) — xong toàn bộ, đã merge: quyết định `DEC-LRN-042..044`, BE, FE 2 cụm, review opus và sửa; chưa xem bằng trình duyệt thật; minor còn lại `B-090`, `B-091`; tổng hợp: `docs/product/screens/parent-portal-summary.md`
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Review độc lập (opus) cổng Phụ huynh, sửa lỗi
-2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
+1. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 
 ## Chờ user (Claude không tự làm được)
 - Bộ lọc môn ở màn Tiến độ (TC-14) gần như thừa vì đã lọc theo lớp (môn suy ra từ lớp): giữ như mockup hay bỏ
@@ -47,7 +46,7 @@ Cập nhật lần cuối: 2026-11-02 · bởi: cổng Phụ huynh cụm P2 (DEC
 | Admin | [x] xong |
 | Giáo viên | [x] xong, đã merge `main` |
 | Học sinh | [x] xong, đã merge `main` (đã review độc lập và sửa) |
-| Phụ huynh | [x] xong, đã merge `main` (chờ review độc lập) |
+| Phụ huynh | [x] xong, đã review và sửa, đã merge `main` |
 BE: [x] xong, đã merge `main`.
 
 ---
