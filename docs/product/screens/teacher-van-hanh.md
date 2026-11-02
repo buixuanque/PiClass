@@ -64,6 +64,8 @@
 ### TC-03 — Chi tiết lớp   ✅ (một số khối 🟡)
 
 > **Tab Học tập (`DEC-LRN-028`, bố cục chỉnh 2026-11-01):** một danh sách chung gồm khóa học có lớp này trong đối tượng (`GET /courses?class_id=`) và bài kiểm tra giao thẳng cho lớp (`GET /assessments?class_id=`, không gồm bài của khóa), lọc bằng ô chọn dạng chip **Tất cả / Khóa học / Bài kiểm tra** (có số lượng, cùng kiểu bộ lọc ở tab Bài nộp của TC-11). Mỗi dòng có biểu tượng và nhãn loại, bấm mở khóa (TC-15) hoặc bài (TC-11). Mockup chưa có tab này.
+>
+> **Thêm/gỡ khóa từ tab Học tập (`DEC-LRN-036`):** nút "Thêm khóa học" mở hộp thoại chọn khóa của tôi hoặc khóa dùng chung chưa gắn (`POST /classes/{id}/courses`); mỗi dòng khóa có nút "Gỡ" kèm xác nhận (`DELETE /classes/{id}/courses/{courseId}`). Giáo viên chỉ đụng dòng lớp mình dạy; khóa của Giáo viên khác không hiện.
 - **Vai trò · responsive:** Teacher · ưu tiên web máy tính, vẫn dùng được trên máy tính bảng và điện thoại.
 - **Người dùng muốn làm gì:** Xem một lớp từ đầu đến cuối: ai đang học, lịch, các buổi đã/sắp diễn ra, bài đã giao, em nào đang yếu.
 - **Vào từ / đi tới:** TC-02, thông báo, TC-01. Trong trang là các tab; từ tab Buổi học → TC-05; tab Lịch → TC-04 (khung lớp này); tab Bài → TC-11; tab Tiến độ → TC-14; tab Học sinh → TC-14 (bấm tên). Mọi thao tác thêm/bớt học sinh, phân công giáo viên, sửa thông tin lớp **không có** ở cổng này.
