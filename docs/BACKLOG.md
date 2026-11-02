@@ -67,6 +67,8 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 | B-085 | api | Lọc `from`/`to` của `/students/{id}/progress` và `/results` so ngày theo UTC (`whereDate(received_at)`), lệch tối đa 7 giờ so với giờ Việt Nam | review BE lát 4d |
 | B-086 | api | `TeacherGradingDemoSeederTest::test_feedback_exists_in_every_status_and_an_answer_file_is_viewable` chập chờn (cùng mã, lúc xanh lúc đỏ; `firstWhere('status','awaiting_grading')` trả null, nghi dữ liệu mẫu có yếu tố ngẫu nhiên) | gặp khi làm BE cổng Học sinh |
 | B-087 | api | Lời giải/giải thích cho câu hỏi: câu chưa có trường riêng nên `show_explanations` chưa có tác dụng ở màn xem lại bài của học sinh | `DEC-LRN-037` |
+| B-088 | api | `StudentAssessmentResultQuery::review()` vừa dựng mảng response vừa áp luật hiển thị theo cờ `show_*` trong Query; quy ước BE ghi Query không dựng JSON, nên chuyển phần lọc theo cờ sang Resource | review độc lập cổng Học sinh, `DEC-LRN-041` |
+| B-089 | web | Thiếu test riêng cho `use-countdown.ts` và luồng hết giờ đầy đủ (đồng hồ về 0, lưu nốt, tải lại lượt) | review độc lập cổng Học sinh, `DEC-LRN-041` |
 
 ## D. Sau V1 / hỏi giáo viên rồi mới quyết
 | ID | Việc | Nguồn |

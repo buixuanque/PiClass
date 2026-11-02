@@ -77,7 +77,23 @@
 ### Chưa làm / ghi nhận
 - Chưa xem giao diện bằng trình duyệt thật (kiểm bằng test + MSW).
 - Khóa chưa có bài nào thì chi tiết chỉ báo "Khóa này chưa có bài nào"; nội dung khóa dạng bài giảng/tài liệu thuộc `B-062`.
-- Review độc lập (opus) cuối cổng chưa chạy.
+- Review độc lập (opus) cuối cổng: đã chạy, xem mục "Review độc lập và sửa" bên dưới.
+
+## Review độc lập và sửa (`DEC-LRN-041`)
+
+Review bằng subagent opus (effort medium) trên `piclass-api` #83..#85 và `piclass-web` #59..#61. Sửa ở `piclass-api` #86 và `piclass-web` #62.
+
+| Mức | Lỗi | Cách sửa |
+|---|---|---|
+| Cao | Đáp án câu Sắp xếp/Nối lộ qua thứ tự lưu (response thô của lượt làm bài và của phần xem lại bài khi tắt `show_answers`) | BE xáo `items`/`right` khi tạo lượt, lưu ở `option_order`, luôn khác thứ tự đúng; FE bỏ `seededShuffle` |
+| Cao | Làm tiếp dùng cache cũ: mất đáp án hiển thị và có thể ghi đè thứ tự câu Sắp xếp | `useAttempt` `gcTime: 0` + `refetchOnMount: "always"`, màn chờ bản tải mới của lần vào đó |
+| Vừa | Hai request bắt đầu lượt đồng thời tạo hai lượt dở trùng số | Transaction + `lockForUpdate` dòng bài giao; unique `(student_assessment_id, attempt_number)` |
+| Thấp | Nhánh "Hết giờ" dựa trên trạng thái `timed_out` mà BE không bao giờ trả | Bỏ nhánh và test |
+| Thấp | Mất đáp án gõ trong khoảng debounce cuối trước khi hết giờ | Lưu nốt khi còn ~2 giây |
+| Thấp | Hai lần lưu cùng một câu có thể tới sai thứ tự | Hàng đợi lưu theo câu |
+| Thấp | `question_count` đếm từng bài (N+1); `find()` dựng cả danh sách | `withCount`, `find()` chỉ dựng một bài |
+
+**Không sửa:** câu Sắp xếp chưa đụng tới vẫn tính đã trả lời (chủ ý, `DEC-LRN-039`(5)); phần xem lại bài áp luật cờ `show_*` ngay trong Query thay vì Resource (lệch nhẹ quy ước, `B-088`); thiếu test riêng cho `useCountdown` và luồng hết giờ đầy đủ (`B-089`).
 
 ---
 # Tổng hợp cuối cổng Học sinh
