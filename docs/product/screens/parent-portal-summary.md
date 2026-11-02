@@ -91,3 +91,26 @@ Mockup `ui_kits/parent` chỉ vẽ khổ điện thoại 390px. Trên web (từ 
 - Chưa có chuông thông báo (CM-06) ở cổng này; tên giáo viên trong nhận xét lấy từ API khi có (`B-090`).
 - Điểm danh chỉ 10 buổi gần nhất; muốn xem theo tháng cần API mới (tuỳ nhu cầu thực tế).
 - Review độc lập đã chạy và sửa (mục trên). Chưa xử lý, đã ghi `BACKLOG.md`: thống nhất hai hàm lọc liên kết phụ huynh (`parentCoversStudent` và `activeChildrenIds`, `B-091`).
+
+## Đối chiếu lại mockup (2026-11-02, user yêu cầu "xem lại mockup để sửa UI")
+
+**Nguồn mockup đúng:** `piclass-mockup/design-system/PiClass Phụ huynh.dc.html` (bản dựng `standalone/PiClass Phụ huynh.html`): desktop có sidebar, menu 7 mục (Tổng quan, Lịch học, Điểm danh, Bài tập & kết quả, Nhận xét, Tiến độ, Đơn xin phép). Các cụm P1, P2 ở trên chủ yếu đọc `ds-v2-source/ui_kits/parent` (bộ kit cũ, khung điện thoại 390px).
+
+**Nguyên tắc:** như cổng Học sinh. Phần "mật độ và bảng" bị hoàn lại; bỏ `AttendanceTable` và bảng "Bài của con".
+
+| Màn | Lệch so với mockup | Xử lý |
+|---|---|---|
+| Mọi màn | h1 24px; thiếu dòng phụ | Sửa: `PageHeading` |
+| Tổng quan | Thẻ con trắng và lời chào tách rời; mockup là banner gradient bo 24, avatar 80 viền xanh, "Chào …", tên con 28, dòng lớp và "N buổi học hôm nay" | Sửa: `ChildSwitcher variant="hero"` |
+| Tổng quan | Hai ô số liệu; mockup cột phải có vòng "Chuyên cần" và "Nhận xét mới nhất" | Sửa. Điểm trung bình bỏ khỏi Tổng quan (xem ở Kết quả, kèm "từ N bài") |
+| Tổng quan | "Hôm nay" là dòng chữ; mockup thẻ giờ như học sinh | Sửa: `SessionCard` |
+| Tổng quan | Bài tập: môn là dòng chính; mockup tên bài là dòng chính, dòng phụ môn và hạn, ô biểu tượng theo loại bài | Sửa (hoàn lại thay đổi "môn là dòng chính" của vòng engagement) |
+| Điểm danh | Vòng + bảng; mockup là hàng 5 số liệu + dải 10 ô theo buổi (có mặt, muộn, vắng, có phép) kèm ngày | Sửa. Buổi vắng liệt kê riêng để gửi đơn (mockup để ở menu "Đơn xin phép", ta không có menu này, `DEC-LRN-043`) |
+| Kết quả | Bảng "Bài của con"; mockup thẻ bài bo 18, huy hiệu, điểm | Sửa: `ListRow` kèm nút "Xem kết quả" |
+| Kết quả | Hàng số liệu bọc thẻ | Sửa: để trơn |
+| Lịch học | Danh sách giờ-tiêu đề nhỏ | Sửa: `SessionCard` như học sinh |
+| Menu 7 mục, Tiến độ riêng, Nhận xét riêng, Đơn xin phép riêng | Ta chỉ có 4 mục | Giữ (`DEC-LRN-042`, `DEC-LRN-043`) |
+| Nút "Xin phép nghỉ" ở thẻ lịch hôm nay | Không có | Giữ bỏ: gửi đơn từ Lịch học hoặc Điểm danh |
+| Chuông, chọn con ở thanh trên | Chọn con nằm trong nội dung | Giữ: khung chung với mọi cổng |
+
+**Cần user quyết:** có muốn khôi phục menu "Đơn xin phép" riêng và "Nhận xét" riêng như mockup (7 mục) không, hay giữ 4 mục gọn như đã chốt.
