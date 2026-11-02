@@ -63,6 +63,8 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 | B-081 | be+web | Câu `shared` của người khác (`DEC-LRN-026` mục 2): giáo viên chỉ xem, chưa có endpoint "Sao chép thành biến thể của tôi" nên không có nút này ở TC-07/08; thêm endpoint rồi thêm nút | `requirements/decision-log.md` `DEC-LRN-026` |
 | B-082 | be+web | Học sinh và phụ huynh trả lời nhận xét ngay tại bài (luồng trao đổi hai chiều): cần thiết kế BE (ai được viết, ai thấy, thông báo, kiểm duyệt) (tab Trao đổi của TC-13 đã tạm bỏ khỏi giao diện theo `DEC-LRN-030`, đưa lại cùng việc này) | `DEC-LRN-029` mục 7, `BR-SYS-007` | cần bàn |
 | B-083 | be+web | Nhận xét học sinh hàng loạt bằng upload Excel (giáo viên nhận xét định kỳ cho cả lớp); nền là nhận xét một chiều của lát 4d | `DEC-LRN-031` |
+| B-084 | web | Minor của màn Tiến độ TC-14 chưa sửa: (1) 404 chỉ hiện ở khối tổng quan, các khối khác chỉ báo "Không tải được"; (2) đổi em khi đang gửi nhận xét thì mất toast kết quả (callback của `mutate` không chạy sau unmount); (3) dòng phụ dưới tên là tên lớp, mockup còn "Phụ huynh: {tên}" (chưa có dữ liệu) và dòng phụ tiêu đề; (4) "7 ngày" gửi `from` = hôm nay trừ 7 nên gồm 8 ngày lịch | `DEC-LRN-031` |
+| B-085 | api | Lọc `from`/`to` của `/students/{id}/progress` và `/results` so ngày theo UTC (`whereDate(received_at)`), lệch tối đa 7 giờ so với giờ Việt Nam | review BE lát 4d |
 
 ## D. Sau V1 / hỏi giáo viên rồi mới quyết
 | ID | Việc | Nguồn |
