@@ -107,7 +107,7 @@
 
 ### TC-05 — Buổi học & điểm danh   ✅ 🎨
 - **Vai trò · responsive:** Teacher (và Admin) · responsive: dùng tốt trên **máy tính bảng** (thao tác nhanh ở đầu buổi), vẫn dùng được trên máy tính và điện thoại.
-- **Người dùng muốn làm gì:** Đầu buổi, điểm danh cả lớp nhanh. Khi nhầm, sửa lại và ghi lý do. Màn này **chỉ để điểm danh** (`DEC-LRN-032`).
+- **Người dùng muốn làm gì:** Đầu buổi, điểm danh cả lớp nhanh. Khi nhầm, sửa lại và ghi lý do. Màn này **chỉ để điểm danh** (`DEC-LRN-032`), kèm nút Hoàn tất buổi (`DEC-LRN-033`).
 - **Vào từ / đi tới:** TC-01 (buổi hôm nay, buổi chưa điểm danh), TC-04 (drawer buổi), TC-03 (tab Buổi học). Từ đây: về TC-04/TC-03; "Đơn xin phép của buổi này" → TC-06 (lọc theo buổi).
 - **Khối nội dung & dữ liệu hiển thị:**
   1. *Đầu trang buổi*: tên lớp + môn (FE ghép), `starts_at`–`ends_at`, chip `status`; nếu `cancelled`: banner "Buổi đã hủy" (+ lý do, xem khoảng trống); nếu `review_required = true`: banner "Buổi này đã hủy sau khi có điểm danh. Hãy rà soát lại các bản ghi" (BR-CLASS-010). `GET /lesson-sessions/{id}`.
@@ -119,7 +119,7 @@
   - **Đặt hàng loạt:** nút "Tất cả có mặt" đặt trạng thái cho mọi dòng **chưa có bản ghi**; sau đó chỉnh từng em (chọn nhanh 4 trạng thái, ghi chú tùy chọn). Nút "Lưu điểm danh" gửi `PUT /lesson-sessions/{id}/attendance` với `records: [{student_id, status, note?}]` (≥ 1 dòng). Yêu cầu giao diện: phải chọn trạng thái cho mọi học sinh trước khi cho lưu (nghiệp vụ lớp học, BE chỉ yêu cầu ≥ 1 bản ghi). **Quan trọng:** `PUT` chỉ **tạo mới** bản ghi cho học sinh chưa có; **không ghi đè** bản ghi đã tồn tại (vì sửa phải có lý do). Do đó với học sinh đã có bản ghi, UI chuyển sang chế độ "Sửa" (bên dưới), và sau khi lưu hàng loạt phải tải lại.
   - **Sửa từng bản ghi:** bấm dòng đã điểm danh → chọn trạng thái mới, ghi chú, và **ô lý do bắt buộc** (`reason`, vd "Em đến muộn 10 phút, nhập nhầm là vắng"). `PATCH /attendance-records/{id}` (`status` bắt buộc, `note` tùy chọn, `reason` bắt buộc). Vẫn sửa được ở buổi đã hủy (để rà soát) và không khóa theo ngày (BR-ATT-002). 🟡 **G15:** GET attendance **không trả `id` của bản ghi** (chỉ `student_id`, `full_name`, `status`, `note`), trong khi PATCH cần id; `PUT` cũng chỉ trả `student_id`, `status`. Cần BE thêm `id` (và nên thêm `recorded_at`) mới làm được thao tác sửa; không có cách ghép tạm đáng tin.
   - **Xử lý `review_required`:** sau khi rà soát, BE chưa có thao tác bỏ cờ (không thấy endpoint); hiện chỉ hiển thị. Cần xác nhận khi dựng xem sửa bản ghi có tự xóa cờ không (chưa thấy trong `UpdateAttendanceRecord`): coi là 🟡 và ghi vào câu hỏi cần chốt.
-  - ~~**Hoàn tất buổi**~~ và ~~**Hủy buổi**~~ **không ở màn này** (`DEC-LRN-032`): làm ở TC-04 (drawer buổi, mục *Hoàn tất buổi* và *Hủy một buổi*).
+  - **Hoàn tất buổi** (`DEC-LRN-033`): nút cạnh "Lưu điểm danh", chỉ hiện khi buổi `scheduled`; xác nhận, nhắc mềm nếu còn học sinh chưa điểm danh; `POST /lesson-sessions/{id}/complete`. Điểm danh đủ không tự hoàn tất. **Hủy buổi** không ở màn này (`DEC-LRN-032`), làm ở TC-04.
   - Buổi đã hủy: khóa nút "Lưu điểm danh" và "Tất cả có mặt", hiện lý do; vẫn cho xem và sửa bản ghi có sẵn.
 - **Trạng thái cần vẽ:** tải · lớp rỗng ("Không có học sinh nào hiệu lực ở buổi này") · chưa điểm danh · đã điểm danh một phần · đã lưu thành công (toast + đếm) · buổi `cancelled` · buổi `cancelled` có `review_required` · buổi `completed` (sửa nội dung cần lý do) · lỗi lưu giữ nguyên dữ liệu đã chọn · mất kết nối · không có quyền.
 - **Quy tắc & lỗi nghiệp vụ:**
