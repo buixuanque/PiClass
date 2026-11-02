@@ -114,3 +114,15 @@ Mockup `ui_kits/parent` chỉ vẽ khổ điện thoại 390px. Trên web (từ 
 | Chuông, chọn con ở thanh trên | Chọn con nằm trong nội dung | Giữ: khung chung với mọi cổng |
 
 **Cần user quyết:** có muốn khôi phục menu "Đơn xin phép" riêng và "Nhận xét" riêng như mockup (7 mục) không, hay giữ 4 mục gọn như đã chốt.
+
+## Đợt chỉnh 2026-11-03 (`DEC-LRN-046`)
+
+| Màn | Thay đổi | Ghi chú |
+|---|---|---|
+| Thanh trên | Ô chọn con ở góc trái (viên thuốc 220px + biểu tượng gia đình) như mockup; bỏ thẻ chọn con trong từng màn | Khung chung chỉ chừa chỗ `#topbar-start`, ô con gắn vào bằng portal từ layout `/parent` |
+| Lịch học | Lịch Ngày/Tuần/Tháng dùng lại view Admin/Giáo viên, mặc định Tuần, lọc theo con (`student_id`) | Buổi đã qua có chip điểm danh; không hiện nhãn "Chờ hoàn tất" |
+| Điểm danh | "Cần xử lý (n)", danh sách theo tháng có lọc, nhãn đơn trên dòng buổi vắng, "Lịch sử đơn" thu gọn; hộp thoại chi tiết đơn | BE thêm `from`/`until`. Nhãn đơn: Chờ duyệt / Đã chấp nhận / Bị từ chối |
+| Kết quả, tab Nhận xét | Mỗi nhận xét một thẻ như mockup, nhóm theo tháng khi nhiều tháng | Thẻ dùng chung với cổng Học sinh |
+
+**Còn chờ user:** mục "Lớp & khóa học" của con (chỉ xem, không hiện danh sách bạn cùng lớp, chỉ sĩ số) và xem bài làm của con kèm kết quả cô chấm (đổi `DEC-FILE-003`, `DEC-LRN-042`).
+

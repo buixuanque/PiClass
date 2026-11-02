@@ -2,7 +2,7 @@
 
 Không ghi số PR hay nhánh chưa push/chưa merge (đọc từ git bằng `/tiep`). File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-11-02 · bởi: chốt menu phụ huynh và lịch làm thông báo (DEC-LRN-045)
+Cập nhật lần cuối: 2026-11-03 · bởi: lịch calendar, điểm danh, ô chọn con, nhận xét (DEC-LRN-046)
 
 ## Đang làm
 - **Lát:** cổng Giáo viên, chia 4 lát nhỏ theo thứ tự:
@@ -30,7 +30,8 @@ Cập nhật lần cuối: 2026-11-02 · bởi: chốt menu phụ huynh và lị
 
 ## Việc kế tiếp (làm từ trên xuống)
 1. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
-2. Thông báo trong ứng dụng (chuông CM-06, `B-090`, `DEC-LRN-045`): user muốn rà soát riêng, làm sau khi hoàn thiện chức năng các cổng
+2. Cổng Phụ huynh: "Lớp & khóa học" của con và xem bài làm của con (chờ user chốt, xem tư vấn ở `parent-portal-summary.md`)
+3. Thông báo trong ứng dụng (chuông CM-06, `B-090`, `DEC-LRN-045`): user muốn rà soát riêng, làm sau khi hoàn thiện chức năng các cổng
 
 ## Chờ user (Claude không tự làm được)
 - Bộ lọc môn ở màn Tiến độ (TC-14) gần như thừa vì đã lọc theo lớp (môn suy ra từ lớp): giữ như mockup hay bỏ

@@ -139,3 +139,11 @@ Review bằng subagent opus (effort medium) trên `piclass-api` #83..#85 và `pi
 | Menu | 7 mục (Bài tập, Bài kiểm tra, Tiến độ tách rời) | Giữ 5 mục (`DEC-LRN-038`) |
 
 **Cần user quyết:** hiện màu ô theo môn dùng băm tên môn (cùng tên luôn cùng màu), mockup tô tay từng môn. Nếu muốn màu cố định cho các môn chính (Toán xanh, Anh tím...) cần bảng môn → màu.
+
+## Đợt chỉnh 2026-11-03 (`DEC-LRN-046`)
+
+| Màn | Thay đổi | Ghi chú |
+|---|---|---|
+| Lịch học | Lịch Ngày/Tuần/Tháng dùng lại view Admin/Giáo viên (thay danh sách tuần của `DEC-LRN-037`), mặc định Tuần | Buổi đã qua có chip điểm danh của em (BE thêm `GET /me/attendance`); không hiện nhãn vận hành |
+| Kết quả học tập | Nhận xét giáo viên dùng thẻ chung theo mockup | Cùng thẻ với cổng Phụ huynh |
+

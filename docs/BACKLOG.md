@@ -71,6 +71,7 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 | B-089 | web | Thiếu test riêng cho `use-countdown.ts` và luồng hết giờ đầy đủ (đồng hồ về 0, lưu nốt, tải lại lượt) | review độc lập cổng Học sinh, `DEC-LRN-041` |
 | B-090 | web | **User muốn rà soát riêng, làm sau khi xong chức năng các cổng (`DEC-LRN-045`).** Cổng Phụ huynh: chưa có thông báo (chuông CM-06) và tên giáo viên trong nhận xét lấy từ hồ sơ khi API có; chưa xem bằng trình duyệt thật; hai con mẫu (`parent4@piclass.test`) chưa xếp lớp nên mọi khối rỗng khi mở thật | `docs/product/screens/parent-portal-summary.md` |
 | B-091 | api | `parentCoversStudent` chỉ lọc `status`, còn `activeChildrenIds` lọc thêm `valid_to`: hai cách lọc liên kết phụ huynh chỉ lệch nhau nếu có liên kết `active` mà `valid_to` đã qua (hiện `valid_to` chỉ đặt khi kết thúc liên kết nên chưa thành lỗi); nên thống nhất một hàm | review độc lập cổng Phụ huynh, `DEC-LRN-044` |
+| B-092 | web+api | Buổi vắng quá cũ có còn cho gửi đơn xin phép không (câu hỏi mở từ `DEC-LRN-046`): BE chưa đặt hạn; "Cần xử lý" chỉ quét 90 ngày gần nhất, buổi cũ hơn vẫn gửi được từ danh sách theo tháng | `DEC-LRN-046` |
 
 ## D. Sau V1 / hỏi giáo viên rồi mới quyết
 | ID | Việc | Nguồn |
