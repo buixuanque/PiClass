@@ -124,5 +124,21 @@ Mockup `ui_kits/parent` chỉ vẽ khổ điện thoại 390px. Trên web (từ 
 | Điểm danh | "Cần xử lý (n)", danh sách theo tháng có lọc, nhãn đơn trên dòng buổi vắng, "Lịch sử đơn" thu gọn; hộp thoại chi tiết đơn | BE thêm `from`/`until`. Nhãn đơn: Chờ duyệt / Đã chấp nhận / Bị từ chối |
 | Kết quả, tab Nhận xét | Mỗi nhận xét một thẻ như mockup, nhóm theo tháng khi nhiều tháng | Thẻ dùng chung với cổng Học sinh |
 
-**Còn chờ user:** mục "Lớp & khóa học" của con (chỉ xem, không hiện danh sách bạn cùng lớp, chỉ sĩ số) và xem bài làm của con kèm kết quả cô chấm (đổi `DEC-FILE-003`, `DEC-LRN-042`).
+**Đã làm tiếp ở mục sau (`DEC-LRN-047`):** "Lớp & khóa học" của con và xem bài làm của con kèm kết quả cô chấm.
 
+## Bài làm của con và "Lớp & khóa học" (`DEC-LRN-047`, 2026-11-03)
+
+User ủy quyền "triển khai toàn bộ"; bốn câu mở chưa được trả lời nên đã áp dụng mặc định đề xuất. **User đổi được bất kỳ mục nào dưới đây.**
+
+| Việc | Đã làm | Giữ / không làm |
+|---|---|---|
+| Xem bài làm của con | `GET /me/children/{id}/assessments/{id}/result` trả thêm `questions` (cùng cờ `show_answers`, `show_question_scores` giáo viên đã đặt). Màn riêng `/parent/results/[assessmentId]`: điểm của con, nhận xét chung, "Bài làm của con" từng câu với "Con trả lời", "Đáp án đúng", điểm câu, lời phê theo câu. Thay hộp thoại cũ. Thẻ câu và lời phê dùng chung với cổng Học sinh (`features/results/ui/shared/review-card.tsx`) | Tệp bài làm (ảnh, tệp nộp) **không** cho xem; `show_explanations` chưa có tác dụng (`B-087`); chưa công bố thì báo "Giáo viên sẽ công bố sau" |
+| Lớp của con | Tab "Lớp" ở `/parent/classes`: tên lớp, môn, giáo viên, "Lớp có N học viên", buổi kế tiếp, nút "Xem lịch" | **Không** hiện danh sách học viên cùng lớp, tên hay kết quả bạn (`DEC-LRN-009`, `/members` vẫn 403) |
+| Khóa học của con | Tab "Khóa học": khóa của con (kể cả ghi danh riêng, qua `student_id`), bỏ khóa lưu trữ, các bài của khóa kèm trạng thái, bài đã nộp là liên kết sang kết quả | Khóa chỉ có mục là bài đánh giá nên chưa có bài giảng, tài liệu (`B-062`) |
+| Menu | Mục thứ 5 "Lớp & khóa học" | Vẫn không khôi phục 7 mục như mockup (`DEC-LRN-045`) |
+
+- **BE:** `GET /courses?student_id=` (chỉ phụ huynh, con của người khác 404); `ParentClassCourseScopeTest` khóa phạm vi lớp, khóa, mục khóa của phụ huynh (liên kết đã kết thúc thì mất quyền). Phạm vi cũ đã đúng, không cần sửa quy tắc.
+- **Dữ liệu mẫu:** `ParentDemoSeeder` thêm bài "[Demo phụ huynh] Kiểm tra Đại số: hệ phương trình" đã công bố cho cả hai con (trắc nghiệm, đúng/sai, tự luận, điểm từng câu, lời phê theo câu) và hai đơn xin phép của Học sinh Hai.
+- **Lệch mockup:** mockup chưa có hai màn này; dựng bằng `ListRow`/`Card`/`Tabs`. Tab bar dưới ở 390px có 5 mục, nhãn "Lớp & khóa học" dài hơn các nhãn khác.
+- **Chưa xem bằng mắt:** các màn trên chỉ được kiểm bằng test và ảnh chụp Chromium ở 1440 và 390px; chưa có người dùng thật xem.
+- **Chưa làm:** tệp bài làm cho phụ huynh; hiện tên bạn cùng lớp (không làm); thông báo (`B-090`).

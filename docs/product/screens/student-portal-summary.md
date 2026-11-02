@@ -147,3 +147,6 @@ Review bằng subagent opus (effort medium) trên `piclass-api` #83..#85 và `pi
 | Lịch học | Lịch Ngày/Tuần/Tháng dùng lại view Admin/Giáo viên (thay danh sách tuần của `DEC-LRN-037`), mặc định Tuần | Buổi đã qua có chip điểm danh của em (BE thêm `GET /me/attendance`); không hiện nhãn vận hành |
 | Kết quả học tập | Nhận xét giáo viên dùng thẻ chung theo mockup | Cùng thẻ với cổng Phụ huynh |
 
+## Thành phần xem lại bài dùng chung với phụ huynh (`DEC-LRN-047`, 2026-11-03)
+
+`ReviewCard` và `Remark` của màn kết quả học sinh được tách ra `features/results/ui/shared/review-card.tsx` để cổng Phụ huynh dùng lại ("Em trả lời" đổi thành "Con trả lời" qua prop `who`). Màn học sinh không đổi hành vi.

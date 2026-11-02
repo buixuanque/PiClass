@@ -72,6 +72,9 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 | B-090 | web | **User muốn rà soát riêng, làm sau khi xong chức năng các cổng (`DEC-LRN-045`).** Cổng Phụ huynh: chưa có thông báo (chuông CM-06) và tên giáo viên trong nhận xét lấy từ hồ sơ khi API có; chưa xem bằng trình duyệt thật; hai con mẫu (`parent4@piclass.test`) chưa xếp lớp nên mọi khối rỗng khi mở thật | `docs/product/screens/parent-portal-summary.md` |
 | B-091 | api | `parentCoversStudent` chỉ lọc `status`, còn `activeChildrenIds` lọc thêm `valid_to`: hai cách lọc liên kết phụ huynh chỉ lệch nhau nếu có liên kết `active` mà `valid_to` đã qua (hiện `valid_to` chỉ đặt khi kết thúc liên kết nên chưa thành lỗi); nên thống nhất một hàm | review độc lập cổng Phụ huynh, `DEC-LRN-044` |
 | B-092 | web+api | Buổi vắng quá cũ có còn cho gửi đơn xin phép không (câu hỏi mở từ `DEC-LRN-046`): BE chưa đặt hạn; "Cần xử lý" chỉ quét 90 ngày gần nhất, buổi cũ hơn vẫn gửi được từ danh sách theo tháng | `DEC-LRN-046` |
+| B-093 | web+api | Phụ huynh xem **tệp bài làm** (ảnh chụp bài, tệp nộp) của con: hiện chỉ xem nội dung chữ (`DEC-LRN-047`, `DEC-FILE-003`). Muốn làm cần quyết định quyền tệp theo bài làm và API tệp cho Parent | `DEC-LRN-047` |
+| B-094 | web | Nhãn "Lớp & khóa học" dài ở thanh menu dưới (390px, 5 mục); cân nhắc nhãn ngắn hơn riêng cho thanh dưới | `DEC-LRN-047` |
+| B-095 | web+api | Mục "Lớp & khóa học" của phụ huynh: khóa lưu trữ đang bị FE lọc bỏ, BE vẫn trả; bài đã nộp dẫn sang kết quả kể cả khi chưa công bố (màn kết quả báo "Chờ công bố"); chưa có bài giảng, tài liệu (cùng `B-062`) | `DEC-LRN-047` |
 
 ## D. Sau V1 / hỏi giáo viên rồi mới quyết
 | ID | Việc | Nguồn |
