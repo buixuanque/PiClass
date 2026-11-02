@@ -117,3 +117,25 @@ Review bằng subagent opus (effort medium) trên `piclass-api` #83..#85 và `pi
 2. Chấp nhận các chỗ lệch mockup nêu trên (ST-02, ST-05, ST-07, ST-09 mockup không có).
 3. `B-086` (test seeder chập chờn), `B-087` (lời giải câu hỏi), `/me/attendance` (A9) nếu muốn chuyên cần ở cổng này.
 4. Chạy review độc lập (opus) cuối cổng.
+
+## Đối chiếu lại mockup (2026-11-02, user yêu cầu "xem lại mockup để sửa UI")
+
+**Nguồn mockup đúng:** `piclass-mockup/design-system/PiClass Học sinh.dc.html` (bản dựng `standalone/PiClass Học sinh.html`) là mockup đầy đủ, desktop 1440 có sidebar và đáp ứng điện thoại; có ST-03/04, ST-05, ST-06, ST-06b, ST-07, ST-07b, Tiến độ, ST-09. Các cụm A, B, C ở trên chủ yếu đọc `ds-v2-source/ui_kits/student` (bộ kit cũ, ít màn hơn), nên một số chi tiết lệch.
+
+**Nguyên tắc:** ngôn ngữ hình ảnh theo mockup ở mọi khổ (màu, bo góc 18/24, bóng, thang chữ, ô biểu tượng tô nhạt); chỉ bố cục được khác ở màn rộng. Phần "mật độ và bảng" duyệt ở mục trước **bị hoàn lại** vì làm lệch thẩm mỹ: bỏ `Card compact`, `Badge size="auto"`, bảng dữ liệu (`DataTable`), hook `useIsDesktop`.
+
+| Màn | Lệch so với mockup | Xử lý |
+|---|---|---|
+| Mọi màn | h1 24px ở màn rộng; mockup 28/36 đậm, có dòng phụ 14 muted | Sửa: `PageHeading` dùng chung |
+| Trang chủ | Hero có bóng, bo 18, chữ nhỏ; mockup bo 24, đệm 32, h1 36/44, không bóng | Sửa |
+| Trang chủ | "Hôm nay" chỉ là dòng chữ; mockup "Lịch hôm nay" dạng thẻ giờ (giờ bắt đầu 20 đậm trên giờ kết thúc, ô môn đặc 48px, huy hiệu) | Sửa: `SessionCard`, dùng luôn cho Lịch học |
+| Trang chủ | Bài sắp đến hạn là thẻ rời; mockup nằm trong một Card, hàng ngăn đường mảnh | Sửa: `ListRow variant="flat"` |
+| Bài của em | Bảng; mockup là thẻ trắng bo 18 (đệm 16/20, gap 16), ô biểu tượng 44px tô nhạt theo môn, dòng hạn đậm | Sửa: `ListRow`; màu ô theo môn (`subjectHue`), biểu tượng theo loại bài |
+| Bài của em | Tab dạng gạch chân; mockup tab viên thuốc có số đếm | Sửa |
+| Khóa học | Bảng; mockup thẻ khóa học có mũi tên | Sửa; ẩn "0/0 bài" khi khóa chưa có bài |
+| Kết quả học tập | Hàng số liệu bọc trong thẻ; mockup để trơn | Sửa |
+| Thanh trên cùng (tìm kiếm, chuỗi ngày, chuông) | Chỉ có khối tài khoản | Giữ: khung chung với mọi cổng, tìm kiếm/chuỗi ngày đã bỏ (`DEC-LRN-037`), chuông chờ `B-090` |
+| Mục tiêu hôm nay (vòng 3/5), Bài kiểm tra sắp tới | Không có | Giữ bỏ (`DEC-LRN-037`) |
+| Menu | 7 mục (Bài tập, Bài kiểm tra, Tiến độ tách rời) | Giữ 5 mục (`DEC-LRN-038`) |
+
+**Cần user quyết:** hiện màu ô theo môn dùng băm tên môn (cùng tên luôn cùng màu), mockup tô tay từng môn. Nếu muốn màu cố định cho các môn chính (Toán xanh, Anh tím...) cần bảng môn → màu.
