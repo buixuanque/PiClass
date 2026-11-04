@@ -2,7 +2,7 @@
 
 Không ghi số PR hay nhánh chưa push/chưa merge (đọc từ git bằng `/tiep`). File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-11-04 · bởi: dữ liệu mẫu phụ huynh (bài làm của con, khóa học)
+Cập nhật lần cuối: 2026-11-04 · bởi: phụ huynh xem được bài như học sinh (`DEC-LRN-049`)
 
 ## Đang làm
 - **Cổng Giáo viên:** xong toàn bộ, đã merge `main` (vận hành lớp, đơn xin phép và tổng quan, khóa học, bài đánh giá TC-07..14, gắn khóa vào lớp `DEC-LRN-036`)
@@ -12,6 +12,7 @@ Cập nhật lần cuối: 2026-11-04 · bởi: dữ liệu mẫu phụ huynh (b
   - Chưa xem bằng trình duyệt thật (chỉ test và ảnh chụp Chromium); chưa xem bằng mắt: Lịch học ở 390px, chi tiết buổi trong calendar; minor còn lại `B-090..B-095`; tổng hợp: `docs/product/screens/parent-portal-summary.md`
   - User review 2026-11-04: màn bài làm của con đã có đề và đáp án (`DEC-LRN-047`); chỉ bài mẫu cũ "[Demo 4c]" thiếu dòng câu hỏi nên chỉ thấy điểm. `ParentDemoSeeder` đã bù và thêm khóa mẫu đủ trường hợp hiện/ẩn (`piclass-api` nhánh `feat/parent-demo-seed-review-courses`, chưa PR)
   - `DEC-LRN-048`: tab Khóa học thành danh sách khóa, bấm vào mở màn chi tiết khóa (`piclass-web` nhánh `feat/parent-course-detail`, chưa PR); màn bài làm giữ nguyên
+  - `DEC-LRN-049`: trong chi tiết khóa mọi bài bấm được, mở chi tiết bài của con (không làm bài); `piclass-web` nhánh `feat/parent-assessment-detail`. Đề bài chưa công bố vẫn ẩn (mặc định, user đổi được)
   - `DEC-LRN-047` dùng mặc định đề xuất cho bốn câu user chưa trả lời (hiện sĩ số không hiện tên, menu thứ 5, mọi lời phê theo visibility, không xem tệp bài làm): user đổi được
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 
