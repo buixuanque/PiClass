@@ -13,6 +13,7 @@ Cập nhật lần cuối: 2026-11-04 · bởi: phụ huynh xem được bài nh
   - User review 2026-11-04: màn bài làm của con đã có đề và đáp án (`DEC-LRN-047`); chỉ bài mẫu cũ "[Demo 4c]" thiếu dòng câu hỏi nên chỉ thấy điểm. `ParentDemoSeeder` đã bù và thêm khóa mẫu đủ trường hợp hiện/ẩn (`piclass-api` nhánh `feat/parent-demo-seed-review-courses`, chưa PR)
   - `DEC-LRN-048`: tab Khóa học thành danh sách khóa, bấm vào mở màn chi tiết khóa (`piclass-web` nhánh `feat/parent-course-detail`, chưa PR); màn bài làm giữ nguyên
   - `DEC-LRN-049`: trong chi tiết khóa mọi bài bấm được, mở chi tiết bài của con (không làm bài); `piclass-web` nhánh `feat/parent-assessment-detail`. Đề bài chưa công bố vẫn ẩn (mặc định, user đổi được)
+  - `DEC-LRN-050`: xem lại câu chọn hiện đủ đáp án có đánh dấu, dùng chung học sinh và phụ huynh (`piclass-web` nhánh `feat/review-card-visual`); dạng câu khác còn dạng chữ
   - `DEC-LRN-047` dùng mặc định đề xuất cho bốn câu user chưa trả lời (hiện sĩ số không hiện tên, menu thứ 5, mọi lời phê theo visibility, không xem tệp bài làm): user đổi được
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 
