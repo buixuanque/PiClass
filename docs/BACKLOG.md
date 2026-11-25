@@ -81,4 +81,5 @@ Thứ tự trong mỗi nhóm = ưu tiên giảm dần (🔸 đề xuất ban đ�
 |---|---|---|
 | B-060 | Chức năng tạm bỏ (BE giữ nguyên, chưa làm UI) | `research/2026-10-24-api-v1-toi-thieu.md` mục 3 |
 | B-061 | Nhập học sinh hàng loạt; thông báo ngoài ứng dụng; nhiều trung tâm dùng chung một DB | `architecture/open-decisions.md` `ARCH-33` |
-| B-062 | Khóa học có nội dung học (bài giảng, tài liệu, video S3, video tương tác, tiến độ, mở khóa tuần tự): đã chốt toàn bộ hướng; cần mockup, spec, plan rồi BE/FE | `requirements/decision-log.md` `DEC-LRN-052` | sẵn sàng |
+| B-062 | Khóa học có nội dung học (bài giảng, tài liệu, video (đĩa riêng tư, S3 sau), video tương tác, tiến độ, mở khóa tuần tự): đã chốt toàn bộ hướng; cần mockup, spec, plan rồi BE/FE | `requirements/decision-log.md` `DEC-LRN-052` | sẵn sàng |
+| B-096 | api+infra | Driver S3 cho video khóa học (tải thẳng bằng link ký, CORS, lifecycle, CDN): làm khi user cấu hình xong bucket; cần trước khi nhiều học sinh xem cùng lúc | `superpowers/specs/2026-11-25-course-content-design.md` mục 5 | user làm |
