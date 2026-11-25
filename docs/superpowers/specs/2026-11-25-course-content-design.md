@@ -1,0 +1,149 @@
+# Thiết kế: Khóa học có nội dung học (bài giảng, tài liệu, video, video tương tác, tiến độ)
+
+**Ngày:** 2026-11-25
+**Phạm vi:** `piclass-api` (module mới `CourseContent`, sửa `Academic`, `Assessment`, `File`), `piclass-web` (Giáo viên, Học sinh, Admin, Phụ huynh)
+**Trạng thái:** chờ user duyệt (3 điểm hỏi ở cuối)
+**Nguồn quyết định:** `DEC-LRN-052`, `DEC-LRN-053`, `BR-COURSE-002`; mockup đợt một và hai (`piclass-mockup`, màn ST-09..12, TC-15..19, AD-12). Không lặp lại nội dung quyết định ở đây; file này chỉ chốt **cách hiện thực**.
+
+## 1. Phạm vi
+
+Làm: mục khóa gồm bài giảng chữ, tài liệu, video (S3 hoặc link ngoài), chương, bài đánh giá (đã có); video tương tác (điểm dừng câu hỏi); nội dung độc lập giao cho Lớp/Học sinh; tiến độ theo mục; mở khóa tuần tự; điều kiện hoàn thành khóa; tiến độ cho Giáo viên, Admin, Phụ huynh.
+
+Không làm (ghi để khỏi hiểu nhầm): mã hóa lại video HLS (thiết kế sẵn chỗ nâng, `DEC-LRN-052` mục 9); phụ đề, tốc độ phát tùy biến ở BE; chứng chỉ khi hoàn thành khóa (`BR-SYS-002`); thông báo khi giao nội dung (cùng `B-090`, làm sau); tìm kiếm toàn văn trong bài giảng.
+
+## 2. Module và quyền sở hữu (đề xuất `ARCH-39`)
+
+Module mới **`CourseContent`** (module thứ 13), đúng gợi ý cuối `ARCH-38`.
+
+| Model | Chủ ghi | Ghi chú |
+|---|---|---|
+| `Course` (thêm 3 cột cài đặt) | Academic | Giữ chủ. Cài đặt học đi qua Action của Academic. |
+| `CourseItem` | **CourseContent** (chuyển từ Assessment) | Mục có nhiều loại nên thuộc module giữ nội dung. Assessment chỉ còn đọc. Enum `CourseItemType` đã ở `Academic/Enums`, giữ. |
+| `LearningContent` | CourseContent | Bài giảng, tài liệu, video: một bảng, phân loại bằng `type`. |
+| `ContentVideo` | CourseContent | Dữ liệu riêng của video (nguồn, S3, trạng thái). |
+| `ContentAudience` | CourseContent | Lớp hoặc Học sinh của nội dung độc lập. |
+| `VideoCheckpoint` | CourseContent | Điểm dừng và bản chụp câu hỏi. |
+| `ContentProgress` | CourseContent | Tiến độ của một học sinh trên một nội dung. |
+| `CheckpointResponse` | CourseContent | Lượt trả lời đầu và số lượt của học sinh ở một điểm dừng. |
+| `Attachment`, `AttachmentLink` | File | Thêm đích liên kết `learning_content` (tệp tài liệu, ảnh trong bài giảng). |
+
+CourseContent **đọc** Academic (học viên của khóa qua `CourseLearnersQuery`), QuestionBank (câu nguồn), Assessment (bài của mục, kết quả để tính "xong" mục bài đánh giá), File. Ghi vào module khác chỉ qua Action của module đó (R4). Việc chuyển `CourseItem` làm một PR riêng, đầu tiên, không đổi hành vi.
+
+## 3. Dữ liệu
+
+Mọi khóa chính `uuid`; thời gian lưu UTC (`docs/rules/time.md`).
+
+**`courses` (thêm cột):** `sequential_unlock boolean default false`, `completion_rule enum('all_items','all_items_and_min_score') default 'all_items'`, `completion_min_score decimal(5,2) null` (chỉ dùng khi rule thứ hai; kiểm tra bắt buộc có khi chọn rule đó).
+
+**`learning_contents`:** `id`, `type enum('lecture','document','video')`, `course_id` null FK `courses` `restrict`, `owner_user_id` FK `users` (người tạo; với khóa dùng chung là Admin), `title`, `body_html text null` (chỉ `lecture`, đã làm sạch), `status enum('active','archived')`, `archived_at`, `timestamps`. Chỉ mục `(course_id)`, `(owner_user_id, type)`. **Quy tắc `course_id`** giống `BR-ASSESS-029`: `null` là nội dung độc lập (Giáo viên sở hữu, có `ContentAudience`, hiện ở TC-18); có giá trị là nội dung của khóa (không có `ContentAudience`, không hiện ở TC-18). Mọi truy vấn danh sách độc lập lọc `course_id IS NULL` qua **một scope duy nhất** có test canh (như `Assessment`).
+
+**`content_videos`:** `content_id` PK/FK `learning_contents` cascade, `source enum('upload','external')`, `status enum('uploading','ready','failed')` (nguồn `external` luôn `ready`), `storage_key null` (S3, khóa riêng tư), `external_url null`, `original_name`, `mime_type`, `size_bytes bigint`, `duration_seconds int null`, `upload_id null` (multipart S3), `failure_reason null`, `timestamps`. CHECK: `source='upload'` thì có `storage_key`, `source='external'` thì có `external_url`. Playback chỉ đọc `storage_key` qua một chỗ duy nhất (§5) để sau thêm HLS không đổi dữ liệu học sinh.
+
+**`content_audiences`:** như `assessment_audiences`: `content_id`, `class_id` null, `student_id` null, `added_by_user_id`, `created_at`; unique `(content_id, class_id)` và `(content_id, student_id)`; CHECK đúng một đích. Test: nội dung có `course_id` không được có dòng audience.
+
+**`course_items` (sửa):** `type enum` thêm `lecture`, `document`, `video`, `chapter` (chương, chỉ có `title`); thêm `content_id` null FK `learning_contents` `restrict` unique. CHECK theo `type`: `assessment` thì có `assessment_id`, không `content_id`; `lecture/document/video` thì có `content_id`, không `assessment_id`; `chapter` thì không có cả hai. `parent_id` chỉ trỏ tới mục `chapter` (Action kiểm, chương không lồng chương). `title` của mục bài giảng/tài liệu/video luôn bằng `learning_contents.title` (Action đồng bộ khi sửa); mục `assessment` và `chapter` giữ `title` riêng.
+
+**`video_checkpoints`:** `id`, `content_id` FK `content_videos`, `at_seconds int`, `source_question_version_id` FK `question_versions` `restrict` NOT NULL, `question_type`, `snapshot json` (bản chụp đề, đáp án, giải thích như `assessment_questions.snapshot`), `needs_recheck boolean default false` (bật khi thay tệp video, `DEC-LRN-052` mục 11), `timestamps`. Unique `(content_id, at_seconds)`; Action chặn hai điểm cách nhau dưới 3 giây (như mockup). Chỉ nhận loại câu tự chấm được: `single_choice`, `multiple_choice`, `true_false`, `fill_in_the_blank`, `matching`, `ordering` (`DEC-LRN-053`: tự luận và nộp tệp không dùng); loại khác 422.
+
+**`content_progress`:** `id`, `student_id`, `content_id`, `status enum('in_progress','completed')`, `last_position_seconds int default 0`, `first_opened_at`, `completed_at null`, `updated_at`. Unique `(student_id, content_id)`. Dòng được tạo **lười** khi học sinh mở nội dung lần đầu (như `StudentAssessment`, `ARCH-38`), không có hook vào/ra lớp.
+
+**`checkpoint_responses`:** `id`, `student_id`, `checkpoint_id` FK `video_checkpoints` cascade, `first_answer json`, `first_is_correct boolean`, `attempts_count int`, `answered_correctly_at null`. Unique `(student_id, checkpoint_id)`. Lượt đầu ghi một lần, không bao giờ ghi đè (`DEC-LRN-053` mục 3); các lượt sau chỉ tăng `attempts_count` và đặt `answered_correctly_at` khi đúng.
+
+**Tiến độ mục bài đánh giá:** không lưu thêm; tính từ `Result`/`Submission` có sẵn (đã nộp kể cả trễ thì tính xong, `DEC-LRN-052` mục 8).
+
+## 4. Quy tắc nghiệp vụ hiện thực
+
+1. **Học viên được thấy nội dung:** nội dung của khóa: là học viên của khóa (`CourseLearnersQuery::isLearner`). Nội dung độc lập: có trong `content_audiences` trực tiếp hoặc là thành viên đang hoạt động của một Lớp trong đó. Quyền tính khi cần, không lưu dòng ghi danh (`DEC-LRN-026`).
+2. **Mở khóa tuần tự:** khi `courses.sequential_unlock`, mục thứ n chỉ mở khi mọi mục trước (theo `position`, bỏ qua `chapter`) đã xong. Server kiểm ở mọi endpoint học sinh đọc nội dung hoặc ghi tiến độ; mục chưa mở trả 403 `CONTENT_LOCKED` kèm tên mục cần xong trước. Danh sách mục trả cờ `locked` để FE hiển thị. Nội dung độc lập không có thứ tự nên không khóa.
+3. **Mục xong khi:** bài giảng, tài liệu: học sinh bấm "đánh dấu đã học" (bỏ đánh dấu được). Video: đã xem tới ≥ 95% thời lượng **và** mọi điểm dừng đã có `answered_correctly_at`. Video link ngoài không biết thời lượng thật thì chỉ cần mọi điểm dừng đúng và học sinh bấm "xong". Bài đánh giá: đã nộp.
+4. **Chặn tua qua điểm dừng:** server tính "vị trí tối đa được phép" = giây của điểm dừng chưa trả lời đúng đầu tiên; `PUT progress` với vị trí vượt mức đó bị kẹp xuống mức đó (không báo lỗi). Với link ngoài FE không chặn được, server vẫn không đánh dấu xong khi còn điểm dừng chưa đúng.
+5. **Hoàn thành khóa:** tính khi cần, không lưu: rule `all_items` thì mọi mục (trừ chương) đã xong; rule thứ hai thì thêm điểm trung bình các bài đánh giá của khóa ≥ `completion_min_score` (bài chưa chấm không tính, `BR-ASSESS-026`).
+6. **Sửa sau khi có người học:** bài giảng/tài liệu sửa trực tiếp, không phiên bản. Video: thay tệp thì xóa `last_position_seconds` của mọi học sinh, đặt `needs_recheck` cho mọi điểm dừng, **không** xóa tiến độ đã `completed`. Giáo viên xác nhận lại từng điểm (`POST .../confirm`) hoặc xóa.
+7. **Xóa, lưu trữ:** nội dung đã có `content_progress` chỉ lưu trữ, không xóa (như `BR-ASSESS-010`). Nội dung đang là mục của khóa muốn gỡ khỏi khóa thì xóa dòng `course_items`; nếu nội dung thuộc khóa (`course_id`) và chưa ai học thì xóa luôn, đã có người học thì lưu trữ. Khóa `archived` không nhận thêm mục (`BR-COURSE-006`).
+8. **Sao chép:** "thêm vào khóa" từ nội dung độc lập tạo bản mới (`course_id` có giá trị): chép `title`, `body_html`, bản chụp tệp đính kèm (tạo `AttachmentLink` mới trỏ cùng `Attachment`), với video chép cả `ContentVideo` **tham chiếu cùng `storage_key`** (không nhân đôi tệp S3; đếm tham chiếu khi dọn, §5) và điểm dừng. Hai bản độc lập sau đó.
+9. **Sao chép khóa dùng chung cho Teacher:** ngoài phạm vi (không có trong `DEC-LRN-052`).
+
+## 5. Tệp và video
+
+**Tài liệu và tệp đính kèm bài giảng:** dùng luồng `File` hiện có (qua backend). Giới hạn 50 MB, PDF/Word/PowerPoint (`DEC-LRN-052` mục 10); kiểm MIME thật bằng nội dung, không tin phần mở rộng.
+
+**Video tải lên S3 (trực tiếp, không qua backend):** backend không nhận 1 GB.
+
+1. `POST /courses/.../items` hoặc `POST /contents` tạo nội dung `video` với `status=uploading` (có thể chưa có tệp).
+2. `POST /contents/{id}/video/upload` (khởi tạo multipart): kiểm `mime=video/mp4`, `size ≤ 1 GB`, quyền sở hữu; tạo `upload_id`; trả danh sách URL ký cho từng phần (5 MB mỗi phần, hạn 1 giờ).
+3. FE tải từng phần thẳng lên S3 (cần cấu hình CORS của bucket cho miền web).
+4. `POST /contents/{id}/video/complete` {phần, ETag}: backend gọi `CompleteMultipartUpload`, `HeadObject` kiểm kích thước và `Content-Type`, đọc thời lượng (metadata do FE gửi khi chọn tệp, kiểm lại bằng `ffprobe` ở bản sau nếu cần), đặt `status=ready`. Lỗi thì `failed` kèm lý do; `abort` multipart khi hủy.
+5. Tệp rác: job dọn multipart treo quá 24 giờ (lifecycle rule của S3, cấu hình ở hạ tầng, không viết code).
+
+**Phát:** một endpoint duy nhất `GET /contents/{id}/playback` (học sinh có quyền và mục đã mở) trả `{url, expires_at}` link GET ký hạn 15 phút; FE xin lại khi hết hạn. Bucket riêng tư, không công khai. Nguồn `external` trả `external_url` đã kiểm domain cho phép (YouTube, Vimeo). Chuyển HLS sau này chỉ đổi thân endpoint này và bước `complete`.
+
+**Quyền xem tệp** (`DEC-LRN-052` mục 10): học sinh thuộc đối tượng, giáo viên sở hữu, Admin. Phụ huynh không xem tệp và video, chỉ xem tiến độ. Mở rộng `AssessmentFileAccessQuery` thành truy vấn quyền tệp cho `learning_content`.
+
+**Ảnh trong bài giảng:** tải qua `File` (≤ 5 MB, ảnh), lưu `AttachmentLink`; `body_html` chứa `<img data-attachment-id="…">`, Resource thay bằng link ký lúc đọc (HTML trong DB không chứa URL hết hạn).
+
+## 6. Bài giảng soạn kiểu Word
+
+- Lưu HTML. **Làm sạch ở backend** bằng danh sách cho phép (HTMLPurifier): `h2 h3 p b strong i em u s ul ol li blockquote table thead tbody tr th td a img br`; thuộc tính `href` (chỉ `http`, `https`, `mailto`), `data-attachment-id`, `alt`, `style` chỉ `text-align`. Mọi thứ khác bị bỏ, đặc biệt `script`, `iframe`, `on*`. Làm sạch **lúc ghi** và lúc **hiển thị** (phòng dữ liệu cũ).
+- Giới hạn 200 KB HTML. Test phải có chuỗi tấn công XSS thường gặp.
+- Thư viện soạn ở FE: xem điểm hỏi 1.
+
+## 7. API (đề xuất; chốt tên khi viết plan, theo `docs/rules/openapi.md`)
+
+Giáo viên/Admin (quyền theo chủ sở hữu, như `BR-COURSE-004/005`):
+
+| Việc | Endpoint |
+|---|---|
+| Cài đặt khóa | `PATCH /courses/{id}` thêm `sequential_unlock`, `completion_rule`, `completion_min_score` |
+| Mục khóa | `GET /courses/{id}/items`, `POST /courses/{id}/items` (`type` + nội dung), `PATCH /course-items/{id}`, `DELETE /course-items/{id}`, `PUT /courses/{id}/items/order` (sắp xếp, đổi chương) |
+| Nội dung | `GET /contents?type=&q=` (độc lập của tôi), `POST /contents`, `GET/PATCH/DELETE /contents/{id}`, `PUT /contents/{id}/audience`, `POST /contents/{id}/copy-to-course` |
+| Video | `POST /contents/{id}/video/upload`, `POST /contents/{id}/video/complete`, `DELETE /contents/{id}/video/upload` (hủy), `PUT /contents/{id}/video/external` |
+| Điểm dừng | `GET/PUT /contents/{id}/checkpoints` (thay cả tập), `POST /checkpoints/{id}/confirm` |
+| Tiến độ khóa | `GET /courses/{id}/progress` (Giáo viên chủ khóa, Admin) |
+
+Học sinh:
+
+| Việc | Endpoint |
+|---|---|
+| Chi tiết khóa kèm tiến độ và khóa | `GET /me/courses/{id}` (mở rộng `GET /courses/{id}` hiện có) |
+| Nội dung được giao | `GET /me/contents` |
+| Đọc một nội dung | `GET /me/contents/{id}` |
+| Ghi tiến độ | `PUT /me/contents/{id}/progress` `{position_seconds?, completed?}` |
+| Phát video | `GET /contents/{id}/playback` |
+| Trả lời điểm dừng | `POST /checkpoints/{id}/answers` → `{is_correct, explanation?, can_continue}` |
+
+Phụ huynh: `GET /students/{id}/courses/{courseId}/progress` (ghép vào mục "Lớp & khóa học", `DEC-LRN-047/048`), không có endpoint nội dung.
+
+Lỗi mới (thêm vào `error-codes.md` khi làm): `CONTENT_LOCKED` (403), `VIDEO_NOT_READY` (409), `VIDEO_UPLOAD_FAILED` (422), `CHECKPOINT_QUESTION_UNSUPPORTED` (422), `CHECKPOINT_TOO_CLOSE` (422), `CONTENT_IN_USE` (409, xóa nội dung đã có người học).
+
+## 8. Phân quyền và kiểm thử trọng yếu
+
+Theo checklist `backend-gotchas.md`: fixture có dữ liệu thật cho từng nhóm "người khác" (giáo viên khác, học sinh ngoài khóa, phụ huynh); vai trò rỗng; thứ tự early-return; thử đột biến. Các ca bắt buộc:
+
+- Học sinh ngoài đối tượng không đọc được nội dung, không xin được link phát, không ghi được tiến độ (kể cả đoán `id`).
+- Mục bị khóa tuần tự: đọc, ghi tiến độ, xin link phát đều 403 `CONTENT_LOCKED`; mở lại khi mục trước xong; học sinh rời lớp mất quyền ngay.
+- Chặn tua: `PUT progress` vượt điểm dừng chưa đúng bị kẹp; trả lời sai nhiều lần chỉ ghi nhận lượt đầu; điểm dừng đúng rồi không ghi đè lượt đầu.
+- Video không `ready` không phát được; thay tệp xóa vị trí xem dở nhưng giữ `completed`.
+- `course_id`: nội dung của khóa không hiện ở danh sách độc lập; không có audience; bản sao độc lập với bản gốc.
+- Làm sạch HTML: các chuỗi XSS; ảnh đính kèm của người khác không chèn được vào bài của mình.
+- Audit: thêm/gỡ đối tượng nội dung (`content_audience.add/remove`, như `course_audience`), đổi cài đặt khóa, thay tệp video, xóa/lưu trữ nội dung.
+
+## 9. Chia lát (mỗi lát một nhánh, plan riêng, review opus ở cuối lát lớn)
+
+| # | Lát | Nội dung | Phụ thuộc |
+|---|---|---|---|
+| 1 | BE nền | Chuyển `CourseItem` sang `CourseContent` (không đổi hành vi); migration `learning_contents`, cột cài đặt khóa, mục khóa nhiều loại, chương; CRUD bài giảng + tài liệu (có làm sạch HTML, ảnh, tệp); sắp xếp | — |
+| 2 | BE độc lập | `ContentAudience`, giao Lớp/Học sinh, sao chép vào khóa, danh sách TC-18, lưu trữ/xóa | 1 |
+| 3 | BE video | Tải multipart S3, `ready/failed`, link phát, link ngoài, điểm dừng (chụp câu, `needs_recheck`) | 1 |
+| 4 | BE học sinh | Đọc nội dung theo quyền, tiến độ, mở khóa tuần tự, trả lời điểm dừng, hoàn thành khóa, tiến độ cho Giáo viên/Admin/Phụ huynh | 1–3 |
+| 5 | FE Giáo viên | TC-15 tab Nội dung và cài đặt, TC-16 soạn bài giảng, TC-18 | 1–2 |
+| 6 | FE video | TC-17 (tải lên, điểm dừng, tạo câu mới dùng lại TC-08) | 3, 5 |
+| 7 | FE Học sinh | ST-09 chi tiết khóa, ST-10, ST-11, ST-12 | 4 |
+| 8 | FE tiến độ | TC-19, AD-12 tab Nội dung, tiến độ của con (Phụ huynh) | 4, 5, 7 |
+
+Lát BE và FE chạy xen kẽ theo `working-flow.md` bước 3 và 4 khi hình dạng API đã rõ. Lát 1 nên làm trước vì mọi lát khác dựa vào nó. Mockup phần Lớp và Học viên của TC-15, AD-12 còn theo mô hình ghi danh cũ nên **không** dùng làm nguồn cho hai tab đó (đối chiếu màn thật đang chạy).
+
+## 10. Điểm cần user duyệt
+
+1. **Thư viện soạn văn bản:** đề xuất **TipTap** (MIT, bảng/danh sách/ảnh/dán từ Word đủ dùng, tự do tùy biến giao diện theo design system) thay vì CKEditor 5 (bản 44 trở đi dùng bằng khóa giấy phép, bản miễn phí có giới hạn, tính năng cộng tác và xuất Word tính phí). Giao diện cho học sinh giống nhau ở cả hai. Bạn muốn bám CKEditor hay chọn TipTap?
+2. **Module mới `CourseContent`** và chuyển `CourseItem` khỏi Assessment (§2): đồng ý ghi thành `ARCH-39`?
+3. **Chạm hạ tầng:** bucket S3 riêng tư, CORS cho miền web, lifecycle dọn multipart treo, IAM cho backend (tạo URL ký). Bạn hay người quản hạ tầng chuẩn bị? Lát 3 cần có bucket thử trước khi code kiểm thử thật.
