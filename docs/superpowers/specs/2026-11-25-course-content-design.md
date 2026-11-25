@@ -2,7 +2,7 @@
 
 **Ngày:** 2026-11-25
 **Phạm vi:** `piclass-api` (module mới `CourseContent`, sửa `Academic`, `Assessment`, `File`), `piclass-web` (Giáo viên, Học sinh, Admin, Phụ huynh)
-**Trạng thái:** chờ user duyệt điểm 1 và 2 ở cuối (điểm 3 đã chốt)
+**Trạng thái:** user đã duyệt (2026-11-25): TipTap, module `CourseContent` (`ARCH-39`), S3 hoãn. Kế tiếp: plan lát 1
 **Nguồn quyết định:** `DEC-LRN-052`, `DEC-LRN-053`, `BR-COURSE-002`; mockup đợt một và hai (`piclass-mockup`, màn ST-09..12, TC-15..19, AD-12). Không lặp lại nội dung quyết định ở đây; file này chỉ chốt **cách hiện thực**.
 
 ## 1. Phạm vi
@@ -149,8 +149,8 @@ Theo checklist `backend-gotchas.md`: fixture có dữ liệu thật cho từng n
 
 Lát BE và FE chạy xen kẽ theo `working-flow.md` bước 3 và 4 khi hình dạng API đã rõ. Lát 1 nên làm trước vì mọi lát khác dựa vào nó. Mockup phần Lớp và Học viên của TC-15, AD-12 còn theo mô hình ghi danh cũ nên **không** dùng làm nguồn cho hai tab đó (đối chiếu màn thật đang chạy).
 
-## 10. Điểm cần user duyệt
+## 10. Đã duyệt (user, 2026-11-25)
 
-1. **Thư viện soạn văn bản:** đề xuất **TipTap** (MIT, bảng/danh sách/ảnh/dán từ Word đủ dùng, tự do tùy biến giao diện theo design system) thay vì CKEditor 5 (bản 44 trở đi dùng bằng khóa giấy phép, bản miễn phí có giới hạn, tính năng cộng tác và xuất Word tính phí). Giao diện cho học sinh giống nhau ở cả hai. Bạn muốn bám CKEditor hay chọn TipTap?
-2. **Module mới `CourseContent`** và chuyển `CourseItem` khỏi Assessment (§2): đồng ý ghi thành `ARCH-39`?
-3. **Hạ tầng S3:** đã chốt hoãn (user, 2026-11-25): bản đầu dùng driver `local`; khi có bucket thì thêm driver `s3` (bucket riêng tư, CORS cho miền web, IAM tạo link ký). Không còn là điều kiện chặn lát 3.
+1. Thư viện soạn văn bản: **TipTap**.
+2. Module mới `CourseContent` và chuyển `CourseItem` khỏi Assessment: `ARCH-39`.
+3. Hạ tầng S3: hoãn; bản đầu driver `local`, driver `s3` là `B-096`.
