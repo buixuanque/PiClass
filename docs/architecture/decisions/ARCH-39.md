@@ -15,3 +15,5 @@ Mục lục và trạng thái: [../open-decisions.md](../open-decisions.md).
 - Thư viện soạn bài giảng ở FE: **TipTap** (user chọn theo đề xuất, 2026-11-25), thay cho CKEditor 5 vì giấy phép.
 
 **Lý do:** mục khóa có nhiều loại nội dung, tiến độ và video không thuộc ngữ cảnh làm bài/chấm điểm của Assessment; tách module giữ ranh giới R4 rõ (ghi dữ liệu module khác chỉ qua Action).
+
+**Ngoại lệ đã chốt khi làm 1a:** `POST /api/v1/assessments` giữ nguyên URL, nên `Assessment\Http\Controllers\CreateAssessmentController` rẽ nhánh theo `course_id` sang `CourseContent\Actions\CreateCourseAssessment`. Đây là chỗ duy nhất trong Assessment được import CourseContent (có test kiến trúc canh). Có thể chuyển nhánh này sang route riêng `POST /courses/{course}/assessments` từ lát 1b trở đi nếu muốn bỏ ngoại lệ (đổi API, cần FE đổi theo).
