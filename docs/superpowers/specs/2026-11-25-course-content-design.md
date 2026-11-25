@@ -2,14 +2,14 @@
 
 **Ngày:** 2026-11-25
 **Phạm vi:** `piclass-api` (module mới `CourseContent`, sửa `Academic`, `Assessment`, `File`), `piclass-web` (Giáo viên, Học sinh, Admin, Phụ huynh)
-**Trạng thái:** chờ user duyệt (3 điểm hỏi ở cuối)
+**Trạng thái:** chờ user duyệt điểm 1 và 2 ở cuối (điểm 3 đã chốt)
 **Nguồn quyết định:** `DEC-LRN-052`, `DEC-LRN-053`, `BR-COURSE-002`; mockup đợt một và hai (`piclass-mockup`, màn ST-09..12, TC-15..19, AD-12). Không lặp lại nội dung quyết định ở đây; file này chỉ chốt **cách hiện thực**.
 
 ## 1. Phạm vi
 
 Làm: mục khóa gồm bài giảng chữ, tài liệu, video (S3 hoặc link ngoài), chương, bài đánh giá (đã có); video tương tác (điểm dừng câu hỏi); nội dung độc lập giao cho Lớp/Học sinh; tiến độ theo mục; mở khóa tuần tự; điều kiện hoàn thành khóa; tiến độ cho Giáo viên, Admin, Phụ huynh.
 
-Không làm (ghi để khỏi hiểu nhầm): mã hóa lại video HLS (thiết kế sẵn chỗ nâng, `DEC-LRN-052` mục 9); phụ đề, tốc độ phát tùy biến ở BE; chứng chỉ khi hoàn thành khóa (`BR-SYS-002`); thông báo khi giao nội dung (cùng `B-090`, làm sau); tìm kiếm toàn văn trong bài giảng.
+Không làm (ghi để khỏi hiểu nhầm): driver S3 (chuẩn bị sẵn chỗ, user cấu hình sau); mã hóa lại video HLS (thiết kế sẵn chỗ nâng, `DEC-LRN-052` mục 9); phụ đề, tốc độ phát tùy biến ở BE; chứng chỉ khi hoàn thành khóa (`BR-SYS-002`); thông báo khi giao nội dung (cùng `B-090`, làm sau); tìm kiếm toàn văn trong bài giảng.
 
 ## 2. Module và quyền sở hữu (đề xuất `ARCH-39`)
 
@@ -37,7 +37,7 @@ Mọi khóa chính `uuid`; thời gian lưu UTC (`docs/rules/time.md`).
 
 **`learning_contents`:** `id`, `type enum('lecture','document','video')`, `course_id` null FK `courses` `restrict`, `owner_user_id` FK `users` (người tạo; với khóa dùng chung là Admin), `title`, `body_html text null` (chỉ `lecture`, đã làm sạch), `status enum('active','archived')`, `archived_at`, `timestamps`. Chỉ mục `(course_id)`, `(owner_user_id, type)`. **Quy tắc `course_id`** giống `BR-ASSESS-029`: `null` là nội dung độc lập (Giáo viên sở hữu, có `ContentAudience`, hiện ở TC-18); có giá trị là nội dung của khóa (không có `ContentAudience`, không hiện ở TC-18). Mọi truy vấn danh sách độc lập lọc `course_id IS NULL` qua **một scope duy nhất** có test canh (như `Assessment`).
 
-**`content_videos`:** `content_id` PK/FK `learning_contents` cascade, `source enum('upload','external')`, `status enum('uploading','ready','failed')` (nguồn `external` luôn `ready`), `storage_key null` (S3, khóa riêng tư), `external_url null`, `original_name`, `mime_type`, `size_bytes bigint`, `duration_seconds int null`, `upload_id null` (multipart S3), `failure_reason null`, `timestamps`. CHECK: `source='upload'` thì có `storage_key`, `source='external'` thì có `external_url`. Playback chỉ đọc `storage_key` qua một chỗ duy nhất (§5) để sau thêm HLS không đổi dữ liệu học sinh.
+**`content_videos`:** `content_id` PK/FK `learning_contents` cascade, `source enum('upload','external')`, `status enum('uploading','ready','failed')` (nguồn `external` luôn `ready`), `storage_key null` (khóa trong kho lưu trữ riêng tư, driver `local` hoặc `s3`), `storage_driver enum('local','s3')` (lưu theo từng video để đổi driver mặc định không làm mất video cũ), `external_url null`, `original_name`, `mime_type`, `size_bytes bigint`, `duration_seconds int null`, `upload_id null` (multipart S3), `failure_reason null`, `timestamps`. CHECK: `source='upload'` thì có `storage_key`, `source='external'` thì có `external_url`. Playback chỉ đọc `storage_key` qua một chỗ duy nhất (§5) để sau thêm HLS không đổi dữ liệu học sinh.
 
 **`content_audiences`:** như `assessment_audiences`: `content_id`, `class_id` null, `student_id` null, `added_by_user_id`, `created_at`; unique `(content_id, class_id)` và `(content_id, student_id)`; CHECK đúng một đích. Test: nội dung có `course_id` không được có dòng audience.
 
@@ -67,15 +67,22 @@ Mọi khóa chính `uuid`; thời gian lưu UTC (`docs/rules/time.md`).
 
 **Tài liệu và tệp đính kèm bài giảng:** dùng luồng `File` hiện có (qua backend). Giới hạn 50 MB, PDF/Word/PowerPoint (`DEC-LRN-052` mục 10); kiểm MIME thật bằng nội dung, không tin phần mở rộng.
 
-**Video tải lên S3 (trực tiếp, không qua backend):** backend không nhận 1 GB.
+**Lưu trữ video: chưa dùng S3, cấu hình sau (user chốt 2026-11-25).** Backend chỉ làm việc với một lớp trừu tượng `VideoStorage` (interface nhỏ: bắt đầu tải, nhận phần, hoàn tất, hủy, tạo link phát, xóa), chọn driver bằng cấu hình `CONTENT_VIDEO_DRIVER=local|s3`. Bản đầu chỉ viết driver **`local`** (đĩa riêng tư của Laravel, ngoài thư mục công khai); driver `s3` viết khi user có bucket, không phải đổi dữ liệu, API hay FE ngoài việc dùng đúng `mode` dưới đây.
 
-1. `POST /courses/.../items` hoặc `POST /contents` tạo nội dung `video` với `status=uploading` (có thể chưa có tệp).
-2. `POST /contents/{id}/video/upload` (khởi tạo multipart): kiểm `mime=video/mp4`, `size ≤ 1 GB`, quyền sở hữu; tạo `upload_id`; trả danh sách URL ký cho từng phần (5 MB mỗi phần, hạn 1 giờ).
-3. FE tải từng phần thẳng lên S3 (cần cấu hình CORS của bucket cho miền web).
-4. `POST /contents/{id}/video/complete` {phần, ETag}: backend gọi `CompleteMultipartUpload`, `HeadObject` kiểm kích thước và `Content-Type`, đọc thời lượng (metadata do FE gửi khi chọn tệp, kiểm lại bằng `ffprobe` ở bản sau nếu cần), đặt `status=ready`. Lỗi thì `failed` kèm lý do; `abort` multipart khi hủy.
-5. Tệp rác: job dọn multipart treo quá 24 giờ (lifecycle rule của S3, cấu hình ở hạ tầng, không viết code).
+Hợp đồng tải lên (cùng một bộ endpoint cho cả hai driver, FE đọc `mode`):
 
-**Phát:** một endpoint duy nhất `GET /contents/{id}/playback` (học sinh có quyền và mục đã mở) trả `{url, expires_at}` link GET ký hạn 15 phút; FE xin lại khi hết hạn. Bucket riêng tư, không công khai. Nguồn `external` trả `external_url` đã kiểm domain cho phép (YouTube, Vimeo). Chuyển HLS sau này chỉ đổi thân endpoint này và bước `complete`.
+1. `POST /contents/{id}/video/upload` `{filename, size_bytes, mime_type}`: kiểm `mime=video/mp4`, `size ≤ 1 GB`, quyền sở hữu; tạo bản ghi `status=uploading`; trả `{upload_id, mode, part_size, parts?}`.
+   - `mode=chunked` (driver `local`): FE cắt tệp thành phần 5 MB, gửi `PUT /contents/{id}/video/upload/{upload_id}/parts/{n}` qua backend, có thể gửi lại một phần (tải lại khi mất mạng). Backend ghi từng phần vào thư mục tạm.
+   - `mode=direct` (driver `s3`, làm sau): trả danh sách URL ký cho từng phần; FE tải thẳng lên S3 (cần CORS cho miền web).
+2. `POST /contents/{id}/video/complete` `{upload_id, parts?}`: `local` ghép các phần, kiểm kích thước và nhận diện MP4 bằng nội dung tệp (không tin `Content-Type`); `s3` gọi `CompleteMultipartUpload` rồi `HeadObject`. Thành công thì `status=ready`; lỗi thì `failed` kèm lý do. Thời lượng do FE đọc khi chọn tệp và gửi lên (kiểm lại bằng `ffprobe` ở bản sau nếu cần).
+3. `DELETE /contents/{id}/video/upload/{upload_id}`: hủy và xóa phần tạm.
+4. Dọn tải dở: lệnh theo lịch xóa thư mục tạm quá 24 giờ (driver `local`). Lịch chạy phụ thuộc scheduler, mà scheduler hiện chưa bật (`STATE.md`, Chờ user), nên bản đầu cho phép dọn thủ công bằng `php artisan` và ghi vào nợ kỹ thuật; driver `s3` dùng lifecycle rule của bucket thay thế.
+
+**Phát:** một endpoint duy nhất `GET /contents/{id}/playback` (học sinh có quyền, mục đã mở) trả `{url, expires_at}`, hạn 15 phút; FE xin lại khi hết hạn.
+- `local`: URL là route của backend có chữ ký tạm thời (`temporarySignedRoute`), phục vụ tệp **có hỗ trợ Range** để tua được (`BinaryFileResponse`); route kiểm lại quyền, không chỉ tin chữ ký.
+- `s3`: link GET ký của S3.
+- Nguồn `external`: trả `external_url` đã kiểm tên miền cho phép (YouTube, Vimeo).
+Phát video qua PHP tốn worker và băng thông máy chủ; chấp nhận được khi chưa vận hành chính thức, và đây là lý do driver `s3`/CDN là bước sau cần làm trước khi có nhiều học sinh xem cùng lúc. Chuyển HLS sau này chỉ đổi thân endpoint này và bước `complete`.
 
 **Quyền xem tệp** (`DEC-LRN-052` mục 10): học sinh thuộc đối tượng, giáo viên sở hữu, Admin. Phụ huynh không xem tệp và video, chỉ xem tiến độ. Mở rộng `AssessmentFileAccessQuery` thành truy vấn quyền tệp cho `learning_content`.
 
@@ -133,7 +140,7 @@ Theo checklist `backend-gotchas.md`: fixture có dữ liệu thật cho từng n
 |---|---|---|---|
 | 1 | BE nền | Chuyển `CourseItem` sang `CourseContent` (không đổi hành vi); migration `learning_contents`, cột cài đặt khóa, mục khóa nhiều loại, chương; CRUD bài giảng + tài liệu (có làm sạch HTML, ảnh, tệp); sắp xếp | — |
 | 2 | BE độc lập | `ContentAudience`, giao Lớp/Học sinh, sao chép vào khóa, danh sách TC-18, lưu trữ/xóa | 1 |
-| 3 | BE video | Tải multipart S3, `ready/failed`, link phát, link ngoài, điểm dừng (chụp câu, `needs_recheck`) | 1 |
+| 3 | BE video | `VideoStorage` + driver `local` (tải theo phần qua backend, link phát có chữ ký và Range), `ready/failed`, link ngoài, điểm dừng (chụp câu, `needs_recheck`); driver `s3` để sau | 1 |
 | 4 | BE học sinh | Đọc nội dung theo quyền, tiến độ, mở khóa tuần tự, trả lời điểm dừng, hoàn thành khóa, tiến độ cho Giáo viên/Admin/Phụ huynh | 1–3 |
 | 5 | FE Giáo viên | TC-15 tab Nội dung và cài đặt, TC-16 soạn bài giảng, TC-18 | 1–2 |
 | 6 | FE video | TC-17 (tải lên, điểm dừng, tạo câu mới dùng lại TC-08) | 3, 5 |
@@ -146,4 +153,4 @@ Lát BE và FE chạy xen kẽ theo `working-flow.md` bước 3 và 4 khi hình 
 
 1. **Thư viện soạn văn bản:** đề xuất **TipTap** (MIT, bảng/danh sách/ảnh/dán từ Word đủ dùng, tự do tùy biến giao diện theo design system) thay vì CKEditor 5 (bản 44 trở đi dùng bằng khóa giấy phép, bản miễn phí có giới hạn, tính năng cộng tác và xuất Word tính phí). Giao diện cho học sinh giống nhau ở cả hai. Bạn muốn bám CKEditor hay chọn TipTap?
 2. **Module mới `CourseContent`** và chuyển `CourseItem` khỏi Assessment (§2): đồng ý ghi thành `ARCH-39`?
-3. **Chạm hạ tầng:** bucket S3 riêng tư, CORS cho miền web, lifecycle dọn multipart treo, IAM cho backend (tạo URL ký). Bạn hay người quản hạ tầng chuẩn bị? Lát 3 cần có bucket thử trước khi code kiểm thử thật.
+3. **Hạ tầng S3:** đã chốt hoãn (user, 2026-11-25): bản đầu dùng driver `local`; khi có bucket thì thêm driver `s3` (bucket riêng tư, CORS cho miền web, IAM tạo link ký). Không còn là điều kiện chặn lát 3.

@@ -18,12 +18,12 @@ Cập nhật lần cuối: 2026-11-25 · bởi: spec khóa học có nội dung 
   - `DEC-LRN-047` dùng mặc định đề xuất cho bốn câu user chưa trả lời (hiện sĩ số không hiện tên, menu thứ 5, mọi lời phê theo visibility, không xem tệp bài làm): user đổi được
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 - **Khóa học có nội dung học (`B-062`, `DEC-LRN-052`):** bước quyết định xong (hướng); user muốn làm ngay, không để sau
-  - Đã chốt: bài giảng, tài liệu, video (S3), video tương tác tách riêng (điểm dừng câu hỏi), có thể thuộc khóa hoặc độc lập, tiến độ theo mục, mở khóa tuần tự theo khóa, hoàn thành cấu hình theo khóa
+  - Đã chốt: bài giảng, tài liệu, video (đĩa riêng tư, S3 sau), video tương tác tách riêng (điểm dừng câu hỏi), có thể thuộc khóa hoặc độc lập, tiến độ theo mục, mở khóa tuần tự theo khóa, hoàn thành cấu hình theo khóa
   - Đã chốt thêm 2026-11-25: bài giảng độc lập giao Lớp/Học sinh, mốc bài của khóa tùy chọn, video MP4 qua link ký (thiết kế sẵn để nâng HLS), giới hạn và quyền tệp, sửa bài giảng trực tiếp
-  - `DEC-LRN-053`: danh sách màn và luật điểm dừng video (thử lại không giới hạn, ghi nhận lượt đầu). Mockup đã vẽ: đợt một (ST-09..11, TC-15 tab Nội dung, TC-17) đã merge; đợt hai (TC-16, TC-18, TC-19, ST-12, AD-12 tab Nội dung) đã vẽ, chờ user xem. Bài giảng soạn bằng trình soạn văn bản kiểu Word (`DEC-LRN-053` mục 4). Chưa vẽ mockup phụ huynh (màn khóa của phụ huynh chưa từng có mockup); mockup phần Lớp và Học viên của TC-15, AD-12 còn theo mô hình ghi danh cũ. Spec đã viết (`superpowers/specs/2026-11-25-course-content-design.md`), chờ user duyệt 3 điểm (thư viện soạn văn bản, module mới `CourseContent`, hạ tầng S3); kế tiếp: plan lát 1 (BE nền)
+  - `DEC-LRN-053`: danh sách màn và luật điểm dừng video (thử lại không giới hạn, ghi nhận lượt đầu). Mockup đã vẽ: đợt một (ST-09..11, TC-15 tab Nội dung, TC-17) đã merge; đợt hai (TC-16, TC-18, TC-19, ST-12, AD-12 tab Nội dung) đã vẽ, chờ user xem. Bài giảng soạn bằng trình soạn văn bản kiểu Word (`DEC-LRN-053` mục 4). Chưa vẽ mockup phụ huynh (màn khóa của phụ huynh chưa từng có mockup); mockup phần Lớp và Học viên của TC-15, AD-12 còn theo mô hình ghi danh cũ. Spec đã viết (`superpowers/specs/2026-11-25-course-content-design.md`), chờ user duyệt 2 điểm (thư viện soạn văn bản, module mới `CourseContent`); S3 hoãn, bản đầu lưu video trên đĩa riêng tư; kế tiếp: plan lát 1 (BE nền)
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Khóa học có nội dung học (`DEC-LRN-052`, `053`): user duyệt spec (3 điểm ở mục 10), rồi plan lát 1 (BE nền)
+1. Khóa học có nội dung học (`DEC-LRN-052`, `053`): user duyệt spec (2 điểm ở mục 10), rồi plan lát 1 (BE nền)
 2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 3. Thông báo trong ứng dụng (chuông CM-06, `B-090`, `DEC-LRN-045`): user muốn rà soát riêng, làm sau khi hoàn thiện chức năng các cổng
 
