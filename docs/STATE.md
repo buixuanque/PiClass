@@ -2,7 +2,7 @@
 
 Không ghi số PR hay nhánh chưa push/chưa merge (đọc từ git bằng `/tiep`). File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-11-25 · bởi: chốt hướng khóa học có nội dung học (`DEC-LRN-052`)
+Cập nhật lần cuối: 2026-11-25 · bởi: chốt xong `DEC-LRN-052` (khóa học có nội dung học)
 
 ## Đang làm
 - **Cổng Giáo viên:** xong toàn bộ, đã merge `main` (vận hành lớp, đơn xin phép và tổng quan, khóa học, bài đánh giá TC-07..14, gắn khóa vào lớp `DEC-LRN-036`)
@@ -19,10 +19,11 @@ Cập nhật lần cuối: 2026-11-25 · bởi: chốt hướng khóa học có 
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
 - **Khóa học có nội dung học (`B-062`, `DEC-LRN-052`):** bước quyết định xong (hướng); user muốn làm ngay, không để sau
   - Đã chốt: bài giảng, tài liệu, video (S3), video tương tác tách riêng (điểm dừng câu hỏi), có thể thuộc khóa hoặc độc lập, tiến độ theo mục, mở khóa tuần tự theo khóa, hoàn thành cấu hình theo khóa
-  - Kế tiếp: chốt phần còn mở, mockup, spec, plan
+  - Đã chốt thêm 2026-11-25: bài giảng độc lập giao Lớp/Học sinh, mốc bài của khóa tùy chọn, video MP4 qua link ký (thiết kế sẵn để nâng HLS), giới hạn và quyền tệp, sửa bài giảng trực tiếp
+  - Kế tiếp: mockup, spec, plan
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Khóa học có nội dung học: chốt phần còn mở của `DEC-LRN-052` (cách giao bài giảng độc lập, mốc thời gian bài của khóa, HLS, quyền tệp, sửa nội dung đã có người học), rồi mockup, spec, plan
+1. Khóa học có nội dung học (`DEC-LRN-052` đã chốt hết): mockup (màn học sinh xem khóa/video, màn giáo viên soạn bài giảng và video, bài giảng độc lập), rồi spec, plan
 2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 3. Thông báo trong ứng dụng (chuông CM-06, `B-090`, `DEC-LRN-045`): user muốn rà soát riêng, làm sau khi hoàn thiện chức năng các cổng
 
