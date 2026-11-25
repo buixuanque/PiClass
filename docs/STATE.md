@@ -2,7 +2,7 @@
 
 Không ghi số PR hay nhánh chưa push/chưa merge (đọc từ git bằng `/tiep`). File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-11-04 · bởi: phụ huynh xem được bài như học sinh (`DEC-LRN-049`)
+Cập nhật lần cuối: 2026-11-25 · bởi: chốt hướng khóa học có nội dung học (`DEC-LRN-052`)
 
 ## Đang làm
 - **Cổng Giáo viên:** xong toàn bộ, đã merge `main` (vận hành lớp, đơn xin phép và tổng quan, khóa học, bài đánh giá TC-07..14, gắn khóa vào lớp `DEC-LRN-036`)
@@ -17,10 +17,14 @@ Cập nhật lần cuối: 2026-11-04 · bởi: phụ huynh xem được bài nh
   - `DEC-LRN-051`: xem lại nối, sắp xếp, điền chỗ trống, trả lời ngắn, tự luận cũng trực quan có đánh dấu (`piclass-web` nhánh `feat/review-other-types`)
   - `DEC-LRN-047` dùng mặc định đề xuất cho bốn câu user chưa trả lời (hiện sĩ số không hiện tên, menu thứ 5, mọi lời phê theo visibility, không xem tệp bài làm): user đổi được
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
+- **Khóa học có nội dung học (`B-062`, `DEC-LRN-052`):** bước quyết định xong (hướng); user muốn làm ngay, không để sau
+  - Đã chốt: bài giảng, tài liệu, video (S3), video tương tác tách riêng (điểm dừng câu hỏi), có thể thuộc khóa hoặc độc lập, tiến độ theo mục, mở khóa tuần tự theo khóa, hoàn thành cấu hình theo khóa
+  - Kế tiếp: chốt phần còn mở, mockup, spec, plan
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
-2. Thông báo trong ứng dụng (chuông CM-06, `B-090`, `DEC-LRN-045`): user muốn rà soát riêng, làm sau khi hoàn thiện chức năng các cổng
+1. Khóa học có nội dung học: chốt phần còn mở của `DEC-LRN-052` (cách giao bài giảng độc lập, mốc thời gian bài của khóa, HLS, quyền tệp, sửa nội dung đã có người học), rồi mockup, spec, plan
+2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
+3. Thông báo trong ứng dụng (chuông CM-06, `B-090`, `DEC-LRN-045`): user muốn rà soát riêng, làm sau khi hoàn thiện chức năng các cổng
 
 ## Chờ user (Claude không tự làm được)
 - Bộ lọc môn ở màn Tiến độ (TC-14) gần như thừa vì đã lọc theo lớp (môn suy ra từ lớp): giữ như mockup hay bỏ

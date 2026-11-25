@@ -5,7 +5,7 @@ Quy ước: mỗi rule có ID ổn định; các quyết định đã được n
 ## Nguyên tắc sản phẩm và dữ liệu
 
 - **BR-SYS-001 — ĐÃ QUYẾT ĐỊNH:** V1 ưu tiên quy trình học tập thực tế của lớp học thêm và các hoạt động cốt lõi đã nêu trong Product Definition.
-- **BR-SYS-002 — ĐÃ QUYẾT ĐỊNH:** Không mở rộng V1 sang AI tutor/chấm/sinh câu hỏi/đề xuất, video, lớp trực tuyến, chat, payment/học phí, mobile app, gamification, chứng chỉ hoặc phân tích nâng cao.
+- **BR-SYS-002 — ĐÃ QUYẾT ĐỊNH:** Không mở rộng V1 sang AI tutor/chấm/sinh câu hỏi/đề xuất, lớp trực tuyến (họp video trực tiếp; video bài học đã nằm trong khóa, xem `BR-COURSE-002`), chat, payment/học phí, mobile app, gamification, chứng chỉ hoặc phân tích nâng cao.
 - **BR-SYS-003 — ĐÃ QUYẾT ĐỊNH:** Admin và Teacher là hai vai trò riêng; một User được đồng thời có cả hai.
 - **BR-SYS-004 — ĐÃ QUYẾT ĐỊNH:** Dữ liệu lịch sử học tập không bị xóa chỉ vì tài khoản hoặc quan hệ nghiệp vụ bị vô hiệu hóa/kết thúc.
 - **BR-SYS-005 — ĐÃ QUYẾT ĐỊNH:** Quyền đọc tệp đính kèm không vượt quá quyền đọc đối tượng nghiệp vụ chứa tệp.
