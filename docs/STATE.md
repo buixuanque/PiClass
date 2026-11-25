@@ -20,10 +20,10 @@ Cập nhật lần cuối: 2026-11-25 · bởi: chốt xong `DEC-LRN-052` (khóa
 - **Khóa học có nội dung học (`B-062`, `DEC-LRN-052`):** bước quyết định xong (hướng); user muốn làm ngay, không để sau
   - Đã chốt: bài giảng, tài liệu, video (S3), video tương tác tách riêng (điểm dừng câu hỏi), có thể thuộc khóa hoặc độc lập, tiến độ theo mục, mở khóa tuần tự theo khóa, hoàn thành cấu hình theo khóa
   - Đã chốt thêm 2026-11-25: bài giảng độc lập giao Lớp/Học sinh, mốc bài của khóa tùy chọn, video MP4 qua link ký (thiết kế sẵn để nâng HLS), giới hạn và quyền tệp, sửa bài giảng trực tiếp
-  - `DEC-LRN-053`: danh sách màn (ST-09..12, TC-15..19, AD-12, phụ huynh) và luật điểm dừng video (thử lại không giới hạn, ghi nhận lượt đầu); mockup đợt một đã vẽ (ST-09, ST-10, ST-11, TC-15 tab Nội dung, TC-17), chờ user xem; kế tiếp đợt hai (TC-16, TC-18, TC-19, ST-12, AD-12, phụ huynh), spec, plan
+  - `DEC-LRN-053`: danh sách màn và luật điểm dừng video (thử lại không giới hạn, ghi nhận lượt đầu). Mockup đã vẽ: đợt một (ST-09..11, TC-15 tab Nội dung, TC-17) đã merge; đợt hai (TC-16, TC-18, TC-19, ST-12, AD-12 tab Nội dung) đã vẽ, chờ user xem. Bài giảng soạn bằng trình soạn văn bản kiểu Word (`DEC-LRN-053` mục 4). Chưa vẽ mockup phụ huynh (màn khóa của phụ huynh chưa từng có mockup); mockup phần Lớp và Học viên của TC-15, AD-12 còn theo mô hình ghi danh cũ. Kế tiếp: spec, plan
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Khóa học có nội dung học (`DEC-LRN-052`, `053`): user xem mockup đợt một, rồi đợt hai, spec, plan
+1. Khóa học có nội dung học (`DEC-LRN-052`, `053`): user xem mockup đợt hai, rồi spec (bảng, API), plan
 2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 3. Thông báo trong ứng dụng (chuông CM-06, `B-090`, `DEC-LRN-045`): user muốn rà soát riêng, làm sau khi hoàn thiện chức năng các cổng
 
