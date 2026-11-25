@@ -2,7 +2,7 @@
 
 Không ghi số PR hay nhánh chưa push/chưa merge (đọc từ git bằng `/tiep`). File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-11-25 · bởi: spec khóa học có nội dung học
+Cập nhật lần cuối: 2026-11-26 · bởi: xong lát 1a (module `CourseContent`)
 
 ## Đang làm
 - **Cổng Giáo viên:** xong toàn bộ, đã merge `main` (vận hành lớp, đơn xin phép và tổng quan, khóa học, bài đánh giá TC-07..14, gắn khóa vào lớp `DEC-LRN-036`)
@@ -10,20 +10,14 @@ Cập nhật lần cuối: 2026-11-25 · bởi: spec khóa học có nội dung 
 - **Cổng Học sinh (ST-01..09):** xong toàn bộ, đã merge: quyết định `DEC-LRN-037..041`, BE, FE, review opus và sửa; chưa xem bằng trình duyệt thật; minor còn lại `B-088`, `B-089`; tổng hợp: `docs/product/screens/student-portal-summary.md`
 - **Cổng Phụ huynh:** xong toàn bộ, đã merge: quyết định `DEC-LRN-042..047` (lịch calendar, điểm danh, ô chọn con ở thanh trên, nhận xét, bài làm của con, mục "Lớp & khóa học"); review opus đã chạy cho P1, P2 và đợt hai (`DEC-LRN-046`, `DEC-LRN-047`), đã sửa và merge
   - Chưa xem bằng trình duyệt thật (chỉ test và ảnh chụp Chromium); chưa xem bằng mắt: Lịch học ở 390px, chi tiết buổi trong calendar; minor còn lại `B-090..B-095`; tổng hợp: `docs/product/screens/parent-portal-summary.md`
-  - User review 2026-11-04: màn bài làm của con đã có đề và đáp án (`DEC-LRN-047`); chỉ bài mẫu cũ "[Demo 4c]" thiếu dòng câu hỏi nên chỉ thấy điểm. `ParentDemoSeeder` đã bù và thêm khóa mẫu đủ trường hợp hiện/ẩn (`piclass-api` nhánh `feat/parent-demo-seed-review-courses`, chưa PR)
-  - `DEC-LRN-048`: tab Khóa học thành danh sách khóa, bấm vào mở màn chi tiết khóa (`piclass-web` nhánh `feat/parent-course-detail`, chưa PR); màn bài làm giữ nguyên
-  - `DEC-LRN-049`: trong chi tiết khóa mọi bài bấm được, mở chi tiết bài của con (không làm bài); `piclass-web` nhánh `feat/parent-assessment-detail`. Đề bài chưa công bố vẫn ẩn (mặc định, user đổi được)
-  - `DEC-LRN-050`: xem lại câu chọn hiện đủ đáp án có đánh dấu, dùng chung học sinh và phụ huynh (`piclass-web` nhánh `feat/review-card-visual`)
-  - `DEC-LRN-051`: xem lại nối, sắp xếp, điền chỗ trống, trả lời ngắn, tự luận cũng trực quan có đánh dấu (`piclass-web` nhánh `feat/review-other-types`)
   - `DEC-LRN-047` dùng mặc định đề xuất cho bốn câu user chưa trả lời (hiện sĩ số không hiện tên, menu thứ 5, mọi lời phê theo visibility, không xem tệp bài làm): user đổi được
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
-- **Khóa học có nội dung học (`B-062`, `DEC-LRN-052`):** bước quyết định xong (hướng); user muốn làm ngay, không để sau
-  - Đã chốt: bài giảng, tài liệu, video (đĩa riêng tư, S3 sau), video tương tác tách riêng (điểm dừng câu hỏi), có thể thuộc khóa hoặc độc lập, tiến độ theo mục, mở khóa tuần tự theo khóa, hoàn thành cấu hình theo khóa
-  - Đã chốt thêm 2026-11-25: bài giảng độc lập giao Lớp/Học sinh, mốc bài của khóa tùy chọn, video MP4 qua link ký (thiết kế sẵn để nâng HLS), giới hạn và quyền tệp, sửa bài giảng trực tiếp
-  - `DEC-LRN-053`: danh sách màn và luật điểm dừng video (thử lại không giới hạn, ghi nhận lượt đầu). Mockup đã vẽ: đợt một (ST-09..11, TC-15 tab Nội dung, TC-17) đã merge; đợt hai (TC-16, TC-18, TC-19, ST-12, AD-12 tab Nội dung) đã vẽ, chờ user xem. Bài giảng soạn bằng trình soạn văn bản kiểu Word (`DEC-LRN-053` mục 4). Chưa vẽ mockup phụ huynh (màn khóa của phụ huynh chưa từng có mockup); mockup phần Lớp và Học viên của TC-15, AD-12 còn theo mô hình ghi danh cũ. Spec đã viết (`superpowers/specs/2026-11-25-course-content-design.md`), user đã duyệt (TipTap, module `CourseContent` = `ARCH-39`, S3 hoãn, video lưu đĩa riêng tư bản đầu); lát 1a BE xong (module `CourseContent`, `CourseItem` đã chuyển, plan `superpowers/plans/2026-11-25-be-course-content-1a-module-move.md`; review opus toàn nhánh sạch); kế tiếp: viết plan lát 1b (schema nhiều loại mục, bài giảng, tài liệu)
-
+- **Khóa học có nội dung học (`B-062`, `DEC-LRN-052`, `053`, `ARCH-39`):** quyết định xong → mockup xong → spec xong → code BE lát 1a xong → **lát 1b: plan (đang làm)** → code BE 1b..4 → code FE (lát 5..8) → review → merge
+  - Spec: `superpowers/specs/2026-11-25-course-content-design.md` (8 lát, mục 9); đã duyệt: TipTap, module `CourseContent`, S3 hoãn (video lưu đĩa riêng tư bản đầu, driver S3 là `B-096`)
+  - Lát 1a (module `CourseContent`, `CourseItem` đã chuyển khỏi Assessment, không đổi hành vi): xong, đã merge; plan ở `archive/superpowers/plans/`
+  - Lệch cần nhớ: mockup phần Lớp, Học viên của TC-15 và ghi danh của AD-12 còn theo mô hình cũ; chưa có mockup khóa học cho Phụ huynh (`B-098`)
 ## Việc kế tiếp (làm từ trên xuống)
-1. Khóa học có nội dung học (`DEC-LRN-052`, `053`): viết plan lát 1b (bài giảng, tài liệu, làm sạch HTML, ảnh và tệp), rồi code
+1. Khóa học có nội dung học: viết plan lát 1b (schema nhiều loại mục gồm `chapter`, bài giảng, tài liệu, làm sạch HTML, ảnh và tệp, sắp xếp; kèm `B-097`), rồi code; sửa spec mục 3 (chương là mục `chapter`, không dùng `parent_id`)
 2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 3. Thông báo trong ứng dụng (chuông CM-06, `B-090`, `DEC-LRN-045`): user muốn rà soát riêng, làm sau khi hoàn thiện chức năng các cổng
 
