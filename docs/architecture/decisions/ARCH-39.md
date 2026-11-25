@@ -2,7 +2,9 @@
 
 Mục lục và trạng thái: [../open-decisions.md](../open-decisions.md).
 
-**Trạng thái:** ĐÃ CHỐT (user duyệt 2026-11-25); chưa làm ở BE (lát 1 trong `superpowers/specs/2026-11-25-course-content-design.md`).
+**Trạng thái:** ĐÃ CHỐT (user duyệt 2026-11-25); lát 1a (chuyển `CourseItem`, module `CourseContent`) đã làm ở BE (nhánh `refactor/course-content-module` của `piclass-api`); lát 1b trở đi chưa làm (`superpowers/specs/2026-11-25-course-content-design.md`).
+
+**Hướng gọi (chốt khi làm 1a):** chỉ `CourseContent → Assessment` (Action). Assessment không ghi `course_items`: sao chép bài vào khóa và tạo bài trong khóa đi qua `CourseContent\Actions\AddAssessmentToCourse`, `AddAssessmentsToCourse`, `CreateCourseAssessment`; gỡ mục gọi `Assessment\Actions\ArchiveCourseAssessment`. `operationId` và tag OpenAPI của các endpoint mục khóa đổi từ `assessment.*` sang `courseContent.*` (đường dẫn và JSON không đổi).
 
 **Bối cảnh:** `DEC-LRN-052` thêm bài giảng, tài liệu, video và tiến độ vào khóa. `ARCH-38` giao `CourseItem` cho Assessment vì khi đó mục chỉ trỏ tới bài, và đã ghi sẵn "cân nhắc tách module Course Content" khi làm `B-062`.
 

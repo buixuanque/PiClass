@@ -64,7 +64,7 @@ Các mục dưới đây là câu hỏi kỹ thuật còn mở; chúng không l�
 | ARCH-36 | UI lát "thêm hồ sơ kèm tài khoản" dựng không qua mockup (FE `piclass-web`, 2026-10-27) | **CHỜ XÁC NHẬN** | [ARCH-36](decisions/ARCH-36.md) |
 | ARCH-37 | Gộp tab Lịch (AD-10d) và Buổi học (AD-10e) thành một mặt bày duy nhất | ĐÃ CHỐT VÀ ĐÃ LÀM (2026-10-28) | [ARCH-37](decisions/ARCH-37.md) |
 | ARCH-38 | Ranh giới module cho `CourseAudience`, `CourseItem`, `Assessment.course_id` sau `DEC-LRN-026` | ĐÃ CHỐT VÀ ĐÃ LÀM (2026-10-30) | [ARCH-38](decisions/ARCH-38.md) |
-| ARCH-39 | Module `CourseContent` và chuyển `CourseItem` khỏi Assessment (`DEC-LRN-052`) | ĐÃ CHỐT (2026-11-25), chưa làm | [ARCH-39](decisions/ARCH-39.md) |
+| ARCH-39 | Module `CourseContent` và chuyển `CourseItem` khỏi Assessment (`DEC-LRN-052`) | ĐÃ CHỐT (2026-11-25); lát 1a đã làm (2026-11-26) | [ARCH-39](decisions/ARCH-39.md) |
 
 
 ## Đã chốt và không phải open decision của Step 8
