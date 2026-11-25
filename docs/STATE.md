@@ -20,10 +20,10 @@ Cập nhật lần cuối: 2026-11-25 · bởi: chốt xong `DEC-LRN-052` (khóa
 - **Khóa học có nội dung học (`B-062`, `DEC-LRN-052`):** bước quyết định xong (hướng); user muốn làm ngay, không để sau
   - Đã chốt: bài giảng, tài liệu, video (S3), video tương tác tách riêng (điểm dừng câu hỏi), có thể thuộc khóa hoặc độc lập, tiến độ theo mục, mở khóa tuần tự theo khóa, hoàn thành cấu hình theo khóa
   - Đã chốt thêm 2026-11-25: bài giảng độc lập giao Lớp/Học sinh, mốc bài của khóa tùy chọn, video MP4 qua link ký (thiết kế sẵn để nâng HLS), giới hạn và quyền tệp, sửa bài giảng trực tiếp
-  - Kế tiếp: mockup, spec, plan
+  - `DEC-LRN-053`: danh sách màn (ST-09..12, TC-15..19, AD-12, phụ huynh) và luật điểm dừng video (thử lại không giới hạn, ghi nhận lượt đầu); **đang làm: mockup đợt một** (ST-11, TC-17, ST-09, TC-15), rồi spec, plan
 
 ## Việc kế tiếp (làm từ trên xuống)
-1. Khóa học có nội dung học (`DEC-LRN-052` đã chốt hết): mockup (màn học sinh xem khóa/video, màn giáo viên soạn bài giảng và video, bài giảng độc lập), rồi spec, plan
+1. Khóa học có nội dung học (`DEC-LRN-052`, `053`): mockup đợt một (ST-11 xem video, TC-17 soạn video, ST-09 và TC-15 chi tiết khóa), rồi đợt hai, spec, plan
 2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 3. Thông báo trong ứng dụng (chuông CM-06, `B-090`, `DEC-LRN-045`): user muốn rà soát riêng, làm sau khi hoàn thiện chức năng các cổng
 
