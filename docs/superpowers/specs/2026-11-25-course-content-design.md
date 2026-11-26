@@ -41,7 +41,7 @@ Mọi khóa chính `uuid`; thời gian lưu UTC (`docs/rules/time.md`).
 
 **`content_audiences`:** như `assessment_audiences`: `content_id`, `class_id` null, `student_id` null, `added_by_user_id`, `created_at`; unique `(content_id, class_id)` và `(content_id, student_id)`; CHECK đúng một đích. Test: nội dung có `course_id` không được có dòng audience.
 
-**`course_items` (sửa):** `type enum` thêm `lecture`, `document`, `video`, `chapter` (chương, chỉ có `title`); thêm `content_id` null FK `learning_contents` `restrict` unique. CHECK theo `type`: `assessment` thì có `assessment_id`, không `content_id`; `lecture/document/video` thì có `content_id`, không `assessment_id`; `chapter` thì không có cả hai. `parent_id` chỉ trỏ tới mục `chapter` (Action kiểm, chương không lồng chương). `title` của mục bài giảng/tài liệu/video luôn bằng `learning_contents.title` (Action đồng bộ khi sửa); mục `assessment` và `chapter` giữ `title` riêng.
+**`course_items` (sửa):** `type enum` thêm `lecture`, `document`, `video`, `chapter` (chương, chỉ có `title`); thêm `content_id` null FK `learning_contents` `restrict` unique. CHECK theo `type`: `assessment` thì có `assessment_id`, không `content_id`; `lecture/document/video` thì có `content_id`, không `assessment_id`; `chapter` thì không có cả hai. **Chương là mục `chapter` đứng phẳng** trong danh sách mục (đúng mockup), không lồng cây: cột `parent_id` giữ nguyên nhưng **không dùng** (chốt khi viết plan 1b, 2026-11-26; đổi so với bản đầu của spec). `title` của mục bài giảng/tài liệu/video luôn bằng `learning_contents.title` (Action đồng bộ khi sửa); mục `assessment` và `chapter` giữ `title` riêng.
 
 **`video_checkpoints`:** `id`, `content_id` FK `content_videos`, `at_seconds int`, `source_question_version_id` FK `question_versions` `restrict` NOT NULL, `question_type`, `snapshot json` (bản chụp đề, đáp án, giải thích như `assessment_questions.snapshot`), `needs_recheck boolean default false` (bật khi thay tệp video, `DEC-LRN-052` mục 11), `timestamps`. Unique `(content_id, at_seconds)`; Action chặn hai điểm cách nhau dưới 3 giây (như mockup). Chỉ nhận loại câu tự chấm được: `single_choice`, `multiple_choice`, `true_false`, `fill_in_the_blank`, `matching`, `ordering` (`DEC-LRN-053`: tự luận và nộp tệp không dùng); loại khác 422.
 
@@ -154,3 +154,13 @@ Lát BE và FE chạy xen kẽ theo `working-flow.md` bước 3 và 4 khi hình 
 1. Thư viện soạn văn bản: **TipTap**.
 2. Module mới `CourseContent` và chuyển `CourseItem` khỏi Assessment: `ARCH-39`.
 3. Hạ tầng S3: hoãn; bản đầu driver `local`, driver `s3` là `B-096`.
+
+## 11. Ghi chú hiện thực lát 1b (2026-11-26)
+
+- Điểm tối thiểu gửi lên khi điều kiện hoàn thành là `all_items` không bị từ chối, chỉ bị xóa (Action đặt `null`).
+- `GET|PATCH /contents/{content}`: người không xem được khóa nhận 404, xem được nhưng không quản lý nhận 403.
+- Ảnh trong bài giảng: phải do người sửa upload hoặc đã gắn sẵn vào bài; mã ảnh hợp lệ nhưng không tồn tại bị từ chối (`LECTURE_IMAGE_NOT_ALLOWED`), mã sai định dạng bị bỏ qua. Mọi liên kết tệp của một bài giảng chính là các ảnh của nó ở lát này.
+- Upload có `purpose` (`course_document` | `course_image`) dùng bộ giới hạn riêng trong `config/attachments.php`; tài liệu phải do người thêm (hoặc Admin) upload và chưa gắn nơi khác.
+- Xóa nội dung đã làm là xóa hẳn; nhánh "đã có người học thì chỉ lưu trữ" làm cùng bảng tiến độ ở lát 4. Tệp bị gỡ chỉ mất liên kết (dọn tệp: `B-099`).
+- Học sinh chưa thấy chương, bài giảng, tài liệu ở lát này (danh sách mục của học viên vẫn chỉ gồm bài đánh giá đã mở) và chưa xem được tệp (`AttachmentPolicy` chỉ cho người quản lý khóa): lát 4.
+

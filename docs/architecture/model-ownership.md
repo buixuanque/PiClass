@@ -15,6 +15,7 @@ Bảng này gán mỗi Eloquent Model trong `piclass-api/app/Models` (48 file) c
 | `Assessment` | Assessment | Aggregate identity. Chỉ đọc: SubmissionGrading, ResultProgress, Notification, Lesson (liên kết tối đa một session). |
 | `AssessmentAudience` | Assessment | Phạm vi giao của bài cá nhân (Class/Student); tham chiếu Class, Student qua contract. Bài của khóa không có audience (`DEC-LRN-026`). |
 | `CourseItem` | CourseContent | Mục của khóa; chuyển từ Assessment sang CourseContent ở lát 1a (`ARCH-39`, 2026-11-26). Assessment chỉ đọc; CourseContent gọi Action của Assessment (một chiều). Chỉ đọc: Academic (hiển thị khóa). |
+| `LearningContent` | CourseContent | Bài giảng, tài liệu, video của khóa hoặc độc lập (`DEC-LRN-052`, `ARCH-39`, lát 1b). Tệp đính kèm qua `AttachmentLink.learning_content_id` do module File ghi (`File\Actions\SyncContentAttachments`). |
 | `AssessmentQuestion` | Assessment | Snapshot đóng băng trong version. Chỉ đọc: SubmissionGrading (AttemptQuestion, Answer, Grade tham chiếu). |
 | `AssessmentVersion` | Assessment | Bản phát hành bất biến. Chỉ đọc: SubmissionGrading, ResultProgress. |
 | `Attachment` | File | Metadata tệp. Chỉ đọc: QuestionBank, Assessment, SubmissionGrading (qua AttachmentLink). |
