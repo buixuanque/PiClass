@@ -154,3 +154,13 @@ Lát BE và FE chạy xen kẽ theo `working-flow.md` bước 3 và 4 khi hình 
 1. Thư viện soạn văn bản: **TipTap**.
 2. Module mới `CourseContent` và chuyển `CourseItem` khỏi Assessment: `ARCH-39`.
 3. Hạ tầng S3: hoãn; bản đầu driver `local`, driver `s3` là `B-096`.
+
+## 11. Ghi chú hiện thực lát 1b (2026-11-26)
+
+- Điểm tối thiểu gửi lên khi điều kiện hoàn thành là `all_items` không bị từ chối, chỉ bị xóa (Action đặt `null`).
+- `GET|PATCH /contents/{content}`: người không xem được khóa nhận 404, xem được nhưng không quản lý nhận 403.
+- Ảnh trong bài giảng: phải do người sửa upload hoặc đã gắn sẵn vào bài; mã ảnh hợp lệ nhưng không tồn tại bị từ chối (`LECTURE_IMAGE_NOT_ALLOWED`), mã sai định dạng bị bỏ qua. Mọi liên kết tệp của một bài giảng chính là các ảnh của nó ở lát này.
+- Upload có `purpose` (`course_document` | `course_image`) dùng bộ giới hạn riêng trong `config/attachments.php`; tài liệu phải do người thêm (hoặc Admin) upload và chưa gắn nơi khác.
+- Xóa nội dung đã làm là xóa hẳn; nhánh "đã có người học thì chỉ lưu trữ" làm cùng bảng tiến độ ở lát 4. Tệp bị gỡ chỉ mất liên kết (dọn tệp: `B-099`).
+- Học sinh chưa thấy chương, bài giảng, tài liệu ở lát này (danh sách mục của học viên vẫn chỉ gồm bài đánh giá đã mở) và chưa xem được tệp (`AttachmentPolicy` chỉ cho người quản lý khóa): lát 4.
+
