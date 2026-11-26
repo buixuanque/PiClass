@@ -164,3 +164,12 @@ Lát BE và FE chạy xen kẽ theo `working-flow.md` bước 3 và 4 khi hình 
 - Xóa nội dung đã làm là xóa hẳn; nhánh "đã có người học thì chỉ lưu trữ" làm cùng bảng tiến độ ở lát 4. Tệp bị gỡ chỉ mất liên kết (dọn tệp: `B-099`).
 - Học sinh chưa thấy chương, bài giảng, tài liệu ở lát này (danh sách mục của học viên vẫn chỉ gồm bài đánh giá đã mở) và chưa xem được tệp (`AttachmentPolicy` chỉ cho người quản lý khóa): lát 4.
 
+## 12. Ghi chú hiện thực lát 2 (2026-11-26)
+
+- Nội dung độc lập (`course_id` null) tạo bằng `POST /contents` (bài giảng hoặc tài liệu; video ở lát 3), quản lý qua `GET|PATCH /contents/{content}`; người khác (không phải Admin) nhận 404.
+- Danh sách "Bài giảng của tôi" (`GET /contents`) chỉ gồm nội dung của chính mình, Admin thấy tất cả; mặc định chỉ `active`, bộ lọc `type`, `status`, `search`, `class_id`.
+- Giao đối tượng theo mẫu khóa: `GET|POST /contents/{content}/audience`, `DELETE /contents/{content}/audience/{audienceId}` (không dùng `PUT` thay cả tập như mục 7 bản đầu). Giáo viên chỉ giao cho lớp mình dạy hoặc học sinh `active` trong các lớp đó; audit `content_audience.add|remove`.
+- Sao chép vào khóa: `POST /contents/{content}/copy-to-course` `{course_id}`; bản chép dùng chung `Attachment` (link riêng), nên ảnh dùng lại giữa các khóa là cố ý.
+- Lưu trữ và khôi phục là hai endpoint riêng (`POST .../archive`, `POST .../restore`, idempotent); xóa hẳn nội dung độc lập bằng `DELETE /contents/{content}`. Nhánh "đã có người học thì chỉ lưu trữ" làm cùng bảng tiến độ ở lát 4.
+- Audit bổ sung của lát 1b: `course.settings_update`, `course_item.remove` (bài giảng/tài liệu), `content.archive|restore|delete`. Mã lỗi mới: `CONTENT_HAS_NO_AUDIENCE`, `CONTENT_ARCHIVED`, `CONTENT_AUDIENCE_ALREADY_ADDED`, `CONTENT_BELONGS_TO_COURSE`.
+- Mọi Action đổi mục khóa khóa dòng khóa học trước các dòng mục (`Concerns/LocksCourse`); tệp tài liệu được khóa và kiểm lại "chưa gắn nơi khác" trong Action (`Concerns/ClaimsDocumentAttachment`).
