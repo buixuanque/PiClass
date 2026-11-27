@@ -84,3 +84,10 @@
 - **Cờ quyền ghi của bài.** `GET /assessments/{id}` chưa trả "người đang đăng nhập có sửa được bài này không". FE đang suy từ `created_by_user_id` cho bài cá nhân (cùng TC-09) và coi mọi bài của khóa là sửa được, để BE chặn bằng 403. Đề xuất: BE trả `can_manage` (hoặc tương đương) trong chi tiết bài.
 - **Liên kết sang lượt thay thế.** Bài nộp bị vô hiệu chỉ có `attempt.replacement_attempt_id` (mã lượt làm), không có mã bài nộp, nên TC-13 chưa dựng được liên kết sang bài thay thế. Đề xuất: BE trả `replacement_submission_id` (null khi lượt thay thế chưa nộp).
 - **Lưu và chấm bài kế** không lưu ô điểm đang gõ dở (giống mockup `nextGrade`); cần chốt có tự lưu không (ghi `open-decisions.md` nếu đổi).
+
+## Phát hiện khi lập plan FE khóa học lát 5 (2026-11-27)
+
+- ~~**Tệp đính kèm của bài giảng (TC-16).**~~ Đã bổ sung `PUT /contents/{content}/attachments` (`DEC-LRN-056`).
+- **Thay tệp tài liệu:** chưa có (`B-116`).
+- **Danh sách mục khóa** không trả trạng thái, thời lượng, số điểm dừng của video (mockup TC-15 có huy hiệu): xử lý ở lát 6.
+- **Danh sách "Bài giảng của tôi"** chỉ trả `audience_count`, không có tên đối tượng và số từ (mockup TC-18): FE hiện số đối tượng.
