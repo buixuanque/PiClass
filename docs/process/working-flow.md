@@ -29,9 +29,18 @@ Bước 3 và 4 có thể chạy song song khi hình dạng API đã rõ; chưa 
 
 ## Co quy trình theo cỡ việc (user chốt 2026-10-29)
 
-Việc nhỏ, ít rủi ro (ví dụ thêm một tham số lọc vào một Query): làm gọn, test-first, chạy test nhóm liên quan, PHPStan và Pint, rồi PR; không viết plan riêng, không gọi reviewer độc lập, không chạy cả bộ test. Việc lớn hoặc rủi ro cao (nhiều module, đổi schema hay phân quyền, màn hình mới): đi đủ plan, review độc lập cuối branch, chạy cả bộ test. Quy tắc cứng (nhánh từ `origin/main`, PR, PHPStan không thêm lỗi, cập nhật `STATE.md` và spec khi trạng thái đổi) luôn giữ. Không chạy test song song với subagent trên cùng DB test.
+Việc nhỏ, ít rủi ro (ví dụ thêm một tham số lọc vào một Query): làm gọn, test-first, chạy test nhóm liên quan, PHPStan và Pint, rồi PR; không viết plan riêng, không gọi reviewer độc lập. Việc lớn hoặc rủi ro cao (nhiều module, đổi schema hay phân quyền, màn hình mới): đi đủ plan, review độc lập cuối branch. Quy tắc cứng (nhánh từ `origin/main`, PR, PHPStan không thêm lỗi, cập nhật `STATE.md` và spec khi trạng thái đổi) luôn giữ. Không chạy test song song với subagent trên cùng DB test.
 
 `superpowers:brainstorming` cho việc kiến trúc hoặc API: nạp trước `docs/requirements/*`, `docs/access-control/*`, `docs/database/*` làm nguồn; không để nó hỏi lại từ đầu hay viết spec lệch Decision Log.
+
+**Phạm vi test (user chốt 2026-11-27), áp cho mọi cỡ việc, cả reviewer:** chỉ chạy test đúng phạm vi task, không tự chạy cả bộ; cả bộ chỉ chạy khi user yêu cầu. Phạm vi gồm:
+
+- test mới viết;
+- thư mục test của **mọi module có file bị sửa**, không chỉ module chính (ví dụ tính năng của Course Content có sửa module File thì chạy cả test của File);
+- `tests/Architecture` (BE), `architecture.test.ts` (FE);
+- sửa thứ dùng chung (model, migration, `app/Support`, component dùng chung) thì thêm test của các nơi đang dùng nó.
+
+Giữa các vòng sửa chỉ chạy lại test liên quan tới chỗ vừa sửa. Báo cáo và mô tả PR ghi rõ đã chạy nhóm nào.
 
 **Review code bằng subagent chỉ chạy model `opus`** (user chốt 2026-10-30): truyền `model: "opus"` tường minh; không dùng `fable`, kể cả khi skill ghi "model mạnh nhất". Quy tắc này thắng chỉ dẫn của skill.
 
