@@ -118,7 +118,7 @@ Học sinh:
 | Phát video | `GET /contents/{id}/playback` |
 | Trả lời điểm dừng | `POST /checkpoints/{id}/answers` → `{is_correct, explanation?, can_continue}` |
 
-Phụ huynh: `GET /students/{id}/courses/{courseId}/progress` (ghép vào mục "Lớp & khóa học", `DEC-LRN-047/048`), không có endpoint nội dung.
+Phụ huynh: `GET /me/children/{studentId}/courses/{course}/progress` (đổi từ `/students/{id}/courses/{courseId}/progress` ở lát 4b để theo quy ước các endpoint Phụ huynh dưới `/me/children/`) (ghép vào mục "Lớp & khóa học", `DEC-LRN-047/048`), không có endpoint nội dung.
 
 Lỗi mới (thêm vào `error-codes.md` khi làm): `CONTENT_LOCKED` (403), `VIDEO_NOT_READY` (409), `VIDEO_UPLOAD_FAILED` (422), `CHECKPOINT_QUESTION_UNSUPPORTED` (422), `CHECKPOINT_TOO_CLOSE` (422), `CONTENT_IN_USE` (409, xóa nội dung đã có người học).
 
@@ -193,3 +193,9 @@ Lát BE và FE chạy xen kẽ theo `working-flow.md` bước 3 và 4 khi hình 
 - **Xóa và lưu trữ (quy tắc 7):** gỡ mục khỏi khóa mà nội dung đã có tiến độ → xóa dòng mục, lưu trữ nội dung (giữ tệp); xóa nội dung độc lập đã có tiến độ → 409 `CONTENT_IN_USE` (chỉ lưu trữ được).
 - **Chưa làm / nợ:** khóa tuần tự chưa chặn server cho `/me/assessments*` (`B-108`); khe đua hẹp, id mục lộ thứ tự, điểm dừng quá thời lượng mới (`B-109..B-111`); lát 4b: tiến độ khóa cho Giáo viên, Admin (`GET /courses/{id}/progress`) và Phụ huynh (`GET /students/{id}/courses/{courseId}/progress`).
 
+## 15. Ghi chú hiện thực lát 4b (2026-11-28)
+
+- **Tiến độ khóa cho Giáo viên/Admin:** `GET /courses/{course}/progress` (`CoursePolicy::manage`: Admin hoặc chủ khóa; khóa dùng chung chỉ Admin). Trả `course`, `items` (mọi mục kèm `counts`, `completed_count`, `checkpoints` có `answered_count`, `first_try_correct_count`), `learners` (mỗi học viên một hàng: `done`, `total`, `is_complete`, `average_score` thang 10, `last_activity_at`, `statuses` chỉ cho mục đếm được) và `summary` (`learner_count`, `completed_count`, `completion_rate` luôn là số thực). Không có đáp án của học sinh, chỉ số lượt đầu đúng/sai; thống kê chỉ đếm học viên hiện tại.
+- **Tiến độ của con cho Phụ huynh:** `GET /me/children/{studentId}/courses/{course}/progress`: cùng số liệu với `GET /me/courses/{course}` của chính học sinh, không có `content_id` (chỉ bài đánh giá giữ `assessment_id`), không tệp, link, nội dung. Con của người khác, con không học khóa, liên kết đã hết, khóa không tồn tại đều cùng 404.
+- **Hiện thực:** không bảng mới. `CourseItemStatusesQuery::forStudents` và `StudentRepresentativeResultsQuery::handleForStudents` tính cho nhiều học sinh một lượt (số truy vấn không phụ thuộc số học viên); công thức điểm trung bình dùng chung ở `CourseAverageScore`.
+- **Nợ:** `B-112` (truy vấn thừa nhỏ).
