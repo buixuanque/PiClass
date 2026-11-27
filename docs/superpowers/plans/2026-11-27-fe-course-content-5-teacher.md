@@ -70,8 +70,8 @@ Repo `piclass-api`, nhánh và PR riêng, đi trước. Đụng phân quyền t�
 
 **Interfaces — Produces:** `@/features/course-content` export `CourseItemsSection`, `CourseItemActions`, `useCourseItems`, type `CourseItem`.
 
-- [ ] Chuyển file và sửa import; không sửa nội dung test ngoài đường dẫn.
-- [ ] `pnpm test`, `pnpm lint`, `pnpm typecheck` xanh, F5 không báo vòng. Commit `refactor: move course items into course-content feature`.
+- [x] Chuyển file và sửa import; không sửa nội dung test ngoài đường dẫn.
+- [x] `pnpm test`, `pnpm lint`, `pnpm typecheck` xanh, F5 không báo vòng. Commit `refactor: move course items into course-content feature`.
 
 ### Task 2: TC-15 tab Nội dung và cài đặt học
 
@@ -85,9 +85,9 @@ Mockup dòng 1214–1236 (markup), 2301–2323 (`ci`).
 - `type CompletionRule = "all_items" | "all_items_and_min_score"`; `useUpdateLearningSettings(courseId)` → `PATCH /courses/{id}` `{sequential_unlock?, completion_rule?, completion_min_score?}`; thành công thì gọi callback `onSaved` để `academic` làm mới query của khóa.
 - `<CourseContentTab courseId settings={{sequential_unlock, completion_rule, completion_min_score}} onSettingsSaved readOnly editHref={(item) => string | null} gradingHref={(item) => string | null} />`.
 
-- [ ] Test đỏ: `renders chapters as headers and numbers no chapter`; `moving an item sends the full id order`; `reloads the list and shows the message on INVALID_ITEM_ORDER`; `toggling sequential unlock patches only that field`; `choosing the score rule asks for a minimum score before saving` (Q3); `archived course hides add, move and remove controls`; `count line shows item and video totals without chapters`; `assessment rows keep grading link`.
-- [ ] Hiện thực; `CourseItemsSection` cũ chỉ còn Admin và khóa dùng chung dùng (hiện đủ năm loại mục không vỡ).
-- [ ] Xanh, so mockup dòng 1214–1236, commit.
+- [x] Test đỏ: `renders chapters as headers and numbers no chapter`; `moving an item sends the full id order`; `reloads the list and shows the message on INVALID_ITEM_ORDER`; `toggling sequential unlock patches only that field`; `choosing the score rule asks for a minimum score before saving` (Q3); `archived course hides add, move and remove controls`; `count line shows item and video totals without chapters`; `assessment rows keep grading link`.
+- [x] Hiện thực; `CourseItemsSection` cũ chỉ còn Admin và khóa dùng chung dùng (hiện đủ năm loại mục không vỡ).
+- [x] Xanh, so mockup dòng 1214–1236, commit.
 
 ### Task 3: Hộp "Thêm mục vào khóa" và tạo tài liệu
 
@@ -101,8 +101,8 @@ Mockup dòng 1251–1259, 2314–2323 (`addOpts`: icon, màu, chữ).
 - `contentsApi.copyToCourse(contentId, courseId): Promise<CourseItem>`
 - Lựa chọn theo thứ tự: Bài giảng chữ, Tài liệu, Bài đánh giá (hai lối: soạn mới, lấy từ bài của tôi, dùng lại hộp thoại cũ), Lấy từ bài giảng của tôi, Chương (Q2).
 
-- [ ] Test đỏ: `offers no video option yet`; `creating a lecture opens its editor route`; `document uploads with purpose course_document then creates the item`; `deletes the uploaded file when creating the item fails and shows the server message`; `copy from my lectures calls copy-to-course with this course id`; `adds a chapter with only a title`.
-- [ ] Hiện thực, xanh, so mockup, commit.
+- [x] Test đỏ: `offers no video option yet`; `creating a lecture opens its editor route`; `document uploads with purpose course_document then creates the item`; `deletes the uploaded file when creating the item fails and shows the server message`; `copy from my lectures calls copy-to-course with this course id`; `adds a chapter with only a title`.
+- [x] Hiện thực, xanh, so mockup, commit.
 
 ### Task 4: TC-16 soạn bài giảng
 
@@ -117,10 +117,10 @@ Mockup dòng 1040–1072 (markup, hộp xem trước), 73 trở đi (CSS `.lec-d
 - `<LectureViewer html />` (TipTap chỉ đọc; lát 7 dùng lại)
 - `<LectureEditScreen contentId={string|null} courseId={string|null} />`
 
-- [ ] Test đỏ cho extensions (hàm thuần): `round trips image data-attachment-id`; `drops script, iframe and h1`; `keeps text-align and tables`.
-- [ ] Test đỏ màn hình: `loads title and body from the server`; `save sends title and html then reloads the sanitized body`; `shows LECTURE_TOO_LARGE and LECTURE_IMAGE_NOT_ALLOWED messages and keeps the draft`; `empty title is rejected before calling the api`; `inserting an image uploads with purpose course_image`; `asks before leaving with unsaved changes`; `files card attaches and removes through the set endpoint` (Q1); `new standalone lecture is created on first save and moves to its edit route`.
-- [ ] Ảnh và tệp trên bài **chưa lưu lần đầu**: khung "Tệp đính kèm" tắt cho tới khi bài được tạo; ảnh chèn trước đó được gắn khi `POST /contents` gửi `body_html`.
-- [ ] Hiện thực, `pnpm build` xanh, so mockup, commit.
+- [x] Test đỏ cho extensions (hàm thuần): `round trips image data-attachment-id`; `drops script, iframe and h1`; `keeps text-align and tables`.
+- [x] Test đỏ màn hình: `loads title and body from the server`; `save sends title and html then reloads the sanitized body`; `shows LECTURE_TOO_LARGE and LECTURE_IMAGE_NOT_ALLOWED messages and keeps the draft`; `empty title is rejected before calling the api`; `inserting an image uploads with purpose course_image`; `asks before leaving with unsaved changes`; `files card attaches and removes through the set endpoint` (Q1); `new standalone lecture is created on first save and moves to its edit route`.
+- [x] Ảnh và tệp trên bài **chưa lưu lần đầu**: khung "Tệp đính kèm" tắt cho tới khi bài được tạo; ảnh chèn trước đó được gắn khi `POST /contents` gửi `body_html`.
+- [x] Hiện thực, `pnpm build` xanh, so mockup, commit.
 
 ### Task 5: TC-18 "Bài giảng của tôi"
 
@@ -133,15 +133,15 @@ Mockup dòng 1022–1038, 1244–1250 (hộp "Giao"), 2360–2380 (`lt`).
 - Produces: `contentAudienceApi.list(id)`, `.add(id, {class_id} | {student_id})`, `.remove(id, audienceId)`; dòng: `{id, class_id, class_name, student_id, student_name, created_at}`.
 - `<LectureList targets={AssignTarget[]} courses={{id, name}[]} />`, `AssignTarget = {kind: "class"|"student", id: string, label: string}`.
 
-- [ ] Test đỏ: `lists standalone contents with type icon and assignment badge`; `paginates`; `assign dialog preselects current audience`; `saving the dialog adds new targets and removes unchecked ones`; `shows the server message when one add fails and keeps the dialog in sync with the server`; `copy to course lists only own active courses`; `document row edit only renames`; `empty state offers writing a lecture`.
-- [ ] Lưu đối tượng là nhiều request tuần tự (API không thay cả tập): dừng ở lỗi đầu, tải lại danh sách đối tượng.
-- [ ] Hiện thực, xanh, so mockup, commit.
+- [x] Test đỏ: `lists standalone contents with type icon and assignment badge`; `paginates`; `assign dialog preselects current audience`; `saving the dialog adds new targets and removes unchecked ones`; `shows the server message when one add fails and keeps the dialog in sync with the server`; `copy to course lists only own active courses`; `document row edit only renames`; `empty state offers writing a lecture`.
+- [x] Lưu đối tượng là nhiều request tuần tự (API không thay cả tập): dừng ở lỗi đầu, tải lại danh sách đối tượng.
+- [x] Hiện thực, xanh, so mockup, commit.
 
 ### Task 6: Kiểm cuối nhánh
 
-- [ ] `pnpm test && pnpm lint && pnpm typecheck && pnpm build`.
-- [ ] Tự so JSX với từng đoạn mockup đã ghi; chạy thật trên `localhost:8000` luồng: thêm bài giảng có ảnh vào khóa → sắp xếp → bật học theo thứ tự → soạn bài độc lập → giao lớp → thêm vào khóa.
-- [ ] Review độc lập cả nhánh (opus, effort medium); sửa; cập nhật `STATE.md`, `api-gaps.md`, spec.
+- [x] `pnpm test && pnpm lint && pnpm typecheck && pnpm build`.
+- [ ] (chưa làm: chạy luồng thật) Tự so JSX với từng đoạn mockup đã ghi; chạy thật trên `localhost:8000` luồng: thêm bài giảng có ảnh vào khóa → sắp xếp → bật học theo thứ tự → soạn bài độc lập → giao lớp → thêm vào khóa.
+- [x] Review độc lập cả nhánh (opus, effort medium); sửa; cập nhật `STATE.md`, `api-gaps.md`, spec.
 
 ---
 

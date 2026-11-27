@@ -205,3 +205,11 @@ Lát BE và FE chạy xen kẽ theo `working-flow.md` bước 3 và 4 khi hình 
 - `PUT /contents/{content}/attachments` `{attachment_ids}` (tối đa 20, có thể rỗng), quyền `LearningContentPolicy::manage`, trả như `GET /contents/{content}`. Chỉ bài giảng (loại khác 422). Tệp mới: người upload hoặc Admin, chưa gắn vào đâu, trong giới hạn `attachments.course_document` (tải bằng `POST /attachments` với `purpose=course_document`); tệp đã đính kèm sẵn được giữ.
 - `attachment_links.content_usage` (`inline_image` | `attached_file`, mặc định `attached_file`) phân biệt ảnh trong `body_html` với tệp đính kèm; đồng bộ loại này không đụng loại kia; sao chép vào khóa giữ nguyên loại. Migration chuyển mọi liên kết cũ của bài giảng thành `inline_image`; phải chạy trước khi chuyển lưu lượng sang mã mới; rollback bị từ chối khi đã có bài giảng có tệp. Bỏ tệp chỉ mất liên kết (`B-099`).
 - Học sinh thấy và tải tệp theo đúng quyền của bài (khóa tuần tự thì 403 `CONTENT_LOCKED`); phụ huynh không xem.
+
+## 17. Ghi chú hiện thực FE lát 5 (2026-11-27)
+
+- Feature `piclass-web/src/features/course-content`, phụ thuộc một chiều `academic → course-content → assessment, files`. TipTap 3.34.0 (ghim chính xác).
+- Trình soạn chỉ nhận đúng bộ thẻ ở mục 6; tiêu đề cấp khác khi dán quy về h2 hoặc h3. Gửi `body_html` đã bỏ `src` của ảnh (URL ký không tính vào 200 KB).
+- Ảnh vừa tải lên chưa gắn vào bài nên `GET /attachments/{id}` trả 404 cả với người upload: trình soạn hiện bản xem tạm từ tệp trên máy, lưu xong thì dùng URL ký BE trả.
+- Khác mockup: mục đổi chỗ được qua tiêu đề chương, chương có nút gỡ (nếu không, chương mới không nhận được mục); gỡ mục có hộp xác nhận; tab "Nội dung" không số đếm; chưa có lựa chọn "Video" khi thêm mục (lát 6).
+- Chặn rời trang khi chưa lưu: đóng hoặc tải lại tab, liên kết trong ứng dụng, nút Quay lại (mục lịch sử đệm). Mới kiểm bằng test, chưa chạy trên trình duyệt thật.
