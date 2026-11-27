@@ -29,7 +29,7 @@ Nạp tự động mọi session ở root workspace. Giữ ngắn: chỉ ghi th�
 
 ## Việc nhỏ thì làm gọn
 
-Việc nhỏ, ít rủi ro (ví dụ thêm một tham số lọc): test-first, chạy test nhóm liên quan, PHPStan và Pint, rồi PR; không viết plan riêng, không gọi reviewer. Việc lớn hoặc rủi ro cao (nhiều module, đổi schema hay phân quyền, màn hình mới): đi đủ plan, review độc lập cuối branch, chạy cả bộ test. Đầy đủ: `docs/process/working-flow.md`.
+Việc nhỏ, ít rủi ro (ví dụ thêm một tham số lọc): test-first, chạy test nhóm liên quan, PHPStan và Pint, rồi PR; không viết plan riêng, không gọi reviewer. Việc lớn hoặc rủi ro cao (nhiều module, đổi schema hay phân quyền, màn hình mới): đi đủ plan, review độc lập cuối branch. **Mọi cỡ việc chỉ chạy test đúng phạm vi task** (test mới, test của mọi module có file bị sửa, `tests/Architecture`); cả bộ test chỉ chạy khi user yêu cầu. Đầy đủ: `docs/process/working-flow.md`.
 
 ## Ngôn ngữ
 
