@@ -173,3 +173,13 @@ Lát BE và FE chạy xen kẽ theo `working-flow.md` bước 3 và 4 khi hình 
 - Lưu trữ và khôi phục là hai endpoint riêng (`POST .../archive`, `POST .../restore`, idempotent); xóa hẳn nội dung độc lập bằng `DELETE /contents/{content}`. Nhánh "đã có người học thì chỉ lưu trữ" làm cùng bảng tiến độ ở lát 4.
 - Audit bổ sung của lát 1b: `course.settings_update`, `course_item.remove` (bài giảng/tài liệu), `content.archive|restore|delete`. Mã lỗi mới: `CONTENT_HAS_NO_AUDIENCE`, `CONTENT_ARCHIVED`, `CONTENT_AUDIENCE_ALREADY_ADDED`, `CONTENT_BELONGS_TO_COURSE`.
 - Mọi Action đổi mục khóa khóa dòng khóa học trước các dòng mục (`Concerns/LocksCourse`); tệp tài liệu được khóa và kiểm lại "chưa gắn nơi khác" trong Action (`Concerns/ClaimsDocumentAttachment`).
+
+## 13. Ghi chú hiện thực lát 3 (2026-11-27)
+
+- Bảng `content_video_uploads` tách riêng khỏi `content_videos` (mục 3 bản đầu để `upload_id`, `status` trong `content_videos`): thay tệp khi đang có video không làm video cũ ngừng phát. Trạng thái trả ra API suy ra: `ready` (có dòng `content_videos`), `uploading`, `failed` (chưa có video và lần tải gần nhất lỗi), `null`.
+- Tải theo phần qua backend (`mode=chunked`): `POST .../video/upload`, `PUT .../video/upload/{upload}/parts/{part}` (thân thô, tối đa 5 MB, cần `Content-Length`), `POST .../video/complete` (`duration_seconds` 1..86400), `DELETE .../video/upload/{upload}`; link ngoài `PUT .../video/external`; phát `GET .../playback` và `GET /content-videos/{content}/stream` (URL ký 15 phút, hỗ trợ Range, kiểm lại quyền theo `user` trong chữ ký). Video ngoài lưu `original_name` = tên miền, `mime_type` = `video/external`.
+- Điểm dừng sửa theo từng dòng (`id` có thì cập nhật, không có thì tạo, vắng thì xóa) để lát 4 gắn câu trả lời vào `checkpoint_id`; vị trí tối đa 86400 giây (`content.video.max_duration_seconds`); lỗi vị trí vượt thời lượng là `VALIDATION_FAILED` theo trường `checkpoints.N.at_seconds`.
+- Thay video (tệp mới hoặc link): mọi điểm dừng `needs_recheck=true`, tệp cũ xóa sau commit và chỉ khi không bản sao nào dùng chung `storage_key`; gửi lại cùng link với thời lượng ngắn hơn chỉ đánh dấu các điểm dừng vượt thời lượng mới. Sao chép vào khóa chép cả video (dùng chung tệp) và điểm dừng.
+- Khóa: nội dung (`FOR NO KEY UPDATE`) → dòng lần tải → `content_videos` (`FOR UPDATE`; bản sao dùng `FOR SHARE`) → điểm dừng; khóa khóa học đứng trước (`RemoveCourseItem`).
+- Chưa làm (lát 4 trở đi): học sinh xem video (đối tượng, mở khóa tuần tự), tiến độ, trả lời điểm dừng, chặn tua, xóa vị trí xem dở khi thay video. Nợ: `B-105..B-107` (lịch dọn tải dở, khóa dòng khi ghép tệp 1 GB, kho khác `local`). Triển khai: link ký cần cấu hình trusted proxies và `APP_URL` đúng sau nginx; `client_max_body_size` cỡ phần tải (5 MB) cho route `PUT parts`.
+
