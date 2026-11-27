@@ -199,3 +199,9 @@ Lát BE và FE chạy xen kẽ theo `working-flow.md` bước 3 và 4 khi hình 
 - **Tiến độ của con cho Phụ huynh:** `GET /me/children/{studentId}/courses/{course}/progress`: cùng số liệu với `GET /me/courses/{course}` của chính học sinh, không có `content_id` (chỉ bài đánh giá giữ `assessment_id`), không tệp, link, nội dung. Con của người khác, con không học khóa, liên kết đã hết, khóa không tồn tại đều cùng 404.
 - **Hiện thực:** không bảng mới. `CourseItemStatusesQuery::forStudents` và `StudentRepresentativeResultsQuery::handleForStudents` tính cho nhiều học sinh một lượt (số truy vấn không phụ thuộc số học viên); công thức điểm trung bình dùng chung ở `CourseAverageScore`.
 - **Nợ:** `B-112` (truy vấn thừa nhỏ).
+
+## 16. Tệp đính kèm của bài giảng (2026-11-27, `DEC-LRN-056`)
+
+- `PUT /contents/{content}/attachments` `{attachment_ids}` (tối đa 20, có thể rỗng), quyền `LearningContentPolicy::manage`, trả như `GET /contents/{content}`. Chỉ bài giảng (loại khác 422). Tệp mới: người upload hoặc Admin, chưa gắn vào đâu, trong giới hạn `attachments.course_document` (tải bằng `POST /attachments` với `purpose=course_document`); tệp đã đính kèm sẵn được giữ.
+- `attachment_links.content_usage` (`inline_image` | `attached_file`, mặc định `attached_file`) phân biệt ảnh trong `body_html` với tệp đính kèm; đồng bộ loại này không đụng loại kia; sao chép vào khóa giữ nguyên loại. Migration chuyển mọi liên kết cũ của bài giảng thành `inline_image`; phải chạy trước khi chuyển lưu lượng sang mã mới; rollback bị từ chối khi đã có bài giảng có tệp. Bỏ tệp chỉ mất liên kết (`B-099`).
+- Học sinh thấy và tải tệp theo đúng quyền của bài (khóa tuần tự thì 403 `CONTENT_LOCKED`); phụ huynh không xem.

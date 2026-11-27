@@ -20,7 +20,7 @@
 - Không dùng `dangerouslySetInnerHTML`; xem trước bằng TipTap ở chế độ chỉ đọc.
 - Mỗi Task: `pnpm test`, `pnpm lint`, `pnpm typecheck` xanh rồi mới commit và push.
 
-## Cần user quyết trước khi code
+## Đã quyết (user, 2026-11-27, `DEC-LRN-056`): cả ba theo đề xuất, Task 0 đã làm
 
 | # | Vấn đề | Đề xuất (plan viết theo đề xuất) | Ảnh hưởng nếu khác |
 |---|---|---|---|
@@ -48,7 +48,9 @@
 
 ---
 
-### Task 0: BE gắn tệp đính kèm cho bài giảng (chờ Q1)
+### Task 0: BE gắn tệp đính kèm cho bài giảng (**xong**)
+
+Cột phân biệt: `attachment_links.content_usage`. Chi tiết: spec mục 16.
 
 Repo `piclass-api`, nhánh và PR riêng, đi trước. Đụng phân quyền tệp nên review opus.
 
@@ -56,9 +58,9 @@ Repo `piclass-api`, nhánh và PR riêng, đi trước. Đụng phân quyền t�
 
 **Interfaces — Produces:** `PUT /contents/{content}/attachments` body `{attachment_ids: uuid[]}` (thay cả tập tệp đính kèm, không tính ảnh trong bài), trả `LearningContentResource`; mỗi phần tử `attachments[]` thêm `kind: "image" | "file"`.
 
-- [ ] Test đỏ: `test_lecture_files_are_replaced_as_a_set`, `test_saving_body_html_keeps_lecture_files`, `test_replacing_files_keeps_inline_images`, `test_file_must_be_uploaded_by_actor_and_within_course_document_limits` (422), `test_non_manager_gets_404_or_403`, `test_only_lectures_accept_files` (422), `test_copy_to_course_copies_files`, `test_student_sees_files_of_open_lecture_only`.
-- [ ] Hiện thực: đồng bộ ảnh chỉ đụng liên kết ảnh trong bài, đồng bộ tệp chỉ đụng phần còn lại. Cần phân biệt hai loại liên kết một cách bền (chốt khi làm: cột trên `attachment_links` hoặc suy từ `body_html`); ghi lựa chọn vào spec.
-- [ ] `scramble:export`, Pint, PHPStan không thêm lỗi, cả bộ test, commit.
+- [x] Test đỏ: `test_lecture_files_are_replaced_as_a_set`, `test_saving_body_html_keeps_lecture_files`, `test_replacing_files_keeps_inline_images`, `test_file_must_be_uploaded_by_actor_and_within_course_document_limits` (422), `test_non_manager_gets_404_or_403`, `test_only_lectures_accept_files` (422), `test_copy_to_course_copies_files`, `test_student_sees_files_of_open_lecture_only`.
+- [x] Hiện thực: đồng bộ ảnh chỉ đụng liên kết ảnh trong bài, đồng bộ tệp chỉ đụng phần còn lại. Cần phân biệt hai loại liên kết một cách bền (chốt khi làm: cột trên `attachment_links` hoặc suy từ `body_html`); ghi lựa chọn vào spec.
+- [x] `scramble:export`, Pint, PHPStan không thêm lỗi, cả bộ test, commit.
 
 ### Task 1: Tách mục khóa sang `features/course-content` (không đổi hành vi)
 

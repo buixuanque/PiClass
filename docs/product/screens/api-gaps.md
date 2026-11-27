@@ -87,7 +87,7 @@
 
 ## Phát hiện khi lập plan FE khóa học lát 5 (2026-11-27)
 
-- **Tệp đính kèm của bài giảng (TC-16).** Không có đường gắn tệp vào nội dung học (`POST /attachments/{id}/link` không có đích này; liên kết của bài giảng hiện chỉ là ảnh trong bài). Chờ quyết định Q1 của plan.
+- ~~**Tệp đính kèm của bài giảng (TC-16).**~~ Đã bổ sung `PUT /contents/{content}/attachments` (`DEC-LRN-056`).
 - **Thay tệp tài liệu:** chưa có (`B-116`).
 - **Danh sách mục khóa** không trả trạng thái, thời lượng, số điểm dừng của video (mockup TC-15 có huy hiệu): xử lý ở lát 6.
 - **Danh sách "Bài giảng của tôi"** chỉ trả `audience_count`, không có tên đối tượng và số từ (mockup TC-18): FE hiện số đối tượng.
