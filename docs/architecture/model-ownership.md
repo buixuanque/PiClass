@@ -2,7 +2,7 @@
 
 > Trạng thái: **đã chốt đủ** (cập nhật 2026-10-22, sau khi 12 module hoàn tất). Không còn dòng nào chờ xác nhận.
 
-Bảng này gán mỗi Eloquent Model trong `piclass-api/app/Models` (48 file) cho đúng một module chủ, theo [module-boundaries.md](module-boundaries.md) và `docs/database/schema.md`. Dùng cho việc đặt Policy/Query và enforce quyền ghi qua `ArchitectureTest` (rule R4: module không tự ghi Model của module khác; hằng `MODEL_OWNERS` phải khớp bảng này). **Không dùng để di chuyển vị trí file** — mọi Model ở lại `App\Models` vĩnh viễn, dùng chung cho mọi module (`ARCH-17`, sửa đổi 2026-10-19). Module chủ là nơi duy nhất được ghi dữ liệu; module "chỉ đọc" chỉ truy vấn qua contract/Query của module chủ.
+Bảng này gán mỗi Eloquent Model trong `piclass-api/app/Models` (57 file) cho đúng một module chủ, theo [module-boundaries.md](module-boundaries.md) và `docs/database/schema.md`. Dùng cho việc đặt Policy/Query và enforce quyền ghi qua `ArchitectureTest` (rule R4: module không tự ghi Model của module khác; hằng `MODEL_OWNERS` phải khớp bảng này). **Không dùng để di chuyển vị trí file** — mọi Model ở lại `App\Models` vĩnh viễn, dùng chung cho mọi module (`ARCH-17`, sửa đổi 2026-10-19). Module chủ là nơi duy nhất được ghi dữ liệu; module "chỉ đọc" chỉ truy vấn qua contract/Query của module chủ.
 
 **Khi thêm Model mới:** thêm một dòng vào bảng này và vào `MODEL_OWNERS` trong cùng PR (`test_every_model_has_an_owner_and_the_map_is_complete` bắt thiếu). Điểm đã chốt cần nhớ: `Role` (danh mục 4 vai trò, chỉ đọc) thuộc Identity, Enum `RoleCode` ở `Modules/Identity/Enums`; `UserRole` do UserManagement ghi (hai Action gán/kết thúc role); `ParentProfile` là cùng entity với bảng `Parent` trong `schema.md` (tên Model giữ nguyên).
 
@@ -33,6 +33,8 @@ Bảng này gán mỗi Eloquent Model trong `piclass-api/app/Models` (48 file) c
 | `ContentVideo` | CourseContent | Video của nội dung học loại video (upload hoặc link ngoài), khóa chính là `content_id` (lát 3, `DEC-LRN-052`). |
 | `ContentVideoUpload` | CourseContent | Phiên upload video nhiều phần; `id` là `upload_id`. |
 | `VideoCheckpoint` | CourseContent | Điểm dừng hỏi trong video, giữ snapshot câu hỏi chụp từ `QuestionVersion` (QuestionBank chỉ đọc). |
+| `ContentProgress` | CourseContent | Tiến độ học của một học sinh với một nội dung (lát 4, `DEC-LRN-052`); tạo lười khi mở lần đầu, duy nhất theo (student, content). |
+| `CheckpointResponse` | CourseContent | Lượt trả lời đầu của học sinh cho một điểm dừng video, ghi một lần, kèm số lượt thử (`DEC-LRN-053`). |
 | `Feedback` | SubmissionGrading | Có thể có Attachment qua AttachmentLink. |
 | `FeedbackHistory` | SubmissionGrading | Lịch sử sửa Feedback. |
 | `Grade` | SubmissionGrading | Grade chỉ đổi qua SubmissionGrading. Chỉ đọc: ResultProgress. |
