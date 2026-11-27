@@ -2,7 +2,7 @@
 
 Không ghi số PR hay nhánh chưa push/chưa merge (đọc từ git bằng `/tiep`). File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-11-28 · bởi: code BE lát 4b khóa học có nội dung học (tiến độ khóa) đã merge
+Cập nhật lần cuối: 2026-11-27 · bởi: `B-108` khóa tuần tự chặn server cả bài đánh giá (`DEC-LRN-054`), code BE đã review opus
 
 ## Đang làm
 - **Cổng Giáo viên:** xong toàn bộ, đã merge `main` (vận hành lớp, đơn xin phép và tổng quan, khóa học, bài đánh giá TC-07..14, gắn khóa vào lớp `DEC-LRN-036`)
@@ -17,7 +17,7 @@ Cập nhật lần cuối: 2026-11-28 · bởi: code BE lát 4b khóa học có 
   - Lát 1a, 1b, 2 (module `CourseContent`, mục nhiều loại, bài giảng, tài liệu, ảnh, nội dung độc lập, giao đối tượng, sao chép vào khóa, TC-18): xong, đã merge; plan ở `archive/superpowers/plans/`
   - Lệch cần nhớ: mockup phần Lớp, Học viên của TC-15 và ghi danh của AD-12 còn theo mô hình cũ; chưa có mockup khóa học cho Phụ huynh (`B-098`)
 ## Việc kế tiếp (làm từ trên xuống)
-1. Khóa học có nội dung học: lập kế hoạch FE lát 5..8 (đọc `piclass-api/storage/api-docs/openapi.json`; nợ BE nhỏ `B-112`); `B-108` (khóa tuần tự chưa chặn server cho `/me/assessments*`) cần user quyết. Còn lại: `B-103` (quyền xem audit của chủ khóa, cần quyết định), `B-104`; `B-100` (giới hạn tải ở môi trường thật) là việc của user
+1. Khóa học có nội dung học: lập kế hoạch FE lát 5..8 (đọc `piclass-api/storage/api-docs/openapi.json`; nợ BE nhỏ `B-112`); `B-108` xong (`DEC-LRN-054`, đã review opus); plan FE cần xử lý `CONTENT_LOCKED` ở bài đánh giá (`B-114`); `B-113` (tệp đề của bài đang khóa vẫn tải được) cần user quyết. Còn lại: `B-103` (quyền xem audit của chủ khóa, cần quyết định), `B-104`; `B-100` (giới hạn tải ở môi trường thật) là việc của user
 2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 3. Thông báo trong ứng dụng (chuông CM-06, `B-090`, `DEC-LRN-045`): user muốn rà soát riêng, làm sau khi hoàn thiện chức năng các cổng
 
