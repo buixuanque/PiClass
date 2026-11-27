@@ -30,6 +30,9 @@ Bảng này gán mỗi Eloquent Model trong `piclass-api/app/Models` (48 file) c
 | `Course` | Academic | Tự học thêm, tách biệt Class (DEC-LRN-010). Chuỗi trạng thái đã thành Enum `CourseStatus` (cast, Task 9f). Chỉ đọc: Assessment (bài của khóa qua `Assessment.course_id`). |
 | `CourseAudience` | Academic | Chủ ghi: Academic — thêm/gỡ Lớp hoặc Student của khóa (`DEC-LRN-026`, thay `CourseEnrollment` và `CourseClassLink`). Chỉ đọc: Assessment (eligibility của bài khóa). |
 | ~~`CourseEnrollment`, `CourseClassLink`~~ | — | Bỏ ở `DEC-LRN-026`; code cũ xóa khi làm lại. |
+| `ContentVideo` | CourseContent | Video của nội dung học loại video (upload hoặc link ngoài), khóa chính là `content_id` (lát 3, `DEC-LRN-052`). |
+| `ContentVideoUpload` | CourseContent | Phiên upload video nhiều phần; `id` là `upload_id`. |
+| `VideoCheckpoint` | CourseContent | Điểm dừng hỏi trong video, giữ snapshot câu hỏi chụp từ `QuestionVersion` (QuestionBank chỉ đọc). |
 | `Feedback` | SubmissionGrading | Có thể có Attachment qua AttachmentLink. |
 | `FeedbackHistory` | SubmissionGrading | Lịch sử sửa Feedback. |
 | `Grade` | SubmissionGrading | Grade chỉ đổi qua SubmissionGrading. Chỉ đọc: ResultProgress. |
