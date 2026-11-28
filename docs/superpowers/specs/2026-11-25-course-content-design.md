@@ -231,3 +231,18 @@ Lát BE và FE chạy xen kẽ theo `working-flow.md` bước 3 và 4 khi hình 
 - Khác mockup: chưa có nút "Xem trước" (lát 7); khung phát là trình phát thật, dải "Điểm dừng n" nằm dưới khung; link ngoài nhập thời lượng bằng tay và có nút "Lưu link"; thêm, xóa, xác nhận điểm dừng lưu ngay.
 - Đã chạy trên Chrome thật (headless): tải một MP4 H.264 ngắn, phát, tua theo thanh thời gian, thêm (câu có sẵn) và xóa điểm dừng, hỏi khi rời trang, hủy tải, nhúng YouTube, bề rộng 390px không tràn ngang. Chưa thử: gửi "Tạo câu mới" trên trình duyệt, tệp lớn cỡ 1 GB, Safari. Môi trường local giới hạn mỗi yêu cầu 120 giây (nginx, PHP), chặt hơn mức 300 giây của web.
 
+## 19. Ghi chú hiện thực FE lát 7 (2026-11-28, `DEC-LRN-058`)
+
+**API thêm (thay "Không có `GET /me/courses`" ở mục 14):**
+- `GET /me/courses`: khóa của học sinh (đúng tập của `GET /courses`) kèm `subject_name`, `teacher_name`, `done`, `total`, `complete`; mỗi khóa tốn 6 truy vấn.
+- Mục của `GET /me/courses/{course}` thêm `video {duration_seconds, checkpoint_count}` và `file {media_type, size_bytes}` (truy vấn riêng của học sinh; phụ huynh không nhận). `GET /me/contents` thêm `assigned_by {teacher_name, class_name}`.
+- Điểm dừng nằm sau thời lượng bị bỏ qua ở mọi đường của học sinh (không gửi, không chặn tua, không tính hoàn thành, trả lời 404); giáo viên không đổi.
+
+**FE:**
+- Màn học sinh nằm cả trong `course-content` (`ui/student/`); hai màn khóa cũ ở `academic` đã bỏ. `course-content → grading` để dùng lại ô trả lời của màn làm bài.
+- Mọi quyết định dừng video đi qua `api/video-gate.ts`. BE vẫn là nơi quyết định mở khóa và hoàn thành.
+- Lưu tiến độ không tải lại nội dung hay link phát (trình phát không bị dựng lại). Vị trí gửi lỗi được tự gửi lại (hẹn giờ, khi có mạng lại, khi rời màn).
+- Màn khóa tải lại mỗi lần mở.
+- `ApiError.context` giữ `error.details` dạng object; bài đánh giá bị khóa hiện mục phải học trước (`B-114`).
+- Đã chạy trên Chrome headless với database tạm riêng: khóa theo thứ tự gồm bài giảng, video tải lên hai điểm dừng, tài liệu, link YouTube, bài đánh giá; tua qua điểm dừng, tải lại giữa chừng, chặn lưu lần cuối rồi có mạng lại, tải tài liệu (tab tới link ký), bài được giao, 390px. Chưa thử: Safari và iPhone (kể cả thoát toàn màn hình), video dài, câu loại khác một đáp án trên trình duyệt thật.
+
