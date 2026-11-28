@@ -2,7 +2,7 @@
 
 Không ghi số PR hay nhánh chưa push/chưa merge (đọc từ git bằng `/tiep`). File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-11-28 · bởi: xong code và review FE khóa học lát 7 (Học sinh); thêm hộp xác nhận khi link ghi đè tệp video
+Cập nhật lần cuối: 2026-11-28 · bởi: xong code và review FE khóa học lát 8 (tiến độ khóa, AD-12 nội dung, Phụ huynh)
 
 ## Đang làm
 - **Cổng Giáo viên:** xong toàn bộ, đã merge `main` (vận hành lớp, đơn xin phép và tổng quan, khóa học, bài đánh giá TC-07..14, gắn khóa vào lớp `DEC-LRN-036`)
@@ -12,16 +12,17 @@ Cập nhật lần cuối: 2026-11-28 · bởi: xong code và review FE khóa h�
   - Chưa xem bằng trình duyệt thật (chỉ test và ảnh chụp Chromium); chưa xem bằng mắt: Lịch học ở 390px, chi tiết buổi trong calendar; minor còn lại `B-090..B-095`; tổng hợp: `docs/product/screens/parent-portal-summary.md`
   - `DEC-LRN-047` dùng mặc định đề xuất cho bốn câu user chưa trả lời (hiện sĩ số không hiện tên, menu thứ 5, mọi lời phê theo visibility, không xem tệp bài làm): user đổi được
 - **Cổng Admin:** xong toàn bộ, đã merge `main`.
-- **Khóa học có nội dung học (`B-062`, `DEC-LRN-052`, `053`, `ARCH-39`):** quyết định xong → mockup xong → spec xong → code BE lát 1a, 1b, 2 xong (đã merge, đã review opus) → lát 3 (video, điểm dừng): code BE xong, đã review opus (từng task, cả nhánh, vòng sửa cuối) → lát 4a (học sinh học nội dung, tiến độ, mở khóa tuần tự, điểm dừng): code BE xong, đã review opus (từng task, cả nhánh, vòng sửa cuối) → lát 4b (tiến độ khóa cho Giáo viên, Admin, Phụ huynh): code BE xong, đã review opus (từng task, cả nhánh), đã merge → BE khóa học có nội dung học **xong** → **code FE, đang làm** (lát 5 Giáo viên TC-15, TC-16, TC-18: xong, đã review opus cả nhánh và sửa; lát 6 TC-17 và API đi kèm (`DEC-LRN-057`): xong, đã review opus cả hai nhánh và sửa; lát 7 Học sinh (ST-09..12, `DEC-LRN-058`, `B-111`, `B-114`): xong, đã review opus cả hai nhánh và sửa; lát 8: mới có khung) → review → merge
+- **Khóa học có nội dung học (`B-062`, `DEC-LRN-052`, `053`, `ARCH-39`):** quyết định xong → mockup xong → spec xong → code BE lát 1a, 1b, 2 xong (đã merge, đã review opus) → lát 3 (video, điểm dừng): code BE xong, đã review opus (từng task, cả nhánh, vòng sửa cuối) → lát 4a (học sinh học nội dung, tiến độ, mở khóa tuần tự, điểm dừng): code BE xong, đã review opus (từng task, cả nhánh, vòng sửa cuối) → lát 4b (tiến độ khóa cho Giáo viên, Admin, Phụ huynh): code BE xong, đã review opus (từng task, cả nhánh), đã merge → BE khóa học có nội dung học **xong** → code FE **xong cả 8 lát** (lát 5 Giáo viên TC-15, TC-16, TC-18: xong, đã review opus cả nhánh và sửa; lát 6 TC-17 và API đi kèm (`DEC-LRN-057`): xong, đã review opus cả hai nhánh và sửa; lát 7 Học sinh (ST-09..12, `DEC-LRN-058`, `B-111`, `B-114`): xong, đã review opus cả hai nhánh và sửa; lát 8 tiến độ (TC-19, AD-12, Phụ huynh, `DEC-LRN-059`): xong, đã review opus cả hai nhánh và sửa)
   - Spec: `superpowers/specs/2026-11-25-course-content-design.md` (8 lát, mục 9); đã duyệt: TipTap, module `CourseContent`, S3 hoãn (video lưu đĩa riêng tư bản đầu, driver S3 là `B-096`)
+  - FE lát 8: đã chạy Chrome headless trên database tạm; minor còn lại `B-128`
   - FE lát 7: đã chạy Chrome headless trên database tạm; chưa thử Safari, iPhone, video dài; minor còn lại `B-125`, `B-126`
   - FE lát 6: đã chạy Chrome headless; chưa thử gửi "Tạo câu mới", tệp cỡ 1 GB, Safari; minor còn lại `B-122`, `B-123`
   - FE lát 5: chưa chạy luồng thật trên trình duyệt; minor còn lại `B-118`; sau khi pull `piclass-infra` chạy `docker compose build web` rồi `up -d web` (từ đó `web` tự cài khi lockfile đổi)
   - Lát 1a, 1b, 2 (module `CourseContent`, mục nhiều loại, bài giảng, tài liệu, ảnh, nội dung độc lập, giao đối tượng, sao chép vào khóa, TC-18): xong, đã merge; plan ở `archive/superpowers/plans/`
-  - Lệch cần nhớ: mockup phần Lớp, Học viên của TC-15 và ghi danh của AD-12 còn theo mô hình cũ; chưa có mockup khóa học cho Phụ huynh (`B-098`)
+  - Lệch cần nhớ: mockup phần Lớp, Học viên của TC-15 và ghi danh của AD-12 còn theo mô hình cũ; màn khóa của Phụ huynh dựng không qua mockup (`B-098`)
 ## Việc kế tiếp (làm từ trên xuống)
-1. Khóa học có nội dung học FE lát 8 (TC-19, AD-12 tab Nội dung, tiến độ của con cho Phụ huynh): viết plan chi tiết (khung ở cuối `superpowers/plans/2026-11-27-fe-course-content-5-teacher.md`; chưa có mockup khóa cho Phụ huynh, `B-098`)
-   - Việc BE đã chốt, làm riêng: `B-113` (chặn tải tệp đề của bài đang khóa, `DEC-LRN-055`). Còn lại: `B-103` (cần quyết định), `B-104`, `B-112`; `B-100` (giới hạn tải ở môi trường thật) là việc của user
+1. Việc BE đã chốt: `B-113` (chặn tải tệp đề của bài đang khóa, `DEC-LRN-055`)
+   - Sau đó, nợ của khóa học: `B-103` (cần quyết định), `B-104`, `B-112`; `B-100`, `B-121` (cấu hình môi trường thật) là việc của user
 2. Rà lại thứ tự ưu tiên `BACKLOG.md` lần đầu cùng user
 3. Thông báo trong ứng dụng (chuông CM-06, `B-090`, `DEC-LRN-045`): user muốn rà soát riêng, làm sau khi hoàn thiện chức năng các cổng
 
