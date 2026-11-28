@@ -62,7 +62,7 @@
 - Test: `tests/Feature/CourseContent/{MyCourseListTest,BeyondDurationCheckpointTest,MyCourseViewTest,MyContentReadTest}.php`
 
 **Interfaces — Produces:**
-- `GET /me/courses` (`role:student`) → `data: [{id, name, description, subject_name, teacher_name, done, total, complete}]`, theo tên; cùng tập khóa với `GET /courses` của học sinh, chỉ khóa chưa lưu trữ **hoặc** đã có tiến độ.
+- `GET /me/courses` (`role:student`) → `data: [{id, name, description, subject_name, teacher_name, done, total, complete}]`, theo tên; đúng tập khóa mà `GET /courses` đang trả cho học sinh (không thêm luật ẩn mới).
 - Mục của `GET /me/courses/{course}` thêm `video: null | {duration_seconds, checkpoint_count}` và `file: null | {media_type, size_bytes}` (tệp tài liệu đầu tiên học sinh được xem). Mục bị khóa vẫn trả hai trường này, không kèm link.
 - `GET /me/contents` mỗi dòng thêm `assigned_by: {teacher_name: string|null, class_name: string|null}`; `class_name` null khi giao riêng. Được giao theo cả hai cách thì ưu tiên giao riêng.
 - Điểm dừng có `at_seconds > duration_seconds` (biết thời lượng): không có trong `video.checkpoints`, không tính vào `checkpoint_count` phía học sinh, không chặn tua, không tính vào hoàn thành; `POST …/answers` cho điểm đó trả 404.
