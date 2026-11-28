@@ -246,3 +246,15 @@ Lát BE và FE chạy xen kẽ theo `working-flow.md` bước 3 và 4 khi hình 
 - `ApiError.context` giữ `error.details` dạng object; bài đánh giá bị khóa hiện mục phải học trước (`B-114`).
 - Đã chạy trên Chrome headless với database tạm riêng: khóa theo thứ tự gồm bài giảng, video tải lên hai điểm dừng, tài liệu, link YouTube, bài đánh giá; tua qua điểm dừng, tải lại giữa chừng, chặn lưu lần cuối rồi có mạng lại, tải tài liệu (tab tới link ký), bài được giao, 390px. Chưa thử: Safari và iPhone (kể cả thoát toàn màn hình), video dài, câu loại khác một đáp án trên trình duyệt thật.
 
+## 20. Ghi chú hiện thực FE lát 8 (2026-11-28, `DEC-LRN-059`)
+
+**API bổ sung cho `GET /courses/{course}/progress` (mục 15):**
+- Mỗi học viên thêm `state` (`completed`, `in_progress`, `stalled`, `not_started`) và `current_item_id` (mục đếm được đầu tiên chưa xong). Ngưỡng "Lâu chưa học": `content.progress_stalled_days` = 7, tính đủ 7×24 giờ.
+- `last_activity_at` gồm cả lần nộp bài đánh giá của khóa (bài nộp bị vô hiệu không tính). Thay video không còn làm đổi mốc này (`ReplaceContentVideo` về 0 vị trí xem dở mà không đụng `updated_at`).
+- Điểm dừng thêm `prompt`; `summary` thêm `average_progress` (0..1) và `first_try_correct_rate` (null khi chưa ai trả lời).
+
+**FE:**
+- Phần soạn nội dung chuyển sang `course-content/ui/shared/manage/` để Giáo viên và Admin dùng chung; đường dẫn theo cổng truyền bằng `courseHref`, `canUsePersonalLibrary`.
+- Tab "Tiến độ học" (`ui/shared/progress/`) ở TC-15 (khóa của mình) và AD-12 (mọi khóa). AD-12 tab "Bài học" đổi thành "Nội dung"; route soạn của Admin: `/admin/courses/{id}/contents/{contentId}/{edit,video}`.
+- Phụ huynh (chưa có mockup): màn khóa của con dùng `ChildCourseProgress` (`ui/parent/`) thay danh sách bài đánh giá.
+- Không migration, không thư viện mới.
