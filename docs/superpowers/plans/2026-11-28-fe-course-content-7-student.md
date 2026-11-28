@@ -8,6 +8,8 @@
 
 **Tech Stack:** Laravel 13; Next.js 16.4.6, React 19, TanStack Query, Vitest + Testing Library + MSW. Không thêm thư viện.
 
+**Thực hiện:** làm trực tiếp trong phiên (superpowers:executing-plans); Task 0 review opus riêng, cuối nhánh web review opus. Code web làm trong git worktree riêng để không đụng server dev đang chạy.
+
 **Spec:** `docs/superpowers/specs/2026-11-25-course-content-design.md` (mục 4, 5, 8, 14, 18); `DEC-LRN-052..055`, `DEC-LRN-057`. Mockup: `piclass-mockup/design-system/PiClass Học sinh.dc.html` dòng 496–508 (ST-12), 511–558 (ST-09), 560–640 (ST-10, ST-11), 748–779 và 932–966 (hành vi).
 
 ## Global Constraints
@@ -22,7 +24,7 @@
 - F1..F8; mỗi file một component chính, khoảng 200 dòng. Chữ giao diện tiếng Việt; lỗi 4xx của BE hiện nguyên văn; rẽ nhánh theo `error.code`.
 - Chỉ chạy test đúng phạm vi task (test mới, test của feature/module có file bị sửa, test kiến trúc).
 
-## Cần user chốt trước khi làm (plan viết theo đề xuất)
+## Đã quyết (user, 2026-11-28, `DEC-LRN-058`): cả bốn theo đề xuất
 
 | # | Vấn đề | Đề xuất | Nếu chọn khác |
 |---|---|---|---|
