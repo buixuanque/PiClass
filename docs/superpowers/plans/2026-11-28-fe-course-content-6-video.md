@@ -8,6 +8,8 @@
 
 **Tech Stack:** Laravel 13; Next.js 16.4.6, React 19, TanStack Query, React Hook Form + Zod, Vitest + Testing Library + MSW. Không thêm thư viện.
 
+**Thực hiện:** làm trực tiếp trong phiên (superpowers:executing-plans); Task 0 review opus riêng, cuối nhánh web review opus.
+
 **Spec:** `docs/superpowers/specs/2026-11-25-course-content-design.md` (mục 4, 5, 7, 8, 9, 13, 14); `DEC-LRN-052`, `DEC-LRN-053`. Mockup: `piclass-mockup/design-system/PiClass Giáo viên.dc.html` dòng 1092–1150 (màn), 1261–1283 (hộp chọn câu), 2300–2358 (hành vi và dòng danh sách mục).
 
 ## Global Constraints
@@ -20,7 +22,7 @@
 - Chỉ chạy test đúng phạm vi task: test mới, test của module/feature có file bị sửa, test kiến trúc. Không chạy cả bộ.
 - Web kiểm mỗi Task: `pnpm vitest run <thư mục đã sửa> src/architecture.test.ts`, `pnpm lint`, `pnpm typecheck`. API: `docker compose exec -T api php artisan test <đường dẫn>` từ `piclass-infra/local`, thêm Pint.
 
-## Cần user chốt trước khi làm (plan viết theo đề xuất)
+## Đã quyết (user, 2026-11-28, `DEC-LRN-057`): cả ba theo đề xuất
 
 | # | Vấn đề | Đề xuất | Nếu chọn khác |
 |---|---|---|---|
