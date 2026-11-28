@@ -2,9 +2,10 @@
 
 Không ghi số PR hay nhánh chưa push/chưa merge (đọc từ git bằng `/tiep`). File duy nhất cho câu hỏi "đang làm gì / kế tiếp là gì". Giữ ≤ 60 dòng, không văn xuôi; mục có nhiều ý thì tách thành gạch con, không nhồi một dòng. Việc chưa làm: `BACKLOG.md`. Lịch sử: mô tả PR + `archive/`. Đổi máy/session mới: chạy `/tiep`.
 
-Cập nhật lần cuối: 2026-11-28 · bởi: xong code và review việc BE không trả liên kết của tệp khi tải (`B-129`)
+Cập nhật lần cuối: 2026-11-28 · bởi: gom nhóm menu và thêm ngăn kéo menu trên điện thoại (`DEC-SYS-003`)
 
 ## Đang làm
+- **Khung điều hướng:** menu Giáo viên, Admin chia nhóm; điện thoại có nút "Thêm" (`DEC-SYS-003`): xong, đã xem bằng Chrome ở 390px, 1000px, 1280px (việc nhỏ, không review độc lập); mockup còn menu phẳng
 - **Cổng Giáo viên:** xong toàn bộ, đã merge `main` (vận hành lớp, đơn xin phép và tổng quan, khóa học, bài đánh giá TC-07..14, gắn khóa vào lớp `DEC-LRN-036`)
   - Còn: mockup chưa cập nhật cho `DEC-LRN-028`, `035`, `036`; user đang tự test; chấm bài kiểu mới (`DEC-LRN-029`) chưa chạy review độc lập
 - **Cổng Học sinh (ST-01..09):** xong toàn bộ, đã merge: quyết định `DEC-LRN-037..041`, BE, FE, review opus và sửa; chưa xem bằng trình duyệt thật; minor còn lại `B-088`, `B-089`; tổng hợp: `docs/product/screens/student-portal-summary.md`

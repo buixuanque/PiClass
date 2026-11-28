@@ -178,7 +178,7 @@ Quy ước: ✅ BE đã có · 🟡 thiếu API (mã G) · 🔵 đề xuất ngo
 - **Người dùng muốn làm gì:** Đi tới đúng chức năng của vai trò mình, biết có thông báo mới, đổi vai trò hoặc đăng xuất ở cùng một chỗ.
 - **Vào từ / đi tới:** Bao quanh mọi màn sau đăng nhập. Logo → trang chủ vai trò đang chọn.
 - **Khối nội dung & dữ liệu hiển thị:**
-  1. **Menu theo vai trò** (đổi theo `active_role` từ `/auth/me`):
+  1. **Menu theo vai trò** (đổi theo `active_role` từ `/auth/me`). *Cách chia nhóm, thứ tự mục và thanh dưới trên điện thoại đang chạy theo `DEC-SYS-003` (nguồn trong code: `piclass-web/src/config/nav.ts`); danh sách dưới đây là bản đặc tả ban đầu.*
      - Admin: Tổng quan (AD-01) · Tài khoản (AD-02) · Học viên, Phụ huynh, Giáo viên (AD-04…07) · Môn học (AD-08) · Lớp học (AD-09/10) · Lịch (AD-11) · Khóa học (AD-12) · Nhật ký (AD-14).
      - Teacher: Tổng quan (TC-01) · Lớp của tôi (TC-02) · Lịch dạy (TC-04) · Đơn xin phép (TC-06) · Ngân hàng câu hỏi (TC-07) · Bài đánh giá (TC-09) · Khóa học (TC-15). Tiến độ học sinh vào từ chi tiết lớp.
      - Student: Tổng quan (ST-01) · Lịch học (ST-02) · Bài tập (ST-03) · Bài kiểm tra (ST-04) · Kết quả (ST-07) · Tiến độ (ST-08) · Khóa học (ST-09). Điện thoại: thanh dưới gồm Tổng quan, Lịch, Bài tập, Kết quả, "Thêm".
