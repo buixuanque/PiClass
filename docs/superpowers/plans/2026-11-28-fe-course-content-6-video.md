@@ -1,6 +1,6 @@
 # Khóa học có nội dung học, lát 6 (TC-17: video và điểm dừng) Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Giáo viên thêm mục video vào khóa, tải tệp MP4 theo phần hoặc dán link YouTube/Vimeo, xem lại video, đặt và xác nhận điểm dừng câu hỏi.
 
@@ -9,6 +9,8 @@
 **Tech Stack:** Laravel 13; Next.js 16.4.6, React 19, TanStack Query, React Hook Form + Zod, Vitest + Testing Library + MSW. Không thêm thư viện.
 
 **Thực hiện:** làm trực tiếp trong phiên (superpowers:executing-plans); Task 0 review opus riêng, cuối nhánh web review opus.
+
+**Lệch khi làm:** `course-content` không import `question-bank` (tạo vòng phụ thuộc); xem spec mục 18. Task 3 và 4 chung một commit.
 
 **Spec:** `docs/superpowers/specs/2026-11-25-course-content-design.md` (mục 4, 5, 7, 8, 9, 13, 14); `DEC-LRN-052`, `DEC-LRN-053`. Mockup: `piclass-mockup/design-system/PiClass Giáo viên.dc.html` dòng 1092–1150 (màn), 1261–1283 (hộp chọn câu), 2300–2358 (hành vi và dòng danh sách mục).
 
@@ -67,18 +69,18 @@
 - `PUT /contents/{content}/checkpoints`: chỉ kiểm quyền dùng câu với dòng **mới** hoặc **đổi** `question_version_id`; dòng giữ nguyên `id` và `at_seconds` được ở lại dù vượt thời lượng.
 - `POST /checkpoints/{checkpoint}/confirm`: điểm vượt thời lượng → 422 `VALIDATION_FAILED` trường `at_seconds`, cờ giữ nguyên.
 
-- [ ] **0.1 URL phát tương đối.** Test `test_playback_url_is_relative_and_works_on_any_host`: `assertStringStartsWith('/api/v1/content-videos/', $url)`, gọi URL đó trên host `http://web.example` → 200, kèm `Range: bytes=0-3` → 206; sửa chữ ký → 403. Chạy thấy đỏ. Hiện thực: `URL::temporarySignedRoute(..., absolute: false)` và middleware `signed:relative`. Các test cũ trong `VideoPlaybackTest`, `StudentPlaybackTest`, `VideoCopyAndReleaseTest` tự ký URL thì ký cùng kiểu. Commit `fix: return relative signed video playback urls`.
-- [ ] **0.2 Tóm tắt video trong mục khóa (Q1).** Test: `test_manager_sees_video_summary_for_each_state` (chưa có gì → `status null`; phiên đang mở → `uploading`; phiên mới nhất lỗi → `failed`; có video tải lên thời lượng 510 và 1 điểm dừng → `ready, upload, 510, 1`; link ngoài → `external`); mục bài giảng có `video === null`; `test_item_list_query_count_does_not_grow_with_video_items` (đếm truy vấn với 1 và 4 mục video bằng nhau). Hiện thực: thêm eager load vào `CourseItem::DISPLAY_RELATIONS` (hoặc danh sách riêng cho danh sách mục), tách phần suy trạng thái của `ContentVideoStateQuery` thành hàm nhận quan hệ đã tải. Commit.
-- [ ] **0.3 Lọc câu tự chấm.** Test `test_auto_gradable_filter_returns_only_checkpoint_types`: tạo đủ chín loại, `?auto_gradable=1` trả đúng sáu; không gửi thì trả chín; câu riêng tư của người khác vẫn bị ẩn. Commit.
-- [ ] **0.4 Lưu điểm dừng khi có dòng cũ.** Test:
+- [x] **0.1 URL phát tương đối.** Test `test_playback_url_is_relative_and_works_on_any_host`: `assertStringStartsWith('/api/v1/content-videos/', $url)`, gọi URL đó trên host `http://web.example` → 200, kèm `Range: bytes=0-3` → 206; sửa chữ ký → 403. Chạy thấy đỏ. Hiện thực: `URL::temporarySignedRoute(..., absolute: false)` và middleware `signed:relative`. Các test cũ trong `VideoPlaybackTest`, `StudentPlaybackTest`, `VideoCopyAndReleaseTest` tự ký URL thì ký cùng kiểu. Commit `fix: return relative signed video playback urls`.
+- [x] **0.2 Tóm tắt video trong mục khóa (Q1).** Test: `test_manager_sees_video_summary_for_each_state` (chưa có gì → `status null`; phiên đang mở → `uploading`; phiên mới nhất lỗi → `failed`; có video tải lên thời lượng 510 và 1 điểm dừng → `ready, upload, 510, 1`; link ngoài → `external`); mục bài giảng có `video === null`; `test_item_list_query_count_does_not_grow_with_video_items` (đếm truy vấn với 1 và 4 mục video bằng nhau). Hiện thực: thêm eager load vào `CourseItem::DISPLAY_RELATIONS` (hoặc danh sách riêng cho danh sách mục), tách phần suy trạng thái của `ContentVideoStateQuery` thành hàm nhận quan hệ đã tải. Commit.
+- [x] **0.3 Lọc câu tự chấm.** Test `test_auto_gradable_filter_returns_only_checkpoint_types`: tạo đủ chín loại, `?auto_gradable=1` trả đúng sáu; không gửi thì trả chín; câu riêng tư của người khác vẫn bị ẩn. Commit.
+- [x] **0.4 Lưu điểm dừng khi có dòng cũ.** Test:
   - `test_unchanged_checkpoint_with_now_private_question_does_not_block_saving` (câu của giáo viên khác chuyển `private` sau khi đã dùng; PUT giữ dòng đó và thêm dòng mới → 200);
   - `test_new_or_changed_checkpoint_with_private_question_is_still_forbidden` (dòng mới → 403; dòng có `id` cũ nhưng đổi sang câu riêng tư → 403);
   - `test_two_over_duration_checkpoints_can_be_removed_one_at_a_time` (thời lượng 60, điểm 70 và 80 giữ nguyên; PUT bỏ 80 → 200);
   - `test_new_or_moved_checkpoint_beyond_duration_is_rejected` → 422 `checkpoints.0.at_seconds`;
   - `test_confirm_rejects_checkpoint_beyond_duration` → 422, `needs_recheck` vẫn `true`.
   Chạy đỏ rồi hiện thực. Commit.
-- [ ] **0.5 Video chưa phát được không tính (Q3).** Test `test_video_without_playable_video_neither_blocks_nor_counts` (khóa tuần tự, thứ tự: video rỗng → bài giảng: bài giảng không `locked`; `completion.total` không gồm video rỗng; tiến độ khóa của giáo viên cũng vậy) và `test_ready_video_still_blocks_next_item`. Hiện thực trong `CourseItemStatusesQuery::countsFor` (nhớ eager load, không N+1). Commit.
-- [ ] **0.6** Chạy test `tests/Feature/CourseContent`, `tests/Feature/QuestionBank`, `tests/Unit/Modules/CourseContent`, `tests/Architecture`, Pint; `php artisan scramble:export`, kiểm `openapi.json` có `video` và `auto_gradable`. Push. Review opus cả nhánh, sửa.
+- [x] **0.5 Video chưa phát được không tính (Q3).** Test `test_video_without_playable_video_neither_blocks_nor_counts` (khóa tuần tự, thứ tự: video rỗng → bài giảng: bài giảng không `locked`; `completion.total` không gồm video rỗng; tiến độ khóa của giáo viên cũng vậy) và `test_ready_video_still_blocks_next_item`. Hiện thực trong `CourseItemStatusesQuery::countsFor` (nhớ eager load, không N+1). Commit.
+- [x] **0.6** Chạy test `tests/Feature/CourseContent`, `tests/Feature/QuestionBank`, `tests/Unit/Modules/CourseContent`, `tests/Architecture`, Pint; `php artisan scramble:export`, kiểm `openapi.json` có `video` và `auto_gradable`. Push. Review opus cả nhánh, sửa.
 
 ---
 
@@ -112,7 +114,7 @@ toCheckpointInputs(list: Checkpoint[]): CheckpointInput[]
 
 Mọi mutation đổi video hoặc điểm dừng làm mới `courseContentKeys.content(contentId)`, `checkpoints(contentId)` và mọi danh sách mục (tiền tố `["assessment","course-items"]`).
 
-- [ ] **Step 1: Test đỏ.**
+- [x] **Step 1: Test đỏ.**
   - `sends a blob body untouched as octet-stream` (`api-client.test.ts`).
   - `video-upload.test.ts` (MSW, tệp 12 byte, `part_size: 5`, `retryDelaysMs: [0, 0]`):
     - `uploads every part in order then completes`: ba PUT `parts/1..3` dài 5, 5, 2 byte; complete nhận `{upload_id, duration_seconds: 90}`; `onProgress` kết thúc ở 100 và không giảm.
@@ -122,10 +124,10 @@ Mọi mutation đổi video hoặc điểm dừng làm mới `courseContentKeys.
     - `aborting stops sending and cancels the session`: abort sau phần 1 → không có phần 3, có DELETE, reject `AbortError`.
     - `surfaces VIDEO_UPLOAD_FAILED from complete without cancelling` → reject giữ `code`, không gọi DELETE.
   - `next-config.test.ts`: `keeps long uploads alive through the proxy`: `expect(config.experimental?.proxyTimeout).toBe(300_000)` (mặc định của Next là 30 giây).
-- [ ] **Step 2:** chạy `pnpm vitest run src/features/course-content src/lib src/next-config.test.ts` → FAIL.
-- [ ] **Step 3:** hiện thực. Gửi tuần tự từng phần (`file.slice`); thử lại khi `status === 0` hoặc `>= 500`, mặc định `retryDelaysMs = [1000, 3000]`; lỗi khi hủy phiên bị nuốt, ném lỗi gốc. `uploadVideoFile` gọi `POST .../video/upload` với `{filename, size_bytes, mime_type: "video/mp4"}`; `mode !== "chunked"` thì reject với thông báo "Máy chủ yêu cầu cách tải chưa được hỗ trợ." (driver `s3` là `B-096`).
-- [ ] **Step 4:** chạy lại → PASS; lint, typecheck.
-- [ ] **Step 5:** commit `feat: add course video data layer and chunked upload`, push.
+- [x] **Step 2:** chạy `pnpm vitest run src/features/course-content src/lib src/next-config.test.ts` → FAIL.
+- [x] **Step 3:** hiện thực. Gửi tuần tự từng phần (`file.slice`); thử lại khi `status === 0` hoặc `>= 500`, mặc định `retryDelaysMs = [1000, 3000]`; lỗi khi hủy phiên bị nuốt, ném lỗi gốc. `uploadVideoFile` gọi `POST .../video/upload` với `{filename, size_bytes, mime_type: "video/mp4"}`; `mode !== "chunked"` thì reject với thông báo "Máy chủ yêu cầu cách tải chưa được hỗ trợ." (driver `s3` là `B-096`).
+- [x] **Step 4:** chạy lại → PASS; lint, typecheck.
+- [x] **Step 5:** commit `feat: add course video data layer and chunked upload`, push.
 
 ---
 
@@ -142,7 +144,7 @@ Mọi mutation đổi video hoặc điểm dừng làm mới `courseContentKeys.
 
 Chữ và bố cục theo mockup dòng 1092–1150. "Thêm mục" → "Video" đứng **đầu** danh sách (mockup dòng 2315): tạo `{type:"video", title:"Video chưa đặt tên"}` rồi mở màn soạn. Dòng mục: `Video · 8:30 · 1 điểm dừng`, thêm `· link ngoài`; chưa `ready` thì chỉ `Video`; huy hiệu `Sẵn sàng` (green), `Đang xử lý` (blue), `Lỗi tải lên` (coral), `Chưa có video` (neutral).
 
-- [ ] **Step 1: Test đỏ.**
+- [x] **Step 1: Test đỏ.**
   - `timecode.test.ts`: các giá trị ở Interfaces, thêm `"8:75" → null`, `"" → null`.
   - `add-item-dialog`: `adding a video creates the item and opens its editor` (body POST và đường dẫn `/teacher/courses/k1/contents/{content_id}/video`).
   - `course-content-tab`: `video row shows duration, checkpoint count and state badge` (bốn trạng thái; nút "Sửa" là link tới `editHref`; thay test cũ "video has none").
@@ -157,10 +159,10 @@ Chữ và bố cục theo mockup dòng 1092–1150. "Thêm mục" → "Video" đ
     - `replacing a video with checkpoints asks to confirm them again` (toast "Đã thay tệp video");
     - `saving a link requires url and duration` rồi PUT `{url, duration_seconds: 510}`; lỗi 422 hiện nguyên văn;
     - `save renames the content and returns to the course`; tên rỗng thì không gửi.
-- [ ] **Step 2:** chạy → FAIL.
-- [ ] **Step 3:** hiện thực. Mỗi lần chọn tệp một `AbortController`; rời màn (unmount) thì abort. `use-unsaved-guard` dùng khi đang tải, câu hỏi: "Video đang được tải lên. Rời trang và hủy tải?". Đổi tab "Tải lên"/"Link ngoài" khi đang tải thì khóa tab.
-- [ ] **Step 4:** `pnpm vitest run src/features/course-content src/features/academic src/architecture.test.ts` → PASS; lint, typecheck.
-- [ ] **Step 5:** commit `feat: add video items and video source editor`, push.
+- [x] **Step 2:** chạy → FAIL.
+- [x] **Step 3:** hiện thực. Mỗi lần chọn tệp một `AbortController`; rời màn (unmount) thì abort. `use-unsaved-guard` dùng khi đang tải, câu hỏi: "Video đang được tải lên. Rời trang và hủy tải?". Đổi tab "Tải lên"/"Link ngoài" khi đang tải thì khóa tab.
+- [x] **Step 4:** `pnpm vitest run src/features/course-content src/features/academic src/architecture.test.ts` → PASS; lint, typecheck.
+- [x] **Step 5:** commit `feat: add video items and video source editor`, push.
 
 ---
 
@@ -176,7 +178,7 @@ Chữ và bố cục theo mockup dòng 1092–1150. "Thêm mục" → "Video" đ
 - `VideoPlayer({ contentId, title, onTimeChange?, ref? })` với `ref: { seek(seconds: number): void }`. Dùng lại ở lát 7.
 - `CheckpointCard({ contentId, durationSeconds, source, onAddAt(seconds: number) })`: `onAddAt` mở hộp của Task 4.
 
-- [ ] **Step 1: Test đỏ.**
+- [x] **Step 1: Test đỏ.**
   - `video-embed.test.ts`: từng dạng link ở trên; `https://youtube.com.evil.com/watch?v=x`, `https://vimeo.com/abc`, `javascript:alert(1)` → `null`.
   - `video-player.test.tsx`: `asks for a fresh url when playback fails and restores the position` (đặt `currentTime = 42`, phát sự kiện `error` → gọi playback lần hai, sau `loadedmetadata` `currentTime === 42`); `stops retrying after one failed refresh` (hiện "Không phát được video." và nút "Thử lại", tổng số lần gọi playback là 2); `renders an embed iframe for an external link`; `offers a plain link when the url cannot be embedded` (`target="_blank" rel="noopener noreferrer"`).
   - `checkpoint-card.test.tsx` (thời lượng 600):
@@ -189,10 +191,10 @@ Chữ và bố cục theo mockup dòng 1092–1150. "Thêm mục" → "Video" đ
     - `confirm is shown only for needs_recheck` và gọi `/checkpoints/{id}/confirm`;
     - `over-duration checkpoint shows the badge without confirm`;
     - `a failed removal keeps the row and shows the message`.
-- [ ] **Step 2:** chạy → FAIL.
-- [ ] **Step 3:** hiện thực theo mockup dòng 1101–1128. Iframe có `title`, `allow="fullscreen; picture-in-picture"`, `sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"`, `referrerPolicy="strict-origin-when-cross-origin"`. Dải "Điểm dừng n: …" hiện khi thời điểm đang chọn cách một điểm dưới 3 giây.
-- [ ] **Step 4:** test `src/features/course-content` và kiến trúc → PASS; lint, typecheck.
-- [ ] **Step 5:** commit `feat: add video player and checkpoint timeline`, push.
+- [x] **Step 2:** chạy → FAIL.
+- [x] **Step 3:** hiện thực theo mockup dòng 1101–1128. Iframe có `title`, `allow="fullscreen; picture-in-picture"`, `sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"`, `referrerPolicy="strict-origin-when-cross-origin"`. Dải "Điểm dừng n: …" hiện khi thời điểm đang chọn cách một điểm dưới 3 giây.
+- [x] **Step 4:** test `src/features/course-content` và kiến trúc → PASS; lint, typecheck.
+- [x] **Step 5:** commit `feat: add video player and checkpoint timeline`, push.
 
 ---
 
@@ -208,24 +210,24 @@ Chữ và bố cục theo mockup dòng 1092–1150. "Thêm mục" → "Video" đ
 
 Chữ theo mockup dòng 1261–1283: tiêu đề, mô tả, hai tab "Chọn từ ngân hàng" / "Tạo câu mới", nút "Thêm điểm dừng" / "Tạo và thêm điểm dừng", dòng nhắc câu mới ở chế độ Chung chép nguyên văn mockup. Rộng 600px.
 
-- [ ] **Step 1: Test đỏ.**
+- [x] **Step 1: Test đỏ.**
   - `single-question-composer.test.tsx`: `offers only the allowed types`; `does not call the api when the card is invalid`; `creates a shared question and passes its version id`; `retrying after onSaved fails does not create a second question` (POST `/questions` đúng 1 lần, `onSaved` 2 lần cùng `versionId`; thẻ bị khóa sau khi đã tạo).
   - `checkpoint-question-dialog.test.tsx`: `lists only auto gradable active questions` (query `auto_gradable=1&status=active`); `requires a selection` ("Chọn một câu từ ngân hàng."); `adds the picked question at the chosen time keeping existing checkpoints` (body PUT gồm dòng cũ có `id` và dòng mới `{at_seconds: 300, question_version_id}`); `shows the backend message and stays open` (422 `CHECKPOINT_TOO_CLOSE`); `new question tab creates then adds` (toast "Đã tạo câu và thêm điểm dừng").
-- [ ] **Step 2:** chạy → FAIL.
-- [ ] **Step 3:** hiện thực. `SingleQuestionComposer` dùng một `QuestionCard` (`showHead={false}`), cùng đường dữ liệu với `AssessmentQuestionComposer` (`applyShared(values, emptySharedSettings(), true)` → `toWriteInput(…, "create")`), lỗi BE qua `setServerErrors`. Đóng hộp rồi mở lại là trạng thái sạch.
-- [ ] **Step 4:** `pnpm vitest run src/features/course-content src/features/question-bank src/architecture.test.ts` → PASS; lint, typecheck.
-- [ ] **Step 5:** commit `feat: add checkpoint question dialog`, push.
+- [x] **Step 2:** chạy → FAIL.
+- [x] **Step 3:** hiện thực. `SingleQuestionComposer` dùng một `QuestionCard` (`showHead={false}`), cùng đường dữ liệu với `AssessmentQuestionComposer` (`applyShared(values, emptySharedSettings(), true)` → `toWriteInput(…, "create")`), lỗi BE qua `setServerErrors`. Đóng hộp rồi mở lại là trạng thái sạch.
+- [x] **Step 4:** `pnpm vitest run src/features/course-content src/features/question-bank src/architecture.test.ts` → PASS; lint, typecheck.
+- [x] **Step 5:** commit `feat: add checkpoint question dialog`, push.
 
 ---
 
 ### Task 5: Kiểm cuối nhánh
 
-- [ ] `pnpm lint && pnpm typecheck && pnpm build`; test các feature đã sửa và kiến trúc.
-- [ ] Chạy thật qua web (`localhost:8000`, api đã có Task 0), bằng HTTP: tải một MP4 thật lớn hơn 20 MB theo phần → complete 200; playback trả URL tương đối; `curl -r 0-1023` URL đó qua web → 206; ghi lại thời gian bước complete.
-- [ ] Chạy trên trình duyệt thật: xem và tua video tải lên, link YouTube nhúng, thêm điểm dừng, rời trang khi đang tải. Không chạy được thì ghi rõ trong báo cáo.
-- [ ] So JSX với từng đoạn mockup đã ghi (kể cả màn hẹp 390px: lưới `g-split` về một cột).
-- [ ] Review độc lập cả nhánh (opus, effort medium), sửa một lượt.
-- [ ] Docs trong nhánh docs của lát: `STATE.md`, spec thêm mục "Ghi chú hiện thực FE lát 6" và sửa mục 5, 7, 13 theo Task 0; `BACKLOG.md` đóng `B-120`, phần FE của `B-111`; `error-codes.md` nếu có đổi; tick checkbox plan này.
+- [x] (lint còn một cảnh báo có từ trước ở `grading-scoring.test.tsx`) `pnpm lint && pnpm typecheck && pnpm build`; test các feature đã sửa và kiến trúc.
+- [x] (đã chạy bằng tệp 25 MB chỉ có header MP4, và MP4 H.264 thật cỡ 250 KB trên Chrome) Chạy thật qua web (`localhost:8000`, api đã có Task 0), bằng HTTP: tải một MP4 thật lớn hơn 20 MB theo phần → complete 200; playback trả URL tương đối; `curl -r 0-1023` URL đó qua web → 206; ghi lại thời gian bước complete (0,08 giây với 25 MB).
+- [x] Chạy trên trình duyệt thật: xem và tua video tải lên, link YouTube nhúng, thêm điểm dừng, rời trang khi đang tải. Không chạy được thì ghi rõ trong báo cáo.
+- [x] So JSX với từng đoạn mockup đã ghi (kể cả màn hẹp 390px: lưới `g-split` về một cột).
+- [x] Review độc lập cả nhánh (opus, effort medium), sửa một lượt.
+- [x] Docs trong nhánh docs của lát: `STATE.md`, spec thêm mục "Ghi chú hiện thực FE lát 6" và sửa mục 5, 7, 13 theo Task 0; `BACKLOG.md` đóng `B-120`, phần FE của `B-111`; `error-codes.md` nếu có đổi; tick checkbox plan này.
 
 ---
 
