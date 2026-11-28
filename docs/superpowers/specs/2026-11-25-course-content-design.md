@@ -79,7 +79,7 @@ Hợp đồng tải lên (cùng một bộ endpoint cho cả hai driver, FE đ�
 4. Dọn tải dở: lệnh theo lịch xóa thư mục tạm quá 24 giờ (driver `local`). Lịch chạy phụ thuộc scheduler, mà scheduler hiện chưa bật (`STATE.md`, Chờ user), nên bản đầu cho phép dọn thủ công bằng `php artisan` và ghi vào nợ kỹ thuật; driver `s3` dùng lifecycle rule của bucket thay thế.
 
 **Phát:** một endpoint duy nhất `GET /contents/{id}/playback` (học sinh có quyền, mục đã mở) trả `{url, expires_at}`, hạn 15 phút; FE xin lại khi hết hạn.
-- `local`: URL là route của backend có chữ ký tạm thời (`temporarySignedRoute`), phục vụ tệp **có hỗ trợ Range** để tua được (`BinaryFileResponse`); route kiểm lại quyền, không chỉ tin chữ ký.
+- `local`: URL là route của backend có chữ ký tạm thời (`temporarySignedRoute`, đường dẫn **tương đối**, chữ ký không gồm host: xem mục 18), phục vụ tệp **có hỗ trợ Range** để tua được (`BinaryFileResponse`); route kiểm lại quyền, không chỉ tin chữ ký.
 - `s3`: link GET ký của S3.
 - Nguồn `external`: trả `external_url` đã kiểm tên miền cho phép (YouTube, Vimeo).
 Phát video qua PHP tốn worker và băng thông máy chủ; chấp nhận được khi chưa vận hành chính thức, và đây là lý do driver `s3`/CDN là bước sau cần làm trước khi có nhiều học sinh xem cùng lúc. Chuyển HLS sau này chỉ đổi thân endpoint này và bước `complete`.
@@ -213,3 +213,21 @@ Lát BE và FE chạy xen kẽ theo `working-flow.md` bước 3 và 4 khi hình 
 - Ảnh vừa tải lên chưa gắn vào bài nên `GET /attachments/{id}` trả 404 cả với người upload: trình soạn hiện bản xem tạm từ tệp trên máy, lưu xong thì dùng URL ký BE trả.
 - Khác mockup: mục đổi chỗ được qua tiêu đề chương, chương có nút gỡ (nếu không, chương mới không nhận được mục); gỡ mục có hộp xác nhận; tab "Nội dung" không số đếm; chưa có lựa chọn "Video" khi thêm mục (lát 6).
 - Chặn rời trang khi chưa lưu: đóng hoặc tải lại tab, liên kết trong ứng dụng, nút Quay lại (mục lịch sử đệm). Mới kiểm bằng test, chưa chạy trên trình duyệt thật.
+
+## 18. Ghi chú hiện thực FE lát 6 (2026-11-28, `DEC-LRN-057`)
+
+**API đổi theo (thay các mô tả tương ứng ở mục 5, 7, 13):**
+- `GET /contents/{content}/playback` trả đường dẫn phát tương đối `/api/v1/content-videos/{id}/stream?...` (route dùng `signed:relative`): trình duyệt gọi qua web.
+- Mục khóa có `video {status, source, duration_seconds, checkpoint_count}` (null với mục khác loại).
+- `GET /questions?auto_gradable=1`: chỉ sáu loại dùng được ở điểm dừng.
+- `PUT /contents/{content}/checkpoints`: chỉ kiểm quyền dùng câu ở dòng mới hoặc đổi câu; dòng giữ nguyên vị trí và câu được ở lại dù vượt thời lượng. `POST /checkpoints/{id}/confirm` từ chối điểm vượt thời lượng (422).
+- Video chưa phát được không tính vào tiến độ, mở khóa tuần tự và hoàn thành khóa; học sinh vẫn thấy mục.
+
+**FE:**
+- `course-content` **không** import `question-bank` (sẽ thành vòng qua `academic`). Hộp "Câu hỏi cho điểm dừng" nằm ở `question-bank`; route truyền vào qua `CheckpointQuestionTools`, như `QuestionTools` của bài đánh giá.
+- Link phát chỉ được xin lại khi đổi tệp hoặc link, hoặc khi phát lỗi (hết hạn); đổi điểm dừng không dựng lại trình phát.
+- Tải theo phần: lỗi mạng và 5xx thử lại sau 1, 2, 4, 8, 15, 30 giây; hết lượt hoặc lỗi 4xx thì hủy phiên. Đã báo hoàn tất thì không hủy được nữa. `next.config` đặt `proxyTimeout` 300 giây.
+- `VideoPlayer` (`ui/shared/`) dùng lại ở lát 7. Link YouTube, Vimeo nhúng được ở các dạng link thường; dạng khác chỉ đưa link mở trang gốc.
+- Khác mockup: chưa có nút "Xem trước" (lát 7); khung phát là trình phát thật, dải "Điểm dừng n" nằm dưới khung; link ngoài nhập thời lượng bằng tay và có nút "Lưu link"; thêm, xóa, xác nhận điểm dừng lưu ngay.
+- Đã chạy trên Chrome thật (headless): tải một MP4 H.264 ngắn, phát, tua theo thanh thời gian, thêm (câu có sẵn) và xóa điểm dừng, hỏi khi rời trang, hủy tải, nhúng YouTube, bề rộng 390px không tràn ngang. Chưa thử: gửi "Tạo câu mới" trên trình duyệt, tệp lớn cỡ 1 GB, Safari. Môi trường local giới hạn mỗi yêu cầu 120 giây (nginx, PHP), chặt hơn mức 300 giây của web.
+
